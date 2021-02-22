@@ -1,0 +1,125 @@
+% Choose the language of your thesis passing 'french' or 'english' as
+% \documentclass option.
+% Note1: The 'page de garde' will always be written in French.
+% Note2: You will have an error if you change the language of the document and
+%        compile it without cleaning the auxiliary files. Compiling it again
+%        should solve the problem.
+\documentclass[english,a4paper,11pt,twoside]{StyleThese}
+\newcommand{\included}{}
+
+\include{formatAndDefs}
+
+
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+\usepackage{xcolor}  % Coloured text etc.
+% 
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=olive,backgroundcolor=olive!25,bordercolor=olive,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=violet,backgroundcolor=violet!25,bordercolor=violet,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+
+%%%%% Chapter 1
+\newcommand{\robotmodel}{\mathcal{M}^R}
+\newcommand{\humanmodel}{\mathcal{M}^H_r}
+\newcommand{\robotinhumanmodel}{\mathcal{M^R_h}}
+
+
+%%%%% Chapter 2
+\newcommand{\realset}{\mathbb{R}}
+\newcommand{\intset}{\mathbb{N}}
+\newcommand{\robotband}{B_\mathcal{R}}
+\newcommand{\humanband}{B_\mathcal{H}}
+
+\include{page_de_garde}
+
+\sloppy
+\begin{document}
+
+\makeflyleaf
+
+\cleardoublepage
+
+\dominitoc
+
+\pagenumbering{roman}
+
+ \cleardoublepage
+
+% Here you can see an example of how to create text conditioned by the language
+% variable. The \iftoggle command:
+%
+%   \iftoggle{ThesisInEnglish}{%
+%   <your-text-in-english>
+%   }{%
+%   <your-text-in-french>
+%   }
+%
+% will compile only one of the two blocks, depending on the variable you set at
+% the beginning of this document. Language selection is managed this way in the
+% formatAndDefs.tex file. You too can create sections of your thesis that is
+% language dependend this way, although you probably won't need it. Another use
+% of \iftoggle can be found at the end of this file.
+\iftoggle{ThesisInEnglish}{%
+\section*{Acknowledgments}
+}{%
+\section*{Remerciements}
+}
+
+A faire en dernier :-) 
+
+\tableofcontents
+
+\printnomenclature
+% Use \mtcfixnomenclature below if you have a glossary (added with
+% \printnomenclature above) and you're see a shift in the mini-table of
+% contents at the begining of each chapter (example: no mini-toc in chapter 1;
+% mini-toc of chapter 1 appearing in chapter 2; and so on).
+%
+% You should not use \mtcfixnomenclature if you have no glossary (that means,
+% if you don't use \printnomenclature or if your glossary is empty).
+\mtcfixnomenclature
+
+\mainmatter
+
+\include{Introduction}
+\include{Chapter1}
+\include{Chapter2}
+\include{Chapter3}
+\include{Chapter4}
+\include{Conclusion}
+
+\newpage
+\listoftodos[Notes]
+
+
+\appendix
+
+\include{Annexe1}
+
+\bibliographystyle{StyleThese}
+%\bibliographystyle{plain}
+\bibliography{These-refs}
+
+\cleardoublepage
+\begin{vcenterpage}
+\noindent\rule[2pt]{\textwidth}{0.5pt}
+\\
+\iftoggle{ThesisInEnglish}{%
+{\large\textbf{Abstract:}}
+}{%
+{\large\textbf{Résumé :}}
+}
+resume
+\iftoggle{ThesisInEnglish}{%
+{\large\textbf{Keywords:}}
+}{%
+{\large\textbf{Mots clés :}}
+}
+mots, clefs
+\\
+\noindent\rule[2pt]{\textwidth}{0.5pt}
+\end{vcenterpage}
+
+\end{document}

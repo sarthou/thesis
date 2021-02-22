@@ -1,0 +1,222 @@
+###### HOW-TO ######
+
+To add a new entry in your bibliography chose the proper template below, copy-
+paste it in the end of this file, replace the "_" by an "at-symbol" (this
+symbol cannot be typed here otherwise the bibliography processing program
+would think there's an entry inside this how-to), and fill its fields. Check
+an proper entry example in the end of this file.
+
+You can use the month macros (jan, feb, mar, apr, may, jun, jul, aug, sep,
+oct, nov, dec) WITHOUT QUOTES to let the bib-style handle the language of the
+month (French or English), like in the example in the end of the file.
+
+Optional fields in the templates are commented out with a '%'. Note that not
+all external programs that process bibliography information in .bib files
+support comments inside the reference entry (notably bibtex doesn't), so you
+may need to remove the fields you don't want/need in your entry instead of
+leaving it commented out. Moreover, anything not starting with a "at-symbol"
+is normally not processed by the bibliography processing program (like it was
+just comments).
+
+
+
+###### TEMPLATES ######
+
+Source: https://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
+
+_article{Xarticle,
+    author    = "",
+    title     = "",
+    journal   = "",
+    %volume   = "",
+    %number   = "",
+    %pages    = "",
+    year      = "XXXX",
+    %month    = "",
+    %note     = "",
+}
+
+_book{Xbook,
+    author    = "",
+    title     = "",
+    publisher = "",
+    %volume   = "",
+    %number   = "",
+    %series   = "",
+    %address  = "",
+    %edition  = "",
+    year      = "XXXX",
+    %month    = "",
+    %note     = "",
+}
+
+_booklet{Xbooklet,
+    %author   = "",
+    title     = "",
+    %howpublished   = "",
+    %address  = "",
+    %year      = "XXXX",
+    %month    = "",
+    %note     = "",
+}
+
+_conference{Xconference,
+    author    = "",
+    title     = "",
+    booktitle = "",
+    %editor   = "",
+    %volume   = "",
+    %number   = "",
+    %series   = "",
+    %pages    = "",
+    %address  = "",
+    year      = "XXXX",
+    %month    = "",
+    %publisher= "",
+    %note     = "",
+}
+
+_inbook{Xinbook,
+	author	= "",
+	editor	= "",
+	title	= "",
+	chapter	= "",
+	pages	= "",
+	publisher= "",
+	%volume	= "",
+	%number	= "",
+	%series	= "",
+	%type	= "",
+	%address= "",
+	%edition= "",
+	year	= "",
+	%month	= "",
+	%note	= "",
+}
+
+_incollection{Xincollection,
+	author	= "",
+	title	= "",
+	booktitle= "",
+	publisher= "",
+	%editor	= "",
+	%volume	= "",
+	%number	= "",
+	%series	= "",
+	%type	= "",
+	%chapter= "",
+	%pages	= "",
+	%address= "",
+	%edition= "",
+	year	= "",
+	%month	= "",
+	%note	= "",
+}
+
+_inproceedings{Xinproceedings,
+	author		= "",
+	title		= "",
+	booktitle	= "",
+	%editor		= "",
+	%volume		= "",
+	%number		= "",
+	%series		= "",
+	%pages		= "",
+	%address	= "",
+	%organization	= "",
+	%publisher	= "",
+	year		= "",
+	%month		= "",
+	%note		= "",
+}
+
+_manual{Xmanual,
+	title		= "",
+	%author		= "",
+	%organization	= "",
+	%address	= "",
+	%edition	= "",
+	year		= "",
+	%month		= "",
+	%note		= "",
+}
+
+_mastersthesis{Xthesis,
+    author    = "",
+    title     = "",
+    school    = "",
+    %type     = "diploma thesis",
+    %address  = "",
+    year      = "XXXX",
+    %month    = "",
+    %note     = "",
+}
+
+_misc{Xmisc,
+    %author    = "",
+    %title     = "",
+    %howpublished = "",
+    %year     = "XXXX",
+    %month    = "",
+    %note     = "",
+}
+
+_phdthesis{Xphdthesis,
+	author		= "",
+	title		= "",
+	school		= "",
+	%address	= "",
+	year		= "",
+	%month		= "",
+	%keywords	= "",
+	%note		= "",
+}
+
+_proceedings{Xproceedings,
+	title		= "",
+	%editor		= "",
+	%volume		= "",
+	%number		= "",
+	%series		= "",
+	%address	= "",
+	%organization	= "",
+	%publisher	= "",
+	year		= "",
+	%month		= "",
+	%note		= "",
+}
+
+_techreport{Xtreport,
+    author    = "",
+    title     = "",
+    institution = "",
+    %type     = "", 
+    %number   = "",
+    %address  = "",
+    year      = "XXXX",
+    %month    = "",
+    %note     = "",
+}
+
+_unpublished{Xunpublished,
+	author	= "",
+	title	= "",
+	%year	= "",
+	%month	= "",
+	note	= "",
+}
+
+###### EXAMPLE ######
+
+This entry can be cited in the document using \cite{goossens93}, or other
+similar citing command.
+@book{goossens93,
+    author    = "Michel Goossens and Frank Mittelbach and Alexander Samarin",
+    title     = "The LaTeX Companion",
+    month     = dec,
+    year      = "1993",
+    publisher = "Addison-Wesley",
+    address   = "Reading, Massachusetts",
+}
+
+
