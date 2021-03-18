@@ -1,0 +1,60 @@
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\usepackage{xargs}   % Use more than one optional parameter in a new commands
+\usepackage{xcolor}  % Coloured text
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%	  TODO commands    %
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=olive,backgroundcolor=olive!25,bordercolor=olive,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=violet,backgroundcolor=violet!25,bordercolor=violet,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%	Knowledge bases    %
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand \kb{K}
+
+% Ontology definition
+
+\newcommand \kbs{\kb_S}
+\newcommand \Abox{\mathbb{A}}
+\newcommand \Tbox{\mathbb{T}}
+\newcommand \Rbox{\mathbb{R}}
+
+\newcommand \propset{P}
+\newcommand \classset{T}
+\newcommand \indivset{A}
+\newcommand \relationset{R}
+\newcommand \annotationset{E}
+
+\newcommand \domainset{Dom}
+\newcommand \rangeset{Ran}
+\newcommand \inheritset{C}
+
+\newcommand \indiv{a}
+\newcommand \class{t}
+
+\newcommand \setlabel {\mathcal{L}}
+\newcommand \alabel{\mathcal{L}_a}
+\newcommand \tlabel{\mathcal{L}_t}
+\newcommand \alabelag[1]{\mathcal{L}_{a#1}}
+\newcommand \tlabelag[1]{\mathcal{L}_{t#1}}
+
+\newcommand \subject{s}
+\newcommand \property{p}
+\newcommand \object{o}
+\newcommand \relation{r}
+
+% Timeline definition
+
+\newcommand \kbe{\kb_E}
+\newcommand \tinterval{\mathcal{T}}
+\newcommand \tstart{\tau_s}
+\newcommand \tend{\tau_e}

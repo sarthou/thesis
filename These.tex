@@ -8,35 +8,14 @@
 \newcommand{\included}{}
 
 \include{formatAndDefs}
+\include{Symbols}
 
 
-\usepackage{xargs}                      % Use more than one optional parameter in a new commands
-\usepackage{xcolor}  % Coloured text etc.
-% 
-\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
-\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
-\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
-\newcommandx{\info}[2][1=]{\todo[linecolor=olive,backgroundcolor=olive!25,bordercolor=olive,#1]{#2}}
-\newcommandx{\improvement}[2][1=]{\todo[linecolor=violet,backgroundcolor=violet!25,bordercolor=violet,#1]{#2}}
-\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
-
-%%%%% Chapter 1
-\newcommand{\robotmodel}{\mathcal{M}^R}
-\newcommand{\humanmodel}{\mathcal{M}^H_r}
-\newcommand{\robotinhumanmodel}{\mathcal{M^R_h}}
-
-
-%%%%% Chapter 2
-\newcommand{\realset}{\mathbb{R}}
-\newcommand{\intset}{\mathbb{N}}
-\newcommand{\robotband}{B_\mathcal{R}}
-\newcommand{\humanband}{B_\mathcal{H}}
 
 \include{page_de_garde}
 
 \sloppy
 \begin{document}
-
 
 \makeflyleaf
 
