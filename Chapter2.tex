@@ -25,7 +25,7 @@ On the base of the definition of a Description Logic ontology presneted in \cite
 \caption{\label{fig:Tbox} Representation of an ontology class hierarchy graph to illustrate the composition of a TBox. Taking the class Human, the bottom arrow has to be read as \textit{"A man is a kind of Human"}. The texts at the bottom left of the class, if there is, are the classes' labels in natural language.}
 \end{figure}
 
-The Tbox $\Tbox$ contains assertions about the classes (types) of the ontology. It is defined by $\Tbox = \langle \classset, H \rangle$. It can be see as a directed acyclic graph as presented in Figure~\ref{fig:Tbox}. $\classset$ is the set of all the classes of the ontology. In our example, $\classset = \{Thing,\ Agent,\ Object, ...,\ IkeaLisabo\}$. Considering the Tbox as a graph, $H$ stores its directed edges. It represents the inheritance links between the classes (i.e. the subsumption assertions). This link is commonly referred as the "isA" link (e.g. \textit{(Human, isA, Agent)}) and is described with the property rdfs:subClassOf in the OWL language as illustrated in the Listing~\ref{lst:Tbox}.
+The Tbox $\Tbox$ contains assertions about the \textbf{classes} (types) of the ontology. It is defined by $\Tbox = \langle \classset, H \rangle$. It can be seen as a directed acyclic graph as presented in Figure~\ref{fig:Tbox}. $\classset$ is the set of all the classes of the ontology. In our example, $\classset = \{Thing,\ Agent,\ Object, ...,\ IkeaLisabo\}$. Considering the Tbox as a graph, $H$ stores its directed edges. It represents the inheritance links between the classes (i.e. the subsumption assertions). This link is commonly referred to as the "isA" link (e.g. \textit{(Human, isA, Agent)}) and is described with the property rdfs:subClassOf in the OWL language as illustrated in the Listing~\ref{lst:Tbox}.
 
 \begin{lstlisting}[frame=single, basicstyle=\scriptsize\ttfamily, label={lst:Tbox}, caption={Description of ontology classes in the OWL language using the Turle syntax.},captionpos=b]
 :Human rdf:type owl:Class ;
@@ -41,24 +41,48 @@ The Tbox $\Tbox$ contains assertions about the classes (types) of the ontology. 
 \caption{\label{fig:Rbox} Representation of an ontology property hierarchy graph to illustrate the composition of an RBox. Taking the property isBelow, the bottom arrow has to be read as: \textit{"The property isUnder is a specification of the property isBelow"}.}
 \end{figure}
 
-The Rbox $\Rbox$ contains assertions about the properties (roles). It is at least defined by the $\Rbox = \langle \propset, \inclset, \invset, \domainset, \rangeset \rangle$. In the same way of the Tbox, $\propset$ is the set of properties and $\inclset$ stores the directed edges of the finite directed acyclic graph representing the inheritance links between the properties. Such a graph is represneted in Figure~\ref{fig:Rbox}. These inheritance links aim at specifying properties. On our example, the property IsOn is a specification of the property isAbove in the way that an object being on another is an object that is above the latter and being in contact with. It is described with the property rdfs:subPropertyOf in the OWL language. 
-$Inv = \{(\property, \property^{-1}) \in \propset^2\}$ is the set representing the properties inverses (\textit{e.g.} $(isOn, isUnder) \in Inv$). Describing the inverse of a property is useful first to reduce description work since if some describe a relation involving a property for which an inverse is define, the inverse relation is also describe in an underlying way. Moreover, for an algorithm exploring an ontology, knowing that a relation use a property having an inverse can allow to reduce the algorithm complexity by not concidering the inverse relation into the exploration.
-Finally, $\domainset$ and $\rangeset$ are respectively 
+The Rbox $\Rbox$ contains assertions about the \textbf{properties} (roles). It is at least defined by $\Rbox = \langle \propset, \inclset, \invset, \domainset, \rangeset \rangle$. In the same way as the Tbox, $\propset$ is the set of properties, and $\inclset$ stores the directed edges of the finite directed acyclic graph representing the inheritance links between the properties. Such a graph is represented in Figure~\ref{fig:Rbox}. These inheritance links aim at specifying properties. In our example, the property IsOn is a specification of the property isAbove in the way that an object being on another is an object that is above the latter and being in contact with. It is described with the property rdfs:subPropertyOf in the OWL language. 
+$\invset = \{(\property, \property^{-1}) \in \propset^2\}$ is the set representing the properties inverses (\textit{e.g.} $(isOn, isUnder) \in Inv$). Describing the inverse of a property is useful first to reduce description work since if some describe a relation involving a property for which an inverse is defined, the inverse relation is also described in an underlying way. Moreover, for an algorithm exploring an ontology, knowing that a relation uses a property having an inverse can allow reducing the algorithm complexity by not considering the inverse relation into the exploration.
+Finally, $\domainset$ and $\rangeset$ are two sets representing respectively the properties domains and ranges. Their are define by $\domainset = \{(\property, \class)\}$ and $\rangeset = \{(\property, \class)\}$ with $\property \in \propset$ a property and $\class \in \classset$ a class. The domain of a property informs on the type of resources that may use the property, thus the type of the subject of a triplet. The range of a property informs on the valid values applied to the property, thus the type of the object of a triplet. For the property isOn, we would therefore have $(isOn,\ Object) \in \domainset$ and $(isOn,\ Support) \in \rangeset$. In this way, we state that the property IsOn can be used to describe that an object is on top of an object being support. Domains and ranges can be used in two ways. It can be to check the consistency of an ontology by checking if the way the properties have been used corresponds to their definition. It can also be used to reason on the ontology and extract new knowledge from a given situation. If, for example, an entity is said to be on top of another that is not described as being a support, we could deduce that this second entity may be a support.
+
+The formalization above considers only a general kind of property while the OWL language makes the distinction between two main categories. The \textbf{object properties}, linking two entities, and \textbf{data properties}, linking an entity to a value. While both are slightly different, we will only keep a general definition of a property for our formalization to simplify the future algorithm explanations. An example of the description of an object property and a data property from the Figure~\ref{fig:Rbox} are illustrated in the Listing~\ref{lst:Rbox} using the OWL language.
 
 
-Finally, the ABox $\Abox = \langle \indivset, \inheritset_0, \relationset \rangle$, with $\indivset$ the set of individuals/entities, $\inheritset_0$ the set of direct types of $\indivset$ such as $\inheritset_0 = \{(\indiv, \class) | \indiv \in \indivset, \class \in \classset \}$ (an instance $\indiv$ can have several direct types) and $\relationset$ the set of relations between entities (i.e. the triplets) such as $\relationset = \{(\subject, \property ,\object) | (\subject, \object) \in \indivset^2, \property \in \propset\}$ where $\subject$ is the subject, $\property$ the property and $\object$ the object. With theses relations we can both represent the attributes of an entity but also represent relations between entities such as spatial relations relating to other entities.
+\begin{lstlisting}[frame=single, basicstyle=\scriptsize\ttfamily, label={lst:Rbox}, caption={Description of ontology properties in the OWL language using the Turle syntax.},captionpos=b]
+:isOn  rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :isAbove ;
+       owl:inverseOf :isUnder ;
+       rdfs:domain :Object ;
+       rdfs:range :Support .
 
-
-While $\inheritset_0$ contains the direct types of entities, we use $\inheritset$ to denote set of direct and inherited types.
-For instance, an entity \textit{dog23} with a direct \textit{Dog} type ($(dog23, Dog) \in \inheritset_0$) would also inherit the \textit{Animal} type ($(dog23, Dog), (dog23, Animal) \in \inheritset$) through the type hierarchy of $\Tbox$. When appropriate, the REG will take benefit of this  inheritance to refer to entities with a higher level of abstraction.
-
-Note that to fully match the Fokue definition \cite{hutchison_summary_2006}, we also need to add the disjunctive, transitive, reflexive and chain relations declarations in $\Rbox$ and disjunctive class declarations in $\Tbox$. Since we will not use them in here we chose to not take them into account in this definition. We also assume that all inference processes have already been made resulting in complete and consistent knowledge base to be used by the REG.
+:hasCadModel rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Object .
+\end{lstlisting}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter2/Abox.png}
 \caption{\label{fig:Abox}  Representation of an ontology instances graph to illustrate the composition of an ABox. Red boxes are individuals of the ontology. Green arrows are properties coming from the RBox and applied to individuals. Red arrows represent a direct inheritance link between an individual and a class coming from the TBox. The texts at the bottom left of the individuals, if there is, are the individuals' labels in natural language.}
 \end{figure}
+
+The Abox $\Abox$ contains assertions about the \textbf{entities} (individuals) of the ontology. When we refer about entities, we no more speak about general concepts but rather of instantiated concept, being either a physic or virtual entity. The Abox is defined by $\Abox = \langle \indivset, \inheritset_0, \relationset \rangle$. $\indivset$ is the set of all the entities represented in the ontology. $\inheritset_0$ the set of direct types of $\indivset$ such as $\inheritset_0 = \{(\indiv, \class) \}$ with $\indiv \in \indivset$ an individual and $\class \in \classset$ a class. In the graphical representation of an Abox in the Figure.~\ref{fig:Abox}, the red blocks are the Abox entities ($\indivset = \{human_0,\ pr2,\ ...,\ table\_1\}$) and the red arrows with the label "isA" are the intities direct types ($(cube\_42, Cube) \in \inheritset_0$).
+$\relationset$ is finally the set of \textbf{relations} between entities. Such relation are in the form of triplets $(\subject, \property ,\object)$ where $\subject$ is the subject, $\property$ the property and $\object$ the object. The set of relations is thus defined by $\relationset = \{(\subject, \property ,\object) | (\subject, \object) \in \indivset^2, \property \in \propset\}$. These relations are represented by the green arrows between the entities in Figure~\ref{fig:Abox}. We can note in this figure the presence of the use of a data property "hasCadModel". This property does not link two entities, which goes against the previous definition. Regarding our formalization and to keep it tractable, we can however keep it as it is, and view the string value as an entity having for direct type a concept "String". An example of the description of an entity from the Figure~\ref{fig:Abox} is illustrated in the Listing~\ref{lst:Abox} using the OWL language.
+
+\begin{lstlisting}[frame=single, basicstyle=\scriptsize\ttfamily, label={lst:Abox}, caption={Description of an ontology individual in the OWL language using the Turle syntax.},captionpos=b]
+:cube_42  rdf:type     :Cube ;
+          :hasColor    :color_red ;
+          :hasCadModel "folder/cube.obj"^^string ;
+          :isOn        :table_1 .
+\end{lstlisting}
+
+
+In the Abox, $\inheritset_0$ contains the direct types of entities.
+
+, we use $\inheritset$ to denote set of direct and inherited types.
+For instance, an entity \textit{dog23} with a direct \textit{Dog} type ($(dog23, Dog) \in \inheritset_0$) would also inherit the \textit{Animal} type ($(dog23, Dog), (dog23, Animal) \in \inheritset$) through the type hierarchy of $\Tbox$. When appropriate, the REG will take benefit of this  inheritance to refer to entities with a higher level of abstraction.
+
+Note that to fully match the Fokue definition \cite{hutchison_summary_2006}, we also need to add the disjunctive, transitive, reflexive and chain relations declarations in $\Rbox$ and disjunctive class declarations in $\Tbox$. Since we will not use them in here we chose to not take them into account in this definition. We also assume that all inference processes have already been made resulting in complete and consistent knowledge base to be used by the REG.
+
 
 \subsection{Desired features}
 
