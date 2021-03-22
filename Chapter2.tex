@@ -18,6 +18,7 @@ Even if we saw that the use of ontology is today a common way to represent seman
 
 On the base of the definition of a Description Logic ontology presneted in \cite{fokoue_2006_summary}, we define a semantic knowledge base $\kbs$ represented as an ontology by  $\kbs = \langle \Abox, \Tbox, \Rbox \rangle$. $\Abox$, $\Tbox$, and $\Rbox$ are respectively called the Abox, Tbox, and Rbox of the ontology.
 
+\subsubsection{The ontology Tbox}
 
 \begin{figure}[h!]
 \centering
@@ -34,6 +35,8 @@ The Tbox $\Tbox$ contains assertions about the \textbf{classes} (types) of the o
 :Man   rdf:type owl:Class ;
        rdfs:subClassOf :Human .
 \end{lstlisting}
+
+\subsubsection{The ontology Rbox}
 
 \begin{figure}[h!]
 \centering
@@ -59,6 +62,8 @@ The formalization above considers only a general kind of property while the OWL 
              rdfs:domain :Object .
 \end{lstlisting}
 
+\subsubsection{The ontology Abox}
+
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter2/Abox.png}
@@ -78,7 +83,11 @@ $\relationset$ is finally the set of \textbf{relations} between entities. Such r
 
 We just saw that in the Abox, $\inheritset_0$ contains the direct types of entities. We also saw that the classes can inherit from one each other in the Tbox, thanks to the classes inheritance directed edges stored in $H$. This means that the individuals of the Abox have inherited types. Taking the entity cube\_42 of Figure.~\ref{fig:Abox}, its direct type is the class Cube ($(cube\_42,\ Cube) \in \inheritset_0$). Regarding the Tbox represented in Figure.~\ref{fig:Tbox}, a Cube is a kind of Pickable ($(Cube,\ Pickable) \in H$), itself being a kind of Object ($(Pickable,\ Object) \in H$). We can thus say that the entity cube\_42 is a Cube, a Pickable, and an Object. To represent it, we use $\inheritset$ to denote the set of direct and inherited types. We thus have $\{ (cube\_42,\ Cube), (cube\_42,\ Pickable), (cube\_42,\ Object)\} \subset \inheritset$.
 
+\subsubsection{Extending the ontology Tbox}
+
 With the use of the relation set $\relationset$ of the Abox we saw that we can apply properties to individuals to link them together and form relations in the form of triplets. However, some could want to apply properties to classes to describe general links between classes. While properties domains and ranges already give such relations this can be not enough. Taking an object property hasMother, we can assign to it the class Human for domain and Woman for range. With such description, we state that a human CAN have a mother that is a woman but we do not describe that even if we do not know how it is, a human has a mother how is a woman. For this particular example, we could use cardinality constraint but we will not go as far. Taking now the data property hasCadModel of Figure~\ref{fig:Rbox}, we have applied it to a specific entity in the example of Figure~\ref{fig:Abox}. But what about a Table Lisabo (IkeaLisabo in Figure~\ref{fig:Tbox})? Any table of this model will have the same CAD model and we do not want to put this relation to every entity of this type of table. Here domains and range are not sufficient to represent it. To do so, we will use \textbf{annotation properties} applied to classes. Annotation properties are usually used to document ontologies and not to describe general relations on classes. We take thus some liberty regarding the OWL standard for convenience. However, we will try to use it in very particular cases where no other simple solution can be applied. Relations to classes using annotation properties are thus added to the definition of a Tbox $\Rbox = \langle \propset, \inclset, \invset, \domainset, \rangeset, \annotationset \rangle$, where $\annotationset$ is the set of relation between classes in the form of triplets.
+
+\subsubsection{Elements characteristics}
 
 In this sub-section, we have draw a formalism of an ontology in the form of $\kbs = \langle \Abox, \Tbox, \Rbox \rangle$. All the knowledge stored in $\kbs$ are sufficient to build exploration algorithm on top of it. However, to reason on ontology aditional descriptions are necessary in the form of properties characteristics. We do not add them to the knowledge base formalism but enumerate them bellow: 
 
@@ -94,7 +103,13 @@ In this sub-section, we have draw a formalism of an ontology in the form of $\kb
 	\item \textbf{Disjoinction}: Given two disjoint elements (classes or properties), a third element can not inherit of the both disjoint elements.
 \end{itemize}
 
+\subsubsection{Labeling functions}
+
 We saw in the previous chapter that the semantic knowledge base is part of what we assimilate to be the declarative memory. The particularity of such memory is the ability to speak about the knowledge it stores. In this way, we introduce a labeling function $\labelfunc$ for any element of the ontology. This labeling function is specified for the individuals ($\alabel$), the classes ($\tlabel$), and the properties ($\plabel$). Considering the individuals labeling function $\alabel: \indivset \rightarrow Lbl$ with $Lbl$ a set of communicable names encoded as UTF8 string in our implementation. The same holds for the other two labeling functions.
+
+\subsubsection{Ontology for Human_Robot Interaction}
+
+\subsubsection{Summarize}
 
 The ontology definition used all along this thesis is summarized in Table~\ref{tab:onto_symboles}.
 
@@ -116,6 +131,8 @@ $\plabel$: properties labeling function & \\
 \end{tabular}
 \end{table}
 
+
+% KB par agent
 
 \subsection{Desired features}
 
