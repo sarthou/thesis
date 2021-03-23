@@ -107,9 +107,15 @@ In this sub-section, we have draw a formalism of an ontology in the form of $\kb
 
 We saw in the previous chapter that the semantic knowledge base is part of what we assimilate to be the declarative memory. The particularity of such memory is the ability to speak about the knowledge it stores. In this way, we introduce a labeling function $\labelfunc$ for any element of the ontology. This labeling function is specified for the individuals ($\alabel$), the classes ($\tlabel$), and the properties ($\plabel$). Considering the individuals labeling function $\alabel: \indivset \rightarrow Lbl$ with $Lbl$ a set of communicable names encoded as UTF8 string in our implementation. The same holds for the other two labeling functions.
 
-\subsubsection{Ontology for Human_Robot Interaction}
+\subsubsection{Ontology for Human-Robot Interaction}
 
-\subsubsection{Summarize}
+Because we are working in the field of Human-Robot Interaction, it is mandatory for the robotic agent to be able to represent its own knowledge but also to represent an estimate of its human partners' knowledge. Such features will be explained later in this thesis and we only introduce the related notation for the moment.
+We define the robot's own simbolic knowledge base $\kbs^R = \langle \Abox^R, \Tbox^R, \Rbox^R\rangle$.
+Then, for each human agent $H_i$ the robot knows, we concider the agent's semantic knowledge $\kbs^{H_i} = \langle \Abox^{H_i}, \Tbox^{H_i}, \Rbox^{H_i} \rangle$.
+The robot's global knowledge thus encompasses both its own semantic representation of the environment as well as an \textbf{estimation} of the other agent's knowledge.
+In the rest of this thesis, we will simply use the notation $\kbs$ in cases where the used knowledge base does not matter.
+
+\subsubsection{Ontology formalism recap}
 
 The ontology definition used all along this thesis is summarized in Table~\ref{tab:onto_symboles}.
 
@@ -131,8 +137,6 @@ $\plabel$: properties labeling function & \\
 \end{tabular}
 \end{table}
 
-
-% KB par agent
 
 \subsection{Desired features}
 
