@@ -6,7 +6,32 @@
 \fi
 
 \chapter{Ontology-based Referring Expression Generation}
+\chaptermark{Ontology-based REG}
 \minitoc
+
+The contribution presented in this chapter is excerpted from our work, published in the proceedings of the RO-MAN 2020 conference~\cite{buisan_2020_efficient}. In this manuscript, the contribution is more detailed and discussed. The presented work has been achieved in collaboration with Guilhem Buisan, with an equal contribution. Several algorithms have been developed by both of us, giving, as a result, the one presented in this chapter, merging the best of our trials. My focus was mainly on how to fully take advantage of the ontology as a knowledge base and on algorithmic optimisations to make our method the most efficient in the current literature.
+
+\section{Introduction}
+
+Referring to an entity is one of the most common task that we perform every day. "Can you bring me my mug? It is the black one next to the sink". "I don't remember the name of the man with the red shirt and the glasses". "I lost my keys, they are on a keychain with a soft toy in the shape of a unicorn". Such kind of communication, precise and efficient, are a key apect for the success of a collaborative tasks. Nevertheless, in complex environment with a wide variety of objects, places, or people, referring a specific entity can become a real challenge for robotic application. The robot has to take into account the context of the upper task, the diversity of facts that can be extracted from the situation and which depend on available perception modalities, and the available common ground between the robot and its partner. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.16]{figures/chapter4/intro.png}
+\caption{\label{fig:chap4_intro} Six situations view from the hearer perspective, with the robot placed on the other side of the table. Referring to the same pen involves different mechanisms to raise the ambiguity, in each situation. The sentence above each situation is a possible referring expression to designate the said pen without ambiguity. }
+\end{figure}
+
+Consider the situation where you are around a table with your collaborative robot and the robot needs a pen. The simple statement \textit{"Give me the pen"} can result in several situations of different complexities. In the case where there is only one pen (Fig.\ref{fig:chap4_intro}a), the referring it is obvious. Now consider two pens on the table. If one is reachable by you (the human) and the other is not (Fig.\ref{fig:chap4_intro}b), reachability can be used to refer to the pen. If both pens are not reachable but one is visible to you and the other is not (Fig.\ref{fig:chap4_intro}c where a pen is hidden under the box), visibility through perspective-taking could be used to determine that the other pen does not lead to ambiguity. Now both pens are visible and reachable, but one is blue and the other is red (Fig.\ref{fig:chap4_intro}d). The addition of the color of the pen solves the ambiguity. If both pens have the same color but one is in a pencil box (Fig.\ref{fig:chap4_intro}e), the relation to the pencil box resolves the ambiguity. If unfortunately, both are in a pencil box but one is green and the other orange (Fig.\ref{fig:chap4_intro}f), the relation to the pencil box and the color of the latter resolves the ambiguity. We could continue like this for a long time, considering that one is at your left and one at your right, that there is no pen on the table but there is one on a shelf and so on.
+
+Until now, we considered that the robot knows the concepts of pen and pencil box as well as their names in natural language to speak about them. However, imagine yourself travelling in another country and having to speak english\footnote{I apologize to the native English speakers who will not take full advantage of this example.}, you can sometimes miss some words and thus use more generic a one instead. However, by doing so some new ambiguity can be raised because this generic word also refers to other entities. It is the same for our robot if it has to speak French and does not know the translation of the pencil box concept. It will have to resort to a more generic term, such as "container" that can also refer to a box beside.
+
+In addition to the concepts names, the robot must pay attention to the relationships it uses. The exact weight or length of an object wouldn't be useful as a human can not easily evaluate them. On the contrary, the color of the object seems to be a suitable property to use, unless the robot partner is color blind. This means that the robot has to use relations that it estimates to be known and observable by its partner. Such can be done considering the theory of mind and performing the generating the entity reference on the estimation by the robot of the knowledge base of the human partner.
+
+This task to refer to a precise entity among others is commonly called the \textbf{Referring Expression Generation} (REG) task. It is often decomposed into two sub-tasks: the \textbf{content determination} and the \textbf{linguistic realisation}~\cite{krahmer_2012_computational}. The content determination aims at determining the relations to be used to refer to an entity while the linguistic realisation aims at choosing the words to be used to communicate the content. The contribution of this chapter is focused on content determination but we can not consider these two sub-tasks entirely independent. As explained earlier, if the robot does not know some concept names in natural language, the linguistic realisation will fail in the case the content determination select them or the linguistic realisation will choose a more general word that does not correspond to the determined content. We could imagine a dedicated knowledge base for the REG with only concepts usable in natural language, but such a solution is not suitable if we want a unique knowledge base for all the robotic system. Moreover, it could be hard to maintain this dedicated knowledge base during the interaction, in addition to others. 
+
+The main contribution presented in this chapter is an \textbf{ontology-based and domain-independent algorithm for the generation of referring expressions}. It uses customizable cost function estimating the cognitive load required for a human to interpret the RE to produce \textbf{the optimal set of verbalizable assertions} that allows to refer unambiguously a given entity.
+
+First, we review the literature concerning the REG problem and discuss the issues we aim to tackle. Then, we refine the definition of the problem to manage it at a search problem in a second part. We then compare our algorithm with two states of the art algorithms to assess its solutions and its performance. We end this chapter with integration on a real robotic system with some detail on the used perception system and the verbalization method.
 
 \section{Related work}
 
@@ -85,5 +110,7 @@ The literature presented here before is focused on Referring Expression Generati
 
 \section{Proof of concept integration on a robotic system}
 
-\section{Verbalazing a referring expression}
+\section{Integration on a robotic system}
+
+\subsection{Verbalazing a referring expression}
 
