@@ -49,7 +49,17 @@ At the date, the closest work to the one presented in this chapter is introduced
 
 Even if all the presented algorithms rely on different kinds of knowledge representation and have non-equivalent abilities, they all consider a perfect linguistic realisation~\cite{krahmer_2012_computational}. We mean here that they all consider that any concept of their knowledge bases has a word in natural language and can thus be verbalize. Wanting to run on the same knowledge base as the other component of the robotic architecture, we do not want to make this assumption. Even if our contribution is focused on content determination, we aim with this contribution to make a first step in the linguistic realisation by not considering these to sub-task as being independent of one the other. We thus assume that not all the concepts in the knowledge base can be used in natural language.
 
-\begin{table}[!ht]
+To give a better overview of the progress in the REG field, the most representative contributions presented above are summarized in Table.~\ref{tab:reg_ref_sumup}. The contributions are organized chronologically and around six major features that we have mentioned throughout this section. These desired features are:
+\begin{itemize}
+	\item \textbf{Domain independent}: The knowledge base used by the REG must be able to be used by other components of a robotic architecture. The REG algorithm must not consider that all the knowledge represented can be used for this task.
+	\item \textbf{Representation type}: The used knowledge representation must be able to be updated all along an interaction to deal with the dynamic of robotic applications.
+	\item \textbf{Use of types}: The type of an entity is the minimal information to use to refer to an entity. Without type, linguistic realisation can not be done.
+	\item \textbf{Preference ordering (PO)}: Some properties are easier to understand than others. Ordering the properties according to this preference allows finding efficient referring expressions.
+	\item \textbf{Referring to other entities}: Entities attributes are not sufficient to find referring expressions in realistic situations. Being able to refer to an entity by referring to another one is thus mandatory.
+	\item \textbf{Natural language}: Considering the linguistic realisation during the content generation could prevent the appearance of ambiguity at the linguistic realisation or even the incapacity to perform it.
+\end{itemize}
+
+\begin{table}[!h]
 \centering
 \caption{Summary of the most representative contributions in the REG field regarding the six major features of the problem. The contributions are listed in chronological order to give a better overview of progress in the field.}
 \label{tab:reg_ref_sumup}
@@ -68,21 +78,31 @@ Even if all the presented algorithms rely on different kinds of knowledge repres
 \end{tabular}
 \end{table}
 
-To give a better overview of the progress in the REG field, the most representative contributions presented above are summarized in Table.~\ref{tab:reg_ref_sumup}. The contributions are organized chronologically and around six major features that we have mentioned throughout this section. These desired features are:
-\begin{itemize}
-	\item \textbf{Domain independent}: The knowledge base used by the REG must be able to be used by other components of a robotic architecture. The REG algorithm must not consider that all the knowledge represented can be used for this task.
-	\item \textbf{Representation type}: The used knowledge representation must be able to be updated all along an interaction to deal with the dynamic of robotic applications.
-	\item \textbf{Use of types}: The type of an entity is the minimal information to use to refer to an entity. Without type, linguistic realisation can not be done.
-	\item \textbf{Preference ordering (PO)}: Some properties are easier to understand than others. Ordering the properties according to this preference allows finding efficient referring expressions.
-	\item \textbf{Referring to other entities}: Entities attributes are not sufficient to find referring expressions in realistic situations. Being able to refer to an entity by referring to another one is thus mandatory.
-	\item \textbf{Natural language}: Considering the linguistic realisation during the content generation could prevent the appearance of ambiguity at the linguistic realisation or even the incapacity to perform it.
-\end{itemize}
-
 The literature presented here before is focused on Referring Expression Generation in its nominal form. Some researches have however addressed side problems that we do not aim to tackle. Not entering much in the details, we mention them to give a more global picture of the field. The use of spatial relations is not trivial as these relations can differ for certain entities taking the RE emitter's or receiver's point of view while for other entities, having a clear orientation system (e.g. a car), the relations remain unchanged~\cite{kelleher_2006_incremental, dos_2015_generating}. Spatial relations can also be expressed not only based on a single entity but also according to a set of entity~\cite{fang_2013_towards}. While a RE is often considered as being a single sentence referring to an entity without ambiguity, some see it as a more collaborative task where the RE is provided step by step, allowing to catch acknowledgement and to refine it according to the receiver comprehension~\cite{fang_2014_collaborative, wallbridge_2019_generating}. Finally, some research tries to integrate REG in a more global interaction where several agents refer to entities. The robot thus tries to reuse properties previously used by the partner ensuring that these properties are known~\cite{williams_2020_toward}. Limitations about this work will be discussed later in this thesis.
 
 \section{Define the REG problem}
 
 \subsection{The knowledge representation}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.2]{figures/chapter4/pens.png}
+\caption{\label{fig:chap4_kb} A situation view from the hearer perspective, with the robot placed on the other side of the table. Three pens and two cups are on a table. The two blue pens are each in one cup. }
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{figures/chapter4/pens_Tbox.png}
+\caption{\label{fig:chap4_kb_Tbox} TODO }
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.38]{figures/chapter4/pens_Abox.png}
+\caption{\label{fig:chap4_kb_Abox} TODO }
+\end{figure}
+
+
 
 \subsection{Contextualization and restriction for situated REG}
 
