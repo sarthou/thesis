@@ -82,7 +82,12 @@ The literature presented here before is focused on Referring Expression Generati
 
 \section{Define the REG problem}
 
+In this section, we present the ontology of example that we use all along with this chapter. We then discuss how the up-task in which a REG could be performed can restrict the search among the entire knowledge base. Finally, we formally define the expected form for a solution to a REG problem and the constraints it must respect.
+
+
 \subsection{The knowledge representation}
+
+As presented earlier in this thesis, ontology is a way to represente knowledge that is now largely used in many field becasue it allows a standardization of the representation easy extension of an extisting knowledge base, and the use of inference engine to enrich the the knowledge base. For these reasons, we choose to use a knowledge base in the form of an ontology as input of our algorithm for the REG problem. Moreover, we saw that number of recent REG algorithm have trend to use graph representations as it allows to refer to an entity through relations to other entities. Because an ontology can be see as a more complexe and mor expressive graph, this representation seems to be adequate to use for the REG problem. 
 
 \begin{figure}[h!]
 \centering
@@ -90,21 +95,39 @@ The literature presented here before is focused on Referring Expression Generati
 \caption{\label{fig:chap4_kb} A situation view from the hearer perspective, with the robot placed on the other side of the table. Three pens and two cups are on a table. The two blue pens are each in one cup. }
 \end{figure}
 
+In this chapter, we take as an example the situation represented in Figure~\ref{fig:chap4_kb}. The situation is assumed to be perceived by the robot and represented in its semantic knowledge base. This knowledge base as an ontology is of the form $\kbs^R = \langle \Abox^R, \Tbox^R, \Rbox^R \rangle$. $\Abox$, $\Tbox$ like presented in Section~\ref{sec:kb_formalism}. The estimated knowledge base of the human partner $\kbs^H$ is here assumed to be the same as that of the robot in the way that $\kbs^R \equiv \kbs^H \equiv \kbs$.
+
+The Tbox used to describe the situation of example is represented in Figure~\ref{fig:chap4_kb_Tbox}. The class IkeaLisabo represent a precise model of tables and does not have any label. The class Pen is specified through two classes the ClickingPen and the TurningPen. These two classes aim at representing the pens you need to click on top to get the tip of the pen out and the pens you need to turn to get the tip of the pen out. These classes do not have any label to directly speak about them. They are such used for the robot to know how to use them. For sure a more precise ontology could be drawn but we try to keep it simple for the purpose of this chapter.
+
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter4/pens_Tbox.png}
-\caption{\label{fig:chap4_kb_Tbox} TODO }
+\caption{\label{fig:chap4_kb_Tbox} Representation of the Tbox (classes hierarchy) used to describe the situation of the Figure~\ref{fig:chap4_kb}. }
 \end{figure}
+
+The Abox used to describe the situation is represented in Figure~\ref{fig:chap4_kb_Abox}. The two cups C\_1 and C\_2 are on the table T\_1. The two pens P\_1 and P\_2 are respectivly in the cups C\_1 and C\_2 while P\_3 is directly on the table. The pen P\_4 is another pen, not on the table. Other objects could be represented as the robot and the human could know other object being in the room. the pen P\_1 is the only pen for which the agent has to click to get the tip of the pen out.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.38]{figures/chapter4/pens_Abox.png}
-\caption{\label{fig:chap4_kb_Abox} TODO }
+\caption{\label{fig:chap4_kb_Abox} Representation of the Abox (relation graph) used to describe the situation of the Figure~\ref{fig:chap4_kb}. }
 \end{figure}
 
+The Rbox is not represented but the properties composing it are the ones used in the Abox. In addition with define the properties \textit{hasIn} being the inverse of \textit{isIn} and \textit{isUnder} being the inverse of \textit{isOn} ($\{(isIn,\ hasIn), (isOn,\ isUnder)\} \subset \invset$). Moreover, the property \textit{isOn} inherits of the upper property \textit{isAbove} ($\{(isOn,\ isABove), (isUnder,\ isBelow)\} \subset \inclset$). While the first state a direct contact between two entities, the other does not. Finally, we declare the chain axiom: $isIn \bullet isOn \Rightarrow isABove$. This axiom allows to reason on the ontology and declare that if an first entity is in a second one and that this second is on a third one, the first entity is above the third. Taking our example, because P\_1 is in C\_1 that is on T\_1, the pen P\_1 is above the table T\_1.
 
 
 \subsection{Contextualization and restriction for situated REG}
+
+The human (named Tony) and the robot are involved in a shared task around a table. During the task, the robot needs a blue pen to write. However, It can not take one by itself as the blue pens are on cups. Moreover, with its huge gripper, it can not use the kind of pens where you have to click. Our robot thus precisely need the pen P\_2 of our example and has to ask it to its human partner\footnote{Some could tell that if it is not the first time that our robot and this human collaborate, the human could be aware of the robot capability. In this case, the robot would just have to ask for a blue pen and the task would be over. We thus consider that our robot never had interacted with this particular human. For sure it could explain its capability but the purpose is not there.}.
+
+The robot is thus aiming to unambiguously designate an entity $\goalindiv \in \indivset$ through its attributes and relations to other entities. However, as explained, the REG is meant to be used in the context of an upper task that has to be took into account. In our exampe, the collaborative task concerns object on the table so that the other entities in the room are clearly out of context. Asking for a pen, P\_4 will not lead to any ambiguous situation as it is not on the table around which the interaction is performed. To represent this restiction, we provide the problem a \textbf{context} $Ctx = (\relationset_{ctx}, \inheritset_{ctx})$. It is a set of relation and direct types that are implicit to the current communication with regard to the task. This context is used to find a reference to $\goalindiv$, but has not to be included in the generated RE. For our example the context could be $Ctx = (\{ (\goalindiv,\ isOn,\ T\_1), (\goalindiv,\ isVisibleBy,\ Tony) \},\ \emptyset)$.
+
+% Despite this, if the robot has to designate to the human the pen which is on the table, the assertion "take the pen" will not lead to any ambiguous situation because in the context of the task,  it is obvious that the robot is currently speaking about the pen which is on the table and which is visible by the human.
+
+% where $\goalindiv$ is the entity to be referenced and $\textit{Table1}$ the identifier of the table where the task is performed. With this context, we restrict the disambiguation to the entities present on the table $Table1$ and visible and reachable by Bob, the human partner.
+
+%Finally, in a more general case, some properties might be present in the knowledge base, but cannot be used in the discrimination process. For example, the \textit{hasMesh} property should not be used for a verbal communication with humans. Thus, the problem must be provided with a set of so-called \textbf{usable properties} $\usablepropset \subseteq \propset$. Because of properties inheritance $Incl$ all the properties inheriting from the ones in $\usablepropset$ are usable in the problem.
+%Thus, the REG problem is a tuple $\problem = \langle \goalindiv, \kb, Ctx, \usablepropset \rangle$.
 
 \subsection{Expected solution: structure and validity criteria}
 
