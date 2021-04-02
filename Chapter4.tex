@@ -125,7 +125,13 @@ The robot is thus aiming to unambiguously designate a specific entity $\goalindi
 In addition to the entities being out of the context and thus not taken into account, some relations might be present in the knowledge base, but cannot be used in a communication process. In our example, the relations using the \textit{hasCadModel} property should not be used as the robot cannot communicate them verbally. To represent this restriction, we provide the problem a set of so-called \mbox{\textbf{usable properties}} $\usablepropset \subseteq \propset$. Any relation involving as predicate a property that is not part of the usable properties set can, therefore, not be used in the solution. Because of properties inheritance, $Incl$ all the properties inheriting from the ones in $\usablepropset$ are consequently usable to solve the problem. 
 
 
-With regard to the presented restrictions, the REG problem is define as a tuple $\problem = \langle \goalindiv, \kb, Ctx, \usablepropset \rangle$. A representation of the Abox on which the restrictions have been applied\footnote{We do not create a second Abox with the only elements that can be used. The REG algorithm will have to manage the restrictions during the search process. Otherwise, we lost the interest to run on a knowledge base common to the entire robotic architecture.} is represented in Figure~\ref{fig:chap4_kb_ctx}.
+With regard to the presented restrictions, the REG problem is define as follow:
+
+\begin{definition}[Referring Expression Generation problem]
+The REG problem is a tuple $\problem = \langle \goalindiv, \kb, Ctx, \usablepropset \rangle$ with $\goalindiv \in \indivset$ the target entity, $\kbs$ the hearer semantic knowledge base, $Ctx$ the RE context, and $\usablepropset \in \propset$ the usable properties.
+\end{definition}
+
+A representation of the Abox on which the restrictions have been applied\footnote{We do not create a second Abox with the only elements that can be used. The REG algorithm will have to manage the restrictions during the search process. Otherwise, we lost the interest to run on a knowledge base common to the entire robotic architecture.} is represented in Figure~\ref{fig:chap4_kb_ctx}.
 
 \begin{figure}[h!]
 \centering
@@ -134,6 +140,81 @@ With regard to the presented restrictions, the REG problem is define as a tuple 
 \end{figure}
 
 \subsection{Expected solution: structure and validity criteria}
+
+What we could expect from a REG solver, would be a sentence in natural language. However, as explained earlier, we focus here on the sub-task that is the content generation rather than the linguistic realization. For the content generation, the attempted solution as thus often be a set of relations like $\{ (\goalindiv,\ hasColor,\ red)\}$. The issue of such a set is that it can not be verbalized afterwards. Indeed, some entities are not labelled and thus can not be used directly in the solution. They are what we called \textbf{anonymous entities}. To refer to an anonymous entity and be able to speak about it we must pass at least by its type. This is what we naturally do when we say \textit{"the red pen"} where the concept \textit{"pen"} does not directly refer to the entity by to its type. Before going ahead in the definition of the form of the solution, we can already set a constraint on its content through \textbf{the parlance need}.
+
+\begin{theorem} [The parlance need]
+\label{the:parlance_need}
+For any entity appearing in a RE, exactly one naming relation must be added.
+\end{theorem}
+
+What we call a naming relation is in its simplest form the presence of a label. The relation to add is thus of the form: $(\indiv_t,\ hasLabel,\ "tony")$. In the case an entity does not have any label, we pass by one of its type which has a label: $\{(\indiv_t,\ isA,\ Pen), (Pen,\ hasLabel,\ "pen")\}$. This type is not necessarily the direct type of an entity. It could be an inherited one if needed.
+
+Let us now introduce $\varset$, a set of variables. Because anonymous entities are not directly present in the RE sentence (hence the presence of ambiguities), we will replace all of them with variables prefixed with a question mark. The set $\varset$ thus keep a track of these variables. Taking the example of the red pen the set of relation become: \textit{\{(?0, isA, Pen), (Pen, hasLabel, "pen"), (?0, hasColor, red), (red,  hasLabel, "red")\}}. Because anonymous entities are now represented by variables, the relations representing the labels can be removed as it is implicit that the others have one. The reference is thus \textit{\{(?0, isA, Pen), (?0, hasColor, red)\}} that is exactly of the form of a \sparql{} query.
+
+\begin{table}[b!]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+ &
+  \textbf{Target} &
+  \textbf{Relations set} &
+  \textbf{sparql query} &
+  \textbf{Sentence} &
+  \textbf{Instantiations} \\ \hline
+a) &
+  P\_3 &
+  \begin{tabular}[c]{@{}l@{}}\{(P\_3, isA, Pen),\\ (P\_3, hasColor, red)\}\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}\{(?0, isA, Pen),\\ (?0, hasColor, red)\}\end{tabular} &
+  The red pen &
+  {[}?0 =\textgreater P\_3{]} \\ \hline
+b) &
+  P\_2 &
+  \begin{tabular}[c]{@{}l@{}}\{(P\_2, isA, Pen),\\ (P\_2, isIn, C\_2)\\ (C\_2, isA, Cup)\}\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}\{(?0, isA, Pen),\\ (?0, isIn, ?1)\\ (?1, isA, Cup)\}\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}The pen in\\ the cup\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}{[}?0 =\textgreater P\_2,\\ ?1 =\textgreater C\_2{]},\\ {[}?0 =\textgreater P\_1,\\ ?1 =\textgreater C\_1{]}\end{tabular} \\ \hline
+c) &
+  P\_2 &
+  \begin{tabular}[c]{@{}l@{}}\{(P\_2, isA, Pen),\\ (P\_2, isIn, C\_2),\\ (C\_2, isA, Cup),\\ (C\_2, hasColor, green)\}\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}\{(?0, isA, Pen),\\ (?0, isIn, ?1),\\ (?1, isA, Cup),\\ (?1, hasColor, green)\}\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}The pen in\\ the green cup\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}{[}?0 =\textgreater P\_2,\\ ?1 =\textgreater C\_2{]}\end{tabular} \\ \hline
+\end{tabular}%
+}
+\caption{Three referring expressions extracted from the example of Fig.~\ref{fig:chap4_intro}. For each target, is represented the relations set, the equivalent \sparql{} query, the corresponding sentence in natural language, and the possible instantiations.}
+\label{tab:REs}
+\end{table}
+
+\begin{definition}[Referring expression]
+A referring expression is a set of underspecified relations of the form of $(s, p, o) \in (\varset \cup \indivset) \times \propset \times (\varset \cup \indivset \cup)$ or $(s, isA, o) \in \varset \times "isA" \times \classset$ for type ascription.
+\end{definition}
+
+The form of the wanted solution would thus be as a \sparql{} query. It can easily be built from a set of relations. All the content information are present in it, in addition to the representation that some entities can not be verbalized directly. The way to resolve a \sparql{} query can be compared to the process we perform as human to understand a RE. We search all the combination of entities matching the RE. We can thus define the \textbf{correct instantiation} constraint.
+
+\begin{theorem} [The correct instantiation]
+\label{the:correct_intance}
+For any variable appearing in a RE, a least one substitution function $f: \varset \rightarrow \indivset$ must exist.
+\end{theorem}
+
+
+Examples of REs base on the Figure~\ref{fig:chap4_intro} are presented in Tab.~\ref{tab:REs}. All three respect the constraints of theorems~\ref{the:parlance_need} and \ref{the:correct_intance}. However, the example b) does not refer in an unambiguous way the entity P\_2. We thus define the two RE validity constraints.
+
+\begin{theorem} [The RE minimal validity]
+\label{the:re_validity}
+A RE is said to be minimally valid iif the variable $\var_t \in \varset$ representing the target entity $\goalindiv$ has only one possible instantiation being $\indiv_t$ itself.
+\end{theorem}
+
+\begin{theorem} [The RE complet validity]
+\label{the:re_validity}
+A RE is said to be completely valid iif it is minimally valid and if for all the variables $\var \in \varset$ involve in the RE, each has only one possible instantiation.
+\end{theorem}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.15]{figures/chapter4/complet_validity.png}
+\caption{\label{fig:chap4_complet} A situation where referring to the cup B through realtions to the pens can be done either by leaving the ambiguity on the pen (minimally valid RE) or also disambiguating the color of the pen (completely valid RE). }
+\end{figure}
 
 \section{Uniform Cost Search REG}
 
