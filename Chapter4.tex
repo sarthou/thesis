@@ -210,11 +210,28 @@ A RE is said to be minimally valid iif the variable $\var_t \in \varset$ represe
 A RE is said to be completely valid iif it is minimally valid and if for all the variables $\var \in \varset$ involve in the RE, each has only one possible instantiation.
 \end{theorem}
 
+Taking the example of the Figure~\ref{fig:chap4_complet} where the goal of the situation is to refer to cup B, it can be achieved in two manners. Asking for the cup with a pen inside is a referring expression said to be minimally valid as the referred pen is ambiguous. However, not solving this ambiguity between the two pens in the cup still allow identifying the referred cup. To make the solution to be completely valid, we should ask for the cup with the red pen inside or the cup with the blue pen inside\footnote{A minimally valid reference can thus use references to set of entities. This is not an issue but the linguistic realisation should take it into account using "a" rather than "the" (e.g. "with a pen inside" rather than "with the pen inside").}.
+
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.15]{figures/chapter4/complet_validity.png}
 \caption{\label{fig:chap4_complet} A situation where referring to the cup B through realtions to the pens can be done either by leaving the ambiguity on the pen (minimally valid RE) or also disambiguating the color of the pen (completely valid RE). }
 \end{figure}
+
+With regard to the presentend constraints, a solution to a REG problem is define as follow:
+
+\begin{definition}[Referring Expression Generation solution]
+A solution to the REG problem is thus $\solution = \langle E, \var_t \rangle$, with $E$ a referring expression in the form of a set of under-specified relations representing the \sparql{} query and $\var_t$ the variable designating the target entity $\goalindiv$.
+\end{definition}
+
+
+Finally, considering the fact that some relations are easier to understand than others, we can define the relations cost function\footnote{The cost function is here seen as a black-box which can be a static map, the result of a learning process or other.} $\costfunc : \relationset \rightarrow \mathbb{R}^+$. Thanks to it, we can define an optimal solution to a REG problem.
+
+\begin{definition}[Optimal Referring Expression Generation solution]
+The optimal solution $\solution^* = \langle E^*, \var_t \rangle$ is thus the solution minimizing $\sum_{\relation \in E^*} \costfunc(\relation)$ over the set of all the possible solutions for a REG problem.
+\end{definition}
+
+
 
 \section{Uniform Cost Search REG}
 
