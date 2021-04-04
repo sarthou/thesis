@@ -2,8 +2,9 @@
 \usepackage{xargs}   % Use more than one optional parameter in a new commands
 \usepackage{xcolor}  % Coloured text
 
-\usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathbbol}
 
 \usepackage{booktabs}
 
@@ -12,6 +13,13 @@
 \useunder{\uline}{\ul}{}
 
 \newtheorem{theorem}{Theorem}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode} 
+% limit indentation in algorithms
+\algrenewcommand\algorithmicindent{1.0em}%
+\algnewcommand{\IIf}[1]{\State\algorithmicif\ #1\ \algorithmicthen}
+\algnewcommand{\EndIIf}{\unskip\ \algorithmicend\ \algorithmicif}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %	  TODO commands    %
@@ -82,7 +90,11 @@
 \newcommand \problem{\mathcal{P}}
 \newcommand \solution{\mathcal{S}}
 
-\newcommand \cost{\mathbb{c}}
 \newcommand \costfunc{\mathcal{C}}
 \newcommand \varset{X}
 \newcommand \var{x}
+
+\newcommand \cost{\mathbb{c}}
+\newcommand \node{\mathbb{n}}
+\newcommand \state{\mathbb{s}}
+\newcommand \action{\mathbb{a}}

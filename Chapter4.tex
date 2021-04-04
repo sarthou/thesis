@@ -221,7 +221,7 @@ Taking the example of the Figure~\ref{fig:chap4_complet} where the goal of the s
 With regard to the presentend constraints, a solution to a REG problem is define as follow:
 
 \begin{definition}[Referring Expression Generation solution]
-A solution to the REG problem is thus $\solution = \langle E, \var_t \rangle$, with $E$ a referring expression in the form of a set of under-specified relations representing the \sparql{} query and $\var_t$ the variable designating the target entity $\goalindiv$.
+A solution to the REG problem is thus $\solution = \langle E, \var_t \rangle$, with $E$ a valid referring expression in the form of a set of under-specified relations representing the \sparql{} query and $\var_t$ the variable designating the target entity $\goalindiv$.
 \end{definition}
 
 
@@ -235,9 +235,62 @@ The optimal solution $\solution^* = \langle E^*, \var_t \rangle$ is thus the sol
 
 \section{Uniform Cost Search REG}
 
+In the previous section, we have defined a Referring Expression Generation problem as well as its solution. In this section, we first formalise this problem as a search problem and we then present an algorithm abe to solve it in a smart way.
+
 \subsection{Formalisation as a search problem}
 
+In the REG problem, we can consider a \textbf{candidate Referring Expression} as a \textbf{state} $\state$ of a search algorithm. A candidate RE is a RE under construction that does not respect all the constraints to make a valid RE. It is a set $\mathcal{T} \subseteq \relationset \cup C$ of relation $\relation$ representing relations present in the referenced knowledge base $\kbs$. The \textbf{initial state} is specified by the context of the problem that is a set of relations that we assume to be already known by the hearer.
+%\footnote{If you do not understand why we use a set of relations while we said that a RE in s set of under-specified relations in the form of a $\sparql{}$ query, just remember that we can easily go from one to the other.}
+
+To find all the entities referred by a candidate RE, we transform it into a \sparql{} query by replacing the anonymous entities with variables. We then submit it to the ontology to know which entities can be bound to each variable of the query. Depending on whether the result of the query gives the correct matches between variables and entities or not, we can know if a state is a \textbf{target state} or not. A state is a target state id the variables to entities matching make the RE valid (minimally or completely regarding our needs).
+
+An \textbf{action} $\action$ in the REG problem consists in the insertion of a new triplet $(\subject, \property, \object)$ to the set $\mathcal{T}$ of a state $\state$. performing an action on a state results in the creation of a new state $\state'$. The inserted triplet can represent an entity type (coming from $\inheritset$) or a relation between entities (coming fom $\relationset$). When it represent an entity type, we call the action a \textbf{typing action} with $\property \equiv isA$.
+
+%a relation which differs between ambiguous entities in $\state$. We define two kinds of difference between ambiguous entities. 1) \textbf{Hard difference} ($\indiv_i, \harddiff, \indiv_j$) exists when two entities own the same property towards a different entity (i.e $(\indiv_i, \property, \object_i) \in \relationset \land (\indiv_j, \property, \object_j) \in \relationset | \object_i \neq \object_j$). 2) \textbf{Soft difference} ($\indiv_i, \softdiff, \indiv_j$) exists when an entity owns a property that is not owned by another ambiguous entity (i.e $(\indiv_1, \property, \object_i) \in \relationset \land (\indiv_j, \property, \cdot) \notin \relationset$).
+%%If you consider the two pens in figure \ref{fig:solution}, the fact that one is blue and the other red is a hard difference because the two pens have the same "hasColor" property on a different object. However, the red pen has a cup on the left and that cup has nothing on its left. It's a soft difference. 
+
+%Finally, the \textbf{cost} of a state is the sum of the cost of each action leading to this state. If we assume that each action $\action_j$ corresponds to the fact of adding a relation $\relation_j$ to the state $\state$ with a cost $\costfunc(\relation_j)$, the cost to $\state$ is $\cost_\state = \sum_{}^{\mathcal{T}_\state} \costfunc(\relation_j)$. As the hard differences respect the \textbf{open-world assumption} but the soft differences do not, we propose to encourage the use of hard difference when possible by adding an extra-cost to actions coming from soft differences.
+
 \subsection{Algorithm presentation}
+
+\newcommand{\sparqlresult}{\textsc{SparqlResult}}
+\newcommand{\toquery}{\textsc{ToQuery}}
+\newcommand{\createchild}{\textsc{CreateChild}}
+\newcommand{\actions}{\textsc{Actions}}
+\newcommand{\tovariable}{\textsc{ToVariable}}
+\newcommand{\goaltest}{\textsc{GoalTest}}
+\newcommand{\typingactions}{\textsc{TypingActions}}
+
+\begin{algorithm}[!htbp]
+\caption{Uniform-Cost Search algorithm for Referring Expression Generation}
+\label{alg:ucs}
+\begin{algorithmic}
+\Function{UCS\_REG}{$problem$} 
+    \State $node\leftarrow$ a node with RE = \textsc{create-initial-re}(\textit{problem}.context), \textit{cost} = 0
+    \State $frontier\leftarrow$ a priority queue of nodes ordered by their \textit{cost}
+    \State $frontier\leftarrow$ \textsc{INSERT}($node$, $frontier$)
+    \State $explored\leftarrow$ an empty set
+    \Loop
+        \If{\textsc{empty}($frontier$)} 
+        	\State \Return failure
+        \EndIf
+        \\
+        \State $node\leftarrow$ \textsc{pop}($frontier$)
+        \If{\goaltest($problem$, \toquery($node$))} 
+        	\State \Return \textsc{SOLUTION}($node$)
+        \EndIf
+        \\
+        \State add $node.RE$ to $explored$
+        \ForAll{$action$ in \actions($node$)}
+            \State $child \leftarrow \createchild(node, action)$
+            \If{$child.RE$ is not in $explored$ or $frontier$}
+            	\State $frontier\leftarrow$ \textsc{INSERT}($child$, $frontier$)
+            \EndIf
+        \EndFor
+    \EndLoop
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
 
 \subsection{Replanning to to generate detailled explanations}
 
