@@ -86,6 +86,7 @@ In this section, we present the ontology of example that we use all along with t
 
 
 \subsection{The knowledge representation}
+\label{sec:chap4_kb}
 
 As presented earlier in this thesis, ontology is a way to represente knowledge that is now largely used in many field becasue it allows a standardization of the representation easy extension of an extisting knowledge base, and the use of inference engine to enrich the the knowledge base. For these reasons, we choose to use a knowledge base in the form of an ontology as input of our algorithm for the REG problem. Moreover, we saw that number of recent REG algorithm have trend to use graph representations as it allows to refer to an entity through relations to other entities. Because an ontology can be see as a more complexe and mor expressive graph, this representation seems to be adequate to use for the REG problem. 
 
@@ -413,7 +414,16 @@ When no referring expression can be found, it could be interesting to give more 
 
 \section{Results}
 
+In this section, we present the solution found by our algorithm on the example presented in section~\ref{sec:chap4_kb}. We then challenge our algorithm on a large scale ontology representing a three-room apartment to analyse it in terms of time execution, solution length and composition. Finally, we provide comparisons with two state-of-the-art methods on their own domains.
+
 \subsection{Solution analysis: The pen in the cup}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.45]{figures/chapter4/search.png}
+\caption{\label{fig:chap4_search} On top, a recall of the situation of Figue~\ref{fig:chap4_kb} and the entities types and relations.
+At the bottom, a graphical representation of the search progress for generating a referring expression to the entity P\_2. Numbers represent the order in which the nodes are explored. Arrows are the actions performed on the nodes. Hashed arrows correspond to typing actions and greyed nodes do not respect the parlance need constraint. Double circled nodes are valid nodes. }
+\end{figure}
 
 \subsection{Scaling up: The three-room apartment}
 
