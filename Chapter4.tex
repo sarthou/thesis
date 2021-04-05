@@ -284,6 +284,7 @@ From an initial state, built from the context of the query, the algorithm genera
 \newcommand{\actions}{\textsc{Actions}}
 \newcommand{\goaltest}{\textsc{GoalTest}}
 \newcommand{\typingactions}{\textsc{TypingActions}}
+\newcommand{\differenceactions}{\textsc{DifferencegActions}}
 
 \begin{algorithm}[!htbp]
 \caption{Uniform-Cost Search algorithm for Referring Expression Generation}
@@ -337,6 +338,73 @@ It takes a \sparql{} query as input and returns a match table $\matchtable$ in t
 
 \textbf{\goaltest: }
 The test first fails if not all the anonymous entities involved in the tested candidate RE are typed. If this first test succeeds, the function succeeds, for a minimally valid solution, if the target entity $\goalindiv$ is the only solution to the variable $v(\goalindiv)$ in $\matchtable$. For a completely valid solution, the test succeeds if the previous test succeeds and if all the others variables of $\matchtable$ have exactly one solution.
+
+\textbf{\createchild: } 
+Creating a child node from a parent node and an action is easy to see. The \createchild function is specified in the pseudo-code of Algorithm \ref{alg:child}. 
+
+\begin{algorithm}[H]
+\caption{\label{alg:child} Child node function pseudocode}
+\begin{algorithmic}
+\Function{\createchild}{$action$, $parent$} 
+    \State \Return a node with
+    \State RE = $parent$.RE $\cup$ $action$
+    \State cost = $parent$.cost + $\costfunc(action)$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\textbf{\actions: }
+For each explored state, we consider two kinds of possible actions that we can perform on it. First, the \typingactions{} aims at proposing the addition of inheritance relations for all the anonymous entities for which no inheritance relation exists in $\mathcal{T}$. Second, the \differenceactions{}, divided into \textbf{hard difference actions} and \textbf{soft differences actions}, consists in the addition of relations that differ between the ambiguous entity for each variable in $\matchtable$.
+
+In the \typingactions{} function (Alg.~\ref{alg:typing_action}), the function \textsc{UsableClasses} returns the most specific \textit{labeled} classes of an entity $\indiv$. In other words, it returns the set of classes $\class \in \classset$ such that $(\indiv,\class) \in C$, $\tlabel(\class) \neq \emptyset$, and
+$\not\exists \class'\ s.t.\ (\class', \class) \in H \wedge \tlabel(\class') \neq \emptyset$.
+
+\begin{algorithm}[htb!]
+\caption{\label{alg:typing_action} Typing actions pseudocode}
+\begin{algorithmic}
+
+    \Function{\typingactions}{$state$} 
+        
+        \ForAll{$(\subject, \property, \object)$ \textbf{in} $state$}
+            \If {$\alabel(\subject) = \emptyset\ \wedge \not\exists \class \text{~s.t.~} (\subject, $"isA"$,\class) \in \textit{state}$}
+                \State \Return $\{\ (\subject,\text{"isA"},t)\ |\ t \in \textsc{UsableClasses}(\subject)\  \}$
+            \ElsIf {$\alabel(\object) = \emptyset\ \wedge \not\exists \class \text{~s.t.~} (\object, $"isA"$,\class) \in \textit{state}$}
+                \State \Return $\{\ (\object,\text{"isA"},t)\ |\ t \in \textsc{UsableClasses}(\object)\  \}$
+            \EndIf
+        \EndFor
+        \Return OK \Comment{every anonymous entity is typed}
+    \EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+The choice to select the most specific class differs from the one of \cite{dale_1995_computational} that prefers the least specific types also called the basic-level classes. However, using a knowledge base not specific to the REG task, it would always return the classes \textit{Object} or \textit{Thing}. This could lead to confusion for the hearer and would not help to reduce the ambiguity with other entities. Selecting the most specific thus reduce the branching factor of the algorithm as soon as possible and not impacts the completeness. Moreover, working on the estimated knowledge base of the RE hearer, we can assume that the used labels and thus concepts are known to him.
+
+The \typingactions{} is always performed before the \differenceactions{} and this second is even not called if the first has found possible actions. We thus ensure that we do not have more than one untyped anonymous entity at the time. This particularity explains why the \typingactions{} stops at the first untyped anonymous entity. Besides, it reduces once again the branching factor. Because of the parlance need constraint, we knew that any untyped anonymous entity has to be typed to find a valid solution. It is thus useless to try to add other relation while such an entity still exists in a candidate RE. Even if, for any reason, we found ourselves in a case with multiple untyped anonymous entities at the time, each of them will be typed after the other\footnote{Typing them at once would reduce the execution time but would necessitate actions to be the insertion of a set of relations which add complexity to the algorithm for cases that should not append.}.
+
+\begin{algorithm}[htb!]
+\caption{\label{alg:diffeaction} Hard difference actions pseudocode}
+\begin{algorithmic}[1]
+\Function{\textsc{HardDifferenceActions}}{$state$} 
+    \State $actions\leftarrow$ an empty set of actions
+    \State $matches\leftarrow$ \sparqlresult(\toquery($state$))
+
+    \ForAll{$(\var, \indiv)$ \textbf{in} matches}
+        \If{$\indiv \neq \symboltable^{-1}(\var)$}
+            \ForAll{$r = (\symboltable^{-1}(\var), p, o)$ \textbf{in} $\symboltable^{-1}(\var) \harddiff \indiv$} 
+                \State $r_{inv}$ = $(o, Inv(p), \symboltable^{-1}(\var))$
+                \If{$r \not\in state \wedge r_{inv} \not\in  state \wedge p\in U$}
+                    \State $\textit{actions} \gets \textit{actions} \cup \{r\}$
+                \EndIf
+            \EndFor
+        \EndIf
+    \EndFor
+    \Return $actions$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+The \differenceactions{} funtion call consecutively the hard then soft differences actions functions and merge their results. The pseudo-code of the hard diffrence actions function is provided in Algorithm~\ref{alg:diffeaction}. The $\harddiff$ at line 6 (resp. $\softdiff$) operator returns all the relations that are hard differences (resp. soft) between two entities. In both cases, an action can be added only once and must not be present in the current state to avoid redundancy. Moreover, an action can not be added if the inverse relation to the one added is already present in the current state or proposed actions. We use the $\invset$ set defined in the knowledge base to check it. It once again avoid any redundancy. Taking the example of Figure~\ref{fig:chap4_kb}, the relation $(C\_1, isOn, T\_1)$ would be redundant if the relation $(T\_1, isUnder, C\_1)$ has been already used in the current candidate RE.
+
 
 \subsection{Replanning to to generate detailled explanations}
 
