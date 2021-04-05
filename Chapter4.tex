@@ -260,6 +260,17 @@ To represent the fact that some referring expressions are easier to understand t
 
 To manage the REG problem as a search problem, we finally define a search \textbf{node} $\node$ that is, at least, composed of a candidate RE (thus a state) $\state$ and a cost $\cost$.
 
+\subsection{Algorithm choice}
+
+We consider the REG problem to be a graph search problem when we perform it on an ontology. If we had considered a state $\state'$ as being composed only of the relation provided by the action $\action$ from state $\state$, a tree search should have been used because state $\state'$ would depend on state $\state$. Considering a state as being a set $\mathcal{T}$ of relations $\relation$, the states become independent of each other and can be compared as $\mathcal{T}_x = \mathcal{T}_y$ iff $\forall{z},(z\in \mathcal{T}_x \Leftrightarrow z\in \mathcal{T}_y)$.
+
+From any state, we can compute the number of pending ambiguous entities. We could think that this knowledge beyond the problem definition could be used to drive the searc. However, when we say that it still has X ambiguous individuals this means that the algorithm will have to perform at most X actions to reach a target state. This means that the heuristic function would overestimate the cost to reach the goal. In this sense, a such heuristic is not admissible and informed search is not applicable.
+
+Although we could define the reverse actions that is to remove remations from a state, we do not know any solution of the problem and therefore we cannot do a backward search from it.
+
+Taking a look to breath-first search, it is optimal when all steps costs are equal because it always expands the shallowest unexpanded node. However, in the REG problem, actions do not have the same cost as explained previously to represent the preference over features. In this case, the breadth-first search is not optimal and is therefore not suited to our problem.
+
+At the difference of the breadth-first search, the \textbf{uniform-cost search} (UCS) expands the node with the lowest cost. That allows us to take advantage of the preference over features to find efficietly the optimal solution. Indeed, is \textbf{optimal} and \textbf{complete} with positive action costs and a finite number of entities and properties in $\kb$.
 
 \subsection{Algorithm presentation}
 
