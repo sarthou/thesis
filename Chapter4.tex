@@ -274,23 +274,27 @@ At the difference of the breadth-first search, the \textbf{uniform-cost search} 
 
 \subsection{Algorithm presentation}
 
-\newcommand{\sparqlresult}{\textsc{SparqlResult}}
+Our REG algorithm performs a graph search in the space of states, using the Uniform-Cost Seach algorithm presented in Algorithm~\ref{alg:chap4_ucs}.
+From an initial state, built from the context of the query, the algorithm generates a set of actions that add relations to the current state and create new states to explore. Just like Dijkstra's algorithm, it expands the states in increasing cost order until a solution is discovered or the search space is exhausted. We can however note a slight difference with the original algorithm. Because in our case two candidates RE said to be equivalent (i.e. owning the same relations regardless of their order) always have the same cost, we do not need to replace in the frontier a node with an equivalent state but having a higher cost than the newly created child node.
+
+\newcommand{\tovariable}{\textsc{ToVariable}}
 \newcommand{\toquery}{\textsc{ToQuery}}
+\newcommand{\sparqlresult}{\textsc{SparqlResult}}
 \newcommand{\createchild}{\textsc{CreateChild}}
 \newcommand{\actions}{\textsc{Actions}}
-\newcommand{\tovariable}{\textsc{ToVariable}}
 \newcommand{\goaltest}{\textsc{GoalTest}}
 \newcommand{\typingactions}{\textsc{TypingActions}}
 
 \begin{algorithm}[!htbp]
 \caption{Uniform-Cost Search algorithm for Referring Expression Generation}
-\label{alg:ucs}
+\label{alg:chap4_ucs}
 \begin{algorithmic}
 \Function{UCS\_REG}{$problem$} 
     \State $node\leftarrow$ a node with RE = \textsc{create-initial-re}(\textit{problem}.context), \textit{cost} = 0
     \State $frontier\leftarrow$ a priority queue of nodes ordered by their \textit{cost}
     \State $frontier\leftarrow$ \textsc{INSERT}($node$, $frontier$)
     \State $explored\leftarrow$ an empty set
+    \\
     \Loop
         \If{\textsc{empty}($frontier$)} 
         	\State \Return failure
@@ -312,6 +316,27 @@ At the difference of the breadth-first search, the \textbf{uniform-cost search} 
 \EndFunction
 \end{algorithmic}
 \end{algorithm}
+
+We will now detail the functions specific to the UCS applied to the REG problem.
+
+\textbf{\tovariable: }
+We globally define a symbol table $\symboltable$ to keep track of the variables assigned to the anonymous entities. When a new anonymous entity is found, it is inserted in this symbol table with a unique variable identifier. We note $\symboltable^{-1}$ the inverse table, allowing us to retrieve the entity represented by an existing variable.
+
+\textbf{\toquery: }
+It performs the translation of a set of triplets into a \sparql{} query. To do so, anonymous entities have to be replaced by their corresponding variable. For each entity involved in the triplets to convert, they are given a string representation with the function $v(\indiv): \indivset \mapsto str$: 
+\[ 
+    v(\indiv) = 
+    \begin{cases}
+        str(\indiv),& \text{if } \alabel(\indiv) \neq \emptyset\\
+        \symboltable(\indiv),& \text{otherwise}
+    \end{cases} 
+\]
+
+\textbf{\sparqlresult: }
+It takes a \sparql{} query as input and returns a match table $\matchtable$ in the way that $\matchtable(\var)$ is the set of entities matching the variable $\var$ in the given query. While usually the matching entities of a given variable depend on the matching entities of another one\footnote{See the example b of table~\ref{tab:REs} for an illustration of this link.}, we do not need to keep this link in our application.
+
+\textbf{\goaltest: }
+The test first fails if not all the anonymous entities involved in the tested candidate RE are typed. If this first test succeeds, the function succeeds, for a minimally valid solution, if the target entity $\goalindiv$ is the only solution to the variable $v(\goalindiv)$ in $\matchtable$. For a completely valid solution, the test succeeds if the previous test succeeds and if all the others variables of $\matchtable$ have exactly one solution.
 
 \subsection{Replanning to to generate detailled explanations}
 
