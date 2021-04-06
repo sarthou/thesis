@@ -438,6 +438,22 @@ The final solution to refer to the entity P\_2 is thus \textit{\{(?0, isA, Pen),
 
 \subsection{Scaling up: The three-room apartment}
 
+The previous example was a simple situation with few entities. To assess the relevance of our approach and evaluate it in terms of performance and solution size, we created a larger, realistically-sized, situation. It is the description of a three-room apartment with several types of furniture (tables, chairs, shelves) and objects (cups, boxes, books) linked through geometrical relations (isAtLeftOf, isOn, isIn) and attributes (color, weight). The resulting ontology is composed of 101 entities, 36 classes, 40 properties and 497 relations once the reasoners applied. The algorithm has been run over the 77 physical entities, inheriting from the \textit{Object} class.
+
+For all the presented measures, we used the Ontologenius software~\cite{sarthou_2019_ontologenius} to manage the ontology. To avoid taking the ROS communication into account in the measures, we used a direct connection by running the core of Ontologenius in the same process as the algorithm.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.50]{figures/chapter4/scaling_up_percentage.png}
+\caption{\label{fig:chap4_percentage} Percentage of entities referred successfully over time using a logarithmic timescale. }
+\end{figure}
+
+During a human-robot interaction, a too-long execution time to generate a reference to an entity could spoil the interaction. To assess it we measure the resolution time of the 77 objects. These measures are reported on the graphic of Figure~\ref{fig:chap4_percentage}. All the 77 entities (100\%) have been referred in under 4.33ms. This is well below 100ms which is the maximum system response time for the user to get a feeling of instantaneity \cite{miller_1968_response}. Moreover, 50\% are referred under 357\us and 75\% under 772\us. On average, the algorithm needs to explore 10.6 nodes to refer to an object. It gives an exploration time of 67.35\us/node on average.
+
+Regarding the complexity of the solutions, we found that 32 (41.56\%) need at least two relations to be referred to. As the type count for a relation, this means the second relation is one of the entity attributes. Among the others, 25 entities (32.46\%) are referred to using four or more relations. The maximum was six relations for only one of the objects. Moreover, 49.4\% need a reference to another entity in their solution and two objects need references to two others entity in their RE. This mean that 49.4\% of the objects of our situation can not be referred using approaches like \cite{ros_2010_which} or \cite{dale_1995_computational}.
+
+These results over a larger knowledge base highlight the need for a REG algorithm to use relations and references to other entities to be able to generate suitable RE. They also show the importance of the entities type that is often sufficient with only one attribute to generate an optimal RE. Finally, we demonstrate over these results that our algorithm is suitable for use in human-robot interaction, even with a "large scale" knowledge base. With such results, we can even think that it is suitable to be integrated into a planning process needing to request it at high frequency. Such application will be presented in the next chapter.
+
 \subsection{Compraritions with other state-of-the art algorithms}
 
 \subsubsection{The longest-first}
