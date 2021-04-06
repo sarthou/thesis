@@ -202,12 +202,12 @@ For any variable appearing in a RE, a least one substitution function $f: \varse
 Examples of REs base on the Figure~\ref{fig:chap4_intro} are presented in Tab.~\ref{tab:REs}. All three respect the constraints of theorems~\ref{the:parlance_need} and \ref{the:correct_intance}. However, the example b) does not refer in an unambiguous way the entity P\_2. We thus define the two RE validity constraints.
 
 \begin{theorem} [The RE minimal validity]
-\label{the:re_validity}
+\label{the:re_mini_validity}
 A RE is said to be minimally valid iif the variable $\var_t \in \varset$ representing the target entity $\goalindiv$ has only one possible instantiation being $\indiv_t$ itself.
 \end{theorem}
 
 \begin{theorem} [The RE complet validity]
-\label{the:re_validity}
+\label{the:re_compl_validity}
 A RE is said to be completely valid iif it is minimally valid and if for all the variables $\var \in \varset$ involve in the RE, each has only one possible instantiation.
 \end{theorem}
 
@@ -448,7 +448,7 @@ For all the presented measures, we used the Ontologenius software~\cite{sarthou_
 \caption{\label{fig:chap4_percentage} Percentage of entities referred successfully over time using a logarithmic timescale. }
 \end{figure}
 
-During a human-robot interaction, a too-long execution time to generate a reference to an entity could spoil the interaction. To assess it we measure the resolution time of the 77 objects. These measures are reported on the graphic of Figure~\ref{fig:chap4_percentage}. All the 77 entities (100\%) have been referred in under 4.33ms. This is well below 100ms which is the maximum system response time for the user to get a feeling of instantaneity \cite{miller_1968_response}. Moreover, 50\% are referred under 357\us and 75\% under 772\us. On average, the algorithm needs to explore 10.6 nodes to refer to an object. It gives an exploration time of 67.35\us/node on average.
+During a human-robot interaction, a too-long execution time to generate a reference to an entity could spoil the interaction. To assess it we measure the resolution time\footnote{Times reported are run on a CPU Intel Core i7-7700 CPU @ 3.60GHz with 32 Go RAM}. of the 77 objects. These measures are reported on the graphic of Figure~\ref{fig:chap4_percentage}. All the 77 entities (100\%) have been referred in under 4.33ms. This is well below 100ms which is the maximum system response time for the user to get a feeling of instantaneity \cite{miller_1968_response}. Moreover, 50\% are referred under 357\us and 75\% under 772\us. On average, the algorithm needs to explore 10.6 nodes to refer to an object. It gives an exploration time of 67.35\us/node on average.
 
 Regarding the complexity of the solutions, we found that 32 (41.56\%) need at least two relations to be referred to. As the type count for a relation, this means the second relation is one of the entity attributes. Among the others, 25 entities (32.46\%) are referred to using four or more relations. The maximum was six relations for only one of the objects. Moreover, 49.4\% need a reference to another entity in their solution and two objects need references to two others entity in their RE. This mean that 49.4\% of the objects of our situation can not be referred using approaches like \cite{ros_2010_which} or \cite{dale_1995_computational}.
 
@@ -456,7 +456,25 @@ These results over a larger knowledge base highlight the need for a REG algorith
 
 \subsection{Compraritions with other state-of-the art algorithms}
 
+The previous situation has been designed by us and could be adapted for our algorithm. Moreover, existing methods could be more efficient than our. To remove this possible bias and compare it with other algorithms, we choose to perform two comparisons with state-of-the-art algorithms on their domains. Because we saw the importance for a REG algorithm to be able to refer to entities through relations to other entities and thus through references to other entities, we have only selected methods having this ability.
+
 \subsubsection{The longest-first}
+
+The Longest First (LF)\footnote{http://www.m-mitchell.com/code} algorithm \cite{viethen_2013_graphs} is a graph based algorithm and it has been tested on the GRE3D3 Corpus. It is composed of 20 scenes. As illustrated if Figure~\ref{fig:chap4_gred3} with the eleventh scene, each is composed of three objects with different spatial relations relative to one another (isOn, isAtLeftOf). Each object have three attributes being a color, a size (small or large) and a type (ball or cube). The entity to refer to is marked by an arrow. This entity has always a direct adjacency relation (e.g. the ball is on the red cube).
+
+Analysing the corpus, we find that 8 target entity can referenced using only their type (e.g. the ball). Seven entities can be optimaly refered with the use of their type and an attribute (their size or color). In the last five scenes, the target entity can be referred with their types, color and size attributes (e.g. the small green cube). This means that spatial relations have not to be used to reference the target entity. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.3]{figures/chapter4/GRED3.jpg}
+\caption{\label{fig:chap4_gred3} The 19\textsuperscript{th} scene of the GRED3 corpus~\cite{dale_2009_referring}. The target entity is the one marked the arrow.}
+\end{figure}
+
+To perform our analysis, we choose only one of the scene among the ones nedding the most attributes. This scene is the 19\textsuperscript{th} of the corpus, illustrated on Figure~\ref{fig:chap4_gred3}. Because the LF does not consider the types\footnote{The objects type are only added as a post process. This can explain why they use the spatiel relations while it is not necessary.}, the choose scene is only composed of cubes to give comparable solution. Even if we not compare with the simple cases, we can not that our algorithm resolves the scene requiring only the type in less than 100\us and those with the types and one attribute in less than 250\us.
+
+The LF algorithm has for objective generate over-specified REs. To limit the solution length, a maximum length parameter is available on the queries. Setting it to the recommanded value that is 4, we get in 311ms the result which we can read as \textit{"The small green cube on top of a cube"}. Setting it to 3, that is the optimal value for this scene, we get in 109ms the result \textit{"The small green cube"}. This optimal solution is the one find by our algorithm in 0.87ms. The difference factor is thus of 125.
+
+Foa all the 20 scenes, setting the maximum length parameter to the optimal length (the minimum of relations allowing the hearer to distinguish teh referred entity without ambiguity), both the LF and our algorithm find the same solutions. However, this parameter raise an issue. In the previous situation of the three-room apartment, 13\% of the entity need more than 4 relations to be referred to. This means that with the recomanded value, all these entities would not be referred to while it is possible. On an other hand, we saw that this parameter has a huge impact on the execution time and setted it to an higher value would thus required more computational time and give too complexe RE.
 
 \subsubsection{The optimized Graph Based Algorithm}
 
