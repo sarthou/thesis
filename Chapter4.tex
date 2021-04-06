@@ -418,12 +418,23 @@ In this section, we present the solution found by our algorithm on the example p
 
 \subsection{Solution analysis: The pen in the cup}
 
+To familiarize with the form of the solutions and better understand how the algorithm constructs them, we first solve the example of Figure~\ref{fig:chap4_kb}. The target entity $\goalindiv$ is P\_2. The corresponding variable $\var_t$ in the \sparql{} query is denoted $?0$. We assume the general knowledge to be the Tbox of Figure~\ref{fig:chap4_kb_Tbox} and the perceived relations to be the Abox of Figure~\ref{fig:chap4_kb_Abox}.
+
+The context of the problem is that we are speaking about objects being above the table T\_1: $Ctx = (\{(?0,\ isAbove,\ T\_1)\}, \emptyset)$. The usable properties are $\usablepropset = \{visualProp,\ geometricProp\}$. Because of the properties inclusions, the properties \textit{isIn}, \textit{hasIn}, or \textit{hasColor} are usable. The problem is thus define by $\problem = \langle P\_2, \kbs, Ctx, \usablepropset \rangle$.
+
+Because the classes \textit{ClinkingPen} and \textit{TurningPen} do not have labels, The lowest labeled class of P\_1, P\_2, and P\_3 is \textit{Pen}. A recall of the situation and the available knowledge base on which the context and the usable properties have been applied is represented on the top of Figure~\ref{fig:chap4_search}.
+
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.45]{figures/chapter4/search.png}
-\caption{\label{fig:chap4_search} On top, a recall of the situation of Figue~\ref{fig:chap4_kb} and the entities types and relations.
+\caption{\label{fig:chap4_search} On top, a recall of the situation of Figure~\ref{fig:chap4_kb} and the entities types and relations.
 At the bottom, a graphical representation of the search progress for generating a referring expression to the entity P\_2. Numbers represent the order in which the nodes are explored. Arrows are the actions performed on the nodes. Hashed arrows correspond to typing actions and greyed nodes do not respect the parlance need constraint. Double circled nodes are valid nodes. }
 \end{figure}
+
+The search process is represented at the bottom of Figure~\ref{fig:chap4_search}. It starts with node 0 in which we know that P\_2 is above the table. In this node, P\_2 is an anonymous entity and is not typed. The only possible action is thus to type it, creating node 1 with the candidate RE $\{(?0,\ isA,\ Pen)\}$. From this node, two difference actions are created and generating two new nodes. Because the action leading to node 3 introduces a new anonymous entity, it also introduces a new variable to represent it. The candidate RE related to node 3 is thus \textit{\{(?0, isA, Pen), (?0, isIn, ?1)\}}. The node with the lowest cost is explored first. In our example, all properties have a unary cost so the node to explored is selected randomly. Considering node 2 to be explored first, the entity \textit{blue} has a label so no anonymous entity has to be typed. The only possible action is that P\_2 is in the cup C\_2. Between nodes 3 and 4, node 3 has the lowest cost and is explored first. In this node, C\_2 is anonymous and not typed. The only possible action is to type C\_2. The same is done for node 4, resulting in node 6. When node 5 is explored, two difference actions are possible. However, adding the relation $(P\_2,\ hasColor,\ blue)$ to the candidate RE of node 5 results in the same state as node 6. The newly created node is thus discarded as already existing. It can also be seen as a merge of the two nodes with the same state. The second action coming from the node 5 gives the node 7 with the candidate RE \textit{\{(?0, isA, Pen), (?0, isIn, ?1), (?1, isA, Cup), (?1, hasColor, green)\}}. At this stage, the new node is just created but not evaluated. We do not know at the moment that it is a goal node. Node 6 is thus explored first and give the new node 8. Node 7 is then tested as being a goal node as the variable 0 has for only match P\_2 that is the target entity and the variable 1 can only be bound to C\_2. The algorithm does not test the node 8 has a goal node has been found.
+
+The final solution to refer to the entity P\_2 is thus \textit{\{(?0, isA, Pen), (?0, isIn, ?1), (?1, isA, Cup), (?1, hasColor, green)\}}. It could be read as \textit{"The pen in the green cup"}. Here, we see how referring to another entity lead to interesting solutions.
+
 
 \subsection{Scaling up: The three-room apartment}
 
