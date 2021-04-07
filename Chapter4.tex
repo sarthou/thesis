@@ -490,7 +490,29 @@ Their algorithm has been tested on a corpus with 28 tabletop scenes~\cite{li_201
 
 The difference with the GBA is that the uniform cost search algorithm ensures the first found solution to be the optimal one. Moreover, because their approach does not use the entities types, we think that our approach should work even faster on knowledge bases containing entities with different types since we prioritize the use of the type. Such a test has not been performed as their algorithm can not manage other data than their corpus.
 
-\section{Proof of concept integration on a robotic system}
+\section[Integration on a robotic system]{Proof of concept integration on a robotic system}
 
-\subsection{Verbalazing a referring expression}
+To assess the usability of our method during an interaction, we have integrated it on a PR2 robotic platform and used it in a tabletop scenario. The used architecture presented in this section is represented in Figure~\ref{fig:chap4_archi}.
 
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.6]{figures/chapter4/architecture.png}
+\caption{\label{fig:chap4_archi} The architecture used to validate the method. The knowledge base is continuously kept up to date through the situation assessment.}
+\end{figure}
+
+The geometrical situation assessment is based on the Robosherlock~\cite{beetz_2015_robosherlock} perception system. This software does not require any a priori on the environment such as CAD model, mesh or training. With the used pipeline, it detects objects on a surface and gives information about their position, shape ("circular" or "rectangular"), color, and size ("large", "medium" or "small"). On top of that, we have applied simple filtering and tracking based on the previous information. This information is then continuously added to the ontology to kept it up to date with the current state of the environment. Because the objects' types are not determined by the system, all the detected objects are thus added as inheriting from the "Object" class. To go further, we could use the SPARK~\cite{milliez_2014_framework} framework to extract higher-level relations. However, the limited information provided by Robosherlock, with the used pipeline, are interesting to test our algorithm as the robot is not able to use high-level concepts and resulting in various ambiguities.
+
+The knowledge base as an ontology is managed using the software Ontologenius \cite{sarthou_2019_ontologenius}. It is used as a server sharing knowledge about the environment with the entire architecture. Because no perspective-taking is performed, it manages a single instance representing the robot's knowledge. Th eREG is thus performed on this instance even if it should rather be run on the human partner's estimated knowledge.
+
+An ad hoc linguistic realisation has been made, based on simple grammar and the labels present in the ontology. It takes as input a \sparql{} query and is able to generate a sentence in English or in French depending on the ontology configuration. For example, it is able to transform the query "?0 isA Cup, ?0 isOn ?1, ?1 isA Table, ?1 hasColor black" into "\textit{the cup on the black table}". The relations in the query do not have to be ordered as the link between the variable can be analysed and a simple language model provides the attribute order for each language.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter4/pr2.png}
+\caption{\label{fig:chap4_pr2} Two situations where the robot has to refer to the cup on the right of the image. The presence of the milk bottle changes the generated RE. On the right-bottom part of each image is displayed the geometrical representation of the scene as perceived by the robot.}
+\end{figure}
+
+\change{youtube link}
+The scenario \footnote{Commented video available at: \url{https://frama.link/TWU\_VE0o}} consists of several objects on a table. As illustrated on the left part of Figure~\ref{fig:chap4_pr2}, the initial situation is composed of five objects. The robot has to generate a RE for the cup. The found solution can be verbalized as\textit{"The white circular object"} since there are other non-white circular objects and other white non-circular objects. In a second time, a human adds a milk bottle on the table (right part of Figure~\ref{fig:chap4_pr2}). Because the bottle is circular and white, the previous RE is no more valid. When the robot is asked to describe the cup, it generates this time the sentence \textit{"The white small circular object"}. The addition of the size attribute solve the introduced ambiguity.
+
+With this simple task, we show that our UCS ontology-based REG algorithm is usable within a robotic architecture, can deal with a dynamic environment, and can adapt its explanation to the current situation.
