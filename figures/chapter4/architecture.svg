@@ -1,0 +1,851 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="architecture.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="marker22129"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path22131"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path6476"
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker21036"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         id="path21038" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker16349"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lstart"
+       inkscape:collect="always">
+      <path
+         transform="scale(1.1) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         id="path16351" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker12061"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend"
+       inkscape:collect="always">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         id="path12063" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lstart"
+       style="overflow:visible"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path5640"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5622"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="marker11407"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path11409"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker11325"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         id="path11327" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="marker6977"
+       style="overflow:visible;"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path6979"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker6028"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend"
+       inkscape:collect="always">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         id="path6030" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path5625"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker11325-3"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path11327-7" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker16349-8"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lstart">
+      <path
+         inkscape:connector-curvature="0"
+         transform="matrix(1.1,0,0,1.1,1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path16351-9" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.5"
+     inkscape:cx="784.39323"
+     inkscape:cy="565.3864"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1026"
+     inkscape:window-x="0"
+     inkscape:window-y="865"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect23647"
+       width="628.07428"
+       height="447.66183"
+       x="27.27565"
+       y="291.99661"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097" />
+    <rect
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#c6dab6;fill-opacity:1;fill-rule:evenodd;stroke:#6a924a;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect4136"
+       width="172.731"
+       height="73.592926"
+       x="-566.22913"
+       y="30.85881"
+       ry="15" />
+    <rect
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#91bcff;fill-opacity:1;fill-rule:evenodd;stroke:#0056dc;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect4136-3"
+       width="172.731"
+       height="73.592926"
+       x="-566.22913"
+       y="125.70671"
+       ry="15" />
+    <rect
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#cfb7d9;fill-opacity:1;fill-rule:evenodd;stroke:#7c4d8f;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect4136-6"
+       width="172.731"
+       height="73.592926"
+       x="-566.22913"
+       y="220.55463"
+       ry="15" />
+    <rect
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#feb992;fill-opacity:1;fill-rule:evenodd;stroke:#db5001;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect4136-7"
+       width="172.731"
+       height="73.592926"
+       x="-566.22913"
+       y="410.25043"
+       ry="15" />
+    <rect
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#fee492;fill-opacity:1;fill-rule:evenodd;stroke:#daa402;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect4136-5"
+       width="172.731"
+       height="73.592926"
+       x="-566.22913"
+       y="315.40253"
+       ry="15" />
+    <rect
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#f3a49d;fill-opacity:1;fill-rule:evenodd;stroke:#c52717;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect4136-7-3"
+       width="172.731"
+       height="73.592926"
+       x="-566.22913"
+       y="505.09827"
+       ry="15" />
+    <rect
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#c8c8c8;fill-opacity:1;fill-rule:evenodd;stroke:#6e6e6e;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect4136-56"
+       width="172.731"
+       height="73.592926"
+       x="-567.48438"
+       y="608.47937"
+       ry="15" />
+    <g
+       id="g4852"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097"
+       transform="translate(-244.48732,-31.274119)">
+      <rect
+         ry="15"
+         y="566.81323"
+         x="272.95364"
+         height="82.930519"
+         width="230.68535"
+         id="rect4136-6-3"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#cfb7d9;fill-opacity:1;fill-rule:evenodd;stroke:#7c4d8f;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <g
+         id="g5597"
+         transform="translate(0.92228317,-1.7720955)">
+        <flowRoot
+           transform="translate(136.76362,-93.01935)"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="flowRoot4224-9-8"
+           xml:space="preserve"><flowRegion
+             id="flowRegion4226-4-9"><rect
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+               y="663.95856"
+               x="148.49243"
+               height="29.7995"
+               width="238.396"
+               id="rect4228-5-5" /></flowRegion><flowPara
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+             id="flowPara4230-4-5">Situation assessement</flowPara></flowRoot>        <g
+           id="g5583">
+          <g
+             id="g5576">
+            <rect
+               style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#e9deee;fill-opacity:1;fill-rule:evenodd;stroke:#7c4d8f;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+               id="rect4136-6-3-9"
+               width="151.59729"
+               height="39.399605"
+               x="286.79581"
+               y="602.60083"
+               ry="6" />
+            <flowRoot
+               transform="translate(143.11934,-62.366459)"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+               id="flowRoot4224-9-8-0"
+               xml:space="preserve"><flowRegion
+                 id="flowRegion4226-4-9-1"><rect
+                   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+                   y="663.95856"
+                   x="148.49243"
+                   height="59.442364"
+                   width="148.75314"
+                   id="rect4228-5-5-20" /></flowRegion><flowPara
+                 style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+                 id="flowPara4230-4-5-06">Geometric environment model</flowPara></flowRoot>          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g4898"
+       transform="translate(561.09112,30.89443)"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097">
+      <rect
+         ry="15"
+         y="522.95886"
+         x="-119.06782"
+         height="64.616341"
+         width="210.72646"
+         id="rect4136-7-6"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#feb992;fill-opacity:1;fill-rule:evenodd;stroke:#db5001;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         inkscape:export-xdpi="94.420097"
+         inkscape:export-ydpi="94.420097" />
+      <flowRoot
+         transform="translate(-248.90299,-140.13219)"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         id="flowRoot4224-9-8-1"
+         xml:space="preserve"
+         inkscape:export-xdpi="94.420097"
+         inkscape:export-ydpi="94.420097"><flowRegion
+           id="flowRegion4226-4-9-8"><rect
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+             y="663.95856"
+             x="148.49243"
+             height="62.124382"
+             width="240.41631"
+             id="rect4228-5-5-7" /></flowRegion><flowPara
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+           id="flowPara4230-4-5-0">Natural language processing (NLP)</flowPara></flowRoot>    </g>
+    <g
+       id="g5196"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097"
+       transform="translate(159.55635,154.49747)">
+      <rect
+         ry="15"
+         y="158.01216"
+         x="189.56386"
+         height="51.334637"
+         width="222.24146"
+         id="rect4136-3-5"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#91bcff;fill-opacity:1;fill-rule:evenodd;stroke:#0056dc;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <g
+         transform="translate(-1.9695511,2.4267174)"
+         id="g5177">
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot4224-9-8-5"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           transform="translate(56.522546,-505.13276)"><flowRegion
+             id="flowRegion4226-4-9-4"><rect
+               id="rect4228-5-5-2"
+               width="238.396"
+               height="29.7995"
+               x="148.49243"
+               y="663.95856"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'" /></flowRegion><flowPara
+             id="flowPara4230-4-5-4"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">Supervision</flowPara></flowRoot>      </g>
+    </g>
+    <g
+       id="g5415"
+       transform="translate(254.33437,-16.081019)"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097">
+      <g
+         inkscape:export-ydpi="94.420097"
+         inkscape:export-xdpi="94.420097"
+         transform="translate(-69.414276,63.346761)"
+         id="g4845-1">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#c6dab6;fill-opacity:1;fill-rule:evenodd;stroke:#6a924a;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect4136-38-2"
+           width="128.12181"
+           height="93.536575"
+           x="-112.45377"
+           y="246.59088"
+           ry="15" />
+        <flowRoot
+           transform="translate(-252.14254,-416.90354)"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           id="flowRoot4224-9-8-6-4"
+           xml:space="preserve"><flowRegion
+             id="flowRegion4226-4-9-0-7"><rect
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+               y="663.95856"
+               x="148.49243"
+               height="91.095337"
+               width="181.22159"
+               id="rect4228-5-5-3-8" /></flowRegion><flowPara
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+             id="flowPara4230-4-5-3-6">Referring </flowPara><flowPara
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+             id="flowPara5665">Expression Generator</flowPara></flowRoot>      </g>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker6028)"
+       d="m 143.65222,534.05293 c 0,-34.63035 16.3218,-46.58113 54.24275,-68.4748"
+       id="path6020"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097" />
+    <g
+       id="g6450"
+       transform="translate(-315.77522,10.53033)"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097">
+      <rect
+         ry="0"
+         y="483.83795"
+         x="408.65228"
+         height="15.503941"
+         width="128.51666"
+         id="rect6448"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <flowRoot
+         transform="translate(84.19245,17.702712)"
+         style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         id="flowRoot6440"
+         xml:space="preserve"><flowRegion
+           id="flowRegion6442"><rect
+             style="fill:#000000;fill-opacity:1;fill-rule:nonzero"
+             y="460.51382"
+             x="335.16861"
+             height="53.033009"
+             width="218.49599"
+             id="rect6444" /></flowRegion><flowPara
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';fill:#000000;fill-opacity:1;fill-rule:nonzero"
+           id="flowPara6446">Symbolic facts</flowPara></flowRoot>    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker6977)"
+       d="m 198.86585,436.9235 c -54,-5.33333 -70.71232,-0.15142 -81.73224,-47.13031"
+       id="path7029"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097" />
+    <g
+       id="g6450-5"
+       transform="translate(-340.85709,-77.558564)"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097">
+      <rect
+         ry="0"
+         y="486.08426"
+         x="408.65228"
+         height="11.230969"
+         width="128.51666"
+         id="rect6448-4"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         inkscape:export-xdpi="94.420097"
+         inkscape:export-ydpi="94.420097" />
+      <flowRoot
+         transform="translate(84.19245,17.702712)"
+         style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         id="flowRoot6440-3"
+         xml:space="preserve"
+         inkscape:export-xdpi="94.420097"
+         inkscape:export-ydpi="94.420097"><flowRegion
+           id="flowRegion6442-9"><rect
+             style="fill:#000000;fill-opacity:1;fill-rule:nonzero"
+             y="460.51382"
+             x="335.16861"
+             height="53.033009"
+             width="218.49599"
+             id="rect6444-49" /></flowRegion><flowPara
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';fill:#000000;fill-opacity:1;fill-rule:nonzero"
+           id="flowPara6446-5">Symbolic state</flowPara></flowRoot>    </g>
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path11317"
+       d="m 87.43161,620.92921 c 0.0388,47.06285 12.88282,74.32928 58.53156,77.90195"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow2Lstart)"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097" />
+    <path
+       inkscape:export-ydpi="94.420097"
+       inkscape:export-xdpi="94.420097"
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path12053"
+       d="m 203.73841,336.94691 c 44.13526,-18.67939 99.86651,-17.43894 142.23399,0.47443"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#marker22129);marker-end:url(#marker12061)" />
+    <g
+       id="g6450-5-9"
+       transform="translate(-400.91061,205.62978)"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097" />
+    <g
+       transform="translate(-272.78315,-31.18244)"
+       id="g11166-1-2"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097">
+      <rect
+         ry="0"
+         y="348.23813"
+         x="508.43219"
+         height="13.788583"
+         width="69.656494"
+         id="rect6448-9-7-7-1"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <flowRoot
+         transform="translate(173.29992,-117.90754)"
+         style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         id="flowRoot6440-2-3-9-0"
+         xml:space="preserve"><flowRegion
+           id="flowRegion6442-4-9-3-5"><rect
+             style="fill:#000000;fill-opacity:1;fill-rule:nonzero"
+             y="460.51382"
+             x="335.16861"
+             height="53.033009"
+             width="218.49599"
+             id="rect6444-4-0-6-3" /></flowRegion><flowPara
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';fill:#000000;fill-opacity:1;fill-rule:nonzero"
+           id="flowPara6446-4-7-2-2">Requests</flowPara></flowRoot>    </g>
+    <g
+       id="g9632"
+       transform="translate(168.99852,18.242641)"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097">
+      <rect
+         ry="15"
+         y="391.72244"
+         x="32.033806"
+         height="83.321342"
+         width="267.71735"
+         id="rect4136-7-3-0"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#f3a49d;fill-opacity:1;fill-rule:evenodd;stroke:#c52717;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <flowRoot
+         xml:space="preserve"
+         id="flowRoot4224-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="translate(-106.78413,-268.61033)"><flowRegion
+           id="flowRegion4226-4"><rect
+             id="rect4228-5"
+             width="255.36656"
+             height="34.042141"
+             x="148.49243"
+             y="663.95856"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'" /></flowRegion><flowPara
+           id="flowPara4230-4"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">Semantic Knowledge Base</flowPara></flowRoot>      <g
+         id="g4626"
+         transform="translate(-93.59011,-59.570435)">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#fad6d2;fill-opacity:1;fill-rule:evenodd;stroke:#c52717;stroke-width:2.05048156;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect4136-7-3-0-6"
+           width="115.98296"
+           height="38.94952"
+           x="142.47226"
+           y="484.59909"
+           ry="6" />
+        <g
+           id="g4616"
+           transform="translate(21.189916,1.6148107)">
+          <flowRoot
+             xml:space="preserve"
+             id="flowRoot4224-9-6-5"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             transform="translate(-0.6508619,-173.08512)"><flowRegion
+               id="flowRegion4226-4-3-2"><rect
+                 id="rect4228-5-9-1"
+                 width="238.396"
+                 height="29.7995"
+                 x="148.49243"
+                 y="663.95856"
+                 style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'" /></flowRegion><flowPara
+               id="flowPara4230-4-9-3"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">Ontology</flowPara></flowRoot>        </g>
+      </g>
+    </g>
+    <g
+       id="g4524"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097"
+       transform="translate(7.6395105,-14.854676)">
+      <rect
+         ry="15"
+         y="667.01111"
+         x="139.85579"
+         height="85.926247"
+         width="352.28696"
+         id="rect4136-56-2-5"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#c8c8c8;fill-opacity:1;fill-rule:evenodd;stroke:#6e6e6e;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      <g
+         transform="translate(2.0729762,-4.7557219)"
+         id="g4398-6">
+        <flowRoot
+           xml:space="preserve"
+           id="flowRoot4224-2"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           transform="translate(4.767312,56.254896)"><flowRegion
+             id="flowRegion4226-9"><rect
+               id="rect4228-1"
+               width="238.396"
+               height="29.7995"
+               x="148.49243"
+               y="663.95856"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'" /></flowRegion><flowPara
+             id="flowPara4230-2"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">Sensorimotor layer</flowPara></flowRoot>        <g
+           transform="translate(207.2628,-26)"
+           id="g4308-9-7">
+          <g
+             id="g4385-0">
+            <g
+               transform="translate(-207.2628,0)"
+               id="g4308-93">
+              <rect
+                 style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#e6e6e6;fill-opacity:1;fill-rule:evenodd;stroke:#6e6e6e;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+                 id="rect4136-56-2-2-6"
+                 width="192.44682"
+                 height="37.271702"
+                 x="154.7995"
+                 y="707.51703"
+                 ry="6" />
+              <flowRoot
+                 xml:space="preserve"
+                 id="flowRoot4224-4-0"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 transform="translate(10.735004,58.658833)"><flowRegion
+                   id="flowRegion4226-7-6"><rect
+                     id="rect4228-9-2"
+                     width="241.17392"
+                     height="55.305851"
+                     x="148.49243"
+                     y="663.95856" /></flowRegion><flowPara
+                   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';letter-spacing:0px;word-spacing:0px"
+                   id="flowPara4280-6">RGB image, point cloud</flowPara></flowRoot>              <flowRoot
+                 xml:space="preserve"
+                 id="flowRoot4224-4-9-18"
+                 style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 transform="translate(10.341254,41.16267)"><flowRegion
+                   id="flowRegion4226-7-2-7"><rect
+                     id="rect4228-9-8-9"
+                     width="241.17392"
+                     height="55.305851"
+                     x="148.49243"
+                     y="663.95856" /></flowRegion><flowPara
+                   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella Bold';letter-spacing:0px;word-spacing:0px"
+                   id="flowPara4280-3-2">Perception</flowPara></flowRoot>            </g>
+            <rect
+               style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#e6e6e6;fill-opacity:1;fill-rule:evenodd;stroke:#6e6e6e;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+               id="rect4136-56-2-2-2"
+               width="111.69396"
+               height="37.72485"
+               x="154.57292"
+               y="707.29047"
+               ry="6" />
+          </g>
+          <flowRoot
+             transform="translate(54.735004,58.658833)"
+             style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             id="flowRoot4224-4-4"
+             xml:space="preserve"><flowRegion
+               id="flowRegion4226-7-4"><rect
+                 y="663.95856"
+                 x="148.49243"
+                 height="55.305851"
+                 width="241.17392"
+                 id="rect4228-9-5" /></flowRegion><flowPara
+               id="flowPara4280-9"
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';letter-spacing:0px;word-spacing:0px">speakers</flowPara></flowRoot>          <flowRoot
+             transform="translate(40.41282,41.16267)"
+             style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             id="flowRoot4224-4-9-1"
+             xml:space="preserve"><flowRegion
+               id="flowRegion4226-7-2-2"><rect
+                 y="663.95856"
+                 x="148.49243"
+                 height="55.305851"
+                 width="241.17392"
+                 id="rect4228-9-8-8" /></flowRegion><flowPara
+               id="flowPara4280-3-9"
+               style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.25px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella Bold';letter-spacing:0px;word-spacing:0px">Actuation</flowPara></flowRoot>        </g>
+      </g>
+    </g>
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path11317-5"
+       d="m 559.45482,619.93786 c -0.0388,47.06285 -11.19272,73.53118 -56.84146,77.10385"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker11325-3)"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#marker16349)"
+       d="m 536.12886,550.74912 c 0,-34.63035 -27.91019,-76.87272 -65.83114,-98.7664"
+       id="path6020-2"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097" />
+    <g
+       id="g11390"
+       transform="translate(530,-24.351591)"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097">
+      <rect
+         ry="0"
+         y="507.11023"
+         x="-57.812893"
+         height="37.878941"
+         width="87.504471"
+         id="rect6448-4-8"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         inkscape:export-xdpi="94.420097"
+         inkscape:export-ydpi="94.420097" />
+      <flowRoot
+         transform="translate(-391.71816,41.349997)"
+         style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         id="flowRoot6440-3-7"
+         xml:space="preserve"
+         inkscape:export-xdpi="94.420097"
+         inkscape:export-ydpi="94.420097"><flowRegion
+           id="flowRegion6442-9-0"><rect
+             style="fill:#000000;fill-opacity:1;fill-rule:nonzero"
+             y="460.51382"
+             x="335.16861"
+             height="53.033009"
+             width="218.49599"
+             id="rect6444-49-5" /></flowRegion><flowPara
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';fill:#000000;fill-opacity:1;fill-rule:nonzero"
+           id="flowPara6446-5-2">Language</flowPara><flowPara
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';fill:#000000;fill-opacity:1;fill-rule:nonzero"
+           id="flowPara12051">grounding</flowPara></flowRoot>    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#marker16349-8)"
+       d="m 571.59812,551.04637 c 1.06066,-53.01513 1.65341,-104.9061 -79.43837,-185.92898"
+       id="path6020-2-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097" />
+    <g
+       transform="translate(577.07284,-122.71062)"
+       id="g22605-5"
+       inkscape:export-xdpi="94.420097"
+       inkscape:export-ydpi="94.420097">
+      <rect
+         ry="0"
+         y="507.11023"
+         x="-111.25833"
+         height="17.878941"
+         width="112.96031"
+         id="rect6448-4-8-2"
+         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+         inkscape:export-xdpi="94.420097"
+         inkscape:export-ydpi="94.420097" />
+      <flowRoot
+         transform="translate(-504.92096,43.471317)"
+         style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         id="flowRoot6440-3-7-1"
+         xml:space="preserve"
+         inkscape:export-xdpi="94.420097"
+         inkscape:export-ydpi="94.420097"><flowRegion
+           id="flowRegion6442-9-0-5"><rect
+             style="fill:#000000;fill-opacity:1;fill-rule:nonzero"
+             y="460.51382"
+             x="335.16861"
+             height="53.033009"
+             width="218.49599"
+             id="rect6444-49-5-9" /></flowRegion><flowPara
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;fill-rule:nonzero"
+           id="flowPara12051-1">Speech requests</flowPara></flowRoot>    </g>
+  </g>
+</svg>

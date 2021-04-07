@@ -1,0 +1,109 @@
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\usepackage{xargs}   % Use more than one optional parameter in a new commands
+\usepackage{xcolor}  % Coloured text
+\usepackage{xspace}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{mathbbol}
+
+\usepackage{booktabs}
+
+\usepackage{listings}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+\newtheorem{theorem}{Theorem}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode} 
+% limit indentation in algorithms
+\algrenewcommand\algorithmicindent{1.0em}%
+\algnewcommand{\IIf}[1]{\State\algorithmicif\ #1\ \algorithmicthen}
+\algnewcommand{\EndIIf}{\unskip\ \algorithmicend\ \algorithmicif}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%	  TODO commands    %
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=olive,backgroundcolor=olive!25,bordercolor=olive,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=violet,backgroundcolor=violet!25,bordercolor=violet,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%	Knowledge bases    %
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand \kb{K}
+
+% Ontology definition
+
+\newcommand \kbs{\kb_S}
+\newcommand \Abox{\mathbb{A}}
+\newcommand \Tbox{\mathbb{T}}
+\newcommand \Rbox{\mathbb{R}}
+
+\newcommand \propset{P}
+\newcommand \classset{T}
+\newcommand \indivset{A}
+\newcommand \relationset{R}
+\newcommand \annotationset{E}
+
+\newcommand \domainset{Dom}
+\newcommand \rangeset{Ran}
+\newcommand \inclset{Incl}
+\newcommand \invset{Inv}
+\newcommand \inheritset{C}
+
+\newcommand \indiv{a}
+\newcommand \class{t}
+
+\newcommand \labelfunc {\mathcal{L}}
+\newcommand \alabel{\mathcal{L}_a}
+\newcommand \tlabel{\mathcal{L}_t}
+\newcommand \plabel{\mathcal{L}_p}
+\newcommand \alabelag[1]{\mathcal{L}_{a#1}}
+\newcommand \tlabelag[1]{\mathcal{L}_{t#1}}
+\newcommand \plabelag[1]{\mathcal{L}_{p#1}}
+
+\newcommand \subject{s}
+\newcommand \property{p}
+\newcommand \object{o}
+\newcommand \relation{r}
+
+\newcommand{\sparql}{\textsc{sparql}}
+
+% Timeline definition
+
+\newcommand \kbe{\kb_E}
+\newcommand \tinterval{\mathcal{T}}
+\newcommand \tstart{\tau_s}
+\newcommand \tend{\tau_e}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%	      REG          %
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand \goalindiv{\indiv_t}
+\newcommand \usablepropset{U}
+\newcommand \problem{\mathcal{P}}
+\newcommand \solution{\mathcal{S}}
+
+\newcommand \costfunc{\mathcal{C}}
+\newcommand \varset{X}
+\newcommand \var{x}
+
+\newcommand \cost{\mathbb{c}}
+\newcommand \node{\mathbb{n}}
+\newcommand \state{\mathbb{s}}
+\newcommand \action{\mathbb{a}}
+
+\newcommand \softdiff{\,\delta\,}
+\newcommand \harddiff{\,\Delta\,}
+
+\newcommand \symboltable{\mathcal{S}}
+\newcommand \matchtable{\mathcal{M}}
+
+\newcommand \us{$\mu$s\xspace}
