@@ -467,7 +467,7 @@ Analysing the corpus, we find that 8 target entity can referenced using only the
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.3]{figures/chapter4/GRED3.jpg}
-\caption{\label{fig:chap4_gred3} The 19\textsuperscript{th} scene of the GRED3 corpus~\cite{dale_2009_referring}. The target entity is the one marked the arrow.}
+\caption{\label{fig:chap4_gred3} The 19\textsuperscript{th} scene of the GRED3 corpus~\cite{dale_2009_referring}. The target entity is the one marked by the arrow.}
 \end{figure}
 
 To perform our analysis, we choose only one of the scene among the ones nedding the most attributes. This scene is the 19\textsuperscript{th} of the corpus, illustrated on Figure~\ref{fig:chap4_gred3}. Because the LF does not consider the types\footnote{The objects type are only added as a post process. This can explain why they use the spatiel relations while it is not necessary.}, the choose scene is only composed of cubes to give comparable solution. Even if we not compare with the simple cases, we can not that our algorithm resolves the scene requiring only the type in less than 100\us and those with the types and one attribute in less than 250\us.
@@ -478,9 +478,19 @@ Foa all the 20 scenes, setting the maximum length parameter to the optimal lengt
 
 \subsubsection{The optimized Graph Based Algorithm}
 
-\section{Proof of concept integration on a robotic system}
+The GBA~\cite{viethen_2013_graphs} has been a significant turning point in the REG field. We thus compare our algorithm with its more recent optimized version presented in~\cite{li_2017_automatically}. From an entities relations graph dedicated to the task, it aims at finding the lowest cost isomorphic subgraph containing the target entity. To do so, the GBA approach is based on a branch and bound algorithm. Once a first solution is found, any other branch that exceeds the cost of the current best-found solution is bounded. Such an algorithm thus needs to explore a large part of the graph if the optimal solution is not found early in the search.
 
-\section{Integration on a robotic system}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.7]{figures/chapter4/GBA.png}
+\caption{\label{fig:chap4_gba} The 4\textsuperscript{th} scene used in the user-study in~\cite{li_2016_spatial}. The target entity is the one marked by the red arrow.}
+\end{figure}
+
+Their algorithm has been tested on a corpus with 28 tabletop scenes~\cite{li_2016_spatial} as the one presented in Figure~\ref{fig:chap4_gba}. Each scene is composed of 15 cubes of different colors linked through spatial relations and only one of these cubes has to be referred to. To compare our algorithm on their corpus, we selected only one scene (the fourth represented in Figure~\ref{fig:chap4_gba}) and we have converted their graph into an ontology. On this unique scene, we have tested to generate a RE for each of the 15 cubes composing it. The GBA as well as our algorithm have found a solution for 10 cubes. Because the same costs on relations have been used, both algorithms have found the same solutions. The only difference is that our algorithm has added the objects types. In these 10 cases, our algorithm has performed faster with a factor of 29.4 on average. Because of their use of a branch and bound algorithm, the speed increase is more important for cases with many solutions. We go from a speed factor of 4 for 50\% of the cases, growing to 50 for 25\% of the cases, and reaching 130 at the maximum. For the other 5 cases where no solution is found, both algorithms detect the absence of a solution in a few milliseconds.
+
+The difference with the GBA is that the uniform cost search algorithm ensures the first found solution to be the optimal one. Moreover, because their approach does not use the entities types, we think that our approach should work even faster on knowledge bases containing entities with different types since we prioritize the use of the type. Such a test has not been performed as their algorithm can not manage other data than their corpus.
+
+\section{Proof of concept integration on a robotic system}
 
 \subsection{Verbalazing a referring expression}
 
