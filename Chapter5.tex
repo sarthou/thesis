@@ -84,6 +84,12 @@ In the previous applications of this thesis, we could use only one knowledge bas
 
 \section[Integrating planners]{Integrating task and communication planners}
 
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{figures/chapter5/integration.png}
+\caption{\label{fig:chap5_integration} The initial state (left) and final state (right) of a task where the robot has to explain to the human partner how to move the cubes to complete the task. In this situation, some cubes are too complex to explain. Pointing them could help in some cases. }
+\end{figure}
+
 %Since maintaining this external representation can be an heavy process, it is updated only when a communication action has to be evaluated.
 
 %The general workflow executed for each communication action encountered during the planning process consists of: 1) updating the external semantic KB of the human partner with the expected world state 2) identifying the objects to which to refer to in the communication 3) execute the REG for each of these objects 4) calculate the feasibility and the cost of the communication action according to the feasibility and the cost of each individual RE involved in the planned communication. Note that the examples used in this paper only involve one RE but the same method can be used for communications of type \textit{"give me X and Y"}. In this case, the external semantic KB is only updated once and both REG are executed on this KB.
@@ -99,7 +105,19 @@ In the previous applications of this thesis, we could use only one knowledge bas
 
 \subsection{Reduce the overall communication complexity}
 
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter5/results_case2.png}
+\caption{\label{fig:chap5_case2} The initial state (left) and final state (right) of a task where the robot has to explain to the human partner how to move the cubes to complete the task. In this situation, explaining C2 first then C3 is easier than the inverse. }
+\end{figure}
+
 \subsection{Compare with other communication means}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter5/results_case3.png}
+\caption{\label{fig:chap5_case3} The initial state (left) and final state (right) of a task where the robot has to explain to the human partner how to move the cubes to complete the task. In this situation, some cubes are too complex to explain. Pointing them could help in some cases. }
+\end{figure}
 
 \section{Integration in a robotic system}
 
