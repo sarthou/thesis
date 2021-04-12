@@ -186,28 +186,44 @@ Considering once again the same initial state but with the goal to invert the po
 \caption{\label{fig:chap5_case2} The initial state (left) and final state (right) of a task where the robot has to explain to the human partner how to move the cubes to complete the task. In this situation, explaining C2 first then C3 is easier than the inverse. }
 \end{figure}
 
-In this second case study, we show how estimation of communication can be used to reduce the complexity of global communication. We consider the initial state and the goal state represented in Figure~\ref{fig:chap5_case2}. Only cubes C2 and C3 should be moved. Our method finds the solution consisting in moving cube C2 first, then cube C3. With this order, cube C2 is referred by three relations: its type (\textit{i.e.} cube), the number on it and the colored area in which it is located. After that, the cube C3 can also be referred only by three relations being its type, its color and the colored area in which it is located. Considering the reverse order, this would have generated a more complex RE first for cube C3 with four relations: its type, its color, the number on it and the colored area in which it is located.
+In this second case study, we show how the estimation of communication can be used to reduce the complexity of global communication. We consider the initial state and the goal state represented in Figure~\ref{fig:chap5_case2}. Only cubes C2 and C3 should be moved. Our method finds the solution consisting of moving cube C2 first, then cube C3. With this order, cube C2 is referred by three relations: its type (\textit{i.e.} cube), the number on it and the colored area in which it is located. After that, the cube C3 can also be referred to only by three relations being its type, its color and the colored area in which it is located. Considering the reverse order, this would have generated a more complex RE first for cube C3 with four relations: its type, its color, the number on it and the colored area in which it is located.
 The solution chosen by our method communicates a sum of six relations rather than seven with the reverse order.
 
 \subsection{Compare with other communication means}
 
-In this last case study, we show how the estimation of verbal designation communication cost can be used to compare it with other communication means, here pointing. Now, we consider twelve cubes. The initial state and the goal state are represented on Figure~\ref{fig:chap5_case3}. Such a number of similar objects leads to long explanations to refer to certain cubes. Therefore, we aim the task planner to choose another means of communication to refer to cubes too difficult to explain verbally. The pointing action has a constant cost which is higher than a simple verbal communication but lower than a complex one (with three or more relations to verbalize). To exemplify the comparison with other communication means, the arrangement order is predefined in this setup.
+In this last case study, we show how the estimation of verbal designation communication cost can be used to compare it with other communication means, here pointing. Now, we consider twelve cubes. The initial state and the goal state are represented in Figure~\ref{fig:chap5_case3}. Such a number of similar objects leads to long explanations to refer to certain cubes. Therefore, we aim the task planner to choose another means of communication to refer to cubes too difficult to explain verbally. The pointing action has a constant cost which is higher than simple verbal communication but lower than a complex one (with three or more relations to verbalize). To exemplify the comparison with other communication means, the arrangement order is predefined in this setup.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter5/results_case3.png}
 \caption{\label{fig:chap5_case3} The initial state (left) and final state (right) of a task where the robot has to explain to the human partner how to move the cubes to complete the task. In this situation, some cubes are too complex to explain. Pointing them could help in some cases. }
 \end{figure}
-
-%The execution of the computed plan can be found in the video available at \url{https://youtu.be/3YnGh_t-UpY}. 
+ 
 The cubes C5 and C7 are chosen to be pointed instead of verbalized. Indeed, in the world states where these cubes need to be moved, verbal referring is considered to be too costly, thus a pointing motion is preferred. For example, the cube C5 in the initial situation needs a long and complex explanation that is: \textit{"take the black cube with the number two which is in the black area"}. Even in the case the pointing action takes more execution time, it could require less cognitive load for the human partner and so make the human action faster.
 
 Here, we see another benefit of our approach, it allows the planner to balance between the use of verbal communication actions, which can become complex in some states (hard to predict without a task planner), and other communication modalities. Here, balancing was done with other means of communication, but it could also be done with other actions such as a pick and place by the robot. In the task presented here, this has no advantage, because a pick and place by the robot would be slower than an explanation or a pointing and is more likely to fail.
 
 \section{Integration in a robotic system}
 
+The third case study has been implemented on a pr2 robotic platform. We extend the previously used architecture and integrate two new components as illustrated in Figure~\ref{fig:chap5_archi}. The execution of the third case can be found in the video available at \url{https://youtu.be/3YnGh_t-UpY}.
+
 \begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.6]{figures/chapter5/architecture.png}
 \caption{\label{fig:chap5_archi} The architecture used to validate the method. The knowledge bases are continuously kept up to date through the situation assessment. The task planner can query the REG to estimate the feasibility and cost of future communications. }
 \end{figure}
+
+The Symbolic task planner is HATP. It is requested by the supervision component which is able to manage the execution of the generated shared plan. The task planner can recover the initial state from the semantic knowledge base and update an ontology instance to represent the human future estimated knowledge base. In addition, it can request the generation of referring expression on a human planned ontology.
+
+The second newly integrated component is a motion planner and execution component. For now, it only provides to the supervision a pointing service and automatically chooses the arm to point with. However, it does not consider the obstacles.
+
+The geometrical situation assessment component has been changed from Robosherlock to a custom version of Toaster\footnote{https://github.com/sarthou/toaster}. It is the successor of the software SHARY~\cite{milliez_2014_framework}. It can take as input several perception modalities and merge them in a coherent geometric representation. For our implementation, we simply use AR-tags which give precise enough position and allow us to identify objects with UIDs. The table and other static elements of the environment are not perceived and provided as static elements. The three storage areas are neither perceived and described as 3D virtual areas. Thanks to these areas, Toaster is able to compute the fact \textit{isIn} for each of the cubes. From there, Toaster has been linked to Ontologenius to update the ontologies continuously. A representation of Toaster geometric environment is represented in Figure~\ref{fig:chap5_toaster}.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.70]{figures/chapter5/toaster.png}
+\caption{\label{fig:chap5_toaster} A visual representation in Rviz of the geometric state of the managed by Toaster. While the cubes are perceived with tags, the other elements are static.
+ }
+\end{figure}
+
+A major limitation of the current situation assessment component is that it can not perform perspective-taking. This means that even if it can represent the human as a particular entity, it can not estimate the state of the world from the human point of view\footnote{We can compute if an object is in the field of view of the human but not working with a physical motor, it can not take into account the occlusions.}. It is not a problem for our application since all the elements are visible for both agents and the entire interaction is performed around the table. Toaster thus updates the robot and human ontologies with the same facts.
