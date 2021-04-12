@@ -45,7 +45,7 @@ However, in most cases, deciding communication at execution time is not enough a
 
 A similar approach is proposed by Unhelkar et al. \cite{unhelkar_2020_decision} with more communication types considered: \textit{command}, \textit{ask}, \textit{inform} and \textit{answer}. This time, a communication cost is explicitly considered. However, the cost is related to the \textit{when} to communicate and not on the \textit{what}. It is represented by a function penalizing temporally close communication actions. Concerning the content, is is patterns including parameters replaced at execution time. For example, in the sentence \textit{“Please make the next sandwich at -landmark-.”} the sentence representing landmark will be resolved at execution. In their examples, every landmark is assumed to be easily referred to the human, but this is not always the case. Using the REG at task planning, our approach addresses two of the five challenges identified by Unhelkar et al.: "estimating benefit of communication" and "quantifying cost of communication"~\cite{unhelkar_2017_challenges}.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.25]{figures/chapter5/tellex.png}
 \caption{\label{fig:chap5_tellex} Illustration from \cite{tellex_2014_asking}.
@@ -88,7 +88,7 @@ The general scheme of our approach to enabling a symbolic task planner to estima
 
 During the task network decomposition, the general workflow executed for each communication action encountered consists of 1) updating the human planned ontology with the expected world state 2) identifying the objects involved in the communication 3) execute the REG for each of these objects 4) calculate the feasibility and the cost of the communication action according to the feasibility and the cost of each individual RE involved in the planned communication. Note that if multiple objects have to be referred to in single communication (e.g. \textit{"give me X and Y"}), the human planned ontology is only updated once as the estimated state in the same bor both REG.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.4]{figures/chapter5/integration.png}
 \caption{\label{fig:chap5_integration} A representation of the planning process with the estimation of future human mental states to perform REG. The ontology representing estimated human knowledge is first copied to plan it without altering the original one. The human and robot planning symbolic facts are extracted from their respective ontologies. During the HTN decomposition, for each verbal communication action encounter, the planned human ontology is updated with the current explored state and the REG is executed on it. }
@@ -101,7 +101,13 @@ In this section, we explain how a communication action is represented in the HTN
 
 To focus ourselves on communication actions, we have thus designed simple planning problems where only the robot knows the goal of a joint task and issues command to its human partner one at a time when the human has to do an action. Communications related to entities of the scene are thus needed in each step of the plan because the human has no way to guess the actions he has to perform. Even if these problems present major limitations regarding the \textit{when} to communicate it allows us to simply present our approach. However, the method is still applicable on more general problems which need to estimate the \textit{what} of communications and ensure their pertinence in future states. Moreover, the presented method is compatible with others focused on the estimation of the \textit{when} to communicate~\cite{devin_2016_implemented}, \cite{unhelkar_2020_decision}.
 
-In the HATP domain it is represented in the way that when an abstract or a primitive task is only feasible by a human and requires to designate a specific entity, a decomposition is added. In this decomposition, we specify that if the task is assigned to a human, a referring communication action must be done before by the robot to this human. This kind of decomposition is needed because we place ourselves in cases where the humans do not know the global objectives of the task, and thus, all the instructions must be given by the robot. With this approach, we consider that the human needs communication from the robot to act, and does not plan by themselves. In a more general case, the communication action from the robot would only appear if humans do not have the necessary information~\cite{devin_2016_implemented}.
+In the HATP domain it is represented in the way that when an abstract or a primitive task is only feasible by a human and requires to designate a specific entity, a decomposition is added. In this decomposition, we specify that if the task is assigned to a human, a referring communication action must be done before by the robot to this human. This kind of decomposition is needed because we place ourselves in cases where the humans do not know the global objectives of the task, and thus, all the instructions must be given by the robot. With this approach, we consider that the human needs communication from the robot to act, and does not plan by themselves. In a more general case, the communication action from the robot would only appear if humans do not have the necessary information~\cite{devin_2016_implemented}. An example of plan is represented in Figure~\ref{fig:chap5_plan}.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter5/plan.png}
+\caption{\label{fig:chap5_plan} An example of a plan generated by HATP where the robot instructs to take an object then place it in an area. Green actions are performed by the human while the bicolor actions involve both agents. }
+\end{figure}
 
 The communication action feasibility is then determined by both symbolic preconditions (e.g. the human and the robot are in the same room) and REG result (whether a solution is found or not). If the communication action is feasible, the cost of the communication action is then computed as the sum of a fixed cost depending on the type of communication and the REG solution cost. If multiple entities would have to be referred in a single communication, the cost would be the sum of each REG solution cost and the fixed cost.
 
@@ -113,22 +119,22 @@ Since maintaining this external representation can be a heavy process, we first 
 
 A first solution would be to create a copy of the planned ontology representing the initial state in order to have one ontology for each communication evaluation, all create from the initial state. Such a solution would reduce the planner complexity but as the ontology represent a superset of the planner facts base, it would be too time-consuming for the ontologies manager. For huge ontologies, analyzing the modification between two updates would be faster than an entire copy.
 
-To solve this problem we thus choose to use a versioning system on the ontology. This versioning system is the one proposed by the software Ontologenius presented in chapter \change{ref to chapter} \footnote{For the story of this thesis, this feature has initially been developed especially for this application after we had evaluated that a simple task would require few hours to be solved.}. We thus keep the first step that is to create the planned ontology with a copy then perform a commit on it to mark this initial state. From there, when a communication action is found, the planner goes back to the initial commit and update the ontology with the difference from the initial state. However, HATP is not adapted to keep such trace and it would require too many modifications in its internal structure. To passe over this problem, the planner performs a first commit to represent the initial state and extract the necessary knowledge from it. It then removes all the dynamic relations from the ontology a perform a second commit. It will represent a kind of pattern for each state involving a communication action. For each of them, the planner just has to go back to the commit representing this pattern and update all the dynamic relations with their values in the evaluated state. An example of a commit-graph related to this solution is represented in Figure~\ref{fig:chap5_versioning_simple}. Each commit thus represents a $\kbs^{H_i}$ on which a REG can be performed. The advantage here is that the knowledge backtracking is internally managed by Ontologenius and thus optimized.
-
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.3]{figures/chapter5/versioning_simple.png}
 \caption{\label{fig:chap5_versioning_simple} The commit-graph generated by Ontologenius for a plan with three communication action evaluated. Each evaluation generate a specific commit representing the state of the world at the moment of the communication. }
 \end{figure}
 
+To solve this problem we thus choose to use a versioning system on the ontology. This versioning system is the one proposed by the software Ontologenius presented in chapter \change{ref to chapter} \footnote{For the story of this thesis, this feature has initially been developed especially for this application after we had evaluated that a simple task would require few hours to be solved.}. We thus keep the first step that is to create the planned ontology with a copy then perform a commit on it to mark this initial state. From there, when a communication action is found, the planner goes back to the initial commit and update the ontology with the difference from the initial state. However, HATP is not adapted to keep such trace and it would require too many modifications in its internal structure. To passe over this problem, the planner performs a first commit to represent the initial state and extract the necessary knowledge from it. It then removes all the dynamic relations from the ontology a perform a second commit. It will represent a kind of pattern for each state involving a communication action. For each of them, the planner just has to go back to the commit representing this pattern and update all the dynamic relations with their values in the evaluated state. An example of a commit-graph related to this solution is represented in Figure~\ref{fig:chap5_versioning_simple}. Each commit thus represents a $\kbs^{H_i}$ on which a REG can be performed. The advantage here is that the knowledge backtracking is internally managed by Ontologenius and thus optimized.
+
 \subsection{Reducing the number of updates}
 
 A major limitation of the previous solution is the need to update all the dynamic relations even if few changes between communications. An unimplemented but feasible solution would be to update the ontology for each explored state during the planning process and create a commit for each of them. The advantage is that the backtracking has not to be managed by the task planner and only the modified relations have to be updated in the ontology. A commit-graph of such solution is represented in Figure~\ref{fig:chap5_versioning_advance}. Assuming this graph to represent the same task decomposition of the previous one, we see however that more commit have to be performed even if fewer modifications are performed between the two. For tasks with many communication actions, it could lead to a performance gain but for tasks with less communication, it would require more updates than needed as even decompositions without communication have to update the ontology.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.25]{figures/chapter5/versioning_advance.png}
-\caption{\label{fig:chap5_versioning_advance} The commit-graph generated by Ontologenius for a plan with three communication action evaluated. Each evaluation generate a specific commit representing the state of the world at the moment of the communication. }
+\caption{\label{fig:chap5_versioning_advance} The commit-graph generated by Ontologenius for a plan with three communication action evaluated. Each exploraed state, with ou without communication action, generates a specific commit representing the state of the world at the moment of the action. }
 \end{figure}
 
 From the planner point of view, it would just have to assign UID to each state and created a commit using these UIDs. When backtracking, it would just have to checkout the ontology with the UID of the state to explore.
@@ -136,27 +142,71 @@ From the planner point of view, it would just have to assign UID to each state a
 
 \section{Results}
 
+In this section, we present three case studies. The two first ones are run in simulation only minimalist setups. They respectively show that the estimation of the communication content during the task planning 1) can prevent from execution dead-end and 2) can reduce the global communication complexity during the task. The third case study is run on a PR2 robot. It shows that our method makes it possible to compare different means of communication and to choose the most appropriate. The integration in the robotic architecture is presented in the next section.
+
+All the three cases studies are based on a cube arrangement task in the same principle of the RFID tag arrangement presented in introduction. The human can only distinguish the cubes by their color and the digit written on them (one or two) if there is one. Three colored storage areas are cover the entier surface of the table. An object is thus always in one of the areas. The area in which the cube is an aditional information usable for the communication. The more complet RE is of the kind of: \textit{"the green cube with the number 2 which is in the black area"}. For the three cases, only the robot knows the goal configuration but can not manipulate them. It thus has to guide the human in the arrangement task. The robot can only point the cubes in the third case study. In the first two, he can only use verbal communication.
+
 \subsection{Prevent execution dead-end}
+
+In this first case study, we consider the introduction example recall in Figure~\ref{fig:chap5_case1} with the initial state (left) and final state (right). The cube C1 has to be moved from the red area to the black area. The cube C2 has to be moved from the black area to the white area. The cube C3 does not have to be moved.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter5/results_case1.png}
+\caption{\label{fig:chap5_case1} The initial state (left) and final state (right) of a task where the robot has to explain to the human partner how to move the cubes to complete the task. In this situation, explaining C2 first then C1 avoids a dead-end. }
+\end{figure}
+
+Taking into account the cost and the feasibility of the communication, we found with our method the plan of listing~\ref{lst:chap5_case1}. Cube C2 is moved first then the cube C1. Doing the inverse order, after moving C1, the two cubes would be in the black area at the same time. Such a situation would cause a dead-end during the execution of the plan or at least require complex communication. Actions prefixed with HR are performed simultaneously by the robot and the human while the actions prefixed by H are only performed by the human. As a comment of each action are the relations to communicate.
+
+\begin{lstlisting}[frame=single, basicstyle=\scriptsize\ttfamily, label={lst:chap5_case1}, caption={The obtained plan for the first case study where cube C1 must be moved from the red to the black area and cube C2 moved from the black to the white area. The lines beginning with H represent the actions of the human and the lines beginning with HR represent actions involving the human and the robot (communication actions). In green are the REG results for each communication action.}, captionpos=b, style=HatpPlan]
+HR - TellHumanToTake(C2) // (C2, isA, Cube), (C2, isIn, area_black), 
+                         // (area_black, isA, Area), 
+                         // (area_black, hasColor, black)
+H  - Take(C2)
+HR - TellHumanToPlace(C2, area_white) // (area_white, isA, Area),
+                                      // (area_white, hasColor, white)
+H  - Place(C2, area_white)
+HR - TellHumanToTake(C1) // (C1, isA, Cube), (C1, isIn, area_red), 
+                         // (area_red, isA, Area), (area_red, hasColor, red)
+H  - Take(C1)
+HR - TellHumanToPlace(C1, area_black)  // (area_black, isA, Area),
+                                       // (area_black, hasColor, black)
+H  - Place(C1, area_black)
+\end{lstlisting}
+
+Considering once again the same initial state but with the goal to invert the positions of the two cubes, if the communication cost and feasibility are not taken into account during planning, both actions directly leading to the goal state (\textit{i.e.} cube C1 moved to the black area or cube C2 to the red area) will lead to a dead-end at plan execution. To solve this situation, the task planner chooses to add a supplementary action. It consists of putting the cube C1 in the white area that then leads to a problem similar to the previous one. This additional action avoids a dead-end by making communication about cube C2 feasible. Another solution could have been to move C2 in the white area first, leading once again to a situation comparable to the previous one.
+
 
 \subsection{Reduce the overall communication complexity}
 
-\begin{figure}[h!]
+
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter5/results_case2.png}
 \caption{\label{fig:chap5_case2} The initial state (left) and final state (right) of a task where the robot has to explain to the human partner how to move the cubes to complete the task. In this situation, explaining C2 first then C3 is easier than the inverse. }
 \end{figure}
 
+In this second case study, we show how estimation of communication can be used to reduce the complexity of global communication. We consider the initial state and the goal state represented in Figure~\ref{fig:chap5_case2}. Only cubes C2 and C3 should be moved. Our method finds the solution consisting in moving cube C2 first, then cube C3. With this order, cube C2 is referred by three relations: its type (\textit{i.e.} cube), the number on it and the colored area in which it is located. After that, the cube C3 can also be referred only by three relations being its type, its color and the colored area in which it is located. Considering the reverse order, this would have generated a more complex RE first for cube C3 with four relations: its type, its color, the number on it and the colored area in which it is located.
+The solution chosen by our method communicates a sum of six relations rather than seven with the reverse order.
+
 \subsection{Compare with other communication means}
 
-\begin{figure}[h!]
+In this last case study, we show how the estimation of verbal designation communication cost can be used to compare it with other communication means, here pointing. Now, we consider twelve cubes. The initial state and the goal state are represented on Figure~\ref{fig:chap5_case3}. Such a number of similar objects leads to long explanations to refer to certain cubes. Therefore, we aim the task planner to choose another means of communication to refer to cubes too difficult to explain verbally. The pointing action has a constant cost which is higher than a simple verbal communication but lower than a complex one (with three or more relations to verbalize). To exemplify the comparison with other communication means, the arrangement order is predefined in this setup.
+
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter5/results_case3.png}
 \caption{\label{fig:chap5_case3} The initial state (left) and final state (right) of a task where the robot has to explain to the human partner how to move the cubes to complete the task. In this situation, some cubes are too complex to explain. Pointing them could help in some cases. }
 \end{figure}
 
+%The execution of the computed plan can be found in the video available at \url{https://youtu.be/3YnGh_t-UpY}. 
+The cubes C5 and C7 are chosen to be pointed instead of verbalized. Indeed, in the world states where these cubes need to be moved, verbal referring is considered to be too costly, thus a pointing motion is preferred. For example, the cube C5 in the initial situation needs a long and complex explanation that is: \textit{"take the black cube with the number two which is in the black area"}. Even in the case the pointing action takes more execution time, it could require less cognitive load for the human partner and so make the human action faster.
+
+Here, we see another benefit of our approach, it allows the planner to balance between the use of verbal communication actions, which can become complex in some states (hard to predict without a task planner), and other communication modalities. Here, balancing was done with other means of communication, but it could also be done with other actions such as a pick and place by the robot. In the task presented here, this has no advantage, because a pick and place by the robot would be slower than an explanation or a pointing and is more likely to fail.
+
 \section{Integration in a robotic system}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.6]{figures/chapter5/architecture.png}
 \caption{\label{fig:chap5_archi} The architecture used to validate the method. The knowledge bases are continuously kept up to date through the situation assessment. The task planner can query the REG to estimate the feasibility and cost of future communications. }
