@@ -14,7 +14,7 @@
    viewBox="0 0 210 297"
    version="1.1"
    id="svg1155"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="integration.svg">
   <defs
      id="defs1149">
@@ -176,16 +176,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.5"
-     inkscape:cx="582.11744"
-     inkscape:cy="378.85424"
+     inkscape:zoom="0.35355339"
+     inkscape:cx="1203.9639"
+     inkscape:cy="342.00219"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="1022"
+     inkscape:window-width="1920"
+     inkscape:window-height="1026"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="865"
      inkscape:window-maximized="1"
      showguides="false" />
   <metadata
@@ -196,7 +196,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1590,7 +1590,7 @@
          id="flowPara2130-8-6-5"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella Bold';text-align:center;text-anchor:middle">Task Network</flowPara><flowPara
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella Bold';text-align:center;text-anchor:middle"
-         id="flowPara7577">exploration</flowPara></flowRoot>    <flowRoot
+         id="flowPara7577">decomposition</flowPara></flowRoot>    <flowRoot
        transform="matrix(0.26458333,0,0,0.26458333,-62.039706,47.640558)"
        xml:space="preserve"
        id="flowRoot1795-9-4-0-8-8"
