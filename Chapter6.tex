@@ -60,15 +60,62 @@ To the best of our knowledge, few works exist on the representation of an HTN an
 
 \section{Structuring and gathering the knowledge}
 
+In this section, we present first the main knowledge structures necessary to perform the extended REG through shared knowledge about past Human-Robot collaborative activity. We continue with an overview of the robotic architecture allowing us to acquire this knowledge, to understand the knowledge to be acquired offline and those to be acquired during the interaction. We end this section with the proposed terminology to represent HTN and HETs in the ontology.
+
 \subsection{The three used knowledge representation}
+
+Three knowledge representations are used and can be grouped into two categories: the dynamic and static ones. The dynamic part is updated all along the course of action, it is defined as $\kb = \langle \kbs, \kbe \rangle$ with $\kbs$ the semantic part already presented and $\kbe$ the episodic part. The static knowledge base represents the planning domain as a Hierarchical Task Network (HTN).
 
 \subsubsection{The Hierarchical Task Network}
 
-\subsubsection{The semantic knowledge base}
+In the previous chapter, we saw that an HTN is a way of representing a task to be planned, meaning to be fully refined and instantiated. In the present section, we go deeper into the HTN and give a more formal definition based on~\cite{erol_1994_htn}.
 
-\subsubsection{The episodic knowledge base}
+An HTN, noted $\HTN$, is defined as a set of tasks $\tasknetwork$. A task $\task$ is represented by a task name associated with a list of typed arguments. Taking the HTN illustrated in Figure~\ref{fig:chap6_domain}, the task \textit{cut} has the arguments \textit{A, V, K}, which are respectively an agent, a vegetable, and a knife. The general term task can be refined into \textbf{primitive task} ($\task \in \primtaskset$ with $\primtaskset$ the set of primitive tasks) or \textbf{abstract task} ($\task \in \abstaskset$ with $\abstaskset$ the set of abstract). A task is said to be primitive if it does not need refinement meaning that it can directly be executed by the robot or by a higher-level component\footnote{Primitive tasks usually have preconditions and effects, we are not describing in this thesis as not used.}. An abstract task needs further decomposition and can not be executed by the robot. In Figure~\ref{fig:chap6_domain}, \textit{PrepareSalad()} is an abstract task while \textit{cut(A,V,K)} is a primitive task.
+
+Then, we define the set of decompositions $\decomposet$. A decomposition is a pair $(\abstracttask, \tasknetwork) \in \decomposet$ where $\abstracttask \in \abstaskset$ is an abstract task and $\tasknetwork$ a set of tasks describing one way of decomposing $\abstracttask$. In Fig.~\ref{fig:chap6_domain}, the abstract task \textit{PrepareVegetable(A,K,V)} has two decompositions \textit{d8} and \textit{d9}. Moreover, among the tasks set of a decomposition, can be enrich with a precedence order in which the tasks have to be performed. For example, in Figure~\ref{fig:chap6_domain}, the tasks \textit{peel(A, V, K)} and \textit{peel(A, V, K)} are totally ordered under the decomposition \textit{d8}. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter6/domain.png}
+\caption{\label{fig:chap6_domain} The  domain of the high-level task \textit{PrepareMeal}. It is used by the planner (HATP) to elaborate a Human-Robot shared plan through a context-based decomposition and parameter instantiation process (which vegetable V, which knife K, ...) including the selection of which agent A (Tony the human, or PR2 the robot) abstract tasks and/or primitive tasks will be allocated.}
+\end{figure}
+
+Given an initial world state and an initial task to decompose, a planner such as HATP elaborates a plan through successive decompositions from the initial task and respecting the constraints issued by the initial world state. A resulting plan is a sequence of primitive tasks. The planner thus tries to recursively select a decomposition for each abstract task encountered until it reaches primitive tasks. Besides, the planner has to ground every argument of the tasks into entities of $\Abox$ (the Abox of the knowledge base $\kbs$) while respecting constraints regarding their types.
+
+\subsubsection{The semantic and episodic knowledge bases}
+
+The semantic knowledge base $\kbs$ is still an ontology as described earlier. The episodic knowledge base $\kbe$ is a timeline also called datebase~\cite{allen_1983_maintaining}. It maintains temporal reference for every fact that varies in time. Representing only the changes, we can assume that a fact holds between two changes.
+
+We defined it as a pair $\kbe = ( \{ \langle \relation, \tau \rangle \}, \{ \langle \taction, \tinterval \rangle \} )$. The first element is a set of time-stamped relations like a classical datebase. The second element aims at representing the performed tasks. It is a set of pairs with $\taction$ an instance of a task and $\tinterval$ a temporal interval composed of two numerical values. The tasks defined in $\kbe$ are also represented as entities of $\kbs$ ($\taction \in \indivset$). Since they are semantically represented in $\kbs$ we can, inter alia, retrieve their types or arguments.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.55]{figures/chapter6/ke.png}
+\caption{\label{fig:chap6_ke} An example of timeline. In blue the performed tasks with their intervales and in red the relations changes.}
+\end{figure}
+
+Since we address HRI applications, in the same way, it has been done previously with the semantic knowledge base, we consider that the robot maintains a semantic and episodic knowledge base per human it is interacting with ($\kbs^{Hi}$ and $\kbe^{Hi}$ ) in addition to its own ($\kbs^{R}$ and $\kbe^{R}$). While the robot's own knowledge base is its personal truth, the agents' knowledge bases represent its estimation of the knowledge of its human partners.
 
 \subsection{The knowledge gathering scheme}
+
+We give now an overview of how the three knowledge bases are interconnected and how the semantic and episodic ones are updated. A minimal robotic architecture allowing the gathering of the necessary information is represented in Figure~\ref{fig:chap6_architecture}.
+
+First of all, the task decomposition description stored as an HTN is parsed offline. We aim at extracting from it a semantic description of the tasks composing it (abstracts and primitives), their parameters, and their hierarchical links through the decompositions. All these descriptions are then stored into the ontology as classes and properties (dotted arrow on Fig.~\ref{fig:chap6_architecture}) in order to ground future executions traces.
+
+Once the ontology initialized with a common ground of which the description of the planning domain is part, we can start the interaction. During the interaction, the situation assessment updates the semantic knowledge base of each agent with relations to the entities of the environment. Upon receipt of these facts, the semantic knowledge base temporally stamps them and stores them in the episodic knowledge base. Because it can also infer new facts thanks to the reasoning mechanisms, these inferred facts are also temporally stamped and stored in the episodic knowledge base\footnote{For now only the performed tasks will be used to generate the REs but we still wanted to have a more general scheme to understand the context in which we want to use it.}.
+
+On request of the supervision module, the HTN planner takes its initial world state from the ontologies of the involved agents (1A) and generates a shared plan (1B). During the execution of the shared plan, the supervision describes the performed tasks semantically (detailed in the following subsection) (2A) and stamps them in the timeline (2B) with their respective begin and end times. While it knows the tasks performed by the robot, it needs to gather data from the episodic knowledge base of the human partner (2C), to monitor their tasks. The descriptions of the tasks are not stored in the episodic knowledge bases as not having any temporal mean. It would be nonsense to say that a task has a given parameter at a given time. We first describe it as having parameters on one side (2A) and then we describe when the task has been performed on the other side (2B). 
+
+Upon a REG request from the supervision, the REG component explores the listener's both sematic and episodic knowledge bases (3) and returns the generated RE (4).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{figures/chapter6/architecture.png}
+\caption{\label{fig:chap6_architecture} A "minimal" robotic architecture (on the base of the one of figure~\ref{fig:chap5_archi}) allowing to acquire and store the knowledge necessary to perform a REG using the past human-robot activities. The dotted arrow represents an offline acquisition. The other arrows are online interactions between the components. The numbering represents the execution order during the execution of a task.
+The robot knowledge bases ($\kbs^{R}$ and $\kbe^{R}$) and the estimated mental states of its human partners ($\kbs^{Hi}$ and $\kbe^{Hi}$) are updated permanently by the Situation Assessment component which tracks changes in the environment and by the robot supervisor which controls robot planning and execution activities and monitors humans actions.}
+\end{figure}
+
+When the supervision component inserts the executed tasks in the semantic knowledge base, it thus creates a hierarchical execution trace (HET). The execution trace can differ from the initial plan since it can be the result of plan repair or re-planning steps within the same global task achievement. The HET thus contains the actions which have been performed and their link to the higher level of abstraction. No forgetting mechanism is concidered since we focus on "short" interactions (few hours) but adding one would avoid the knowledge bases to grow indefinitely and also represent the human forgetting mechanism. This could be for future work.
 
 \subsection{Building the ontology}
 
@@ -76,7 +123,7 @@ To the best of our knowledge, few works exist on the representation of an HTN an
 
 \subsubsection{HET in ontology}
 
-\section{Modifying the REG algorithm to support the past experiences}
+\section[REG algorithm modifications]{Modifying the REG algorithm to support the past experiences}
 
 \section{Results}
 
