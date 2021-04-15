@@ -119,7 +119,86 @@ When the supervision component inserts the executed tasks in the semantic knowle
 
 \subsection{Building the ontology}
 
+The aim of the following representation is not for planning per se (since this is done by the human-aware task planner) but rather to allow to store and manipulate a description of the execution of the human-robot shared plans together with their hierarchical structure and the information provided by the situation assessment component.
+What is provided is the hierarchical task decomposition together with a semantic description of the entities used as tasks parameters, their properties, and relations to other entities in the environment. Moreover, the descriptions presented below are automatically generated from a HATP domain and plan description~\cite{lallement_2014_hatp}.
+
 \subsubsection{HTN in ontology}
+
+An HTN represents the general knowledge about how to decompose high-level abstract tasks into executable primitive tasks. Since it is a piece of general knowledge, we represent it in the TBox and the RBox of the ontology. It allows instantiating the executed plan as individuals of the ontology.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{figures/chapter6/tbox_base.png}
+\caption{\label{fig:chap6_tbox_base} The upper classes used to decribe an HTN.}
+\end{figure}
+
+We first define the classes and properties common to any HTN representation.
+As illustrated on Figure~\ref{fig:chap6_tbox_base}, the upper class in the TBox to describe an HTN is \textbf{HtnConcept} from which inherit the classes \textbf{HtnDecomposition} and \textbf{HtnTask}. The HtnTask class is then refined into \textbf{HtnAbstractTask} and \textbf{HtnPrimitiveTask}.
+The RBox is composed without hierarchy of the properties \textbf{hasDecomposition}, \textbf{hasSubtask}, \textbf{hasParameter}, and their inverse (e.g. $(hasParameter, isParameterOf) \in \invset$). The property $hasDecomposition$ links an abstract task to its decompositions. The property $hasSubtask$ links a decomposition to the tasks (primitive or abstract) composing it. The property $hasParameter$ links a task to any other entity.
+
+To represent an HTN $\HTN$ we thus create in the ontology a new class $\class$ for each :
+\begin{enumerate}
+	\item primitive task $\task$ such as 
+$\task \in \primtaskset \Leftrightarrow \class \in \classset \wedge (\class,\ HtnPrimitiveTask) \in H$.
+	\item abstract task $\abstracttask$ such as $\abstracttask \in \abstaskset \Leftrightarrow \class \in \classset \wedge (\class,\ HtnAbstractTask) \in H$.
+	\item decomposition $\decompo$ such as $\decompo \in \decomposet \Leftrightarrow \class \in \classset \wedge (\class,\ HtnDecomposition) \in H$.
+\end{enumerate}
+
+For each decomposition $\decompo$ we describe the following relations using annotation properties:
+\begin{enumerate}
+	\item A decomposition come from an abstract task such as $\abstracttask \in \tasknetwork \Leftrightarrow (\abstracttask,\ hasDecomposition,\ \decompo) \in \annotationset$
+	\item A decompositions has sub-tasks such as $\decompo \in \decomposet \Leftrightarrow (\decompo,\ hasSubtask,\ \task) \in \annotationset$.
+\end{enumerate}
+
+To put it into practice , let us consider the abstract task \textit{PrepareVegetable} of the domain illustrated in Figure~\ref{fig:chap6_domain}. The generated OWL representation of the listing~\ref{lst:chap6_owl_domain} is first composed of the \textit{PrepareVegetable} class inheriting from the \textit{HtnAbstractTask} concept. Through the use of the property \textit{hasDecomposition}, we state that the task has two decompositions being \textit{PVDecomp\_A} and \textit{PVDecomp\_B}. To refine these decomposition, we than create the \textit{PrepareVegetableDecomp} class inheriting from the \textit{HtnDecomposition} concept. It will be use to group all the decomposition of the \textit{PrepareVegetable} abstract task. Considering the fisrt decomposition (\textit{d8} on Figure~\ref{fig:chap6_domain}), we create a new class for it. The class \textit{PVDecomp\_A} thus inherite of \textit{PrepareVegetableDecomp}. This decomposition is composed of two sub-tasks \textit{Cut} and \textit{Peel}.  However, to keep track of the fact that thay have to be executed in the context of the said decomposition we refine them. We define \textit{Cut\_PVDecomp\_A} and \textit{Peel\_PVDecomp\_A} respectively inheriting of the primitives tasks \textit{Cut} and \textit{Peel}. With the property \textit{hasSubtask} we then describe that \textit{PVDecomp\_A} has two sub-tasks \textit{Cut\_PVDecomp\_A} and \textit{Peel\_PVDecomp\_A}.
+
+Even if a task is used several times in the same HTN, it will be described only once.
+
+\begin{lstlisting}[frame=single, basicstyle=\scriptsize\ttfamily, label={lst:chap6_owl_domain}, caption={Description of the abstract task PrepareVegetable and one of its decomposition in the OWL language using the Turle syntax.},captionpos=b, style=OwlTurtle]
+:PrepareVegetable rdf:type owl:Class ;
+                  rdfs:subClassOf :HtnAbstractTask ;
+                  :hasDecomposition :PVDecomp_A ;
+                  :hasDecomposition :PVDecomp_B .
+
+:PrepareVegetableDecomp rdf:type owl:Class ;
+                        rdfs:subClassOf :HtnDecomposition .
+
+:PVDecomp_A rdf:type owl:Class ;
+            rdfs:subClassOf :PrepareVegetableDecomp ;
+            :hasSubtask :Cut_PvDecomp_A ;
+            :hasSubtask :Peel_PvDecomp_A .
+
+:Cut_PvDecomp_A rdf:type owl:Class ;
+                rdfs:subClassOf :Cut .
+\end{lstlisting}
+
+In the latter description we have only represented the hierarchy of the tasks. We now need to specify the parameters of each task. They are represented using the upper property \textit{hasParameter}. At the difference to se ones used to describe the hierarchy, these aim to be used to instantiate executed tasks. Indeed, this property is first refined into several ones, being \textit{hasParameter.i} with $i \in \mathbb{N}$. This refinement level describes the position of each parameter in the tasks arguments list. We thus have hasParameter.0 the property for the first parameter of an argument list, hasParameter.1 the property for the second one, etc. These refinements are independent of the translated HTN.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{figures/chapter6/rbox_params.png}
+\caption{\label{fig:chap6_rbox_params} The properties hierarchy for the parameters of the \textit{Cut} task.}
+\end{figure}
+
+Each of these properties is then refined and specified for every task of the HTN to describe. This second specification aims at representing the parameters with their name in the task parameters list, their position isn the parameter list, and the type of entities they can be bounded to. Taking the example of the primitive task \textit{Cut} of Figure~\ref{fig:chap6_domain}, the generated description is presented in listing~\ref{lst:chap6_owl_params}. The parameter \textit{A} of the \textit{Cut} task is at position 0 of the parameter list. We thus define the property \textit{Cut\_hasParameter.A} as a refinement of the property \textit{hasParameter.0}. The resulting hierarchy is illustrated on Figure~\ref{fig:chap6_rbox_params} pour the parameters of the \textit{Cut} task. The parameter \textit{Cut\_hasParameter.A} aims at representing the agent performing the task. Consequently, the property has to link an \textit{Cut} task to an agent. We represent it respectively with the domain and the range of the property. The same process is performed for every parameter of each task.
+
+\begin{lstlisting}[frame=single, basicstyle=\scriptsize\ttfamily, label={lst:chap6_owl_params}, caption={Description of the \textit{hasParameter} property specifications for the parameters (resp. the agent performing the task, the cut vegetable, and the used knife) of the \textit{Cut} primitive task in the OWL language using the Turle syntax.},captionpos=b, style=OwlTurtle]
+:Cut_hasParameter.A rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :hasParameter.0 ;
+                    rdfs:domain :Cut ;
+                    rdfs:range :Agent .
+
+:Cut_hasParameter.V rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :hasParameter.1 ;
+                    rdfs:domain :Cut ;
+                    rdfs:range :Vegetable .
+
+:Cut_hasParameter.K rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :hasParameter.2 ;
+                    rdfs:domain :Cut ;
+                    rdfs:range :Knife .
+\end{lstlisting}
+
 
 \subsubsection{HET in ontology}
 
