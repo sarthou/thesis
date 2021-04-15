@@ -199,8 +199,38 @@ Each of these properties is then refined and specified for every task of the HTN
                     rdfs:range :Knife .
 \end{lstlisting}
 
-
 \subsubsection{HET in ontology}
+
+As explained with the gathering scheme, the HTN planner (here HATP) generates a hierarchical plan for a given human-robot collaborative task that is then executed by the robot and its human partner. Whenever a task (abstract or primitive) is executed by the robot or its execution by the human is perceived, its description is inserted in the agents' KBs. These executed tasks are thus instances of tasks and have to be grounded to the HTN described in the ontology.
+
+\begin{lstlisting}[frame=single, basicstyle=\scriptsize\ttfamily, label={lst:chap6_owl_plan}, caption={A partial description of the initiation of a decomposition of a PrepareVegetable task and its primitive Cut task resulting from a plan and linked to the description of the domain. Description is provided in the OWL language using the Turle syntax.},captionpos=b, style=OwlTurtle_indiv]
+:pv_3 rdf:type owl:NamedIndividual ;
+      rdf:type :PrepareVegetable ;
+      :hasDecomposition :decomp_pv_3 .
+
+:decomp_pv_3 rdf:type owl:NamedIndividual ;
+             rdf:type :PVDecomp_A ;
+             :hasSubtask :peel_5 ;
+             :hasSubtask :cut_7 .
+
+:cut_7 rdf:type owl:NamedIndividual ;
+       rdf:type :Cut_PVDecomp_A ;
+       :Cut_hasParameter.A :tony ;
+       :Cut_hasParameter.V :c1 ;
+       :Cut_hasParameter.K :k2 ;
+\end{lstlisting}
+
+To explain how the task instances are described in the ontology, let us take the example of an agent executing a decomposition of the abstract task \textit{PrepareVegetable}. A partial representation of this instance is represented in the listing~\ref{lst:chap6_owl_plan} and drawn on Figure~\ref{fig:chap6_abox}.
+
+The human partner has performed \textit{decomp\_pv\_3}, an instance of the decomposition \textit{PVDecomp\_A} being the first decomposition of the abstract task \textit{pv\_3} that is a \textit{PrepareVegetable} abstract task. \textit{pv\_3} is thus an insatnce of the class \textit{PrepareVegetable} and \textit{decomp\_pv\_3} and instance of the class \textit{PVDecomp\_A}. We use the property \textit{hasDecomposition} to state that \textit{pv\_3} has been acheived with the decomposition \textit{decomp\_pv\_3}. Then, with the property \textit{hasSubtask}, we describe that \textit{decomp\_pv\_3} is composed of two instantiated sub-tasks \textit{peel\_5} and \textit{cut\_7}.
+
+The primitive task \textit{cut\_7} is a \textit{Cut} task but has been acheived in the context of the first edcomposition of the abstract task \textit{pv\_3}. The individual \textit{cut\_7} thus inherite of the class  \textit{Cut\_PVDecomp\_A}. Because the \textit{Cut} task has three parameters, they have to be instantiated. To do so, we use the made refinements of the property \textit{hasParameter}. Here the task has been performed by the human \textit{tony} how has cut the cucumber \textit{c1} with the knife \textit{k2}. The instance \textit{cut\_7} is linked with \textit{tony} through the property \textit{Cut\_hasParameter.A}, with \textit{c1} the property \textit{Cut\_hasParameter.V}, and with \textit{k2} the property \textit{Cut\_hasParameter.K}. All these instances conrespond to the range of each property being respectively an agent, a vegetable, and a knife. The same process should be done for the primitive task \textit{peel\_5}. Moreover, the abstract task \textit{PrepareVegetable} having also three parameters, we should also link \textit{pv\_3} with its instantiated parameters.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter6/abox.png}
+\caption{\label{fig:chap6_abox} A graphical representation of the instance of a decomposition of the abstract task \textit{PrepareVegetable}.}
+\end{figure}
 
 \section[REG algorithm modifications]{Modifying the REG algorithm to support the past experiences}
 
