@@ -234,10 +234,57 @@ The primitive task \textit{cut\_7} is a \textit{Cut} task but has been acheived 
 
 \section[REG algorithm modifications]{Modifying the REG algorithm to support the past experiences}
 
+Now the Hierarchical Execution Traces are described in the ontology, we present in this section how we have modified the original Uniform Cost Search (UCS) REG algorithm to make it able to use this new knowledge.
+
+The first assumption we made to use tasks in a REG solution is that for each task involved in the solution, all its parameters must be part of the solution. This constraint to get all the parameters of a task is important for linguistic realization. If this constraint were not satisfied, we could have results where even the agent having performed the task would not be referred\footnote{This constraint could be an important limitation. It will be discussed in an exploratory work in the next chapter.}.
+
+\begin{theorem} [The complete instantiation]
+\label{the:complete_intance}
+For any task $\task$ appearing in a RE, all its parameters $\property \in \propset | (\property,\ hasParameter) \in \inclset \wedge (\property, \task) \in \domainset$ must exist in the solution.
+\end{theorem}
+
+The $\goaltest$ function which assesses if a node is a goal is modified according to this constraint. In addition to test if $\mathcal{M}(\var_t) = \goalindiv$, it checks if every past tasks used in $\mathcal{T}$ are assigned with all their parameters.
+
+Now we can test if a goal node involves all the parameters of a task, we expand the function finding new actions for the UCS algorithm. To not confuse the reader between the actions of the UCS and the actions that a robot can perform, we will rather use the term "addition" to speak about relations that can be added to a candidate RE in order to find a solution. We thus adapt the $\additions$ function to explore past tasks and their parameters (Alg.~\ref{alg:chap6_additions}).
+
+\begin{algorithm}[htb!]
+\caption{\label{alg:chap6_additions} The modified $\additions$ function with the two newly introduced sub-functions}
+
+\begin{algorithmic}
+
+    \Function{\additions}{$node$} 
+        \State $sucess, additions\leftarrow$ \typingadditions($node$)
+        \If{$sucess = True\ and\ additions \neq \emptyset$}
+            \Return $additions$
+        \EndIf
+        
+        \State $additions\leftarrow$ \completionadditions($node$) \Comment{new introduced function}
+        
+        \If{$additions \neq \emptyset$}
+            \Return $additions$
+        \EndIf
+        
+        \State $additions\leftarrow$ \actingadditions($node$) \Comment{new introduced function}
+        \State $additions\leftarrow additions\ \cup$ \differenceadditions($node$) 
+        
+        \Return $additions$
+    \EndFunction
+    
+\end{algorithmic}
+\end{algorithm}
+
+While the $\differenceadditions$ aims at exploring relations that differ from other ambiguous entities, the $\actingadditions$ complements it by exploring the tasks in which the ambiguous entities involved in the candidate RE are part of. In the latter, for each variable $\var_i$ of $\mathcal{M}$ having several substitutions, we search in $\kbs$ all relations involving the anonymous entity $\indiv_i$ and an abtract or primitive task. This means tha we are looking all the relations $\relation = (\indiv_i,\ \property,\ \indiv_{task}) \in \relationset\ |\ (\property,\ isParameterOf) \in \inclset \wedge (\indiv_{task}, HtnTask) \in \inheritset$.
+
+The second added function, $\completionadditions$, aims at making the RE valid. It ensures that any task used in a candidate RE has all its parameter inserted in that RE. For every task $\indiv_{task}$ used in a relation of $\mathcal{T}$ we search in $\relationset$ all the relations of having for subject $\indiv_{task}$ and for predicate a property inheriting from $hasParameter$. Among all these relations, we add to the possible additions of the current node the once not present in $\mathcal{T}$.
+
+Regarding the order in which the functions of additions are performed, we always start with the ones aiming to make the candidate RE valid. First, we try to type any anonymous entity. If typing additions have been found or some should have been found but were not, the function stop here. In the case where some have been found we thus type the anonymous entities. In the other case, not additions will be generated and the explored branch will be disused. If every anonymous entity is already typed, we try to complete the tasks involved in the candidate RE. If additions have to be done, we stop here and return them. By the way, this means that the next evaluation of this candidate RE, the newly introduced entity will be typed first before continuing to complete the involved tasks. If every involved task has all their parameter, then and only then, we try to find new actions based on differences or on past tasks.
+
+The cost of an addition representing a task (i.e. an addition involving the property $hasParameter$ or $isParameterOf$) is the cost of the task itself divided by the number of parameters. We chose to process in this way to avoid zero-cost addition and because every inserted parameter will already have a cost due to at least their typing. Thanks to the episodic KB, the cost of these additions can also be weighted depending on the amount of time passed since the task has been performed. This meets the decay theory used in \cite{williams_toward_2020} and makes a preference over the more recent which could be easier to remember for the RE receiver. The determination of the properties' costs and tasks' costs will not be discussed here but we can mention \cite{belke_2002_tracking} and \cite{koolen_2012_learning} which use learning techniques to estimate them.
+
+Using the presented algorithm, a reference solution to refer to a knife through the primitive task \textit{peel(A,V,K)} of the HTN of Figure~\ref{fig:chap6_domain} could be : \textit{(?0 isA Knife), (?0 isParameterOf ?1), (?1 isA peel), (?1 hasParameter Tony), (?1 hasParameter ?2), (?2 isA Cucumber)}. The variable ?0 represents the referred knife and the variable ?1 represents the task to which the knife is associated. It could be verbalized as \textit{"The knife with which Tony peel the cucumber"}.
+
 \section{Results}
 
 \subsection{One execution trace for five reffering expressions}
 
 \subsection{The impact of the extention on the performances}
-
-\section{Adapting the verbalization algorithm}
