@@ -7,6 +7,7 @@
 
 \chapter{Ontology-based Referring Expression Generation}
 \chaptermark{Ontology-based REG}
+\label{chap:4}
 \minitoc
 
 The contribution presented in this chapter is excerpted from our work, published in the proceedings of the RO-MAN 2020 conference~\cite{buisan_2020_efficient}. In this manuscript, the contribution is more detailed and discussed. The presented work has been achieved in collaboration with Guilhem Buisan, with an equal contribution. Several algorithms have been developed by both of us, giving, as a result, the one presented in this chapter, merging the best of our trials. My focus was mainly on how to fully take advantage of the ontology as a knowledge base and on algorithmic optimisations to make our method the most efficient in the current literature.
@@ -277,15 +278,6 @@ At the difference of the breadth-first search, the \textbf{uniform-cost search} 
 
 Our REG algorithm performs a graph search in the space of states, using the Uniform-Cost Seach algorithm presented in Algorithm~\ref{alg:chap4_ucs}.
 From an initial state, built from the context of the query, the algorithm generates a set of actions that add relations to the current state and create new states to explore. Just like Dijkstra's algorithm, it expands the states in increasing cost order until a solution is discovered or the search space is exhausted. We can however note a slight difference with the original algorithm. Because in our case two candidates RE said to be equivalent (i.e. owning the same relations regardless of their order) always have the same cost, we do not need to replace in the frontier a node with an equivalent state but having a higher cost than the newly created child node.
-
-\newcommand{\tovariable}{\textsc{ToVariable}}
-\newcommand{\toquery}{\textsc{ToQuery}}
-\newcommand{\sparqlresult}{\textsc{SparqlResult}}
-\newcommand{\createchild}{\textsc{CreateChild}}
-\newcommand{\actions}{\textsc{Actions}}
-\newcommand{\goaltest}{\textsc{GoalTest}}
-\newcommand{\typingactions}{\textsc{TypingActions}}
-\newcommand{\differenceactions}{\textsc{DifferencegActions}}
 
 \begin{algorithm}[!htbp]
 \caption{Uniform-Cost Search algorithm for Referring Expression Generation}

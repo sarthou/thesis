@@ -7,6 +7,7 @@
 
 \chapter{Estimating communication feasibility and cost at task planning}
 \chaptermark{Estimating communication at task planning}
+\label{chap:5}
 \minitoc
 
 The contribution presented in this chapter is excerpted from our work, published in the proceedings of the ICSR 2020 conference~\cite{buisan_2020_human}. In this manuscript, the contribution is more detailed and discussed. In the continuity of the previous, the presented work has been achieved in collaboration with Guilhem Buisan. While his focus was on task planning, mine was on the link between the knowledge base as an ontology and the task planner. In this thesis, we will deepen this link and discuss possible improvements to the one initially presented.
@@ -199,7 +200,7 @@ In this last case study, we show how the estimation of verbal designation commun
 \caption{\label{fig:chap5_case3} The initial state (left) and final state (right) of a task where the robot has to explain to the human partner how to move the cubes to complete the task. In this situation, some cubes are too complex to explain. Pointing them could help in some cases. }
 \end{figure}
  
-The cubes C5 and C7 are chosen to be pointed instead of verbalized. Indeed, in the world states where these cubes need to be moved, verbal referring is considered to be too costly, thus a pointing motion is preferred. For example, the cube C5 in the initial situation needs a long and complex explanation that is: \textit{"take the black cube with the number two which is in the black area"}. Even in the case the pointing action takes more execution time, it could require less cognitive load for the human partner and so make the human action faster.
+The generated plan is available in appendix~\ref{lst:chap5_case3}. The cubes C5 and C7 are chosen to be pointed instead of verbalized. Indeed, in the world states where these cubes need to be moved, verbal referring is considered to be too costly, thus a pointing motion is preferred. For example, the cube C5 in the initial situation needs a long and complex explanation that is: \textit{"take the black cube with the number two which is in the black area"}. Even in the cases where the pointing action takes more execution time, it could require less cognitive load for the human partner and so make the human action faster.
 
 Here, we see another benefit of our approach, it allows the planner to balance between the use of verbal communication actions, which can become complex in some states (hard to predict without a task planner), and other communication modalities. Here, balancing was done with other means of communication, but it could also be done with other actions such as a pick and place by the robot. In the task presented here, this has no advantage, because a pick and place by the robot would be slower than an explanation or a pointing and is more likely to fail.
 
@@ -226,4 +227,4 @@ The geometrical situation assessment component has been changed from Robosherloc
  }
 \end{figure}
 
-A major limitation of the current situation assessment component is that it can not perform perspective-taking. This means that even if it can represent the human as a particular entity, it can not estimate the state of the world from the human point of view\footnote{We can compute if an object is in the field of view of the human but not working with a physical motor, it can not take into account the occlusions.}. It is not a problem for our application since all the elements are visible for both agents and the entire interaction is performed around the table. Toaster thus updates the robot and human ontologies with the same facts.
+A major limitation of the current situation assessment component is that it can not perform perspective-taking. This means that even if it can represent the human as a particular entity, it can not estimate the state of the world from the human point of view\footnote{We can compute if an object is in the field of view of the human but not working with a graphical engine, it can not take into account the occlusions.}. It is not a problem for our application since all the elements are visible for both agents and the entire interaction is performed around the table. Toaster thus updates the robot and human ontologies with the same facts.

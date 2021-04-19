@@ -8,6 +8,7 @@
 %\usepackage{mathbbol}
 
 \usepackage{booktabs}
+\usepackage{courier}
 
 \usepackage{listings}
 \usepackage[normalem]{ulem}
@@ -31,6 +32,18 @@
   commentstyle=\itshape\color{green!25!black},
 }
 
+\lstdefinestyle{OwlTurtle}{
+  language=C,
+  keywordstyle=\bfseries\color{darkgray},
+  morekeywords={rdf:type, rdfs:domain, rdfs:subPropertyOf, rdfs:range, :hasSubtask, :DecompositionUsedBy, rdfs:subClassOf, :hasDecomposition, owl:inverseOf},
+  alsoletter=:
+}
+
+\lstdefinestyle{OwlTurtle_indiv}{
+  language=C,
+  keywordstyle=\bfseries\color{darkgray},
+  morekeywords={rdf, rdfs, type, domain, subPropertyOf, range, hasSubtask, DecompositionUsedBy, subClassOf, hasDecomposition, Cut_hasParameter, A, V, K, hasColor, hasCadModel, isOn}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %	  TODO commands    %
@@ -91,6 +104,7 @@
 \newcommand \tinterval{\mathcal{T}}
 \newcommand \tstart{\tau_s}
 \newcommand \tend{\tau_e}
+\newcommand \taction{\alpha}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %	      REG          %
@@ -117,3 +131,32 @@
 \newcommand \matchtable{\mathcal{M}}
 
 \newcommand \us{$\mu$s\xspace}
+
+\newcommand{\tovariable}{\textsc{ToVariable}}
+\newcommand{\toquery}{\textsc{ToQuery}}
+\newcommand{\sparqlresult}{\textsc{SparqlResult}}
+\newcommand{\createchild}{\textsc{CreateChild}}
+\newcommand{\actions}{\textsc{Actions}}
+\newcommand{\goaltest}{\textsc{GoalTest}}
+\newcommand{\typingactions}{\textsc{TypingActions}}
+\newcommand{\differenceactions}{\textsc{DifferencegActions}}
+
+\newcommand{\additions}{\textsc{CreateAddition}}
+\newcommand{\typingadditions}{\textsc{TypingAdditions}}
+\newcommand{\differenceadditions}{\textsc{DifferenceAdditions}}
+\newcommand{\actingadditions}{\textsc{ActingAdditions}}
+\newcommand{\completionadditions}{\textsc{CompletionAdditions}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%	      HTN          %
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand \tasknetwork{N}
+\newcommand \task{n}
+\newcommand \primtaskset{Pt}
+\newcommand \abstaskset{At}
+\newcommand \decomposet{D}
+\newcommand \decompo{d}
+\newcommand \abstracttask{\upsilon}
+\newcommand \HTN{Pl}
