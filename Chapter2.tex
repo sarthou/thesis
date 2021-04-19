@@ -17,11 +17,11 @@
 \subsection{Ontology formalism}
 \label{sec:kb_formalism}
 
-Even if we saw that the use of ontology is today a common way to represent semantic knowledge, we will recall in this subsection the composition of an ontology. For each element composing it, we will draw a formalization then give examples using the Turtle syntax. The pieces of ontologies used in the examples of this subsection are voluntarily simplified. The introduced notations will be the ones used in the rest of this thesis and the graphical representations, both in terms of color and form, will be kept as often as possible.
+Even if we saw that the use of ontology is today a common way to represent semantic knowledge, we will recall in this subsection the composition of an ontology. For each element composing it, we will draw a formalization then give examples using the Turtle syntax. The pieces of ontologies used in the examples of this subsection are voluntarily simplified. The introduced notations will be the ones used in the rest of this thesis and the graphical representations, both in terms of color and form, will be used as often as possible.
 
-On the base of the definition of a Description Logic ontology presented in \cite{fokoue_2006_summary}, we define a semantic knowledge base $\kbs$ represented as an ontology by  $\kbs = \langle \Abox, \Tbox, \Rbox \rangle$. $\Abox$, $\Tbox$, and $\Rbox$ are respectively called the Abox, Tbox, and Rbox of the ontology. In the Description Logic knowledge base it is common to only find the Abox, containing extensional knowledge (general knowledge about a domain), and the TBox containing intensional knowledge (instantiated knowledge)~\cite{baader_2003_description}. The first describes the terminology while the latter contains assertions. The definition we choose to base on extracts a part of the Tbox to put it into the Rbox making it clearer.
+On the base of the definition of a Description Logic ontology presented in \cite{fokoue_2006_summary} and \cite{krotzsch_2013_description}, we define a semantic knowledge base $\kbs$ represented as an ontology by  $\kbs = \langle \Abox, \Tbox, \Rbox \rangle$. $\Abox$, $\Tbox$, and $\Rbox$ are respectively called the Abox, Tbox, and Rbox of the ontology. In the Description Logic knowledge base it is common to only find the Abox, containing extensional knowledge (general knowledge about a domain), and the TBox containing intensional knowledge (instantiated knowledge)~\cite{baader_2003_description}. The first describes the terminology while the latter contains assertions. The definition we choose to base on extracts a part of the Tbox to put it into the Rbox making it clearer.
 
-\subsubsection{The ontology Tbox}
+\subsubsection{The ontology Tbox: Terminological Knowledge}
 
 \begin{figure}[h!]
 \centering
@@ -29,7 +29,7 @@ On the base of the definition of a Description Logic ontology presented in \cite
 \caption{\label{fig:Tbox} Representation of an ontology class hierarchy graph to illustrate the composition of a TBox. Taking the class Human, the bottom arrow has to be read as \textit{"A man is a kind of Human"}. The texts at the bottom left of the class, if there is, are the classes' labels in natural language.}
 \end{figure}
 
-The Tbox $\Tbox$ contains assertions about the \textbf{classes} (types) of the ontology. It is defined by $\Tbox = \langle \classset, H \rangle$. It can be seen as a directed acyclic graph as presented in Figure~\ref{fig:Tbox}. $\classset$ is the set of all the classes of the ontology. In our example, $\classset = \{Thing,\ Agent,\ Object, ...,\ IkeaLisabo\}$. Considering the Tbox as a graph, $H$ stores its directed edges. It represents the inheritance links between the classes (i.e. the subsumption assertions). This link is commonly referred to as the "isA" link (e.g. \textit{(Human, isA, Agent)}) and is described with the property rdfs:subClassOf in the OWL language as illustrated in the Listing~\ref{lst:Tbox}.
+The Tbox $\Tbox$ contains assertions about the \textbf{classes} (types) of the ontology. It is defined by $\Tbox = \langle \classset, H \rangle$. It can be seen as a directed acyclic graph as presented in Figure~\ref{fig:Tbox}. $\classset$ is the set of all the classes of the ontology. In our example, $\classset = \{Thing,\ Agent,\ Object, ...,\ IkeaLisabo\}$. Considering the Tbox as a graph, $H$ stores its directed edges. They represent the inheritance links between the classes (i.e. the subsumption assertions). These links are commonly referred to as "isA" links (e.g. \textit{(Human, isA, Agent)}) and are described with the property rdfs:subClassOf in the OWL language as illustrated in the Listing~\ref{lst:Tbox}.
 
 \begin{minipage}{\textwidth}
 \begin{lstlisting}[frame=single, basicstyle=\scriptsize\ttfamily, label={lst:Tbox}, caption={Description of ontology classes in the OWL language using the Turle syntax.},captionpos=b, style=OwlTurtle]
@@ -41,7 +41,7 @@ The Tbox $\Tbox$ contains assertions about the \textbf{classes} (types) of the o
 \end{lstlisting}
 \end{minipage}
 
-\subsubsection{The ontology Rbox}
+\subsubsection{The ontology Rbox: Relations between Roles}
 
 \begin{figure}[h!]
 \centering
@@ -67,7 +67,7 @@ The formalization above considers only a general kind of property while the OWL 
              rdfs:domain :Object .
 \end{lstlisting}
 
-\subsubsection{The ontology Abox}
+\subsubsection{The ontology Abox: Asserting facts}
 
 \begin{figure}[h!]
 \centering
