@@ -23,28 +23,48 @@ First, we review the literature concerning the representation of non-binary rela
 
 \section[Related work]{Related work: A richer knowledge representation with n-ary relations}
 
-%Even if no standard pattern has been approved by the W3C for n-ary relations, they can still be represented indirectly. In this section, we start by describing the usual way to represent n-ary relations \cite{giunti_representing_2019}, which we will call \textbf{Compound Relations} (CR) because of the composition of binary relations to represent them. Then, we present an algorithm to pre-process them with the objective to facilitate their use in the REG algorithm.
+A fundamental feature of relations is their \textbf{arity}. It is the number of individuals they involved~\cite{giunti_2019_representing}. In this sense, unary relations involved only one entity while binary relation involves two entities\footnote{The entities involved in a relation do not have to be distinct. If the same entity is used twice in the same relation the relation is still a binary relation}. What interest us here is n-ary relations with arity $n > 2$.
+
+Well before being treated for ontology used that it is in RDF or OWL, several approaches have been proposed in the field of Artificial Intelligence through the use of semantic network\footnote{Here we close the loop with the hypothesis by Collins and Quillian of the structure of the semantic memory to be like a semantic network.}~\cite{brachman_1979_epistemological, sowa_2014_principles}. Deliyanni and Kowalski~\cite{deliyanni_1979_logic} were the first to explicitly treat the representation of n-ary relations with arity $n > 2$. They propose a semantic network composed of an element representing the relation itself. In this way, they have represented the assertion "\textit{John gives the book to Mary}" with five node and four arrows as illustrated in figure~\ref{fig:chap7_sem_net}. The central node \textit{el} allow linking the four elements of the assertion using only binary relations. The approach is tody know as \textbf{relation reification} and has been used in many applications~\cite{gangemi_2008_norms, welty_2006_reusable}.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.4]{figures/chapter7/w3c_p1.png}
-\caption{\label{fig:chap7_w3c_p1} Ontological pattern 1 with subject proposed by the W3C Working Group.}
+\includegraphics[scale=0.4]{figures/chapter7/semantic_net.png}
+\caption{\label{fig:chap7_sem_net} The semantic network used to represent the assertion "\textit{John gives the book to Mary}". The element \textit{el} is used to represent the global event.}
 \end{figure}
+
+The general idea used in all the proposed approaches since Deliyanni is thus the creation of a \textbf{relation-class} that is instantiated to represent the n-ary relation. Then $n$ binary relations are created to link the $n$ entity to the relation-class instance. For a more global view of the different proposed patterns, you can refer to the survey~\cite{gangemi_2013_multi}.
+
+For the use in ontology, no standard pattern has been approved by the W3C for the moment. However, a Working Group Note has been proposed for the standardisation of such relations in RDF and OWL~\cite{w3c_2006_defining}. In the note, two patterns are introduced with two variants for the first one.
+
+The first pattern is based on the introduction of a new class for relation and works in the exact same way of the relation reification as illustrated in Figure~\ref{fig:chap7_w3c_p2}. The class \textit{Purchase} is a relation-class and its instance \textit{purchase\_1} is link the entities of the relation. Such pattern is said to be \textbf{without subject} as all the relation are oriented from the relation-class instance to the other entities.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter7/w3c_p2.png}
-\caption{\label{fig:chap7_w3c_p2} Ontological pattern 1 without subject proposed by the W3C Working Group.}
+\caption{\label{fig:chap7_w3c_p2} Ontological pattern 1 without subject proposed by the W3C Working Group. The describe assertion is "John buys a "I, robot" from books.com for \$15".}
 \end{figure}
+
+A variation of the first pattern is illustrated in Figure~\ref{fig:chap7_w3c_p1}. This variation is said to be \textbf{with subject}. The assertion described here is "Christine has a tumor with high probability". Here the subject of the relation is Christine. It is represented in the pattern by a relation oriented from Christine to the instance of the relation-class while the others are in the usual orientation. Such variation can be reproduced with the previous one by defining inverse relations. Defining the relation \textit{isBuyer} and \textit{isObject}, either John or the book can be the subject of the relation represented by \textit{purchase\_1}.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.4]{figures/chapter7/w3c_p1.png}
+\caption{\label{fig:chap7_w3c_p1} Ontological pattern 1 with subject proposed by the W3C Working Group. The describe assertion is "Christine has tumor with high probability".}
+\end{figure}
+
+The second pattern aims at representing lists. With the previous pattern, it is assumed that the properties involved in the binary relation are only used once to identify uniquely each element of the relation. Wanting to represent the assertion "United Airlines flight 3177 visits the following airports: LAX, DFW, and JFK" the first pattern would be not adapted. With this other pattern, we create several instances of the relation-class each linked to the next and to an entity of the n-ary relation as illustrated in Figure~\ref{fig:chap7_w3c_p3}. Because one of the binary relations go from an entity of the relation to an instance of the relation-class, it is said to be with subject. This second pattern is dedicated to the description of lists.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter7/w3c_p3.png}
-\caption{\label{fig:chap7_w3c_p3} Ontological pattern 2 with subject proposed by the W3C Working Group.}
+\caption{\label{fig:chap7_w3c_p3} Ontological pattern 2 with subject proposed by the W3C Working Group. The describe assertion is "United Airlines flight 1377 visits the following airports: LAX, DFW, and JFK".}
 \end{figure}
 
-
 \section{Through the use of coumpound relations}
+
+% which we will call \textbf{Compound Relations} (CR) because of the composition of binary relations to represent them. Then, we present an algorithm to pre-process them with the objective to facilitate their use in the REG algorithm.
+
 
 \subsection{Defining a compound relation}
 
