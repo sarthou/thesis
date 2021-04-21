@@ -63,14 +63,57 @@ The second pattern aims at representing lists. With the previous pattern, it is 
 
 \section{Through the use of coumpound relations}
 
-% which we will call \textbf{Compound Relations} (CR) because of the composition of binary relations to represent them. Then, we present an algorithm to pre-process them with the objective to facilitate their use in the REG algorithm.
-
+In the rest of the chapter, we consider the n-ary relations with arity $n > 2$ under the name \textbf{Compound Relations} (CR) because of the composition of binary relations to represent them on the principle of reification. The term relation will be used to speak about binary relations. We first define what is a CR in link with the ontology definition and on the base of the first pattern without subject, proposed by the Working Group Note. Then, we present an algorithm to pre-process them with the objective to facilitate their use in the REG algorithm.
 
 \subsection{Defining a compound relation}
 
+To define the structure of a Compound Relation we take the example of the purchase made by John on the website book.com to buy the book "I, Robot" at 15\$. This statement is graphically represented in Fig.~\ref{fig:chap7_cr}a and the underlying pattern in Fig.~\ref{fig:chap7_cr}b. To represent the compound relation, we start by creating a virtual entity (the instance of the relation-class) that will be the common link for all the relations involved in the compound relation. We call this instance entity the \textbf{Compound Entity} (CE). It is the dotted entity on Figure~\ref{fig:chap7_cr}, respectively $purchase\_1$ and $\indiv_c$. We consider as being part of the CR all the relations for which the CE is the subject: $(purchase\_1, has\_buyer, john)$. 
+
+\begin{theorem} [Compound Relation]
+\label{the:compound_relation}
+For any $\indiv_c$ being a Coumpound Entity, a Coumpound Relation is defined by $R_c = \{ \relation_i\ |\  \relation_i = (\indiv_c, \property_i, \indiv_i), \forall \indiv_i \in \indivset\}$ meaning the set of relation composing it.
+\end{theorem}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter7/CR.png}
+\caption{\label{fig:chap7_cr} The graphical representation of compound relations. The dotted entity at the center of each representation is the so-called compound entity. The outgoing edges are the properties involved in the compound relation. The entering and faded edges are the corresponding inverse properties if any. The compound relation a) describe the purchase made by \underline{John} on the website \underline{book.com} of the book \underline{"I, Robot"} at \underline{15\$}. The compound relation b) is the underlying pattern of the previous example.}
+\end{figure}
+
+Regarding the previous definition, because any entity of an ontology could be considered as a CE, many set of relations without a real link could be considered as a CR. To solve it, we could define an upper class common the all the CE, meaning the upper \textit{RelationClass}. However, what better defines a CR is that to speak about one of its involved entities through it, we have to use other relation of the CR. In other words, to speak about Sean Connery using the role of James Bond, we have to speak about "Gold Finger" rather than "Murder on the Orient Express" because even if he played in both films, he played the said role only in the first-mentioned film. At the difference, the relation representing his nationality can be used independently to other relations. To represent this verbal link, Giunti et .al \cite{giunti_2019_representing} introduce an \textit{parametric pattern} on top of n-ary relations (Compound Relations). Their parametric pattern for the purchase example is the following : \textit{"() bought a () from () for ()"}. While as humans we easily identify the place of each entity in the pattern, it is a more complex task for machines. This choice of pattern is explained by their complex representation where they assign a position to each involved relation. Regardless of the representation complexity, this kind of pattern raises two issues. First, the pattern describes the entire CR and not aims to describe one of the involved entity through the CR (e.g. "\textit{() who bought a () from () for ()}"). Second, the pattern necessary involved all the relations composing the CR, while in the context of the REG, we could only need a part of them (e.g. \textit{"() who bought a ()}" if John is the only one who bought this book in the present context).
+
 \subsection{A light way of representing the verbal link}
 
+To represent the verbal link, we also choose to use parametric patterns, patterns for short. The patterns are defined as labels in the ontology. A CR can have multiple labels (i.e. patterns) depending on the subject of the pattern and the involved relations in the verbal link. The labels are not directly applied to the CE but to a class, it's inheriting. This means that all the entities inheriting from a class having its labels respecting the pattern are CE. In a way, we define here a relation-class but one the only base of labels.
+
+\begin{theorem} [Compound Entity]
+\label{the:compound_relation}
+Given $\omega$ being a pattern, an entity $\indiv_c$ is a Compound Entity iif $\exists \class \in \classset | (\indiv_c, \class) \in \inheritset \land \omega \in \tlabel{(\class)}$
+\end{theorem}
+
+An advantage of this solution is that we do not define any new specific concepts or properties in the ontology meaning that any pre-existing ontology can be updated to be used in the REG process with CR only by adding labels. Our patterns have the following form : $\{?\property_4\}\ bought\ on\ \{\property_3\}\ by\ \{\property_1\}$. This pattern directly integrates the properties which can be used to form the relations composing the CR.
+
+Given a compound entity $a_c$ with the previous label, to generate a referring expression using it, the place-holder $\{\property_3\}$ should be replaced by a referring expression of an entity $\indiv_i$ where $\indiv_i$ is the object of a triple $(\indiv_c,\ \property3,\ \indiv_i)$. Because we assume that a property can only appear once in a CR, we know that there is only one such object $\indiv_i$. In our example, we have $\indiv_i = \indiv_3$ for the $a_c$ CE.
+In this way, without predefined order, an algorithm can easily replace the place-holders by the RE of the entities $\indiv_i$ of the relations $(\indiv_c, \property_i, \indiv_i)$ of the CR.
+
+Since we are in the context of REG, the CR will be used as a reference to one of the entities involved in the CR. This specific entity is called the \textbf{subject entity} of the CR. 
+For a subject entity to exist, an inverse property $\overline{\rm \property_i}$ must exists in the way that $(\property_i, \overline{\property_i}) \in \invset$ and $\relation_i = (\indiv_i, \overline{\property_i}, \indiv_c) \in \relationset$. If $\indiv_i$ is the subject entity, $\property_i$ is thus the \textbf{subject property} of the CR and is prefixed with a question mark in the pattern. In the example of Figure~\ref{fig:chap7_cr}, only $\indiv_1$ and $\indiv_4$ (resp. John and the book) can be subject of the CR. In other words, only these entities can be referred through the use of this CR. Among all the labels available to speak about the CR, the usable ones to speak about an entity are the ones for which the corresponding property is the subject property (i.e. prefixed by a question mark in the patterns). This choice to not consider the first in the pattern has been made to be adapted to any language. Among the possible labels of List.\ref{lst:chap7_john_labels}, the patterns L1 to L5 could thus be used as a reference for $\indiv_4$ (the book in our example) while the patterns L6 and L7 could be used as a reference for $\indiv_1$ (John in our example).
+
+\begin{lstlisting}[frame=single, caption={ A part of the label set of the purchase compound relation.}, label={lst:chap7_john_labels}, captionpos=b, style=Labels, mathescape=true]
+L1 - {?$p_4$} bought on {$p_3$} at {$p_2$}
+L2 - {?$p_4$} bought by {$p_1$}
+L3 - {?$p_4$} bought on {$p_3$} by {$p_1$}
+L4 - {$?p_4$} bought at {$p_2$} on {$p_3$} by {$p_1$}
+L5 - {$?p_4$} bought at {$p_2$} by {$p_1$}
+L6 - {$?p_1$} who bought {$p_4$}
+L7 - {$?p_1$} who bought {$p_4$} on {$p_3$}
+\end{lstlisting}
+
 \subsection{A strategy to explore compund relations}
+
+%In a graph exploration, an important parameter to avoid a combinatorial explosion is the branching factor. 
+
+%Even if the full REG algorithm will be later in the paper, we have here to keep in mind that the main principle will be to explore a graph for which the edge will be relations of the ontology. An advantage of CR is that once we introduce a CR in the search algorithm we can directly know the relations involved in it. In this sub-section, our goal is thus to analyze the labels in the way to define the order in which the relations of the CR will be explored by the upper algorithm. By doing so, we will reduce its branching factor and thus avoid any combinatorial explosion of the REG algorithm.
 
 \subsubsection{A naive startegy to explore compound relations}
 
