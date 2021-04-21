@@ -111,11 +111,11 @@ L7 - {$?p_1$} who bought {$p_4$} on {$p_3$}
 
 \subsection{A strategy to explore compund relations}
 
-%In a graph exploration, an important parameter to avoid a combinatorial explosion is the branching factor. 
+In a graph exploration, an important parameter to avoid a combinatorial explosion is the branching factor. For the REG problem, an advantage of CR is that once we introduce a CR in the search algorithm we can directly know the relations involved in it. In this sub-section, our goal is thus to analyze the labels in the way to define the order in which the relations of the CR will be explored by the upper algorithm. By doing so, we will reduce its branching factor and thus avoid any combinatorial explosion of the REG algorithm.
 
-%Even if the full REG algorithm will be later in the paper, we have here to keep in mind that the main principle will be to explore a graph for which the edge will be relations of the ontology. An advantage of CR is that once we introduce a CR in the search algorithm we can directly know the relations involved in it. In this sub-section, our goal is thus to analyze the labels in the way to define the order in which the relations of the CR will be explored by the upper algorithm. By doing so, we will reduce its branching factor and thus avoid any combinatorial explosion of the REG algorithm.
+\subsubsection{A naive strategy to explore compound relations}
 
-\subsubsection{A naive startegy to explore compound relations}
+Suppose we want to refer to the entity $\indiv_4$ using the compound relation embodied by the compound entity $\indiv_c$ of Figure~\ref{fig:chap7_cr}. This is made possible by the triplet $(\indiv_c,\property_4,\indiv_4)$ in the knowledge-base and its inverse $(\indiv_4, \overline{\property_4}, \indiv_c)$. The listing~\ref{lst:chap7_john_labels} presents some alternative ways in which we can verbalise entities through the CR. In order to refer $\indiv_4$, we can only use the ones where $\property_4$ is the subject property. Thus the labels L1 to L5 are the only ones that we can use. The parts of the compound relation used by labels L1 and L3 are illustrated in Figure~\ref{fig:chap7_cr_part}.
 
 \begin{figure}[ht!]
 \centering
@@ -123,13 +123,59 @@ L7 - {$?p_1$} who bought {$p_4$} on {$p_3$}
 \caption{\label{fig:chap7_cr_part} The parts of the compound relation used in the label patterns L1 (a) and L3 (b).}
 \end{figure}
 
+What interest us in these labels are the properties because it is they that will form the relations to explore. From the patterns in listing~\ref{lst:chap7_john_labels}, we know that we can use label L1 to verbalize the triple set \textit{\{($\indiv_c$,$\property_4$,$\indiv_4$) ($\indiv_c$,$\property_3$,$\indiv_3$) ($\indiv_c$,$\property_2$,$\indiv_2$)\}} and label L2 to verbalise the triple set \textit{\{($\indiv_c$,$\property_4$,$\indiv_4$) ($\indiv_c$,$\property_1$,$\indiv_1$)\}}. On the other hand, other combinations of triples involving $a_c$ cannot be used to refer to $\indiv_4$. Therefore, we can see each label usable to refer $\indiv_4$ as a set of properties and the collection of usable labels as a family of sets. In our example, the family of sets over S is the collection:
+
+\begin{align*}
+ F\ =\ \{\{p_2\ p_3\ p_4\},
+\{p_1\ p_4\},
+\{p_1\ p_3\ p_4\},
+\{p_1\ p_2\ p_3\ p_4\},
+\{p_1\ p_2\ p_4\}\}
+\end{align*}
+
+From there, our goal is to create a search-tree that will conduct the exploration of the different labels of a CR through the exploration of the properties composing them. This search-tree has few constraints:
+\begin{enumerate}
+	\item The tree must be composed of a single root.
+	\item All the descendants of a node have a common prefix of the property associated with that node. In this way, the search-tree is more precisely a trie, also called prefix tree.
+	\item Walking through the tree from its root, we recompose all the subsets of the family $F$.
+	\item The width of the tree must be as small as possible.
+\end{enumerate}
+
+A naive solution not minimizing the width of the tree is represented in Figure~\ref{fig:chap7_naive}a) for the purchase example. We consider the root $\property_4$ and create a branch per label. The resulting width is five. On the Figure~\ref{fig:chap7_naive}b) we merge the node representing the same property at an equivalent level. It reduces the branching factor for the beginning of the exploration by the global width is the same. Switching the elements $p_2$ and $p_3$ for L4 and keeping the merging principle, we can see in Figure~\ref{fig:chap7_naive}c) that the width of the trie can be reduced to four. An advanced algorithm to build the graph could thus reduce the width of the trie.
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter7/naive.png}
 \caption{\label{fig:chap7_naive} Two naive trie representations of the family of subsets extracted from properties involved in the label patterns. The trie a) considers the subject property as the root of the tree and creates a branch for each label pattern respecting the order of apparition of the properties. The trie b) takes the same construction rule as the a) but merges the common children of each node. The trie c) is the same principle of b) but the elements $p_2$ and $p_3$ have been switched for L4. While the two first tries have a width of five, the last has a width of four.}
 \end{figure}
 
-\subsubsection{An advanced strategy to explore compound relations}
+\subsubsection{Advanced strategy to explore compound relations}
+
+To find a strategy to create a trie minimizing the width, we first have to study the characteristics of the family of sets.
+The first axiom that we can do on the subsets of our family is that they are neither totally ordered, as we can explore their element in any order, or partially ordered, as we can not compare their members. Therefore, we cannot use the tools of the order theory such as the Hasse diagram. Taking a look at mathematical approaches of tree-representation of set families~\cite{bui_2008_tree}, we face the problem that our set family does not respect some essential properties. For each pair $(A, B)$ of sets of $S$, we can not ensure that one of the following rules is true : $A \cap B \neq \emptyset$, $A \cap B \neq A$, or $A \cap B \neq B$. This means that we cannot ensure that each pair of sets are either disjoint or related by containment. Wherefore, our family $F$ is not a laminar set family.
+Moreover, for each pair $(A, B)$ of sets of $S$, we can not ensure that their intersection is non-empty ($A \cap B \neq \emptyset$), neither that their difference are non-empty ($A \setminus B \neq \emptyset$ and $B \setminus A \neq \emptyset$). Wherefore, our family $F$ is not a cross-free or an overlap-free family but it does not mean that it is an intersecting and crossing family.
+
+To limit our problem, we do a first assumption. Because the subject property $\property_s$ is the one having introduced the CR, we can assume that this property has already been selected among the others. Moreover, it will always be the common element of all the sets of the family. We thus consider it as the root node of the exploration tree and remove it from every set of the family $S$ giving a new family:
+
+\begin{align*}
+S' = \{A\ |\ A = X \setminus \property_s,\ \forall X \subseteq S\}
+\end{align*}
+
+From there, we need to find the child nodes of the root in a way to minimize their number and that every subset of $S'$ has at least one of their element attached to one of the child nodes. This sub-problem is a specification of the Hitting Set problem. It is defined as follows. Giving $F = \{S_1,S_2,...,S_m\}$ the collection of subsets of $S$ (i.e. $S_i \subseteq S, \forall i$) and a natural number $k \in \field{N}$, we want to know if exists $S' \subset S$ where $|S'| < k$ such that $S_i \cap S' \neq \emptyset, i = 1,2,...,m$. In our case, we are searching $k$ as to be as small as possible. In some way, the Hitting Set problem can be seen as a Set Covering problem, shown to be NP-complete~\cite{karp_1972_reducibility}. To avoid any combinatorial explosions, we thus propose a greedy algorithm.
+
+Giving a node $n_i$ of the tree and it related family of set $S$, the quantity $|\{S_j \in S ~|~ x_i \in S_j \}|$ is the frequency of the element $x_i$ in $S$. Among the elements of the universe of the current node $n$, we select $x_{max}$, the element with the highest frequency and create a child node with it. The family related to this new node is computed with the equation~\eqref{eq:chap7_child_family} and the family related to the current node is updated with the equation~\eqref{eq:chap7_node_family_update}. These steps are repeated while $S$ is non-empty to create all the children of the current node and all this process is repeated for each created child nodes until it is possible.
+
+\begin{equation}
+S' = \{S_j \setminus x_{max}, S_j \cap \{x_{max}\} \neq \emptyset, \forall S_j \in S\}
+\label{eq:chap7_child_family}
+\end{equation}
+
+\begin{equation}
+S \leftarrow \{S_j, S_j \cap \{x_{max}\} = \emptyset, \forall S_j \in S\}
+\label{eq:chap7_node_family_update}
+\end{equation}
+
+The tree resulting from this process is represented in Figure~\ref{fig:chap7_advanced} for the purchase example. In the root node with the property $p_4$, the element with the highest frequency is $p_1$. We thus create a child node with this property and create its family. Updating the family of the root node, the family only contains the set $\{p_2, p_3\}$. Both having the same frequency, one is chosen over the other, here $p_3$, and we create a new child node. After an update of the family of the root, it will be empty and all the children of the root have been created. The process is repeated for the two created nodes.
 
 \begin{figure}[ht!]
 \centering
@@ -137,15 +183,21 @@ L7 - {$?p_1$} who bought {$p_4$} on {$p_3$}
 \caption{\label{fig:chap7_advanced} The trie with reduced width, representing all the labels of a compound entity in terms of involved properties. Each node is a property to explore. Attached to each node is the family of subsets that has to be decomposed. An empty set in a family related to a node (in red) signified that one of the initial subsets is fully represented in the trie meaning that all the properties of a pattern will be explored by reaching this node. The width of the trie is three against five for the naive version.}
 \end{figure}
 
-
-\section{Generating Referring Expression with compound relations}
+\section[Generating Referring Expression]{Generating Referring Expression with compound relations}
 
 \subsection{Determining a referring expression validity}
+
+%\begin{remark}[Valid labels]
+%Each time a child node is created with an empty set its family of sets, this means that a label of the CR is represented in its entirety at this node. The empty set should be removed to continue the process and the corresponding node could be marked as holding a valid label.
+%\end{remark}
 
 \subsection{Exploring the compound relations}
 
 \subsection{From tree to radix tree}
 
+%\begin{remark}[Radix tree]
+%A radix tree structure (also called compact prefix tree) could be used by merging each node that is the only child with its parent if the parent node does not represent a valid label. In the example of Fig.~\ref{fig:advanced_labels_graph}, the node with the property $p_2$ could be merged with its parent. We do not perform this optimization at this stage for implementation facilitation but we will consider it during the REG process.
+%\end{remark}
 
 \section{Results}
 
