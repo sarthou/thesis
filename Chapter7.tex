@@ -117,10 +117,28 @@ L7 - {$?p_1$} who bought {$p_4$} on {$p_3$}
 
 \subsubsection{A naive startegy to explore compound relations}
 
-\subsubsection{A advanced strategy to explore compound relations}
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.4]{figures/chapter7/CR_part.png}
+\caption{\label{fig:chap7_cr_part} The parts of the compound relation used in the label patterns L1 (a) and L3 (b).}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter7/naive.png}
+\caption{\label{fig:chap7_naive} Two naive trie representations of the family of subsets extracted from properties involved in the label patterns. The trie a) considers the subject property as the root of the tree and creates a branch for each label pattern respecting the order of apparition of the properties. The trie b) takes the same construction rule as the a) but merges the common children of each node. The trie c) is the same principle of b) but the elements $p_2$ and $p_3$ have been switched for L4. While the two first tries have a width of five, the last has a width of four.}
+\end{figure}
+
+\subsubsection{An advanced strategy to explore compound relations}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.45]{figures/chapter7/advanced.png}
+\caption{\label{fig:chap7_advanced} The trie with reduced width, representing all the labels of a compound entity in terms of involved properties. Each node is a property to explore. Attached to each node is the family of subsets that has to be decomposed. An empty set in a family related to a node (in red) signified that one of the initial subsets is fully represented in the trie meaning that all the properties of a pattern will be explored by reaching this node. The width of the trie is three against five for the naive version.}
+\end{figure}
 
 
-\section{Generating Referring Expression wit compound relations}
+\section{Generating Referring Expression with compound relations}
 
 \subsection{Determining a referring expression validity}
 
