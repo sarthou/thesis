@@ -87,7 +87,7 @@ Regarding the previous definition, because any entity of an ontology could be co
 To represent the verbal link, we also choose to use parametric patterns, patterns for short. The patterns are defined as labels in the ontology. A CR can have multiple labels (i.e. patterns) depending on the subject of the pattern and the involved relations in the verbal link. The labels are not directly applied to the CE but to a class, it's inheriting. This means that all the entities inheriting from a class having its labels respecting the pattern are CE. In a way, we define here a relation-class but one the only base of labels.
 
 \begin{theorem} [Compound Entity]
-\label{the:compound_relation}
+\label{the:compound_entity}
 Given $\omega$ being a pattern, an entity $\indiv_c$ is a Compound Entity iif $\exists \class \in \classset | (\indiv_c, \class) \in \inheritset \land \omega \in \tlabel{(\class)}$
 \end{theorem}
 
@@ -288,6 +288,45 @@ The major consequence of such modification is that the additions have to no more
 
 \section{Results}
 
+In this section we present some result of the REG with compound relations. We start with the introduction example of the Sean Connery's performance. Then we give performance measures using the setup of the previous chapter in order to assess the impact of the proposed modifications. 
+
 \subsection{The actor playing James Bond}
+
+For this simple test, we describe actor performance using the pattern of figure~\ref{fig:chap7_perf}. Both the actor and the film can be used as subject of the CR thanks to the presence of inverse properties. The set of labels attached to the \textit{Performance} class is listed in listing~\ref{lst:chap7_perf_labels}. Three are availbale to describe the actor and two (equivalent) for the film.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.4]{figures/chapter7/perf.png}
+\caption{\label{fig:chap7_perf} The compound relation patten used to discribe a performance of an actor with a role and a film.}
+\end{figure}
+
+\begin{lstlisting}[frame=single, caption={ The set of labels usable to discribe the performance compound relation.}, label={lst:chap7_perf_labels}, captionpos=b, style=Labels, mathescape=true]
+L1 - {?perfHasActor} who played {perfHasRole} in {perfHasFilm}
+L2 - {?perfHasActor} who played {perfHasRole}
+L3 - {?perfHasActor} who played in {perfHasFilm}
+L4 - {?perfHasFilm} in which {perfHasActor} play {perfHasRole}
+L5 - {?perfHasFilm} in which {perfHasRole} is played by {perfHasActor}
+\end{lstlisting}
+
+We first create an ontology describing two performances. The performance \textit{perf\_sean} link the actor \textit{sean\_connery} with the role of \textit{james\_bond} and the film \textit{gold\_finger}. The second is \textit{perf\_craig} with \textbf{daniel\_craig} in the role of \textit{james\_bond} and in the film \textit{casino\_royale}. The individuals representing the films and the roles have labels while the others do not. Running our algorithm on this ontology we get the result:
+
+\begin{gather*}
+(?0,\ isA,\ Actor),\\
+(?0,\ isActorOfPerf,\ ?1),\\
+(?1,\ isA,\ Performance),\\
+(?1,\ perfHasFilm,\ gold\_finger)
+\end{gather*}
+
+Matching it the the ontology, the variable \textit{?0} matchs \textit{sean\_connery} and the variable \textit{?1} matchs the performance \textit{perf\_sean}. Adding the performance \textit{perf\_gert} linking the actor \textit{gert\_frobe} with the role of \textit{auric\_finger} and the film \textit{gold\_finger} the previous solution is no more valid. Running the algorithm on the new ontology, we get the result:
+
+\begin{gather*}
+(?0,\ isA,\ Actor),\\
+(?0,\ isActorOfPerf,\ ?1),\\
+(?1,\ isA,\ Performance),\\
+(?1,\ perfHasFilm,\ gold\_finger),\\
+(?1,\ perfHasRole,\ james\_bond)
+\end{gather*}
+
+With this simple example we see that with a single compound relation, the algorithm is able to find a solution by selecting the necessary information in it depending of the situation, while keeping the link between each of them.
 
 \subsection{The desciption of past activities as compound relations}
