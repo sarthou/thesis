@@ -183,21 +183,108 @@ The tree resulting from this process is represented in Figure~\ref{fig:chap7_adv
 \caption{\label{fig:chap7_advanced} The trie with reduced width, representing all the labels of a compound entity in terms of involved properties. Each node is a property to explore. Attached to each node is the family of subsets that has to be decomposed. An empty set in a family related to a node (in red) signified that one of the initial subsets is fully represented in the trie meaning that all the properties of a pattern will be explored by reaching this node. The width of the trie is three against five for the naive version.}
 \end{figure}
 
-\section[Generating Referring Expression]{Generating Referring Expression with compound relations}
+In the following, such search-tree will be referred to as a Compound Tree (CT). Taking a part of it (i.e. taking one of its nodes as a local root) gives a sub-CT.
 
-\subsection{Determining a referring expression validity}
+\section{REG with compound relations}
 
-%\begin{remark}[Valid labels]
-%Each time a child node is created with an empty set its family of sets, this means that a label of the CR is represented in its entirety at this node. The empty set should be removed to continue the process and the corresponding node could be marked as holding a valid label.
-%\end{remark}
+Thanks to the CE labels analyse, we have created a search-tree to lead the exploration of CR in the REG algorithm. In this section, we present the modification we made to use CR in the REG algorithm. The core of the algorithm based on the Uniform Cost Search algorithm is unchanged and is recalled in algorithm~\ref{alg:chap7_ucs}.
+
+\begin{algorithm}[!ht]
+\caption{Uniform-Cost Search algorithm for Referring Expression Generation}
+\label{alg:chap7_ucs}
+\begin{algorithmic}
+\Function{UCS\_REG}{$problem$} 
+    \State $node\leftarrow$ a node with RE = \textsc{create-initial-re}(\textit{problem}.context), \textit{cost} = 0
+    \State $frontier\leftarrow$ a priority queue of nodes ordered by their \textit{cost}
+    \State $frontier\leftarrow$ \textsc{INSERT}($node$, $frontier$)
+    \State $explored\leftarrow$ an empty set
+    \Loop
+        \If{\textsc{empty}($frontier$)} 
+        	\State \Return failure
+        \EndIf
+        \State $node\leftarrow$ \textsc{pop}($frontier$)
+        \If{\goaltest($problem$, \toquery($node$))} 
+        	\State \Return \textsc{SOLUTION}($node$)
+        \EndIf
+        \State add $node.RE$ to $explored$
+        \ForAll{$addition$ in \additions($node$)}
+            \State $child \leftarrow \createchild(node, addition)$
+            \If{$child.RE$ is not in $explored$ or $frontier$}
+            	\State $frontier\leftarrow$ \textsc{INSERT}($child$, $frontier$)
+            \EndIf
+        \EndFor
+    \EndLoop
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
 
 \subsection{Exploring the compound relations}
 
+At the difference of the tasks descriptions of the previous chapter, the current algorithm can not have any prior knowledge about the relations leading to the use of CR. A CR can only be discovered if a relation introduces a CE. However, an entity can be said to be a CE only thanks to the labels of one of its upper class. With regard to this information, we cannot have any function dedicated to the addition of CR and each newly introduced entity in a candidate RE has to be tested to assess if it is a CE or not.
+
+The analyse of the entities' labels and their usable classes, meaning their upper classes having labels, is an already existing process in the REG algorithm. It is performed by the function $\typingadditions$ of algorithm~\ref{alg:typing_action}. It initially aims at satisfying the parlance need constraint. With some modifications, the $\typingadditions$ will be used to detect any newly introduced CE by testing if the labels of the usable classes are in the form of a pattern. If they are it returns the detected CE. To do so, the \textit{additions} are now composed of a relation to be added and a CE in one has been found.
+
+Once CEs have been detected, we have to create a Compound Tree (CT) for each in order to lead the REG search process. To each node of the REG algorithm, in addition to the candidate RE and its associated cost, we introduce a map of CTs. This map link a CE involves in the candidate RE related to the node to its CT or one of its sub-CT. The management of these trees is done by the $\createchild$ that has been modified (see algorithm~\ref{alg:chap7_child}. If the addition introduces a new CE, we create it related CT\footnote{For performance gain, all created CT can be stored in a collection of CT in order to compute them only once even if the same CE is introduced in two disting branches of the UCS.}. Otherwise, with the function $\getsubtrees$ we test is the new relation corresponds to one of the branches of one of the CTs of the parent node. If it is, we take the sub-CT corresponding to the relation. Taking the entity $\indiv_c$ as introduced CE through the relation $(\indiv_4, \overline{\property_4}, \indiv_c)$, the CT of figure~\ref{fig:chap7_advanced} is first created. If in a second time the relation $(\indiv_c, \property_1, \indiv_1)$ is inserted, $\createchild$ would take the sub-CT having $\property_1$ as root.
+
+\begin{algorithm}[H]
+\caption{\label{alg:chap7_child} Child node function modified to use compound relations.}
+\begin{algorithmic}
+\Function{\createchild}{$addition$, $parent$} 
+    \State \Return a node with
+    \State RE = $parent$.RE $\cup$ $addition$.relation
+    \State cost = $parent$.cost + $\costfunc(addition$.relation$)$
+    \If{$addition$.CE}
+    	\State CTs $\leftarrow$ INSERT($\createtree(addition$.CE$)$, $parent$.CTs)
+    \Else
+    	\State CTs $\leftarrow$ $\getsubtrees$($addition$.relation, $parent$.CTs)
+    \EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+At this stage, we detect the introduction of CR and manage the CTs. The $\additions$ can now use the CTs to propose new additions. As describe with the algorithm~\ref{alg:chap7_additions}, we keep the two functions $typingadditions$ and $\differenceadditions$. We introduce a new function $\compoundadditions$ aiming to complete the CR having been started. For each CT of the node it propose the relation of the form $(\indiv_c, \property_i, \indiv_i) \in \relationset$ such that the properties $\property_i$ are the branches of the root of the CT related to $\indiv_c$. With the  CT of figure~\ref{fig:chap7_advanced}, the $\compoundadditions$ function would generate two addtions being $(\indiv_c, \property_3, \indiv_3)$ and $(\indiv_c, \property_1, \indiv_1)$.
+
+\begin{algorithm}[htb!]
+\caption{\label{alg:chap7_additions} The modified $\additions$ function modified to use compound relations. }
+
+\begin{algorithmic}
+
+    \Function{\additions}{$node$} 
+        \State $sucess, additions\leftarrow$ \typingadditions($node$)
+        \If{$sucess = True\ and\ additions \neq \emptyset$}
+            \Return $additions$
+        \EndIf
+        
+        \State $additions\leftarrow$ \compoundadditions($node$) \Comment{new introduced function}
+        \State $additions\leftarrow additions\ \cup$ \differenceadditions($node$) 
+        
+        \Return $additions$
+    \EndFunction
+    
+\end{algorithmic}
+\end{algorithm}
+
+
+\subsection{Determining a referring expression validity}
+
+Going back to the original definition of the REG problem, a RE is valid if the parlance need is satisfied (theorem~\ref{the:parlance_need}), all the introduced variables can be intantiated (theorem~\ref{the:correct_intance}), and the variable representing the target entity can only be bound to the target entity (theorem~\ref{the:re_mini_validity}) for a minimal validity.
+
+For the compound relations, their validity criteria is that we can use onr of their labels to speak about them. In other words, taking all the relations involving a given CE, we must be able to rebuild one of his family's sets. Each of its CR thus has to be complet (see theorem~\ref{the:cd_completion}).
+
+\begin{theorem} [The CR completion]
+\label{the:cd_completion}
+A CR of family $S$ is said to be complet iif given its CE $\indiv_c$ we can create, from the set of relation $\mathcal{T}$ representing a candidate RE, a set $v = \{\property_i\ |\ (\indiv_c, \property_i, \indiv_i) \in \mathcal{T} \lor (\indiv_i, \overline{\property_i}, \indiv_c) \in \mathcal{T} \}$ such that $v \subset S$.
+\end{theorem}
+
+From a technical point of view, such constraint can be hard to compute for each node to be tested. However, during the creation of a CT, this information can already already known. During the CT creation, each time a child node is created with an empty set its family of sets, this means that a label of the CR is represented in its entirety at this node. On the figure~\ref{fig:chap7_advanced} the completed labels are represented by the red arrows. We can thus store this information in the CT nodes. Because during the REG search process we cut down these trees taking each time a sub-CT, we just have to test if each current root of the CTs of the node to test can represent a label or not. If all can, the candidate RE of the current node is valid regaring the CR completion.
+
 \subsection{From tree to radix tree}
 
-%\begin{remark}[Radix tree]
-%A radix tree structure (also called compact prefix tree) could be used by merging each node that is the only child with its parent if the parent node does not represent a valid label. In the example of Fig.~\ref{fig:advanced_labels_graph}, the node with the property $p_2$ could be merged with its parent. We do not perform this optimization at this stage for implementation facilitation but we will consider it during the REG process.
-%\end{remark}
+A limitation identified from the previous chapter was the addition of a single relation at each step while we can know that the candidate RE will not be valid because of the completion constraint. With the present method using multiple labels not involving all the relations, the limitation has been partially solved. In addition, thanks to the CT, the branching factor is limited and even if an addition does not lead to a valid RE, it will be used for several labels. However, in some cases, this limitation still appears. Considering the Compound Tree of figure~\ref{fig:chap7_advanced}. Starting from the root node $\property_4$, we can go to the nodes $\property_3$ and $\property_1$. While the node $\property_1$ create a complete CR and make a step toward another complete CR, the node $\property_3$ does not. It makes a step toward the single label $L1$ but does not complete it.
+
+To solve this issue, we can use the radix tree structure, also called compact prefix tree. It consists of merging each node that is the only child with its parent if the parent node does not represent a valid label. In the example of figure~\ref{fig:chap7_advanced}, the node with the property $\property_2$ could thus be merged with its parent $\property_3$.
+
+The major consequence of such modification is that the additions have to no more represent a single relation but a set of relations. Even if it makes the additions comparison harder to compute it reduce the overall branching factor. Keeping our example, if we add at once the relation involving $\property_2$ and $\property_3$ and that both introduce an anonymous entity, this means that at the next step the $\typingadditions$ function could type both at once. Where previously these additions would require four steps, and thus branching at each, with this solution it only required two.
 
 \section{Results}
 
