@@ -288,11 +288,11 @@ The major consequence of such modification is that the additions have to no more
 
 \section{Results}
 
-In this section we present some result of the REG with compound relations. We start with the introduction example of the Sean Connery's performance. Then we give performance measures using the setup of the previous chapter in order to assess the impact of the proposed modifications. 
+In this section, we present some result of the REG with compound relations. We start with the introduction example of Sean Connery's performance. Then we give performance measures using the setup of the previous chapter in order to assess the impact of the proposed modifications. 
 
 \subsection{The actor playing James Bond}
 
-For this simple test, we describe actor performance using the pattern of figure~\ref{fig:chap7_perf}. Both the actor and the film can be used as subject of the CR thanks to the presence of inverse properties. The set of labels attached to the \textit{Performance} class is listed in listing~\ref{lst:chap7_perf_labels}. Three are availbale to describe the actor and two (equivalent) for the film.
+For this simple test, we describe actor performance using the pattern of figure~\ref{fig:chap7_perf}. Both the actor and the film can be used as a subject of the CR thanks to the presence of inverse properties. The set of labels attached to the \textit{Performance} class is listed in listing~\ref{lst:chap7_perf_labels}. Three are available to describe the actor and two (equivalent) for the film.
 
 \begin{figure}[ht!]
 \centering
@@ -308,7 +308,7 @@ L4 - {?perfHasFilm} in which {perfHasActor} play {perfHasRole}
 L5 - {?perfHasFilm} in which {perfHasRole} is played by {perfHasActor}
 \end{lstlisting}
 
-We first create an ontology describing two performances. The performance \textit{perf\_sean} link the actor \textit{sean\_connery} with the role of \textit{james\_bond} and the film \textit{gold\_finger}. The second is \textit{perf\_craig} with \textbf{daniel\_craig} in the role of \textit{james\_bond} and in the film \textit{casino\_royale}. The individuals representing the films and the roles have labels while the others do not. Running our algorithm on this ontology we get the result:
+We first create an ontology describing two performances. The performance \textit{perf\_sean} link the actor \textit{sean\_connery} with the role of \textit{james\_bond} and the film \textit{gold\_finger}. The second is \textit{perf\_craig} with \textit{daniel\_craig} in the role of \textit{james\_bond} and in the film \textit{casino\_royale}. The individuals representing the films and the roles have labels while the others do not. Running our algorithm on this ontology we get the result:
 
 \begin{gather*}
 (?0,\ isA,\ Actor),\\
@@ -327,6 +327,50 @@ Matching it the the ontology, the variable \textit{?0} matchs \textit{sean\_conn
 (?1,\ perfHasRole,\ james\_bond)
 \end{gather*}
 
-With this simple example we see that with a single compound relation, the algorithm is able to find a solution by selecting the necessary information in it depending of the situation, while keeping the link between each of them.
+With this simple example we see that with a single compound relation, the algorithm is able to find a solution by selecting the necessary information in it depending on the situation while keeping the link between each of them.
 
 \subsection{The desciption of past activities as compound relations}
+
+Since the presented algorithm is able to manage the past tasks description, we present a comparison in terms of execution time with both the original algorithm and the one using past tasks. To do so, take the knowledge base of the previous chapter containing two task description per entity inheriting from the \textit{Object} class. To be used with compound relations, we add a label to each class representing a task. The label involves the three parameters of the task. In this way, we reproduce the constraint to use all the parameters and at the same time take advantage of the radix-tree optimisations. The knowledge base is still managed using the Ontologenius system and not passing by the ROS services to not be impacted by the communication time in our measures.
+
+The original algorithm has been run without the possibility to use relations toward task since it is not designed for this use. Its performance is our comparison point as we expect all algorithms to find the same solutions. For recall, the described tasks are designed in such a way to not help in the RE generation and but ourselves in the worst case. The measures of the percentage of entities referred over time for all three algorithms are represented in Figure~\ref{fig:chap7_compare}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{figures/chapter7/comparison.png}
+\caption{\label{fig:chap7_compare} Comparison of the three algorithms regarding the percentage of successfully referenced entities over time using a logarithmic timescale. }
+\end{figure}
+
+With this setup, the current version performs slightly better than the previous one with an average resolution time of 4.17ms versus 5.53. It is however over the original version having an average resolution time of 1.08ms. This difference must be qualified by the exploration of CRs that the original one does not do. While the majority of the entities are referred in a comparable time with the previous version, we can still note that the more complex entity requiring six relations is now solved in 45.71ms versus 70.57ms previously.
+
+An advantage of the current algorithm is that in the case no CRs are described the performance are the same as the original algorithm. At the difference, the previous version had an impact even if negligible. 
+
+% chap 4
+%count    77.000000
+%mean      1.080750
+%std       1.355236
+%min       0.013237
+%25%       0.193782
+%50%       0.516371
+%75%       1.322064
+%max       6.405807
+
+% chap 6
+%count    77.000000
+%mean      5.531283
+%std       9.780631
+%min       0.012952
+%25%       0.509738
+%50%       1.538461
+%75%       5.968753
+%max      70.577606
+
+% chap 7
+%count    77.000000
+%mean      4.178141
+%std       6.855033
+%min       0.016902
+%25%       0.438766
+%50%       1.323878
+%75%       5.447168
+%max      45.716713

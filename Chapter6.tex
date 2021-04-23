@@ -316,11 +316,37 @@ Over these five case study, we saw that the algorithm is able to use either prim
 
 \subsection{The impact of the extention on the performances}
 
-With the previous results, we saw the kind of solution the algorithm can generate. With this new test, we want to assess the impact of the proposed extension, in terms of execution time, regarding the original version. To do so, we have chosen the realistically-sized knowledge base (101 entities, 36 classes, 40 properties, and 497 relations) used to evaluate the original version. For recall, it describes an apartment with three rooms including several pieces of furniture (tables, shelves) and objects (cups, boxes) linked through spatial relations (isAtLeftOf, isOn) and attributes (hasColor, hasWeight). Both the original algorithm and its extended version have been run over all the 77 entities inheriting from the "Object" class, representing physical entities. The knowledge base is still managed using the Ontologenius system and we do not pass by the ROS services to be impacted by the communication time in our measures.
+With the previous results, we saw the kind of solution the algorithm can generate. With this new test, we want to assess the impact of the proposed extension, in terms of execution time, regarding the original version. To do so, we have chosen the realistically-sized knowledge base (101 entities, 36 classes, 40 properties, and 497 relations) used to evaluate the original version. For recall, it describes an apartment with three rooms including several pieces of furniture (tables, shelves) and objects (cups, boxes) linked through spatial relations (isAtLeftOf, isOn) and attributes (hasColor, hasWeight). Both the original algorithm and its extended version have been run over all the 77 entities inheriting from the "Object" class, representing physical entities. The knowledge base is still managed using the Ontologenius system and we do not pass by the ROS services to not be impacted by the communication time in our measures.
 
 On this ontology not having tasks described in it, the extension has a negligible impact. The average execution time is about 1.04ms for the original algorithm versus 1.16ms for the extension. Even for the most complex case, we pass from 6.25ms to 6.86ms. This difference can be due to the search of tasks even if none is present in the ontology.
 
-To estimate the impact when tasks are present in the ontology, we chose to put ourselves in the worst case where tasks are described but can not be used to find a solution. To create this worst case, we add two actions, each having three parameters, to each object described in the apartment. Even if each action is unique (an individual per action), all are of the same type and have the same entities as parameters. In this way, the tasks will be explored but will lead to ambiguity, creating only an overload for the exented algorithm. Consequently, the solutions of both algorithms should be the same. The tasks description leads to an addition of 144 entities to the ontology (the 144 tasks) and 432 relations (three parameters per task). We estimated that such an amount of tasks could be the result of several hours of interaction. With this new setup, the impact of the extension is much more noticeable. For the most complex entity needing six relations in its solution, we pass from 6.25ms to 245.25ms. We note that 75\% of the entities are solved under 20.51ms versus 1.29ms, 50\% under 5.08ms versus 0.51ms, and 25\% under 0.58ms versus 0.18ms. In addition, we observe that the longer the RE is to compute with the original version, the more noticeable the impact of the extension is. Moreover, because the more relations is needed, the longer the RE is to compute, we find here a part of the explanation. For each node coming from a difference addition, two additions representing tasks are proposed at the next step. We thus add two to the original branching factor, having an exponential impact on the number of generated node and thus on the execution time. However, in an HRI context, even the worst case is still acceptable and will not spoil the interaction. Moreover, we have put ourselves in the worst case where the added tasks can not be used to generate the RE. In more realistic cases, we would have a diversity of tasks and their use in the REG may allow us to reduce the solution length for the most complex cases and hence reduce the average execution time.
+To estimate the impact when tasks are present in the ontology, we chose to put ourselves in the worst case where tasks are described but can not be used to find a solution. To create this worst case, we add two actions, each having three parameters, to each object described in the apartment. Even if each action is unique (an individual per action), all are of the same type and have the same entities as parameters. In this way, the tasks will be explored but will lead to ambiguity, creating only an overload for the exented algorithm. Consequently, the solutions of both algorithms should be the same. The tasks description leads to an addition of 144 entities to the ontology (the 144 tasks) and 432 relations (three parameters per task). We estimated that such an amount of tasks could be the result of several hours of interaction. With this new setup, the impact of the extension is much more noticeable. For the most complex entity needing six relations in its solution, we pass from 6.40ms to 70.57ms. We note that 75\% of the entities are solved under 5.96ms versus 1.32, 50\% under 1.53ms versus 0.51ms, and 25\% under 0.50ms versus 0.19ms. In addition, we observe that the longer the RE is to compute with the original version, the more noticeable the impact of the extension is. Moreover, because the more relations is needed, the longer the RE is to compute, we find here a part of the explanation. For each node coming from a difference addition, two additions representing tasks are proposed at the next step. We thus add two to the original branching factor, having an exponential impact on the number of generated node and thus on the execution time. However, in an HRI context, even the worst case is still acceptable and will not spoil the interaction. Moreover, we have put ourselves in the worst case where the added tasks can not be used to generate the RE. In more realistic cases, we would have a diversity of tasks and their use in the REG may allow us to reduce the solution length for the most complex cases and hence reduce the average execution time.
+
+%chap 4
+%count    77.000000
+%mean      1.080750
+%std       1.355236
+%min       0.013237
+%25%       0.193782
+%50%       0.516371
+%75%       1.322064
+%max       6.405807
+
+%count    77.000000
+%mean      5.531283
+%std       9.780631
+%min       0.012952
+%25%       0.509738
+%50%       1.538461
+%75%       5.968753
+%max      70.577606
+
+%2    27
+%3    21
+%4    14
+%5     9
+%1     5
+%6     1
 
 \section{Discussion}
 
