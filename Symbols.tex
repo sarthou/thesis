@@ -2,9 +2,11 @@
 \usepackage{xargs}   % Use more than one optional parameter in a new commands
 \usepackage{xcolor}  % Coloured text
 \usepackage{xspace}
+\usepackage{hyperref}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{bbm}
 %\usepackage{mathbbol}
 
 \usepackage{booktabs}
@@ -22,6 +24,8 @@
 \algrenewcommand\algorithmicindent{1.0em}%
 \algnewcommand{\IIf}[1]{\State\algorithmicif\ #1\ \algorithmicthen}
 \algnewcommand{\EndIIf}{\unskip\ \algorithmicend\ \algorithmicif}
+
+\newcommand*{\field}[1]{\mathbb{#1}}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %	 listing formats   %
@@ -45,10 +49,16 @@
   morekeywords={rdf, rdfs, type, domain, subPropertyOf, range, hasSubtask, DecompositionUsedBy, subClassOf, hasDecomposition, Cut_hasParameter, A, V, K, hasColor, hasCadModel, isOn}
 }
 
+\lstdefinestyle{Labels}{
+  language=C,
+  basicstyle = \fontencoding{T1}\ttfamily \color{black} \footnotesize
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%
 %	  TODO commands    %
 %%%%%%%%%%%%%%%%%%%%%%%%
 
+\setlength{\marginparwidth}{3cm}
 \newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
 \newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
 \newcommandx{\info}[2][1=]{\todo[linecolor=olive,backgroundcolor=olive!25,bordercolor=olive,#1]{#2}}
@@ -119,10 +129,10 @@
 \newcommand \varset{X}
 \newcommand \var{x}
 
-\newcommand \cost{\mathbb{c}}
-\newcommand \node{\mathbb{n}}
-\newcommand \state{\mathbb{s}}
-\newcommand \action{\mathbb{a}}
+\newcommand \cost{\mathbbm{c}}
+\newcommand \node{\mathbbm{n}}
+\newcommand \state{\mathbbm{s}}
+\newcommand \action{\mathbbm{a}}
 
 \newcommand \softdiff{\,\delta\,}
 \newcommand \harddiff{\,\Delta\,}
@@ -146,7 +156,9 @@
 \newcommand{\differenceadditions}{\textsc{DifferenceAdditions}}
 \newcommand{\actingadditions}{\textsc{ActingAdditions}}
 \newcommand{\completionadditions}{\textsc{CompletionAdditions}}
-
+\newcommand{\compoundadditions}{\textsc{CompoundAdditions}}
+\newcommand{\createtree}{\textsc{CreateTree}}
+\newcommand{\getsubtrees}{\textsc{getSubTrees}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%
 %	      HTN          %
