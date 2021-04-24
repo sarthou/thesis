@@ -5,21 +5,45 @@
 \faketableofcontents
 \fi
 
-\chapter{The director's task: Assessing cognitive architectures}
+\chapter{The director task: Assessing cognitive architectures}
+\chaptermark{The director task}
 \minitoc
 
 \section{From psychology to Human-Robot Interaction}
 
 \subsection{The original task}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.25]{figures/chapter9/dt_apple.png}
+\caption{\label{fig:chap9_dt_apple} Sample display from the director's and the receiver's perspectives. The asterisk indicates the target object / competitor. Giving the sentence "the smallest apple" the receiver should find the good one even if he can see a smallest one in its perspective. }
+\end{figure}
+
 \subsection{The adapted task}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter9/setup.png}
+\caption{\label{fig:chap9_setup} A director task setup adapted to the HRI with the director's and receiver's perspectives. For the material, each element (blocks and compartment) is equipped with AR-tags allowing their detection by the robot. Each block has four visual characteristics: a main color, a border color, a geometric figure, and a figure color. Compartments can be hidden for the director or the receiver. For the director to designate the block marked with a red circle, estimating the receiver's perspective, he can refer to it by its main color (blue) because he estimates the other blue block is not visible by the receiver. For the receiver, by taking into account the director's perspective, he can understand the referred block as he estimates the other blue block to not be visible by the director.}
+\end{figure}
 
 \section{The cognitive architecture and the knowledge link}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter9/architecture.png}
+\caption{\label{fig:chap9_architecture} An overview of the cognitive architecture developed to handle the Director Task. Each block does not necessarily represent one software component but rather an architectural module (in terms of the features it implements). The arrows represent the type of information exchanged between the modules. This architecture extends the ones presented all along with this thesis.}
+\end{figure}
 
 \subsection{The declarative memory}
 
 \subsection{The Situation Assessment}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter9/uwds/uwds.png}
+\caption{\label{fig:chap9_uwds} The world cascading structure of the geometrical situation assessment system. The two worlds at the top (a) are build from the perception systems and filtered. The world of the middle (b) merges the different perception information and computes symbolic facts on it. The world at the bottom (c) is the estimation of the human world representation and is computed from perspective-taking in the robot's world. Like for the world of the middle, symbolic facts are computed and sent to the semantic knowledge base.}
+\end{figure}
 
 \subsection{The supervision}
 
