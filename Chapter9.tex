@@ -115,6 +115,9 @@ In this section, we present the architecture developed to handle the Director Ta
 \caption{\label{fig:chap9_architecture} An overview of the cognitive architecture developed to handle the Director Task. Each block does not necessarily represent one software component but rather an architectural module (in terms of the features it implements). The arrows represent the type of information exchanged between the modules. This architecture extends the ones presented all along with this thesis.}
 \end{figure}
 
+\improvement{Youtube link}
+The architecture has been successfully implemented on a Pr2 robotic platform~\footnote{\url{https://cloud.laas.fr/index.php/s/kx6m67rt5n8bvky}} for both roles. The only emulated element is the human action recognition to trigger the next actions of the robot.
+
 \subsection{Storing and reasoning on symbolic statements}
 
 The knowledge representation is always a core component of cognitive architectures as organising knowledge allows the robot to better understand the environment it evolves in. Moreover, it is on the based of these knowledge that a robot can communicate with its human partner about the current state of the world and ground the partner's utterance regarding this world state.
@@ -177,8 +180,55 @@ For the Natural Language Understanding part, we could use machine learning appro
 
 Even if our method can be seen has been ha-doc, we ensure uniformity of the knowledge among the architecture. Moreover, it can be easily extended and even dynamically extended during an interaction.
 
-\section{Integration on a robotic system}
+\section{Open challenges for the community}
 
-\subsection{The integrated features}
+So far, we have described the main abilities a robot has to be endowed with to perform the Director Task. Then, we have proposed a cognitive robot architecture handling the Director Task in its simplest form, both for the director and receiver roles. However, we have only tackled the normals cases that the task offers. In this section, we now present some open challenges that we have identified around the task. In addition, since we see that the environment of the task can be controlled, we also propose some user studies to investigate the ways of sharing information.
 
-\subsection{Future developments}
+\subsection{Challenges to take up}
+
+The components or abilities related to each challenge are reported in the following table. The list of challenges is not exhaustive. Moreover, even if some challenges have already been mentioned among the presentation of the components, they are here reported as requiring finer and more generic management.
+
+\begin{center}
+ \begin{tabular}{||l | l ||} 
+ \hline
+ Challenged abilities / components & Challenges \\ [0.5ex]
+ \hline\hline
+ Perspective-taking & \ref{chal:cont_analysis}  \\ 
+ \hline
+ Communication & \ref{chal:change}, \ref{chal:understand}, \ref{chal:words}\\
+ \hline
+ Task planning & \ref{chal:cont_errors}, \ref{chal:cont_not_errors}, \ref{chal:change} \\
+ \hline
+ Reference generation & \ref{chal:change}, \ref{chal:spatial_ref}, \ref{chal:multi} \\
+ \hline
+ Contingencies handling & \ref{chal:cont_analysis}, \ref{chal:cont_errors}, \ref{chal:cont_not_errors}, \ref{chal:change} \\ [1ex]
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+
+\item \textbf{Finer contingency analysis:} In this task, failures can easily arise due to the high ambiguity between the blocks and the difference of perspective. Such failures have to be handle by the robot and to do so their origin have to be understood to react to them in an appropriate meaner. In the case the human as the receiver does not take the instructed block, the failure can have different origins. First, it could come from a perspective not taken into account. However, this lack of perspective-taking can be assigned either to the director or the receiver. Another origin can be a description not clear enough or correct but too complex. Finally, it can just be an error of inattention. Each of these origins has to be handle in a different way. \label{chal:cont_analysis}
+
+\item \textbf{Handling contingencies as errors:} When the receiver takes another block than the one instructed, has to fix the error through communication and negotiation. First, the wrong block has to be put back in its original compartment. Then, the robot has to adapt its original instruction to make it clearer and improve the chances to have the receiver taking the right one.\label{chal:cont_errors}
+
+\item \textbf{Not handling contingencies as errors:} When the receiver takes the wrong block, even if it is the instructed one, it can however be part of the goal. In this case, the robot not necessarily has to repair the plan, asking the human to put it back as no order is required for the task. It can thus re-plan or re-instruct the human for the same block without further information. It may also mention to the receiver for the mistake and explain that it does not matter because this one is also part of the goal. Rather than re-planning, the robot could use a conditional plan, anticipating possible confusions, and adapt according to the human's actions.\label{chal:cont_not_errors}
+
+\item \textbf{Adapting to recurrent failures:} In case of recurrent failures by the partner or degradation of the Quality of interaction with numbers of latencies, the robot could try to analyse the origin of the problems and determine if a common point exists. If so, it can adapt itself to increase the QoI and reduce the failures. For example, if the partner is found to have difficulties with certain visual features, the robot can react through properties' cost adaptation. If the partner still consider the removed blocks, it can react through communication context adaptation.\label{chal:change}
+
+\item \textbf{Allowing spatial references:} As explained in section in the origins of the task, the Director Task is originally a task to test referential communication. Even if the present version asks the participants to not use spatial reference, this rule could be relaxed to study perspective-corrected spatial Referring Expression Generation.\label{chal:spatial_ref}
+
+\item \textbf{Understanding the human instructions:} In the current implemented version, the robot can only understand a limited vocabulary and restricted to the context of the task. In this way, the robot only understands descriptions of blocks. In a more natural interaction, humans could use a richer vocabulary, give a single instruction in multiple steps, or have communications not directly linked to the task. During tests for designing the task, it was common to have instructions like ``take the block with a ... triangle. No, rather the one with a green border''. Such complex communications where the director corrects his explanations should have to be managed by the robot.\label{chal:understand}
+
+\item \textbf{Introducing code words:} As presented through the design of the used material, the visual features on the blocks have been chosen in a way to allow the visualisation of landscapes on them, with a little imagination. Considering multiple tasks with the same robot and human, alternating the roles if needed, the introduction of coded words could be interesting to reduce the communication complexity and thus the overall efficiency. The robot could thus try to negotiate some coded words. Once introduced, it would also have to remember them and understand them as being part of a description. \label{chal:words}
+
+\item \textbf{Communicating about multiple blocks:} With the currently implemented system, the director only instruct one block at a time. It can either be through a reference matching all of them, like ``Take all the blocks with a triangle on them'', or multiple descriptions in a raw. The latter method could bring different kinds of communications such as ``I do not remember the instruction for the last block'' when the human is the receiver. For the first method, when the robot is the receiver, it would also be a different kind of instructions to interpret.\label{chal:multi}
+\end{enumerate}
+
+\subsection{User studies to perform}
+
+Some robot behaviours, mainly about the referring expression generation, have been designed with regard to the current literature. However, the Director Task could be used to refine them thanks to user studies. More than providing a controlled task and environment, this task has the advantage to hide the real goal of the study. From the participant point of view, the goal is to remove blocks from compartments. The goal of the study can be focused on other aspects and could help the community in the design of architectures applied to more realistic scenarios.
+
+Currently, the references to the blocks are made in such a way as to minimize the number of visual features used while staying discriminative. Such implementation fit Grice's Maxim of Quantity \cite{grice_1975_logic}. However, due to all the cognitive mechanisms to use in this task (e.g., perspective-taking) and the high ambiguity among the blocks, evaluating such behaviour compared to a full explanation could be interesting. Indeed, giving a reference with more information than needed would ensure to not match blocks being only visible by the receiver, which could help them to select the right block. In a way, it could allow to not use perspective-taking at the cost of complex communications.
+
+During the material presentation, we have introduced a special compartment equipped with a wire mesh. Because a block in such a compartment is visible from the receiver but not accessible, referring to a block matching also this one could disturb the receiver. We could expect such a situation to require a higher cognitive load to determine the right block to take. Such behavior could also be interesting to evaluate as even if the human receiver is able to take the right block it could also decrease the Quality of Interaction. In the same way, a block previously visible by the receiver and that the director moves in a hidden compartment could disturb the receiver to interpret a description.
