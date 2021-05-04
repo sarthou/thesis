@@ -78,7 +78,7 @@ Kuipers has defined three distinct concepts being the \textbf{region}, the \text
 \paragraph{Path:} It is a one-dimensional element, drawing a line. We can materialize it as an element along which it is possible to move by following it. Even if it is not directly semantically represented, a path must have a direction in order to describe other elements in relation to it. A path can be refined into:
 
 \begin{itemize}
-  \item \textbf{Corridor:} It represents a kind of path having a distinct beginning and end. In this way, a corridor cannot be a loop. The director of the corridor can be chosen arbitrarily. However, its director defines the position of its beginning and end. Consequently, it also defines the right and left of the corridor. 
+  \item \textbf{Corridor:} It represents a kind of path having a distinct beginning and end. In this way, a corridor cannot be a loop. The direction of the corridor can be chosen arbitrarily. However, its direction defines the position of its beginning and end. Consequently, it also defines the right and left of the corridor. The direction does not mean that the corridor can be use in a unique way but will be used to describe the elements along with it.
   \item \textbf{Open space:} It is a kind of path which does not have any defined begin or end. It thus forms a loop. It can also be viewed as a "potato-shaped" describing the outline of open space. It materializes the possibility of turning the gaze around the room and the fact of not having to go through a defined path to reach one of its points. In a building, a hall would typically be described with such a path.
 \end{itemize}
 
@@ -93,11 +93,40 @@ To better catch the difference between paths and places, it can be related to th
 
 \subsection{The SSR properties}
 
+The relations introduced by Kuipers aim at representing the connections of places and paths, the order of the places along a path, and the membership of regions. The main relations are the follow:
+
+\begin{align*}
+&on(place,path) && place \text{ is on } path \\
+&order(path,place1,place2,dir) && \text{the order on } path \text{ from } place1 \text{ to } place2 \text{ is } dir \\
+&right\_of(path,dir,region) && path \text{, facing direction } dir \text{, has } region \text{on its right}\\
+&left\_of(path,dir,region) && path \text{, facing direction } dir \text{, has } region \text{on its left} \\
+&in(place,region) && place \text{ is in } region
+\end{align*}
+
+Through these relations, we can first see a slight difference in our use of the main elements. The regions used to group a set of places along a path avoiding in this way to describe each individual place as being at the right/left of a path. Our use of the concept of region will thus require more description for each place but has the advantage to give a finer granularity of huge environment representation with a first level of abstraction. With it, we could imagine a short prior description like "it is on the first floor".
+
+A major limitation of these relations is that they cannot be used in an ontology as they are not all in the form of triplets. The issue comes from the need for a direction de determine the order and the side positions. The properties we introduce aim at fixing this issue and give a more precise description. For example, with their representation, we cannot have a place at the edge of a path. All the properties presented here can be extended with their inverse (e.g. $isIn$ and $hasIn$) for a more expressive model and thus easier handling. The resulting property hierarchy is representing with the partial RBox of figure~\ref{fig:chap3_rbox} 
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter3/ssr_rbox.png}
 \caption{\label{fig:chap3_rbox} Representation fo the RBox (properties hierarchy) of the Semantic Spatial Representation used to describe the topology of an indoor environment.}
 \end{figure}
+
+\paragraph{isInRegion:} $isInRegion(path/place,\ region)$ describes the fact that a $path$ or a $place$ is in a $region$.
+
+\paragraph{isAlongPath:} $isAlongPath(place,\ path)$ describes the fact that a $place$ is along $path$. Depending if the path is a corridor or an openspace, a finer description can be needed:
+\begin{itemize}
+  
+  \item $isAlong(place,\ corridor)$: Since a corridor is a line, the places along the path can first be described as being either on a side of the corridor with the property $isAtSideOfPath$ or at the edge with the property $isAtEdgeOfPath$. Thanks to direction of the corridor, these properties can be refine with $isAtBeginOfPath$ and $isAtEndOfPath$ for the places at an edge, and  $isAtRightOfPath$ and $isAtLeftOfPath$ for the places at side of the corridor. Even if the direction of the corridor is not directly represented in the ontology, since the places have been position regarding it, we can retrieve it.
+  \item $isAlong(place,\ openspace)$: For open spaces, since they do not have beginning or end, places are only defined as being along with an open space.
+\end{itemize}
+
+\paragraph{isBeside:} $isBeside(place1,place2)$ describes the fact that $place1$ is beside $place2$. To really represente their order, we use the properties $isAtLeftOf$ and $isAtRightOf$. The choice of these properties is made by positioning themselves at the place and facing the path the place is along.
+
+\paragraph{isInfrontOf:} $isInfrontOf(place1,place2)$ describes the fact that $place1$ is in front of $place2$. This property is not mandatory for all the places but provides a finer description. The more it is used, the more the verbalization of the itinerary will be easy. We will see in the sentence generation section that it is however important to always define a place in front of an intersection. This information will be used to determine if the guided human will have to go left or right in some cases. If there is no described place in front of an intersection, we can use a $emptyPlace$ class that would inherit the $place$ class.
+
+To simplify the description few axioms are made. The property $isInfrontOf$ is sets reflexive. The properties $isAtRightOf$ and $isAtLeftOf$ are set inverse from one another. Finally the chain axiom $isAlong \bullet isIn \rightarrow isIn$ is used to not have to set the $isIn$ property to each place. It can be deduced thanks to the path they are along.
 
 \subsection{An example of description}
 
