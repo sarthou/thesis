@@ -164,6 +164,14 @@ Once the paths and intersections described, we can describe the other places of 
 
 \section{Finding routes: A two-level search}
 
+At this point, we have built a representation of the environment using the Semantic Spatial Representation (SSR). Using this representation, we now want to compute routes from one place to another. We already saw that even if the length of a route can be a criterion, the complexity of the description is a more important criterion when we have to describe it. Moreover, depending on the guided person, some routes could be prefered to others, to avoid stairs, to prefer elevators, or to reduce the use of path with too many persons.
+
+In this section, the goal is to provide multiple routes so that we can allow choosing the best route based on personal preferences, during the interaction. In order to reduce the complexity of this exhaustive search, especially for large scale environments, we propose to work at two levels:
+\begin{itemize}
+\item \textbf{First} the region level. It considers only regions and interfaces such as doors, stairs, or elevators. In such a way, we will not consider paths in regions not leading to the goal destination. If we are on the ground floor and want to go to a place also on the ground floor, exploring other floors would be useless.
+\item \textbf{Then} the place level. It provides complete routes computation including paths and intersections within regions.
+\end{itemize}
+
 \subsection{The region-level: Trim down the search}
 
 \begin{figure}[ht!]
@@ -180,8 +188,6 @@ Once the paths and intersections described, we can describe the other places of 
 \includegraphics[scale=0.28]{figures/chapter3/region1.png}
 \caption{\label{fig:chap3_region1} Representation the \textit{region\_1} at the place-level. A region is composed of paths (here corridors only) connected through intersections. We know that the starting point of the search is along \textit{corridor\_1} and the local goal place is in \textit{corridor\_5}. }
 \end{figure}
-
-\subsection{Selecting the most suitable route}
 
 \section{Genarating an explanation in natural language}
 
