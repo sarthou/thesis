@@ -760,15 +760,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="724.14565"
-     inkscape:cy="964.26495"
+     inkscape:cx="499.30842"
+     inkscape:cy="565.38454"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1026"
-     inkscape:window-x="0"
-     inkscape:window-y="865"
+     inkscape:window-width="1200"
+     inkscape:window-height="1891"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -817,7 +817,7 @@
                width="98.4478"
                id="rect4228-5-5-2-4-7-9-97-2-6-4-5-8-3" /></flowRegion><flowPara
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-align:center;text-anchor:middle"
-             id="flowPara4230-4-5-4-6-0-2-7-9-1-8-9-3-3">isAtLeftOf</flowPara></flowRoot>      </g>
+             id="flowPara4230-4-5-4-6-0-2-7-9-1-8-9-3-3">hasAtLeft</flowPara></flowRoot>      </g>
       <path
          inkscape:export-ydpi="94.420097"
          inkscape:export-xdpi="94.420097"
@@ -1031,7 +1031,7 @@
                width="98.4478"
                id="rect4228-5-5-2-4-7-9-97-2-6-4-5-8-3-6" /></flowRegion><flowPara
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-align:center;text-anchor:middle"
-             id="flowPara4230-4-5-4-6-0-2-7-9-1-8-9-3-3-6">isAtRightOf</flowPara></flowRoot>      </g>
+             id="flowPara4230-4-5-4-6-0-2-7-9-1-8-9-3-3-6">AtRight</flowPara></flowRoot>      </g>
       <g
          id="g8729-4"
          transform="translate(138.91425,0)">

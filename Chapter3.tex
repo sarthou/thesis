@@ -122,15 +122,47 @@ A major limitation of these relations is that they cannot be used in an ontology
   \item $isAlong(place,\ openspace)$: For open spaces, since they do not have beginning or end, places are only defined as being along with an open space.
 \end{itemize}
 
-\paragraph{isBeside:} $isBeside(place1,place2)$ describes the fact that $place1$ is beside $place2$. To really represente their order, we use the properties $isAtLeftOf$ and $isAtRightOf$. The choice of these properties is made by positioning themselves at the place and facing the path the place is along.
+\paragraph{isBeside:} $isBeside(place1,place2)$ describes the fact that $place1$ is beside $place2$. To really represente their order, we use the properties $hasAtLeft$ and $hasAtRight$. The choice of these properties is made by positioning themselves at the place and facing the path the place is along.
 
 \paragraph{isInfrontOf:} $isInfrontOf(place1,place2)$ describes the fact that $place1$ is in front of $place2$. This property is not mandatory for all the places but provides a finer description. The more it is used, the more the verbalization of the itinerary will be easy. We will see in the sentence generation section that it is however important to always define a place in front of an intersection. This information will be used to determine if the guided human will have to go left or right in some cases. If there is no described place in front of an intersection, we can use a $emptyPlace$ class that would inherit the $place$ class.
 
-To simplify the description few axioms are made. The property $isInfrontOf$ is sets reflexive. The properties $isAtRightOf$ and $isAtLeftOf$ are set inverse from one another. Finally the chain axiom $isAlong \bullet isIn \rightarrow isIn$ is used to not have to set the $isIn$ property to each place. It can be deduced thanks to the path they are along.
+To simplify the description few axioms are made. The property $isInfrontOf$ is sets reflexive. The properties $hasAtRight$ and $hasAtLeft$ are set inverse from one another. Finally the chain axiom $isAlong \bullet isIn \rightarrow isIn$ is used to not have to set the $isIn$ property to each place. It can be deduced thanks to the path they are along.
 
 \subsection{An example of description}
 
-\section{Finding routes to the right destination: A two-level search}
+To better understand the use of the SSR, we will describe the shop $pl\_5$ (with the red floor) represented in the figure~\ref{fig:chap3_example}. Along with the description of this place, we will use the previously introduced classes and properties.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.16]{figures/chapter3/SSR_example.png}
+\caption{\label{fig:chap3_example} An example of environment with two corridors, an intersection, and two shops represented as places. All the elements are in the same region. The arrows represent the corridors directions.}
+\end{figure}
+
+To describe our environment, we start with the description of its paths. The corresponding ontology is reported in the listing~\ref{lst:chap3_corridors}. In the example, we have two corridors. We assume that both are in a common region named $region\_1$. The paths do not need further description. To path from one to the other, we create an intersection, here denoted $i\_2$. To describe its position along with the two paths we have to take a look at the paths' directions. For the $corridor\_4$, the intersection is at its end edge. For the $corridor\_1$, the intersection is at its left.
+
+\begin{lstlisting}[frame=single, basicstyle=\scriptsize\ttfamily, label={lst:chap3_corridors}, caption={Description of the two corridor and their common intersection in the OWL language using the Turle syntax.},captionpos=b, style=OwlTurtle_indiv]
+:corridor_1  rdf:type     :Corridor ;
+             :isInRegion  :region_1 .
+             
+:corridor_4  rdf:type     :Corridor ;
+             :isInRegion  :region_1 .
+             
+:i_2  rdf:type        :Intersection ;
+      :isAtEndOfPath  :corridor_4;
+      :isAtLeftOfPath :corridor_1.
+\end{lstlisting}
+
+Once the paths and intersections described, we can describe the other places of the environment. For this example, we only describe the shop $pl\_5$. We would do the same process for all the others. The place $pl\_5$ is first a shop,  which is a particular kind of place. Regarding the corridors, it is at the left of $corridor\_1$. However, it also has an entrance overlooking $corridor\_4$. We can thus describe it as being along two paths. Depending on the starting point of the description, we will be able to instruct for one of its two entrance. For $corridor\_4$, $pl\_5$ is at its left. Now the place is positioned along paths, we have to describe its position according to its adjacent places. Facing $corridor\_1$, the intersection $i\_2$ is at the right of $pl\_5$ and the shop $pl\_2$ is in front of it. Facing $corridor\_4$, the intersection would be at its left. However, $pl\_5$ is on a side of the corridor while $i\_2$ is at one of its edges. Consequently, we do not have to describe any order. The resulting ontology part is reported in the listing~\ref{lst:chap3_pl5}.
+
+\begin{lstlisting}[frame=single, basicstyle=\scriptsize\ttfamily, label={lst:chap3_pl5}, caption={Description of the shop pl\_5 using the SSR in the OWL language using the Turle syntax.},captionpos=b, style=OwlTurtle_indiv]
+:pl_5  rdf:type     :Shop ;
+       :isAtLeftOfPath  :corridor_4 ;
+       :isAtLeftOfPath  :corridor_1 ;
+       :hasAtRight      :i_2 ;
+       :isInFrontOf     :pl_2.
+\end{lstlisting}
+
+\section{Finding routes: A two-level search}
 
 \subsection{The region-level: Trim down the search}
 
