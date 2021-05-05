@@ -168,11 +168,13 @@ At this point, we have built a representation of the environment using the Seman
 
 In this section, the goal is to provide multiple routes so that we can allow choosing the best route based on personal preferences, during the interaction. In order to reduce the complexity of this exhaustive search, especially for large scale environments, we propose to work at two levels:
 \begin{itemize}
-\item \textbf{First} the region level. It considers only regions and interfaces such as doors, stairs, or elevators. In such a way, we will not consider paths in regions not leading to the goal destination. If we are on the ground floor and want to go to a place also on the ground floor, exploring other floors would be useless.
-\item \textbf{Then} the place level. It provides complete routes computation including paths and intersections within regions.
+\item \textbf{First} the region-level. It considers only regions and interfaces such as doors, stairs, or elevators. In such a way, we will not consider paths in regions not leading to the goal destination. If we are on the ground floor and want to go to a place also on the ground floor, exploring other floors would be useless.
+\item \textbf{Then} the place-level. It provides complete routes computation including paths and intersections within regions.
 \end{itemize}
 
 \subsection{The region-level: Trim down the search}
+
+In large-scale environments such as multi-storey buildings, routes computation can lead to combinatorial explosion. Exploration at the region-level can decreases this effect, giving a first high-level exploration. To study this first level, we take the example of figure~\ref{fig:chap3_regions}. It represents a building composed of five regions. Each is linked to others through the use of interfaces, being doors, stairs, or escalators. In this environment, the goal is to guide a human from the flag "start" to the flag "end". Quickly analysing this figure, we can see that the human will have to pass by the region 1, 2, and 3. The exploration of the two others is thus useless. For this first level, we only use the regions and the interfaces as they link the regions.
 
 \begin{figure}[ht!]
 \centering
@@ -180,6 +182,40 @@ In this section, the goal is to provide multiple routes so that we can allow cho
 \caption{\label{fig:chap3_regions} Representation of an environment at the region-level. Regions are linked trhough interfaces. We know that the starting point of the search is in \textit{region\_1} and the goal place is in \textit{region\_3}. }
 \end{figure}
 
+%Each interface is connected to regions thanks to the $isIn$ property. With this property, a route finding algorithm, based on the breadth-first search, makes possible to find the shortest routes connecting two regions by using the semantic knowledge. By including the knowledge base exploration directly inside the search algorithms, it it not necessary to extract a topological graph with nodes and arcs. It is carried out within the search algorithm without preprocessing.
+
+\begin{algorithm}[!htbp]
+\caption{Exhaustive Graph Search algorithm for region exploration}
+\label{alg:chap3_region_search}
+\begin{algorithmic}
+\Function{Exhaustive\_region\_search}{$problem$} 
+    \State $frontier\leftarrow$ a FIFO queue of state
+    \State $frontier\leftarrow$ \textsc{INSERT}($problem$.initial\_region, $frontier$)
+    \State $solutions\leftarrow$ an empty set
+    \\
+    \Loop
+        \If{\textsc{empty}($frontier$)} 
+        	\State \Return $solutions$
+        \EndIf
+        \\
+        \State $state\leftarrow$ \textsc{pop}($frontier$)
+        \If{$state$.current\_region is $problem$.goal\_region } 
+        	\State $solutions\leftarrow$ \textsc{INSERT}($state$, $solutions$)
+        \Else
+        	\ForAll{$intersection$ such as $state$.current\_region.hasInRegion}
+        		\State $frontier\leftarrow$ \textsc{INSERT}($intersection$.isInRegion, $frontier$)
+        	\EndFor
+        \EndIf
+    \EndLoop
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.12]{figures/chapter3/Region_exploration_graph.png}
+\caption{\label{fig:chap3_region_expl} Representation the \textit{region\_1} at the place-level. A region is composed of paths (here corridors only) connected through intersections. We know that the starting point of the search is along \textit{corridor\_1} and the local goal place is in \textit{corridor\_5}. }
+\end{figure}
 
 \subsection{The place-level: Refine the search}
 
