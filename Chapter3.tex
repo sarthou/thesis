@@ -235,6 +235,29 @@ This type of result makes it possible to quickly eliminate unnecessary regions t
 
 \subsection{The place-level: Refine the search}
 
+Place-level search is based on the Region-level search results with the aggregation of start and end places. The format changes from:
+\begin{gather*}
+region - place - region - ... - region \\
+\text{to} \\
+place - region - place - ... - place
+\end{gather*}
+
+Place-level search works from one place to another through a single region. We have therefore divided the previous solutions to meet this constraint. This step aims to reduce complexity again. Indeed, if several routes pass through the same region with the same places of departure and arrival. The inner route can thus be calculated once and for all. In our example, the division gives five sub-routes instead of six:
+
+\begin{align*}
+&start - region\_1 - interface\_1 \\
+&interface\_1 - region\_2 - interface\_2 \\
+&interface\_2 - region\_3 - end \\
+&interface\_1 - region\_2 - interface\_3 \\
+&interface\_3 - region\_3 - end
+\end{align*}
+
+The place-level algorithm aims to replace each sub-route region with a succession of paths and intersections. Focusing on the \textit{region\_1}, illustrated in figure~\ref{fig:chap3_region1}, we need to find a route from the strat place to the \textit{intersection\_1}. Using the property \textit{isAlongPath}, we get from the ontology that the starting place is along the \textit{corridor\_1} and the interface 1 is along the \textit{corridor\_5}. Solving it by hand, a possible solution would be to take the v, pass by the intersection 1 (\textit{i\_1}) to reach the \textit{corridor\_5}.
+
+%The place-level algorithm aims to replace each sub-route region with a succession of paths and intersections. It works on the same principle as the previous search algorithm using the $isAlong$ property instead of the $isIn$ property. To improve performance, we use moving forward for the breadth-first search. It stops the exploration of the routes passing through a path already used in previous route calculation steps. In addition, it prevents loops.
+
+%Taking the example of Figure~\ref{fig:P2P} and focusing on region 1, we can solve the sub-route $start - region\_1 - interface\_1$. Region 1 is represented with its corridors and intersections in Figure~\ref{fig:C2C}. By applying the algorithm at the place level, we have the solution $ start - corridor\_1 - intersection\_1 - corridor\_5 - interface\_1 $. By doing the same for each sub-route, we can then recompose the global routes and give the set detailed of routes from start to end.
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.28]{figures/chapter3/region1.png}
