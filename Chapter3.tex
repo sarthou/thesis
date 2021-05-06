@@ -174,7 +174,7 @@ In this section, the goal is to provide multiple routes so that we can allow cho
 
 \subsection{The region-level: Trim down the search}
 
-In large-scale environments such as multi-storey buildings, routes computation can lead to combinatorial explosion. Exploration at the region-level can decreases this effect, giving a first high-level exploration. To study this first level, we take the example of figure~\ref{fig:chap3_regions}. It represents a building composed of five regions. Each is linked to others through the use of interfaces, being doors, stairs, or escalators. In this environment, the goal is to guide a human from the flag "start" to the flag "end". Quickly analysing this figure, we can see that the human will have to pass by the region 1, 2, and 3. The exploration of the two others is thus useless. For this first level, we only use the regions and the interfaces as they link the regions.
+In large-scale environments such as multi-storey buildings, routes computation can lead to combinatorial explosion. Exploration at the region-level can decreases this effect, giving a first high-level exploration. To study this first level, we take the example of figure~\ref{fig:chap3_regions}. It represents a building composed of five regions. Each is linked to others through the use of interfaces, being doors, stairs, or escalators. In this environment, the goal is to guide a human from the flag "start" to the flag "end". Quickly analysing this figure, we can see that the human will have to pass by regions 1, 2, and 3. To pass from \textit{region\_1} to \textit{region\_2} the only interface is \textit{interface\_1}. To pass from \textit{region\_2} to \textit{region\_3}, two interface can be used, either \textit{interface\_2} or \textit{interface\_3}. The exploration of the two others regions is useless.
 
 \begin{figure}[ht!]
 \centering
@@ -182,15 +182,16 @@ In large-scale environments such as multi-storey buildings, routes computation c
 \caption{\label{fig:chap3_regions} Representation of an environment at the region-level. Regions are linked trhough interfaces. We know that the starting point of the search is in \textit{region\_1} and the goal place is in \textit{region\_3}. }
 \end{figure}
 
-%Each interface is connected to regions thanks to the $isIn$ property. With this property, a route finding algorithm, based on the breadth-first search, makes possible to find the shortest routes connecting two regions by using the semantic knowledge. By including the knowledge base exploration directly inside the search algorithms, it it not necessary to extract a topological graph with nodes and arcs. It is carried out within the search algorithm without preprocessing.
+For this first level of exploration, we only use the regions and the interfaces as they link the regions. Since the places are along paths and the paths are in regions, we saw that we can know in which region is each place. Using the property \textit{isInRegion}, we get the starting region and the goal region respectively from the start place and the end place. In our example, we get that the human has to go from \textit{region\_1} to \textit{region\_3}. These two regions define the initial state and goal state of a search algorithm. Considering the regions as the nodes of a graph and the interfaces as its edges, we can thus apply a graph search algorithm to find routes at the region-level.
 
 \begin{algorithm}[!htbp]
 \caption{Exhaustive Graph Search algorithm for region exploration}
 \label{alg:chap3_region_search}
-\begin{algorithmic}
-\Function{Exhaustive\_region\_search}{$problem$} 
+\begin{algorithmic}[1]
+\Function{Exhaustive\_region\_search}{$problem$}
+	\State $state \leftarrow$ ($problem$.initial\_region, \_) 
     \State $frontier\leftarrow$ a FIFO queue of state
-    \State $frontier\leftarrow$ \textsc{INSERT}($problem$.initial\_region, $frontier$)
+    \State $frontier\leftarrow$ \textsc{INSERT}($state$, $frontier$)
     \State $solutions\leftarrow$ an empty set
     \\
     \Loop
@@ -202,8 +203,12 @@ In large-scale environments such as multi-storey buildings, routes computation c
         \If{$state$.current\_region is $problem$.goal\_region } 
         	\State $solutions\leftarrow$ \textsc{INSERT}($state$, $solutions$)
         \Else
-        	\ForAll{$intersection$ such as $state$.current\_region.hasInRegion}
-        		\State $frontier\leftarrow$ \textsc{INSERT}($intersection$.isInRegion, $frontier$)
+        	\ForAll{$intersection$ s.t. $state$.current\_region.hasInRegion $\land \notin state$}
+        		\ForAll{$region$ s.t. $intersection$.isInRegion}
+        			\If{$region$ not in $state$} 
+        				\State $frontier\leftarrow$ \textsc{INSERT}($state \cup$ ($region$, $interface$), $frontier$)
+        			\EndIf
+        		\EndFor
         	\EndFor
         \EndIf
     \EndLoop
@@ -211,11 +216,22 @@ In large-scale environments such as multi-storey buildings, routes computation c
 \end{algorithmic}
 \end{algorithm}
 
+Since we want to compute all the possible routes, we use the exhaustive graph search algorithm represented in algorithm~\ref{alg:chap3_region_search}. In this algorithm, we consider a state as being a list of pairs composed of a region and the intersection used to come to the region. The inial state (line 2) thus takes the initial region and no interface. When we explore a state (line 11) we first test if its current region (the last one in the list) is the goal region (line 12). If it is, rather than returning the state, we simply add it to a solution set (line 13). If the current region is not the goal one, we get from the ontology all the interfaces connected to the current region thanks to the property \textit{hasInRegion} which is the inverse of \textit{isInRegion}. For each of these interfaces not already used in the state (line 15), we get the regions it is connected to (line 16). With each of these regions not already used in the state (line 17), we finally create a new state which is added to the frontier (line 18). The algorithm only stops when no more state has to be explored (line 8). By including the knowledge base exploration directly inside the search algorithms, it is not necessary to extract a topological graph with nodes and edges. It is carried out within the search algorithm without preprocessing.
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.12]{figures/chapter3/Region_exploration_graph.png}
-\caption{\label{fig:chap3_region_expl} Representation the \textit{region\_1} at the place-level. A region is composed of paths (here corridors only) connected through intersections. We know that the starting point of the search is along \textit{corridor\_1} and the local goal place is in \textit{corridor\_5}. }
+\caption{\label{fig:chap3_region_expl} An illustartion of the exploration process at the region-level for the example of figure~\ref{fig:chap3_regions}.}
 \end{figure}
+
+The exploration performs by this algorithm on our example is illustrated in figure~\ref{fig:chap3_region_expl}. The \textit{region\_4} has been detected as being a deadend and the \textit{region\_5} has not been explored at all. The two found solutions are the routes:
+
+\begin{align*}
+region\_1 - interface\_1 - region\_2 - interface\_2 - region\_3 \\
+region\_1 - interface\_1 - region\_2 - interface\_3 - region\_3
+\end{align*}
+
+This type of result makes it possible to quickly eliminate unnecessary regions to be analysed next and thus reduces the complexity for a more detailed search at a second time. This technique is similar to what is done for GNSS road navigation systems where the main roads are studied upstream of secondary roads with pyramidal (or hierarchical) route structure \cite{bovy_2012_route}.
 
 \subsection{The place-level: Refine the search}
 
