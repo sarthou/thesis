@@ -203,9 +203,9 @@ For this first level of exploration, we only use the regions and the interfaces 
         \If{$state$.current\_region is $problem$.goal\_region } 
         	\State $solutions\leftarrow$ \textsc{INSERT}($state$, $solutions$)
         \Else
-        	\ForAll{$intersection$ s.t. $state$.current\_region.hasInRegion $\land \notin state$}
-        		\ForAll{$region$ s.t. $intersection$.isInRegion}
-        			\If{$region$ not in $state$} 
+        	\ForAll{$interface$ s.t. $state$.current\_region.hasInRegion $\land \notin state$}
+        		\ForAll{$region$ s.t. $interface$.isInRegion}
+        			\If{$region \notin state$} 
         				\State $frontier\leftarrow$ \textsc{INSERT}($state \cup$ ($region$, $interface$), $frontier$)
         			\EndIf
         		\EndFor
@@ -264,6 +264,51 @@ The place-level algorithm aims to replace each sub-route region with a successio
 \caption{\label{fig:chap3_region1} Representation the \textit{region\_1} at the place-level. A region is composed of paths (here corridors only) connected through intersections. We know that the starting point of the search is along \textit{corridor\_1} and the local goal place is in \textit{corridor\_5}. }
 \end{figure}
 
+\begin{algorithm}[!htbp]
+\caption{Adapted breadth-first search algorithm for paths exploration. This version does not return the first valid solution but all the solutions having the same minimum length.}
+\label{alg:chap3_path_search}
+\begin{algorithmic}[1]
+\Function{Exhaustive\_path\_search}{$problem$}
+    \State $frontier\leftarrow$ a FIFO queue of state
+    \State $explored\leftarrow$ a set of explored path
+    \State $solutions\leftarrow$ an empty set
+    \State $min\_legth \leftarrow inf$ 
+    \\
+    \ForAll{$path \in problem$.initial\_paths}
+    	\State $state \leftarrow$ ($path$, \_) 
+    	\If{$path \notin problem$.goal\_paths}
+    		\State \Return $state$
+    	\Else
+    		\State $frontier\leftarrow$ \textsc{INSERT}($state$, $frontier$)
+    	\EndIf
+    \EndFor
+    \\
+    \Loop
+        \If{\textsc{empty}($frontier$)} 
+        	\State \Return $solutions$
+        \EndIf
+        \\
+        \State $state\leftarrow$ \textsc{pop}($frontier$)
+        \ForAll{$intersection$ s.t. $state$.current\_path.hasAlong $\land \notin state$}
+        	\ForAll{$path$ s.t. $intersection$.isAlong $\land \notin state$}
+        		\If{$path \in problem$.goal\_paths}
+        			\State $state \leftarrow state \cup$ ($path$, $intersection$)
+        			\If{$state$.size $\leq min\_legth$}
+        				\State $solutions\leftarrow$ \textsc{INSERT}($state$), $solutions$)
+        				\State $min\_legth \leftarrow state$.size
+        			\EndIf
+        		\ElsIf{$path \notin explored$}
+        			\State $frontier\leftarrow$ \textsc{INSERT}($state \cup$ ($path$, $intersection$), $frontier$)
+        			\State $explored\leftarrow$ \textsc{INSERT}($path$, $explored$)
+        		\EndIf
+        	\EndFor
+        \EndFor
+    \EndLoop
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+
 \section{Genarating an explanation in natural language}
 
 \subsection{Putting the robot in your shoes}
@@ -272,5 +317,10 @@ The place-level algorithm aims to replace each sub-route region with a successio
 
 \section{Experiment in emulated and real environment}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.6]{figures/chapter3/performance.png}
+\caption{\label{fig:chap3_performance} The resolution times of 26 places related to the maximum route length found for each of them. The places are each on a unique and distinct path. We identify three clusters. The blue one on the left corresponds to places in the same region as the departure place. The green cluster on the center corresponds to places in a small region with few paths, different from the region of the departure place. The red cluster on the right corresponds to places in a third region with more paths in it. }
+\end{figure}
 
 

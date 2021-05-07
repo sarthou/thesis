@@ -1,0 +1,27 @@
+,indiv id,v2time(ms),v2nb regions,v2nb routes,v2total paths,v2max paths
+1,Espresso_House,0.395252,1,1,1,1
+2,Brother_Clothing,1.214828,1,1,2,2
+3,only_2,1.212336,1,1,2,2
+4,Gant,1.32708,1,1,2,2
+5,Donna_Rosa,2.517498,1,1,3,3
+6,River_and_Co,2.57021,1,1,3,3
+7,Jesper_Junior,2.302155,1,2,6,3
+8,Guess,2.567693,1,1,3,3
+9,gf_atm_east,2.562449,1,1,3,3
+10,Kauneus__ja_jalkahoitola_Manna,2.738748,1,1,3,3
+11,HairStore,2.692706,1,1,3,3
+12,gf_toilet_west,2.496506,1,1,3,3
+13,Kalastus_Suomi,2.995465,1,1,4,4
+14,Juvesport,2.969799,1,1,4,4
+15,Cafe_de_Lisa,12.593163,2,3,11,4
+16,Ballot,13.665084,2,3,12,5
+17,Hairlekiini,14.143531,2,3,12,5
+18,Pancho_Villa,40.794674,2,11,32,5
+19,LahiTapiola_Service_desk,29.607277,2,16,94,8
+20,Ti_Ti_Nallen_Koti,29.21196,2,11,63,8
+21,Masku,35.158161,2,11,70,9
+22,Beefking_steakhouse,28.736086,2,14,68,9
+23,ff_toilet_west,27.839594,2,12,65,9
+24,ff_toilet_east,33.131855,2,11,71,9
+25,Sticky_Wingers,30.226608,2,11,57,10
+26,Coyote_Grill,29.350519,2,11,63,11
