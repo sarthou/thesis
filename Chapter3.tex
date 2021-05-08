@@ -307,13 +307,25 @@ Whereat the region-level an exhaustive search was acceptable due to the limited 
 \end{algorithmic}
 \end{algorithm}
 
-This algorithm has been adapted to better fit our problem. First of all, a place can be along several paths. Performing a search for each combination of departure path and destination path would be time-consuming. Where a breadth-first algorithm commonly takes one initial state and one goal state, we have adapted it to assume several of each. This modification is visible from line 7 to line 12 of our algorithm. For each initial path, we create an initial state and test if it is one of the goal paths or not. We also put them all in the explored set to avoid to search route passing by them since we are already along with them. The second adaptation comes from the number of solution. A breadth-first only returns the shortest solution. However, if several solutions exist with the same length, only the first found is selected. Since we want to propose several routes, we do not exist the algorithm once a solution is found but rather bound it from there with the variable \textit{min\_length}. At line 23, any state having a size bigger than the minimum length is forsaken. Once all the routes under exploration reach this limit the frontier becomes empty and the algorithm stops.
+This algorithm has been adapted to better fit our problem. First of all, a place can be along several paths. It the the case of our starting place, in additon to be along \textit{corridor\_1}, we had described it as being also along \textit{corridor\_4}. Performing a search for each combination of departure path and destination path would be time-consuming. Where a breadth-first algorithm commonly takes one initial state and one goal state, we have adapted it to assume several of each. This modification is visible from line 7 to line 12 of our algorithm. For each initial path, we create an initial state and test if it is one of the goal paths or not. We also put them all in the explored set to avoid to search route passing by them since we are already along with them. The second adaptation comes from the number of solution. A breadth-first only returns the shortest solution. However, if several solutions exist with the same length, only the first found is selected. Since we want to propose several routes, we do not exist the algorithm once a solution is found but rather bound it from there with the variable \textit{min\_length}. At line 23, any state having a size bigger than the minimum length is forsaken. Once all the routes under exploration reach this limit the frontier becomes empty and the algorithm stops.
 
 This algorithm is applied to each sub-routes find at the previous stage. The overall routes are then recomposed with the results found at the place-level.
 
 \section{Genarating an explanation in natural language}
 
 \subsection{Putting the robot in your shoes}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter3/corridor.png}
+\caption{\label{fig:chap3_corridor} Internal representation of a the \textit{corridor\_1} extracted from the semantic representation. Thanks to the specialisations of the \textit{isAlonPath} property we know on which side of the path each place is. With the specialisations of the \textit{isBeside} property, we can reconstruct the order of the places for each side. }
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter3/directions.png}
+\caption{\label{fig:chap3_directions} In red (on top) is represented the resolution of the action to be performed (i.e. going in front, turning left, or turning right) from the starting place \textit{pl\_5}. In blue (on the sides) is represented the resolution of the position of the place to reach depending on the performed action. Starting from place \textit{pl\_5}, to reach the intersection \textit{i\_1}, the guided human will have to turn right (red) then the place will be on his right (blue). Starting from place \textit{pl\_5}, to reach the place \textit{pl\_3}, the guided human will have to turn left (red) then the place will be on his right (blue). }
+\end{figure}
 
 \subsection{A pattern-based generation}
 
@@ -322,7 +334,7 @@ This algorithm is applied to each sub-routes find at the previous stage. The ove
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.6]{figures/chapter3/performance.png}
-\caption{\label{fig:chap3_performance} The resolution times of 26 places related to the maximum route length found for each of them. The places are each on a unique and distinct path. We identify three clusters. The blue one on the left corresponds to places in the same region as the departure place. The green cluster on the center corresponds to places in a small region with few paths, different from the region of the departure place. The red cluster on the right corresponds to places in a third region with more paths in it. }
+\caption{\label{fig:chap3_performance} The resolution times of 26 places related to the maximum route length found for each of them. The places are each on a unique and distinct path. We identify three clusters. The blue one on the left corresponds to places in the same region as the departure place. The green cluster on the center corresponds to places in a small region with few paths, different from the region of the departure place. The red cluster on the right corresponds to places in a third region with more paths in it and more interfaces to reach it. }
 \end{figure}
 
 
