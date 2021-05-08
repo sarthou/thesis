@@ -184,7 +184,7 @@ In large-scale environments such as multi-storey buildings, routes computation c
 
 For this first level of exploration, we only use the regions and the interfaces as they link the regions. Since the places are along paths and the paths are in regions, we saw that we can know in which region is each place. Using the property \textit{isInRegion}, we get the starting region and the goal region respectively from the start place and the end place. In our example, we get that the human has to go from \textit{region\_1} to \textit{region\_3}. These two regions define the initial state and goal state of a search algorithm. Considering the regions as the nodes of a graph and the interfaces as its edges, we can thus apply a graph search algorithm to find routes at the region-level.
 
-\begin{algorithm}[!htbp]
+\begin{algorithm}[!htb]
 \caption{Exhaustive Graph Search algorithm for region exploration}
 \label{alg:chap3_region_search}
 \begin{algorithmic}[1]
@@ -216,7 +216,7 @@ For this first level of exploration, we only use the regions and the interfaces 
 \end{algorithmic}
 \end{algorithm}
 
-Since we want to compute all the possible routes, we use the exhaustive graph search algorithm represented in algorithm~\ref{alg:chap3_region_search}. In this algorithm, we consider a state as being a list of pairs composed of a region and the intersection used to come to the region. The inial state (line 2) thus takes the initial region and no interface. When we explore a state (line 11) we first test if its current region (the last one in the list) is the goal region (line 12). If it is, rather than returning the state, we simply add it to a solution set (line 13). If the current region is not the goal one, we get from the ontology all the interfaces connected to the current region thanks to the property \textit{hasInRegion} which is the inverse of \textit{isInRegion}. For each of these interfaces not already used in the state (line 15), we get the regions it is connected to (line 16). With each of these regions not already used in the state (line 17), we finally create a new state which is added to the frontier (line 18). The algorithm only stops when no more state has to be explored (line 8). By including the knowledge base exploration directly inside the search algorithms, it is not necessary to extract a topological graph with nodes and edges. It is carried out within the search algorithm without preprocessing.
+Since we want to provide several routes, we use the exhaustive graph search algorithm represented in algorithm~\ref{alg:chap3_region_search}. Such an exhaustive search all to take into acount all possible interfaces. In this algorithm, we consider a state as being a list of pairs composed of a region and the intersection used to come to the region. The inial state (line 2) thus takes the initial region and no interface. When we explore a state (line 11) we first test if its current region (the last one in the list) is the goal region (line 12). If it is, rather than returning the state, we simply add it to a solution set (line 13). If the current region is not the goal one, we get from the ontology all the interfaces connected to the current region thanks to the property \textit{hasInRegion} which is the inverse of \textit{isInRegion}. For each of these interfaces not already used in the state (line 15), we get the regions it is connected to (line 16). With each of these regions not already used in the state (line 17), we finally create a new state which is added to the frontier (line 18). The algorithm only stops when no more state has to be explored (line 8). By including the knowledge base exploration directly inside the search algorithms, it is not necessary to extract a topological graph with nodes and edges. It is carried out within the search algorithm without preprocessing.
 
 \begin{figure}[ht!]
 \centering
@@ -242,7 +242,7 @@ region - place - region - ... - region \\
 place - region - place - ... - place
 \end{gather*}
 
-Place-level search works from one place to another through a single region. We have therefore divided the previous solutions to meet this constraint. This step aims to reduce complexity again. Indeed, if several routes pass through the same region with the same places of departure and arrival. The inner route can thus be calculated once and for all. In our example, the division gives five sub-routes instead of six:
+Place-level search works from one place to another through a single region. We have therefore divided the previous solutions to meet this constraint. This step aims to reduce complexity again. Indeed, several routes can pass through the same region with the same places of departure and arrival. The inner route can thus be calculated once and for all. In our example, the division gives five sub-routes instead of six:
 
 \begin{align*}
 &start - region\_1 - interface\_1 \\
@@ -252,11 +252,7 @@ Place-level search works from one place to another through a single region. We h
 &interface\_3 - region\_3 - end
 \end{align*}
 
-The place-level algorithm aims to replace each sub-route region with a succession of paths and intersections. Focusing on the \textit{region\_1}, illustrated in figure~\ref{fig:chap3_region1}, we need to find a route from the strat place to the \textit{intersection\_1}. Using the property \textit{isAlongPath}, we get from the ontology that the starting place is along the \textit{corridor\_1} and the interface 1 is along the \textit{corridor\_5}. Solving it by hand, a possible solution would be to take the v, pass by the intersection 1 (\textit{i\_1}) to reach the \textit{corridor\_5}.
-
-%The place-level algorithm aims to replace each sub-route region with a succession of paths and intersections. It works on the same principle as the previous search algorithm using the $isAlong$ property instead of the $isIn$ property. To improve performance, we use moving forward for the breadth-first search. It stops the exploration of the routes passing through a path already used in previous route calculation steps. In addition, it prevents loops.
-
-%Taking the example of Figure~\ref{fig:P2P} and focusing on region 1, we can solve the sub-route $start - region\_1 - interface\_1$. Region 1 is represented with its corridors and intersections in Figure~\ref{fig:C2C}. By applying the algorithm at the place level, we have the solution $ start - corridor\_1 - intersection\_1 - corridor\_5 - interface\_1 $. By doing the same for each sub-route, we can then recompose the global routes and give the set detailed of routes from start to end.
+The place-level algorithm aims to replace each region in the sub-routes with a succession of paths and intersections. Focusing on the \textit{region\_1}, illustrated in figure~\ref{fig:chap3_region1}, we need to find a route from the strat place to the \textit{intersection\_1}. Using the property \textit{isAlongPath}, we get from the ontology that the starting place is along the \textit{corridor\_1} and the interface 1 is along the \textit{corridor\_5}. Solving it by hand, a possible solution would be to take the \textit{corridor\_1}, then pass by the intersection 1 (\textit{i\_1}) to reach the \textit{corridor\_5}.
 
 \begin{figure}[ht!]
 \centering
@@ -264,7 +260,9 @@ The place-level algorithm aims to replace each sub-route region with a successio
 \caption{\label{fig:chap3_region1} Representation the \textit{region\_1} at the place-level. A region is composed of paths (here corridors only) connected through intersections. We know that the starting point of the search is along \textit{corridor\_1} and the local goal place is in \textit{corridor\_5}. }
 \end{figure}
 
-\begin{algorithm}[!htbp]
+Whereat the region-level an exhaustive search was acceptable due to the limited number of regions and their limited connectivity, such a search cannot be applied to the place-level. In our example of the \textit{region\_1} we could find four routes, without loops, to go from the start place to the \textit{interface\_1}. In a more realistic environment, it could be of the order of several tens. We thus choose to only get the less complex route, at the place-level, for each sub-route. Since the complexity of the route is only impacted by the number of items composing the route, a cost-less algorithm can be used. Moreover, considering the places of the region as nodes and the paths as edges, we thus have a graph. To find the optimal route in a graph without costs associated with the edges or nodes, we choose a breadth-first algorithm. Its pseudocode is provided in algorithm~\ref{alg:chap3_path_search}.
+
+\begin{algorithm}[ht!]
 \caption{Adapted breadth-first search algorithm for paths exploration. This version does not return the first valid solution but all the solutions having the same minimum length.}
 \label{alg:chap3_path_search}
 \begin{algorithmic}[1]
@@ -272,10 +270,11 @@ The place-level algorithm aims to replace each sub-route region with a successio
     \State $frontier\leftarrow$ a FIFO queue of state
     \State $explored\leftarrow$ a set of explored path
     \State $solutions\leftarrow$ an empty set
-    \State $min\_legth \leftarrow inf$ 
+    \State $min\_length \leftarrow inf$ 
     \\
     \ForAll{$path \in problem$.initial\_paths}
     	\State $state \leftarrow$ ($path$, \_) 
+    	\State $explored\leftarrow$ \textsc{INSERT}($path$, $explored$)
     	\If{$path \notin problem$.goal\_paths}
     		\State \Return $state$
     	\Else
@@ -293,9 +292,9 @@ The place-level algorithm aims to replace each sub-route region with a successio
         	\ForAll{$path$ s.t. $intersection$.isAlong $\land \notin state$}
         		\If{$path \in problem$.goal\_paths}
         			\State $state \leftarrow state \cup$ ($path$, $intersection$)
-        			\If{$state$.size $\leq min\_legth$}
+        			\If{$state$.size $\leq min\_length$}
         				\State $solutions\leftarrow$ \textsc{INSERT}($state$), $solutions$)
-        				\State $min\_legth \leftarrow state$.size
+        				\State $min\_length \leftarrow state$.size
         			\EndIf
         		\ElsIf{$path \notin explored$}
         			\State $frontier\leftarrow$ \textsc{INSERT}($state \cup$ ($path$, $intersection$), $frontier$)
@@ -308,6 +307,9 @@ The place-level algorithm aims to replace each sub-route region with a successio
 \end{algorithmic}
 \end{algorithm}
 
+This algorithm has been adapted to better fit our problem. First of all, a place can be along several paths. Performing a search for each combination of departure path and destination path would be time-consuming. Where a breadth-first algorithm commonly takes one initial state and one goal state, we have adapted it to assume several of each. This modification is visible from line 7 to line 12 of our algorithm. For each initial path, we create an initial state and test if it is one of the goal paths or not. We also put them all in the explored set to avoid to search route passing by them since we are already along with them. The second adaptation comes from the number of solution. A breadth-first only returns the shortest solution. However, if several solutions exist with the same length, only the first found is selected. Since we want to propose several routes, we do not exist the algorithm once a solution is found but rather bound it from there with the variable \textit{min\_length}. At line 23, any state having a size bigger than the minimum length is forsaken. Once all the routes under exploration reach this limit the frontier becomes empty and the algorithm stops.
+
+This algorithm is applied to each sub-routes find at the previous stage. The overall routes are then recomposed with the results found at the place-level.
 
 \section{Genarating an explanation in natural language}
 
