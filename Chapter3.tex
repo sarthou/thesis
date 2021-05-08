@@ -155,7 +155,7 @@ To describe our environment, we start with the description of its paths. The cor
 Once the paths and intersections described, we can describe the other places of the environment. For this example, we only describe the shop $pl\_5$. We would do the same process for all the others. The place $pl\_5$ is first a shop,  which is a particular kind of place. Regarding the corridors, it is at the left of $corridor\_1$. However, it also has an entrance overlooking $corridor\_4$. We can thus describe it as being along two paths. Depending on the starting point of the description, we will be able to instruct for one of its two entrance. For $corridor\_4$, $pl\_5$ is at its left. Now the place is positioned along paths, we have to describe its position according to its adjacent places. Facing $corridor\_1$, the intersection $i\_2$ is at the right of $pl\_5$ and the shop $pl\_2$ is in front of it. Facing $corridor\_4$, the intersection would be at its left. However, $pl\_5$ is on a side of the corridor while $i\_2$ is at one of its edges. Consequently, we do not have to describe any order. The resulting ontology part is reported in the listing~\ref{lst:chap3_pl5}.
 
 \begin{lstlisting}[frame=single, basicstyle=\scriptsize\ttfamily, label={lst:chap3_pl5}, caption={Description of the shop pl\_5 using the SSR in the OWL language using the Turle syntax.},captionpos=b, style=OwlTurtle_indiv]
-:pl_5  rdf:type     :Shop ;
+:pl_5  rdf:type         :Shop ;
        :isAtLeftOfPath  :corridor_4 ;
        :isAtLeftOfPath  :corridor_1 ;
        :hasAtRight      :i_2 ;
@@ -309,17 +309,34 @@ Whereat the region-level an exhaustive search was acceptable due to the limited 
 
 This algorithm has been adapted to better fit our problem. First of all, a place can be along several paths. It the the case of our starting place, in additon to be along \textit{corridor\_1}, we had described it as being also along \textit{corridor\_4}. Performing a search for each combination of departure path and destination path would be time-consuming. Where a breadth-first algorithm commonly takes one initial state and one goal state, we have adapted it to assume several of each. This modification is visible from line 7 to line 12 of our algorithm. For each initial path, we create an initial state and test if it is one of the goal paths or not. We also put them all in the explored set to avoid to search route passing by them since we are already along with them. The second adaptation comes from the number of solution. A breadth-first only returns the shortest solution. However, if several solutions exist with the same length, only the first found is selected. Since we want to propose several routes, we do not exist the algorithm once a solution is found but rather bound it from there with the variable \textit{min\_length}. At line 23, any state having a size bigger than the minimum length is forsaken. Once all the routes under exploration reach this limit the frontier becomes empty and the algorithm stops.
 
-This algorithm is applied to each sub-routes find at the previous stage. The overall routes are then recomposed with the results found at the place-level.
+This algorithm is applied to each sub-routes find at the previous stage. The overall routes are then recomposed with the results found at the place-level. The final routes are in the form of:
+
+\begin{gather*}
+start\ place - path - place - ... - place - path - goal\ place
+\end{gather*}
 
 \section{Genarating an explanation in natural language}
 
+This section describes the third cognitive operation of \cite{denis_1997_description} to generate a spatial discourse: the formulation of the procedure. As \cite{cassell_2007_trading}, we define a route description as a set of route segments, each connecting two important points. Taking the format of the previously found routes, the segments correspond to each path of the route and the two places linked to. The segments have then to be explained in a chronological way. To generate the full explanation, we start with the determination of the actions to be performed and the computation of the positions of the landmarks along the route, taking the route perspective. Then, with this information, we present how we form an explanation in natural language.
+
 \subsection{Putting the robot in your shoes}
+
+In the same way as \cite{tversky_1999_pictorial}, we consider that to enable their explanation, each segment of a route corresponds to a triplet: orientation, action, and landmark. A route description can thus be realized through the repetition of three steps: designating a landmark, reorienting the listener, and continuing the progression by prescribing an action.
+
+The issue with the environment representation used to compute the route is that it is not directly usable to generate the formulation of the procedure. With the current representation, the orientation and action are too complex to extract, given that they depend on the direction by which the guided human arrives. Nevertheless, thanks to the additional information provided by the Semantic Spatial Representation, it is possible to interpret the representation in relation to the estimated future position of the human. This interpretation is what we call an internal representation. It is an interpretation of the SSR grounded to the task. To generate the triplets of the segments, we create such an internal representation for each segment of the route to explain. The segments are thus represented and analysed independently from one another.
+
+For the corridors, we start by defining four sets. These sets are used to represent the places at the left of a paths, the places at its right, the places at its begining, and the places at its end.
+
+%These information can be found in the ontology with the properties $isAlong$, $isAtLeftOfPath$, and so on. To order the places in each array, we use the properties $isAtLeftOf$ and $isAtRightOf$ also present in the ontology. This internal representation can be displayed and gives Figure~\ref{fig:corridor} for the corridor\_1 of region\_1 from the example \ref{fig:P2P}. The $isInfrontOf$ property is used to generate better placements.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter3/corridor.png}
 \caption{\label{fig:chap3_corridor} Internal representation of a the \textit{corridor\_1} extracted from the semantic representation. Thanks to the specialisations of the \textit{isAlonPath} property we know on which side of the path each place is. With the specialisations of the \textit{isBeside} property, we can reconstruct the order of the places for each side. }
 \end{figure}
+
+For the open spaces, we generate an ordered array of all locations along it.
+
 
 \begin{figure}[ht!]
 \centering
