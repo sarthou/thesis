@@ -14,6 +14,8 @@
 
 \subsection{Why an ontology?}
 
+%In cognitive psychology, Semantic memory refers to the encyclopedic knowledge of words associated to their meanings. Some authors have proposed a model of this semantic memory as being a semantic network in which each concept is linked to others by properties and have designed a computer-implemented model \cite{collins_retrieval_1969}. This initial model has since been formalized as an ontology \cite{berners-lee_semantic_2001} and is already widely used in the semantic web.
+
 \subsection{Ontology formalism}
 \label{sec:kb_formalism}
 
@@ -26,11 +28,11 @@ On the base of the definition of a Description Logic ontology presented in \cite
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter2/Tbox.png}
-\caption{\label{fig:Tbox} Representation of an ontology class hierarchy graph to illustrate the composition of a TBox. Taking the class Human, the bottom arrow has to be read as \textit{"A man is a kind of Human"}. The texts at the bottom left of the class, if there is, are the classes' labels in natural language.}
+\caption{\label{fig:Tbox} Representation of an ontology class hierarchy graph to illustrate the composition of a TBox. Taking the class Human, the bottom arrow has to be read as \textit{``A man is a kind of Human''}. The texts at the bottom left of the class, if there is, are the classes' labels in natural language.}
 \end{figure}
 
 \improvement{Itemize}
-The TBox $\Tbox$ contains assertions about the \textbf{classes} (types) of the ontology. It is defined by $\Tbox = \langle \classset, H \rangle$. It can be seen as a directed acyclic graph as presented in Figure~\ref{fig:Tbox}. $\classset$ is the set of all the classes of the ontology. In our example, $\classset = \{Thing,\ Agent,\ Object, ...,\ IkeaLisabo\}$. Considering the TBox as a graph, $H$ stores its directed edges. They represent the inheritance links between the classes (i.e. the subsumption assertions). We often use the special property "isA" to refer to these links (e.g. \textit{(Human, isA, Agent)}). In the OWL language, they are described with the property rdfs:subClassOf, as illustrated in the Listing~\ref{lst:Tbox}.
+The TBox $\Tbox$ contains assertions about the \textbf{classes} (types) of the ontology. It is defined by $\Tbox = \langle \classset, H \rangle$. It can be seen as a directed acyclic graph as presented in Figure~\ref{fig:Tbox}. $\classset$ is the set of all the classes of the ontology. In our example, $\classset = \{Thing,\ Agent,\ Object, ...,\ IkeaLisabo\}$. Considering the TBox as a graph, $H$ stores its directed edges. They represent the inheritance links between the classes (i.e. the subsumption assertions). We often use the special property ``isA'' to refer to these links (e.g. \textit{(Human, isA, Agent)}). In the OWL language, they are described with the property rdfs:subClassOf, as illustrated in the Listing~\ref{lst:Tbox}.
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -48,7 +50,7 @@ The TBox $\Tbox$ contains assertions about the \textbf{classes} (types) of the o
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter2/Rbox.png}
-\caption{\label{fig:Rbox} Representation of an ontology property hierarchy graph to illustrate the composition of an RBox. Taking the property isBelow, the bottom arrow has to be read as: \textit{"The property isUnder is a specification of the property isBelow"}.}
+\caption{\label{fig:Rbox} Representation of an ontology property hierarchy graph to illustrate the composition of an RBox. Taking the property isBelow, the bottom arrow has to be read as: \textit{``The property isUnder is a specification of the property isBelow''}.}
 \end{figure}
 
 The RBox $\Rbox$ contains axioms about the \textbf{properties} (roles). It is at least defined by $\Rbox = \langle \propset, \inclset, \invset, \domainset, \rangeset \rangle$. In the same way as the TBox, $\propset$ is the set of properties, and $\inclset$ stores the directed edges of the finite directed acyclic graph representing the inheritance links between the properties. Such a graph is represented in Figure~\ref{fig:Rbox}. These inheritance links aim at specifying properties. In our example, the property IsOn is a specification of the property isAbove in the way that an object being on another is an object that is above the latter and being in contact with. It is described with the property rdfs:subPropertyOf in the OWL language. 
@@ -77,13 +79,13 @@ The formalization above considers only a general kind of property while the OWL 
 \caption{\label{fig:Abox}  Representation of an ontology instances graph to illustrate the composition of an ABox. Red boxes are individuals of the ontology. Green arrows are properties coming from the RBox and applied to individuals. Red arrows represent a direct inheritance link between an individual and a class coming from the TBox. The texts at the bottom left of the individuals, if there is, are the individuals' labels in natural language.}
 \end{figure}
 
-The ABox $\Abox$ contains assertions about the \textbf{entities} (individuals) of the ontology. When we refer about entities, we no more speak about general concepts but rather of instantiated concept, being either a physic or virtual entity. The ABox is defined by $\Abox = \langle \indivset, \inheritset_0, \relationset \rangle$. $\indivset$ is the set of all the entities represented in the ontology. $\inheritset_0$ the set of direct types of $\indivset$ such as $\inheritset_0 = \{(\indiv, \class) \}$ with $\indiv \in \indivset$ an individual and $\class \in \classset$ a class. In the graphical representation of an ABox in the Figure.~\ref{fig:Abox}, the red blocks are the ABox entities ($\indivset = \{human_0,\ pr2,\ ...,\ table\_1\}$) and the red arrows with the label "isA" are the intities direct types ($(cube\_42, Cube) \in \inheritset_0$).
-$\relationset$ is finally the set of \textbf{relations} between entities. Such relation are in the form of triplets $(\subject, \property ,\object)$ where $\subject$ is the subject, $\property$ the property and $\object$ the object. The set of relations is thus defined by $\relationset = \{(\subject, \property ,\object) | (\subject, \object) \in \indivset^2, \property \in \propset\}$. These relations are represented by the green arrows between the entities in Figure~\ref{fig:Abox}. We can note in this figure the presence of the use of a data property "hasCadModel". This property does not link two entities, which goes against the previous definition. Regarding our formalization and to keep it tractable, we can however keep it as it is, and view the string value as an entity having for direct type a concept "String". An example of the description of an entity from the Figure~\ref{fig:Abox} is illustrated in the Listing~\ref{lst:Abox} using the OWL language.
+The ABox $\Abox$ contains assertions about the \textbf{entities} (individuals) of the ontology. When we refer about entities, we no more speak about general concepts but rather of instantiated concept, being either a physic or virtual entity. The ABox is defined by $\Abox = \langle \indivset, \inheritset_0, \relationset \rangle$. $\indivset$ is the set of all the entities represented in the ontology. $\inheritset_0$ the set of direct types of $\indivset$ such as $\inheritset_0 = \{(\indiv, \class) \}$ with $\indiv \in \indivset$ an individual and $\class \in \classset$ a class. In the graphical representation of an ABox in the Figure.~\ref{fig:Abox}, the red blocks are the ABox entities ($\indivset = \{human_0,\ pr2,\ ...,\ table\_1\}$) and the red arrows with the label ``isA'' are the intities direct types ($(cube\_42, Cube) \in \inheritset_0$).
+$\relationset$ is finally the set of \textbf{relations} between entities. Such relation are in the form of triplets $(\subject, \property ,\object)$ where $\subject$ is the subject, $\property$ the property and $\object$ the object. The set of relations is thus defined by $\relationset = \{(\subject, \property ,\object) | (\subject, \object) \in \indivset^2, \property \in \propset\}$. These relations are represented by the green arrows between the entities in Figure~\ref{fig:Abox}. We can note in this figure the presence of the use of a data property ``hasCadModel''. This property does not link two entities, which goes against the previous definition. Regarding our formalization and to keep it tractable, we can however keep it as it is, and view the string value as an entity having for direct type a concept ``String''. An example of the description of an entity from the Figure~\ref{fig:Abox} is illustrated in the Listing~\ref{lst:Abox} using the OWL language.
 
 \begin{lstlisting}[frame=single, basicstyle=\scriptsize\ttfamily, label={lst:Abox}, caption={Description of an ontology individual in the OWL language using the Turle syntax.},captionpos=b, style=OwlTurtle_indiv]
 :cube_42  rdf:type     :Cube ;
           :hasColor    :color_red ;
-          :hasCadModel "folder/cube.obj"^^string ;
+          :hasCadModel ``folder/cube.obj''^^string ;
           :isOn        :table_1 .
 \end{lstlisting}
 
