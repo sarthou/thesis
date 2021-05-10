@@ -21,6 +21,162 @@
 \LTleft0pt
 \LTright0pt
 
+\section{Routes verbalization patterns}
+\label{app:patterns}
+
+\begin{lstlisting}[language=C, basicstyle = \footnotesize, showstringspaces=false, stringstyle=\color{purple}]
+void Sentences::createEnd()
+{
+  end_.push_back({end_side,
+    {{",and ", ",then ", ". ", ". After that ", ". Finally, "}, 
+    {"you will "}, {"see ", "find "},
+    {"/X "}, {"on "}, {"your ", "the "}, {"/D "},
+    {"side ", "when you walk ", ""}, 
+    {", straight after /Y ", ""}} });
+
+  end_.push_back({end_side,
+    {{",and /X is ", ",then ", ",/X is then ", ". After that, "}, 
+    {"on "}, {"the ", "your "},
+    {"/D "}, {"side ", "when you walk"}, 
+    {", straight after /Y ", ""}} });
+
+  end_.push_back({end_side,
+    {{",then ", ". After that, ", ". ", ",and ", ". Finally, ", 
+    ". From there on, "}, 
+    {"/X will be on your /D "}, 
+    {"side ", "when you walk", ""}, 
+    {", straight after /Y ", ""}} });
+
+  end_.push_back({end_side,
+    {{",then ", ". After that, ", ",and ", ". Finally, ", 
+    ". From there on, "}, 
+    {"/X is on the /D there "}, 
+    {", straight after /Y ", ""}} });
+
+  end_.push_back({end_side,
+    {{",then ", ". After that, ", ",and ", ". Finally, "}, 
+    {"it is on the /D, you will see /X "}, 
+    {", straight after /Y ", ""}} });
+
+  end_.push_back({end_here,
+    {{",then ", ". After that, ", ",and ", ". Finally, "}, 
+    {"you see there /X "}, 
+    {", straight after /Y ", ""}} });
+
+  end_.push_back({end_here,
+    {{",then ", ". After that, ", ",and ", ". Finally, "}, 
+    {"you will find /X there "}} });
+
+  end_.push_back({end_here,
+    {{",then ", ". After that, ", ",and ", ". Finally, ", 
+    ". From there on, "}, 
+    {"/X is "}, {"there ", ""}, 
+    {"on the /DY side of /Y "}} });
+
+  end_.push_back({end_in_front,
+    {{",then ", ". After that, ", ",and ", ". Finally, ", 
+    ". From there on, "}, 
+    {"you will "}, {"find ", "see "}, 
+    {"/X right away "}} });
+}
+
+void Sentences::createEndBegin()
+{
+  end_begin_.push_back({end_side,
+    {{"you will "}, {"see ", "find "},
+    {"it ", "/X "}, {"on "}, {"your ", "the "}, {"/D "},
+    {"side ", "when you walk ", ""}, 
+    {", straight after /Y, ", ""}} });
+
+  end_begin_.push_back({end_side,
+    {{"it will be on your /D "}, 
+    {"side ", "when you walk", ""}, 
+    {", straight after /Y, ", ""}} });
+
+  end_begin_.push_back({end_side,
+    {{"it's on the /D there "}, 
+    {", straight after /Y, ", ""}} });
+
+  end_begin_.push_back({end_side,
+    {{"on the /D you will see /X "}, 
+    {", straight after /Y, ", ""}} });
+
+  end_begin_.push_back({end_here,
+    {{"you see there /X "}} });
+
+  end_begin_.push_back({end_here,
+    {{"you will find it there "}} });
+
+  end_begin_.push_back({end_here,
+    {{"it's "}, {"there ", ""}, 
+    {"on the /DY side of /Y "}} });
+
+  end_begin_.push_back({end_in_front,
+    {{"you will "}, {"find ", "see "}, 
+    {"it ", "/X "}, {"right away "}} });
+}
+
+void Sentences::createBegin()
+{
+  begin_.push_back({start_corridor,
+    {{"just ", ""}, 
+    {"go ", "walk ", "go straight "},
+    {"across ", "through ", "on ", "down "}, 
+    {"that ", "this "}, {"corridor "}} });
+
+  begin_.push_back({start_corridor,
+    {{"go to this "}, {"corridor "}} });
+
+  begin_.push_back({start_end_of_corridor,
+    {{"/X "}, {"is "}, {"just straight ", ""}, 
+    {"down "}, 
+    {"this ", "that "}, {"corridor "}} });
+
+  begin_.push_back({start_end_of_corridor,
+    {{"just ", ""}, {"walk ", "go almost "}, 
+    {"until the end of "}, {"this ", "that "}, 
+    {"corridor "}} });
+
+  begin_.push_back({start_end_of_corridor,
+    {{"/X is at the end of "}, 
+    {"this ", "that "}, {"corridor "}} });
+
+  begin_.push_back({start_interface,
+    {{"/I "}} });
+}
+
+void Sentences::createDuring()
+{
+  during_.push_back({during_end_of_corridor,
+    {{"walk to ", "go almost at ", "walk until "}, 
+    {"the "}, {"very ", ""}, {"end of the corridor "}} });
+
+  during_.push_back({during_turn_continu_corridor,
+    {{"turn /D "}, {"at ", "straight after "}, 
+    {"/Y "}} });
+
+  during_.push_back({during_turn_continu_corridor,
+    {{"turn /D "}} });
+
+  during_.push_back({during_turn,
+    {{"turn /D "}} });
+
+  during_.push_back({during_turn,
+    {{"turn /D "}, {"at ", "straight after "}, 
+    {"/Y "}} });
+
+  during_.push_back({during_reference,
+    {{"you will "}, {"see ", "find "}, {"/Y "}} });
+
+  during_.push_back({during_interface_font,
+    {{"/I "}, {"just in front ", "right away "}} });
+
+  during_.push_back({during_interface_side,
+    {{"/I "}, {"at "}, {"the ", "your "}, {"/D "}, 
+    {"side ", ""}} });
+}
+\end{lstlisting}
+
 \section{Routes search solutions}
 \label{app:solutions}
 

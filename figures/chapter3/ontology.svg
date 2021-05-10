@@ -760,15 +760,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="499.30842"
-     inkscape:cy="565.38454"
+     inkscape:cx="-105.71197"
+     inkscape:cy="776.66594"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g5156-2-2-17-9-0-1-5-7-8-6"
      showgrid="false"
-     inkscape:window-width="1200"
-     inkscape:window-height="1891"
-     inkscape:window-x="1920"
-     inkscape:window-y="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1026"
+     inkscape:window-x="0"
+     inkscape:window-y="865"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -836,7 +836,9 @@
          style="fill:none;fill-rule:evenodd;stroke:#4f6d37;stroke-width:2.00002544;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4.00005089,2.00002544;stroke-opacity:1;marker-end:url(#Arrow2Mend-2-1-4-6-0-94-7);stroke-dashoffset:0" />
       <g
          id="g8729"
-         transform="translate(-138.63819,0)">
+         transform="translate(-138.63819,0)"
+         inkscape:export-xdpi="94.420097"
+         inkscape:export-ydpi="94.420097">
         <path
            style="fill:none;fill-rule:evenodd;stroke:#4f6d37;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend-2-1-4-6-0-94-4)"
            d="m 276.60355,507.84597 0,25.5517"
@@ -1017,12 +1019,16 @@
            height="28.77001"
            x="170.33949"
            y="195.44193"
-           ry="3" />
+           ry="3"
+           inkscape:export-xdpi="94.420097"
+           inkscape:export-ydpi="94.420097" />
         <flowRoot
            transform="translate(24.494812,-465.70223)"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            id="flowRoot4224-9-8-5-3-1-7-1-8-3-9-1-3-6-9"
-           xml:space="preserve"><flowRegion
+           xml:space="preserve"
+           inkscape:export-xdpi="94.420097"
+           inkscape:export-ydpi="94.420097"><flowRegion
              id="flowRegion4226-4-9-4-3-2-5-15-1-85-8-8-8-4-2"><rect
                style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-align:center;text-anchor:middle"
                y="663.95856"
@@ -1031,10 +1037,12 @@
                width="98.4478"
                id="rect4228-5-5-2-4-7-9-97-2-6-4-5-8-3-6" /></flowRegion><flowPara
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-align:center;text-anchor:middle"
-             id="flowPara4230-4-5-4-6-0-2-7-9-1-8-9-3-3-6">AtRight</flowPara></flowRoot>      </g>
+             id="flowPara4230-4-5-4-6-0-2-7-9-1-8-9-3-3-6">hasAtRight</flowPara></flowRoot>      </g>
       <g
          id="g8729-4"
-         transform="translate(138.91425,0)">
+         transform="translate(138.91425,0)"
+         inkscape:export-xdpi="94.420097"
+         inkscape:export-ydpi="94.420097">
         <path
            style="fill:none;fill-rule:evenodd;stroke:#4f6d37;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend-2-1-4-6-0-94-4-4)"
            d="m 276.60355,507.84597 0,25.5517"
@@ -1189,7 +1197,9 @@
              id="flowPara4230-4-5-4-6-0-2-7-9-1-8-4-6-77">isAtRightOfPath</flowPara></flowRoot>      </g>
       <g
          id="g8729-5"
-         transform="translate(-138.63819,59.305469)">
+         transform="translate(-138.63819,59.305469)"
+         inkscape:export-xdpi="94.420097"
+         inkscape:export-ydpi="94.420097">
         <path
            style="fill:none;fill-rule:evenodd;stroke:#4f6d37;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend-2-1-4-6-0-94-4-6)"
            d="m 276.60355,507.84597 0,25.5517"

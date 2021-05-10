@@ -319,15 +319,19 @@ start\ place - path - place - ... - place - path - goal\ place
 
 This section describes the third cognitive operation of \cite{denis_1997_description} to generate a spatial discourse: the formulation of the procedure. As \cite{cassell_2007_trading}, we define a route description as a set of route segments, each connecting two important points. Taking the format of the previously found routes, the segments correspond to each path of the route and the two places linked to. The segments have then to be explained in a chronological way. To generate the full explanation, we start with the determination of the actions to be performed and the computation of the positions of the landmarks along the route, taking the route perspective. Then, with this information, we present how we form an explanation in natural language.
 
-\subsection{Putting the robot in your shoes}
+\subsection{Reconstructing the paths}
 
 In the same way as \cite{tversky_1999_pictorial}, we consider that to enable their explanation, each segment of a route corresponds to a triplet: orientation, action, and landmark. A route description can thus be realized through the repetition of three steps: designating a landmark, reorienting the listener, and continuing the progression by prescribing an action.
 
 The issue with the environment representation used to compute the route is that it is not directly usable to generate the formulation of the procedure. With the current representation, the orientation and action are too complex to extract, given that they depend on the direction by which the guided human arrives. Nevertheless, thanks to the additional information provided by the Semantic Spatial Representation, it is possible to interpret the representation in relation to the estimated future position of the human. This interpretation is what we call an internal representation. It is an interpretation of the SSR grounded to the task. To generate the triplets of the segments, we create such an internal representation for each segment of the route to explain. The segments are thus represented and analysed independently from one another.
 
-For the corridors, we start by defining four sets. These sets are used to represent the places at the left of a paths, the places at its right, the places at its begining, and the places at its end.
+For the corridors, we start by defining four sets. These sets are used to represent the places at the left of a paths, the places at its right, the places at its begining, and the places at its end. Given the corridor \textit{c\_i} such that $(c\_i, Corridor) \in \inheritset$, the set of places $Pi_{right}$ at its right is:
 
-%These information can be found in the ontology with the properties $isAlong$, $isAtLeftOfPath$, and so on. To order the places in each array, we use the properties $isAtLeftOf$ and $isAtRightOf$ also present in the ontology. This internal representation can be displayed and gives Figure~\ref{fig:corridor} for the corridor\_1 of region\_1 from the example \ref{fig:P2P}. The $isInfrontOf$ property is used to generate better placements.
+\begin{gather*}
+Pi_{right} = \{ pl\_i\ |\ (pl\_i,\ isAtRightOfPath,\ c\_i) \in \relationset \}
+\end{gather*}
+
+The three others sets are construct in the way using relations including the properties $isAleftOfPath$, $isAtBeginOfPath$, and $isAtEndOfPath$. We then consider these sets as being partialy oredered sets (posets) through the binary relation~$<$. For two elements $a$ and $b$ of a set $Pi$, we said that $a\ <\ b$ if $(a,\ hasAtRight,\ b) \in \relationset$. Thanks to these four partially ordered sets\footnote{The sets are not totally ordered because we do not consider the transitivity of the relations $hasAtRight$ and $hasAtLeft$ directly in the ontology. Consequently not all the elements can be compared.} we can reconstruct the arrangement of a corridor like in figure~\ref{fig:chap3_corridor} for \textit{corridor\_1} of our running example and of figure~\ref{fig:chap3_pallokatu} for an automaticaly generated visualisation of the reconstruction of a corridor of a real mall. To match the positions of to places on opposite sides, we used the relations inclusing the property $isInFrontOf$.
 
 \begin{figure}[ht!]
 \centering
@@ -335,8 +339,23 @@ For the corridors, we start by defining four sets. These sets are used to repres
 \caption{\label{fig:chap3_corridor} Internal representation of a the \textit{corridor\_1} extracted from the semantic representation. Thanks to the specialisations of the \textit{isAlonPath} property we know on which side of the path each place is. With the specialisations of the \textit{isBeside} property, we can reconstruct the order of the places for each side. }
 \end{figure}
 
-For the open spaces, we generate an ordered array of all locations along it.
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter3/pallokatu.png}
+\caption{\label{fig:chap3_pallokatu} An example of corridor reconstruction based on the semantic knowledges. The places in green are intersections an the place in blue is an interface. }
+\end{figure}
 
+For the open spaces, we only generate one partially ordered set representing all the locations along with it. We still use the property $isInFrontOf$ to improve the placement of the places.
+
+\subsection{Putting the robot in your shoes}
+
+Once we have an internal representation of each segment, we can determine the procedure that the user must perform. Cassell in \cite{cassell_2007_trading} mentions that an action, a reorientation, a progression, or a positioning must be carried out at the end of each segment. The end of one segment being the beginning of the next, we choose to determine the actions at the beginning of each segment (which corresponds more to our internal representation). It allows to work on one path at a time. This rule is formalized in \cite{mallot_2009_embodied} as:
+
+\begin{gather*}
+"choosing\ action\ A_i\ at\ place\ P_j\ will\ lead\ to\ place\ P_k"
+\end{gather*}
+
+This determination of actions can be made with our internal representation. The determination of the action to perform is represented in red on the top of the figure~\ref{fig:chap3_directions} assuming the human to come from the place $pl\_5$ ($P_j$) and $P_k$ as being one of the other places of the corridor. For example, if the local place to reach is $pl\_1$ the action will be \textit{"turn left"}. If the local place to reach is $pl\_2$ the action will be \textit{"go in front of you"}. If the place is on the same side, the set order is sufficient to determine the action. If the place is on an edge, the action depends on the side from which the humans come and the edge to reach. If the place to reach is on the other side of the path, we have to use the property $isInFrontOf$ to determine the action to perform.
 
 \begin{figure}[ht!]
 \centering
@@ -344,9 +363,26 @@ For the open spaces, we generate an ordered array of all locations along it.
 \caption{\label{fig:chap3_directions} In red (on top) is represented the resolution of the action to be performed (i.e. going in front, turning left, or turning right) from the starting place \textit{pl\_5}. In blue (on the sides) is represented the resolution of the position of the place to reach depending on the performed action. Starting from place \textit{pl\_5}, to reach the intersection \textit{i\_1}, the guided human will have to turn right (red) then the place will be on his right (blue). Starting from place \textit{pl\_5}, to reach the place \textit{pl\_3}, the guided human will have to turn left (red) then the place will be on his right (blue). }
 \end{figure}
 
+The blue information on the two sides of figure~\ref{fig:chap3_directions} gives the orientation of the sub-goal place $P_{k}$ taking into account the previous reorientation. With this orientation information, we can inform the guided human about the location of the next step once the previous action performed. Wanting to reach the intersection $i\_1$, we can give the explanation \textit{"take the corridor at your right"}. The full sentence would thus be \textit{turn right then take the corridor on your right"}. Consequently, taking into account the orientation of the guided person after an action, we provide directions in the route perspective. The guided human can thus perform an imaginary tour of the environment~\cite{cassell_2007_trading}.
+
+Working segment by segment in the order given by the route search algorithm, we necessarily generate the explanations with a temporospatial ordering. This criterion is an important point in Allen's best practice in communicating route knowledge \cite{allen_2000_principles}.
+
+The latest critical information is the landmarks. With our internal representation, we provide all the landmarks (corresponding to places along the paths) around which action must be taken. In the previous example, the sentence may be confusing because there will have two corridors on the right. We are able to refer to the place $pl\_4$ to ground the action. With this new information, a sentence without ambiguity would be \textit{turn right then take the corridor at your right straight after pl\_4}.
+
 \subsection{A pattern-based generation}
 
+To generate the sentences in natural language, we first analyzed explanations used by human guides in the human-human study \cite{belhassein_2017_human}. From this study, we have identified four types of explanation components: those corresponding to the beginning of the route, the end of the route, the progress in it, and the particular case of routes with only one step. Each type has sub-types of explanation components. For example, for the sentences expressing progress in the route, we can mention two sub-types: sentences expressing a redirection action and the ones expressing the fact of continuing forward. Thus, each explanation belongs to a sub-type according to the kind of information it expresses. This classification allowed us to have multiple ways to express the same information, varying the robot turn of phrase and vocabulary when talking to a person. To represent similar sentences and to be able to generate sentences with variations, we have grouped sentences with close lexical structures. Each sentence is then represented with its variations through the use of patterns. An example of pattern is: [``you will''], [``see'', ``find''],[``it'', ``/X''], [``on''], [``your'', ``the''], [``/D''],[``side'',``when you walk'', ``'']. When using a sentence, the variations are randomly chosen with a uniform distribution. We can notice in the previous example the use of place-holders such that X or D. The place-holder X corresponds to the name of an element of the environment and D to a direction (right or left). We also implemented the use of a Y variable to refer to another element of the environment (a landmark) and DY to refer to its location. The pattern \textit{"You will see X at the DY of Y"}  becomes for example \textit{"You will see burger king at the right of Espresso House"} after instantiation. If a sentence requires a variable that the algorithm is not able to extract from our internal representation, then we select another sentence with the same meaning or another variation of the sentence that does not require the variable is chosen.
+
+In the English verbalization, we have 238 unique patterns to express the end of a route description, 64 to express it beginning, 20 to express the continuation, and 66 for the special case of a route with a single step. All the patterns are available in appendix~\ref{app:patterns}.
+
 \section{Experiment in emulated and real environment}
+
+%pathIntersection => 50
+%path => 41
+%shop => 140
+%interface => 18
+%region => 4
+%place => 251
 
 \begin{figure}[ht!]
 \centering
