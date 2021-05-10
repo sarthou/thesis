@@ -177,9 +177,7 @@ H  - Place(C1, area_black)
 
 Considering once again the same initial state but with the goal to invert the positions of the two cubes, if the communication cost and feasibility are not taken into account during planning, both actions directly leading to the goal state (\textit{i.e.} cube C1 moved to the black area or cube C2 to the red area) will lead to a dead-end at plan execution. To solve this situation, the task planner chooses to add a supplementary action. It consists of putting the cube C1 in the white area that then leads to a problem similar to the previous one. This additional action avoids a dead-end by making communication about cube C2 feasible. Another solution could have been to move C2 in the white area first, leading once again to a situation comparable to the previous one.
 
-
 \subsection{Reduce the overall communication complexity}
-
 
 \begin{figure}[!ht]
 \centering
@@ -200,7 +198,7 @@ In this last case study, we show how the estimation of verbal designation commun
 \caption{\label{fig:chap5_case3} The initial state (left) and final state (right) of a task where the robot has to explain to the human partner how to move the cubes to complete the task. In this situation, some cubes are too complex to explain. Pointing them could help in some cases. }
 \end{figure}
  
-The generated plan is available in appendix~\ref{lst:chap5_case3}. The cubes C5 and C7 are chosen to be pointed instead of verbalized. Indeed, in the world states where these cubes need to be moved, verbal referring is considered to be too costly, thus a pointing motion is preferred. For example, the cube C5 in the initial situation needs a long and complex explanation that is: \textit{``take the black cube with the number two which is in the black area''}. Even in the cases where the pointing action takes more execution time, it could require less cognitive load for the human partner and so make the human action faster.
+The generated plan is available in appendix~\ref{app:reg_com_plan}. The cubes C5 and C7 are chosen to be pointed instead of verbalized. Indeed, in the world states where these cubes need to be moved, verbal referring is considered to be too costly, thus a pointing motion is preferred. For example, the cube C5 in the initial situation needs a long and complex explanation that is: \textit{``take the black cube with the number two which is in the black area''}. Even in the cases where the pointing action takes more execution time, it could require less cognitive load for the human partner and so make the human action faster.
 
 Here, we see another benefit of our approach, it allows the planner to balance between the use of verbal communication actions, which can become complex in some states (hard to predict without a task planner), and other communication modalities. Here, balancing was done with other means of communication, but it could also be done with other actions such as a pick and place by the robot. In the task presented here, this has no advantage, because a pick and place by the robot would be slower than an explanation or a pointing and is more likely to fail.
 

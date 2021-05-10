@@ -16,7 +16,7 @@ The contribution presented in this chapter is excerpted from our work, published
 
 Referring to an entity is one of the most common task that we perform every day. ``Can you bring me my mug? It is the black one next to the sink''. ``I don't remember the name of the man with the red shirt and the glasses''. ``I lost my keys, they are on a keychain with a unicorn-shaped plush toy''. Such kind of communication, precise and efficient, is a key apect for the success of a collaborative task. Nevertheless, in complex environment with a wide variety of objects, places, or people, referring a specific entity can become a real challenge for robotic application. The robot has to take into account the context of the upper task, the diversity of facts that can be extracted from the situation and which depend on available perception modalities, and the available common ground between the robot and its partner. 
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.16]{figures/chapter4/intro.png}
 \caption{\label{fig:chap4_intro} Six situations view from the hearer perspective, with the robot placed on the other side of the table. Referring to the same pen involves different mechanisms to raise the ambiguity, in each situation. The sentence above each situation is a possible referring expression to refer to said pen unambiguously. }
@@ -67,7 +67,7 @@ To give a better overview of the progress in the \acrshort{reg} field, the most 
 	\item \textbf{Natural language}: Considering the linguistic realisation during the content generation could prevent the appearance of ambiguity at the linguistic realisation or even the incapacity to perform it.
 \end{itemize}
 
-\begin{table}[!h]
+\begin{table}[ht!]
 \centering
 \caption{Summary of the most representative contributions in the \acrshort{reg} field regarding the six major features of the problem. The contributions are listed in chronological order to give a better overview of progress in the field.}
 \label{tab:reg_ref_sumup}
@@ -281,7 +281,7 @@ At the difference of the breadth-first search, the \textbf{\acrfull{ucs}} expand
 
 \subsection{Algorithm presentation}
 
-\begin{algorithm}[!htbp]
+\begin{algorithm}[ht!]
 \caption{Uniform-Cost Search algorithm for Referring Expression Generation}
 \label{alg:chap4_ucs}
 \begin{algorithmic}
@@ -445,7 +445,7 @@ For all the presented measures, we used the Ontologenius software~\cite{sarthou_
 \caption{\label{fig:chap4_percentage} Percentage of entities referred successfully over time using a logarithmic timescale. }
 \end{figure}
 
-During a human-robot interaction, a too-long execution time to generate a reference to an entity could spoil the interaction. To assess it we measure the resolution time\footnote{Times reported are run on a CPU Intel Core i7-7700 CPU @ 3.60GHz with 32 Go RAM} of the 77 objects. These measures are reported on the graphic\footnote{The results differ from the original paper because here we are using the latest version of each software to be comparable with the other chapters.} of Figure~\ref{fig:chap4_percentage} and on the table~\ref{tab:reg_solution} in appendix. All the 77 entities (100\%) have been referred in under 6.40ms. This is well below 100ms which is the maximum system response time for the user to get a feeling of instantaneity \cite{miller_1968_response}. Moreover, 50\% are referred under 516\us and 75\% under 1.32ms. On average, the algorithm needs to explore 10.6 nodes to refer to an object. It gives an exploration time of 101.88\us/node on average.
+During a human-robot interaction, a too-long execution time to generate a reference to an entity could spoil the interaction. To assess it we measure the resolution time\footnote{Times reported are run on a CPU Intel Core i7-7700 CPU @ 3.60GHz with 32 Go RAM} of the 77 objects. These measures are reported on the graphic\footnote{The results differ from the original paper because here we are using the latest version of each software to be comparable with the other chapters.} of Figure~\ref{fig:chap4_percentage} and on the table~\ref{tab:reg_solution} in appendix. All the 77 entities (100\%) have been referred in under 6.40ms. This is well below 100ms which is the maximum system response time for the user to get a feeling of instantaneity \cite{miller_1968_response}. Moreover, 50\% are referred under 516\us and 75\% under 1.32ms. On average, the algorithm needs to explore 10.6 nodes to refer to an object. It gives an exploration time of 101.88\us/node on average. All the results over the 77 entities are available on appendix~\ref{app:reg_solutions}.
 
 Regarding the complexity of the solutions, we found that 32 (41.56\%) need at least two relations to be referred to. As the type count for a relation, this means the second relation is one of the entity attributes. Among the others, 25 entities (32.46\%) are referred to through the use of four or more relations. The maximum was six relations for only one of the objects. Moreover, 49.4\% need a reference to another entity in their solution and two objects need references to two others entity in their \acrshort{re}. This mean that 49.4\% of the objects of our situation can not be referred using approaches like \cite{ros_2010_which} or \cite{dale_1995_computational}.
 
