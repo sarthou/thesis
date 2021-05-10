@@ -1,0 +1,238 @@
+\chapter{Route description supplementary material}
+\label{app:route}
+
+\LTcapwidth=\textwidth
+
+% define lightgray
+\definecolor{lightgray}{gray}{0.9}
+
+% alternate rowcolors for all long-tables
+\let\oldlongtable\longtable
+\let\endoldlongtable\endlongtable
+
+\def\zza{\global\let\zz\zzb
+\fullwidthcolor{lightgray}}%
+
+\def\zzb{\global\let\zz\zza}
+
+\def\fullwidthcolor#1{\color{#1}\leaders\vrule\hskip\textwidth\hskip-\textwidth\kern0pt}
+\def\resetLTcolor{\global\let\zz\zza}
+
+\LTleft0pt
+\LTright0pt
+
+\section{Routes verbalization patterns}
+\label{app:patterns}
+
+\begin{lstlisting}[language=C, basicstyle = \footnotesize, showstringspaces=false, stringstyle=\color{purple}]
+void Sentences::createEnd()
+{
+  end_.push_back({end_side,
+    {{",and ", ",then ", ". ", ". After that ", ". Finally, "}, 
+    {"you will "}, {"see ", "find "},
+    {"/X "}, {"on "}, {"your ", "the "}, {"/D "},
+    {"side ", "when you walk ", ""}, 
+    {", straight after /Y ", ""}} });
+
+  end_.push_back({end_side,
+    {{",and /X is ", ",then ", ",/X is then ", ". After that, "}, 
+    {"on "}, {"the ", "your "},
+    {"/D "}, {"side ", "when you walk"}, 
+    {", straight after /Y ", ""}} });
+
+  end_.push_back({end_side,
+    {{",then ", ". After that, ", ". ", ",and ", ". Finally, ", 
+    ". From there on, "}, 
+    {"/X will be on your /D "}, 
+    {"side ", "when you walk", ""}, 
+    {", straight after /Y ", ""}} });
+
+  end_.push_back({end_side,
+    {{",then ", ". After that, ", ",and ", ". Finally, ", 
+    ". From there on, "}, 
+    {"/X is on the /D there "}, 
+    {", straight after /Y ", ""}} });
+
+  end_.push_back({end_side,
+    {{",then ", ". After that, ", ",and ", ". Finally, "}, 
+    {"it is on the /D, you will see /X "}, 
+    {", straight after /Y ", ""}} });
+
+  end_.push_back({end_here,
+    {{",then ", ". After that, ", ",and ", ". Finally, "}, 
+    {"you see there /X "}, 
+    {", straight after /Y ", ""}} });
+
+  end_.push_back({end_here,
+    {{",then ", ". After that, ", ",and ", ". Finally, "}, 
+    {"you will find /X there "}} });
+
+  end_.push_back({end_here,
+    {{",then ", ". After that, ", ",and ", ". Finally, ", 
+    ". From there on, "}, 
+    {"/X is "}, {"there ", ""}, 
+    {"on the /DY side of /Y "}} });
+
+  end_.push_back({end_in_front,
+    {{",then ", ". After that, ", ",and ", ". Finally, ", 
+    ". From there on, "}, 
+    {"you will "}, {"find ", "see "}, 
+    {"/X right away "}} });
+}
+
+void Sentences::createEndBegin()
+{
+  end_begin_.push_back({end_side,
+    {{"you will "}, {"see ", "find "},
+    {"it ", "/X "}, {"on "}, {"your ", "the "}, {"/D "},
+    {"side ", "when you walk ", ""}, 
+    {", straight after /Y, ", ""}} });
+
+  end_begin_.push_back({end_side,
+    {{"it will be on your /D "}, 
+    {"side ", "when you walk", ""}, 
+    {", straight after /Y, ", ""}} });
+
+  end_begin_.push_back({end_side,
+    {{"it's on the /D there "}, 
+    {", straight after /Y, ", ""}} });
+
+  end_begin_.push_back({end_side,
+    {{"on the /D you will see /X "}, 
+    {", straight after /Y, ", ""}} });
+
+  end_begin_.push_back({end_here,
+    {{"you see there /X "}} });
+
+  end_begin_.push_back({end_here,
+    {{"you will find it there "}} });
+
+  end_begin_.push_back({end_here,
+    {{"it's "}, {"there ", ""}, 
+    {"on the /DY side of /Y "}} });
+
+  end_begin_.push_back({end_in_front,
+    {{"you will "}, {"find ", "see "}, 
+    {"it ", "/X "}, {"right away "}} });
+}
+
+void Sentences::createBegin()
+{
+  begin_.push_back({start_corridor,
+    {{"just ", ""}, 
+    {"go ", "walk ", "go straight "},
+    {"across ", "through ", "on ", "down "}, 
+    {"that ", "this "}, {"corridor "}} });
+
+  begin_.push_back({start_corridor,
+    {{"go to this "}, {"corridor "}} });
+
+  begin_.push_back({start_end_of_corridor,
+    {{"/X "}, {"is "}, {"just straight ", ""}, 
+    {"down "}, 
+    {"this ", "that "}, {"corridor "}} });
+
+  begin_.push_back({start_end_of_corridor,
+    {{"just ", ""}, {"walk ", "go almost "}, 
+    {"until the end of "}, {"this ", "that "}, 
+    {"corridor "}} });
+
+  begin_.push_back({start_end_of_corridor,
+    {{"/X is at the end of "}, 
+    {"this ", "that "}, {"corridor "}} });
+
+  begin_.push_back({start_interface,
+    {{"/I "}} });
+}
+
+void Sentences::createDuring()
+{
+  during_.push_back({during_end_of_corridor,
+    {{"walk to ", "go almost at ", "walk until "}, 
+    {"the "}, {"very ", ""}, {"end of the corridor "}} });
+
+  during_.push_back({during_turn_continu_corridor,
+    {{"turn /D "}, {"at ", "straight after "}, 
+    {"/Y "}} });
+
+  during_.push_back({during_turn_continu_corridor,
+    {{"turn /D "}} });
+
+  during_.push_back({during_turn,
+    {{"turn /D "}} });
+
+  during_.push_back({during_turn,
+    {{"turn /D "}, {"at ", "straight after "}, 
+    {"/Y "}} });
+
+  during_.push_back({during_reference,
+    {{"you will "}, {"see ", "find "}, {"/Y "}} });
+
+  during_.push_back({during_interface_font,
+    {{"/I "}, {"just in front ", "right away "}} });
+
+  during_.push_back({during_interface_side,
+    {{"/I "}, {"at "}, {"the ", "your "}, {"/D "}, 
+    {"side ", ""}} });
+}
+\end{lstlisting}
+
+\section{Routes search solutions}
+\label{app:solutions}
+
+\resetLTcolor
+\begin{longtable}{@{\zz\extracolsep{\fill}} l|llllll}
+\caption{Performance analysis and solutions characteristics for the route search algorithm based on the Semantic Spatial Description. The algorithm has been run on 26 places being on distinct paths and each being on a unique path. The table presents the resolution time, the number of regions used, the number of routes found, the number of paths explored, and the length of the longest route. Resolution times include the ROS communications to query the ontology.}
+\label{tab:chap3_times}\\
+\hline
+\multicolumn{1}{c|}{\textbf{}} &
+  \multicolumn{1}{c|}{\textbf{Place name}} &
+  \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Resolution\\ time(ms)\end{tabular}}} &
+  \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Used\\ regions\end{tabular}}} &
+  \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Found\\ routes\end{tabular}}} &
+  \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Expl.\\ paths\end{tabular}}} &
+  \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Max.\\ length\end{tabular}}} \\
+\hline
+\endfirsthead
+%
+\multicolumn{7}{c}%
+{{\bfseries Table \thetable\ continued from previous page}} \\
+\hline
+\multicolumn{1}{c|}{\textbf{}} &
+  \multicolumn{1}{c|}{\textbf{Place name}} &
+  \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Resolution\\ time(ms)\end{tabular}}} &
+  \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Used\\ regions\end{tabular}}} &
+  \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Found\\ routes\end{tabular}}} &
+  \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Expl.\\ paths\end{tabular}}} &
+  \multicolumn{1}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Max. \\ length\end{tabular}}} \\
+\hline
+\endhead
+%
+1  & Espresso\_House   & 0.434841  & 1 & 1  & 1  & 1  \\
+2  & Brother\_Clothing & 1.289182  & 1 & 1  & 2  & 2  \\
+3  & only\_2           & 1.251221  & 1 & 1  & 2  & 2  \\
+4  & Gant              & 1.369534  & 1 & 1  & 2  & 2  \\
+5  & Donna\_Rosa       & 2.751091  & 1 & 1  & 3  & 3  \\
+6  & River\_and\_Co    & 2.940316  & 1 & 1  & 3  & 3  \\
+7  & Jesper\_Junior    & 2.674137  & 1 & 2  & 6  & 3  \\
+8  & Guess             & 2.984623  & 1 & 1  & 3  & 3  \\
+9  & gf\_atm\_east     & 2.953073  & 1 & 1  & 3  & 3  \\
+10 & Kauneus           & 3.344798  & 1 & 1  & 3  & 3  \\
+11 & HairStore         & 3.110017  & 1 & 1  & 3  & 3  \\
+12 & gf\_toilet\_west  & 2.640851  & 1 & 1  & 3  & 3  \\
+13 & Kalastus\_Suomi   & 3.622685  & 1 & 1  & 4  & 4  \\
+14 & Juvesport         & 3.021612  & 1 & 1  & 4  & 4  \\
+15 & Cafe\_de\_Lisa    & 12.298473 & 2 & 3  & 11 & 4  \\
+16 & Ballot            & 13.682847 & 2 & 3  & 12 & 5  \\
+17 & Hairlekiini       & 13.668867 & 2 & 3  & 12 & 5  \\
+18 & Pancho\_Villa     & 46.16124  & 2 & 11 & 32 & 5  \\
+19 & LahiTapiola\_desk & 33.773911 & 2 & 16 & 94 & 8  \\
+20 & Ti\_Ti\_Nallen    & 33.954918 & 2 & 11 & 63 & 8  \\
+21 & Masku             & 42.927055 & 2 & 11 & 70 & 9  \\
+22 & Beefking          & 30.531876 & 2 & 14 & 68 & 9  \\
+23 & ff\_toilet\_west  & 31.247139 & 2 & 12 & 65 & 9  \\
+24 & ff\_toilet\_east  & 37.755016 & 2 & 11 & 71 & 9  \\
+25 & Sticky\_Wingers   & 35.685139 & 2 & 11 & 57 & 10 \\
+26 & Coyote\_Grill     & 33.838421 & 2 & 11 & 63 & 11
+\end{longtable}
+
