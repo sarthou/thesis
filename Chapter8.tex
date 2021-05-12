@@ -97,6 +97,31 @@ An example of the final semantic knowledge represented in the ontology for a giv
 
 \subsection{Perceiving the partner}
 
+The situation assessment component is based on the Underworld framework~\cite{lemaignan_2018_underworlds}. It aims at gathering perception information in the form of 3D position and orientation of human faces, with the 3D model and the robot state. With this information, it is able to generate the symbolics facts listed in table~\ref{tab:chap8_predicates}.
+
+\begin{table}[ht]
+    \centering
+    \begin{tabularx}{\textwidth}{|l|X|}
+     \hline
+    \textbf{Predicate} & \textbf{Description} \\
+    \hline
+    \hline
+        isPerceiving & The robot is perceiving a human \\
+        \hline
+        isCloseTo & The human is within a distance of 0 to 1 meter of the robot \\
+         \hline
+        isLookingAt & The human is looking at the robot \\
+        \hline
+    \hline
+        isInArea & The human is in the interaction area \\
+        \hline
+        isEngagingWith & The human is close to the robot and is looking at it \\
+       \hline
+    \end{tabularx}
+    \caption{Facts computed and monitored during the direction-giving task.}
+    \label{tab:chap8_predicates}
+\end{table}
+
 \subsection{Generating route description}
 
 \subsection{Planning a shared visual perspective}
