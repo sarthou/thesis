@@ -122,7 +122,22 @@ The situation assessment component is based on the Underworld framework~\cite{le
     \label{tab:chap8_predicates}
 \end{table}
 
-\subsection{Generating route description}
+\subsection{Managing the robot's resources}
+
+A humanoid robot such as Pepper can be seen as a composition of multiple physical components that can act independently of each other. For the pointing task, we identified four resources: the head, both arms, and the base. At the begining of the interaction, for example, the head is used to find people to interact with, but later it will be used to track the human with the gaze. Several components could access to this resource to perform these actions. However, they do not have the global picture of the ongoing task. In this case, a resource could be used by several components at the time. Concequently, it could lead to task failures.
+
+Moreover, in some cases, several resources have to be used simultaneously to perform a high-level action. To point to a landmark, one arm is selected to point while the other has to be lowered. The base is then rotated if the arm reaches the joint limit to point a target on its back. If at least one of the involved resources is simultaneously used to performed another action, the overall high-level action will fail as the global posture will no more be clear. For example, if the human get too close to the robot and a component try to move even a bit to move away a little, the arm would no more point in the right direction.
+
+Thus, the correct handling of all the resources is critical for performing the task, but it can be cumbersome for a deliberative component, such as the Supervision, to do all the micro-management required. To tackle this issue, we designed a physical resource management system to provide an abstraction of each resource. For each of the identified resources, we instantiated a component called \textbf{Resource Manager (RM)}, having multiple inputs. It is endowed with a low-level decision-making ability allowing it to vote for the next command from a given input to be executed. Its choice is based on events, priorities, and commands importance. Inputs are divided into two types: \textbf{atemporal inputs} and \textbf{finite state machine inputs}. Atemporal inputs are unit overwriting buffers receiving commands which can be run continuously and preempted at any time. Each atemporal input has a semantic meaning. For example, the head manager has an atemporal input dedicated to the monitoring of the interacting human. This input thus receive permanently a command to look at the head of the human to be monitored, even if we do not have to look at him. When this input is voted, the robot looks at this point. Finite state machine inputs are prioritized queues of state machines. Each state correspond to a command to be executed. Transitions can be events received from other components or durations. In this scheme, a state machine cannot be preempted, as it is seen as a set of commands being part of the same high-level action, like a pointing.
+
+To deal with high-level actions requiring multiple resources, we created a \textbf{Resource Synchronizer}. It does not have atemporal inputs but only one finite state machine inputs. It can thus receive finite state machines handling multiple resources, so-called coordination signals. The synchronizer checks if the needed resource managers are free or preemptable, if so, it dispatches the state machines to the proper resource managers and ensures their synchronicity when needed. The synchronizer also reports the status of the ongoing coordination signal to the Supervision component to monitor the progress of the action.
+The global resource management scheme is illustrated in figure~\ref{fig:chap8_rm} with four resource managers and one synchronizer.
+
+\begin{figure}[!hb]
+\centering
+\includegraphics[scale=0.33]{figures/chapter8/rm.png}
+\caption{\label{fig:chap8_rm} Representation of the resource management system with four resource managers and a synchronizer. The red arrows represent the state machines inputs and the blue arrows represent the atemporal inputs.}
+\end{figure}
 
 \subsection{Planning a shared visual perspective}
 
