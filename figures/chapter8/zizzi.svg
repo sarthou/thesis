@@ -15,7 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="zizzi.svg">
+   sodipodi:docname="zizzi.svg"
+   inkscape:export-filename="/home/gsarthou/Documents/papers/thesis/figures/chapter8/zizzi.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -26,10 +29,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="468.10002"
-     inkscape:cy="665.20591"
+     inkscape:cx="554.99107"
+     inkscape:cy="595.19863"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g4295"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1026"
@@ -44,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -68,7 +71,7 @@
              width="654.13495"
              id="rect4140" /></flowRegion><flowPara
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella Bold'"
-           id="flowPara4142">Zizzi</flowPara><flowPara
+           id="flowPara4142">H_and_M</flowPara><flowPara
            id="flowPara4144"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">           rdf:type                  :Women_clothes_store ;</flowPara><flowPara
            id="flowPara4146"
@@ -92,9 +95,9 @@
            id="flowPara4168"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">           :sells                       :Jacket ;</flowPara><flowPara
            id="flowPara4170"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">           rdf:label                 &quot;zizzi&quot; @ en ;</flowPara><flowPara
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">           rdf:label                 &quot;H and M&quot; @ en ;</flowPara><flowPara
            id="flowPara4172"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">           rdf:label                 &quot;zizzi&quot; @fr .</flowPara></flowRoot>      <flowRoot
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">           rdf:label                 &quot;Hennes Mauritz&quot; @fi .</flowPara></flowRoot>      <flowRoot
          transform="translate(-54.714286,11.600691)"
          style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          id="flowRoot4174"

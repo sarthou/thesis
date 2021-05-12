@@ -38,42 +38,62 @@ The first pilot study consisted of a human guide providing route information. It
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.35]{figures/chapter8/human_guide.png}
-\caption{\label{fig:chap8_human_guide} Picture from the second Human-Human study \cite{belhassein_2017_human}. Here, the guide is giving the route description to reach a given shop by pointing at it. The formation formed by the guide, teh customer, and the target were analyzed. }
+\caption{\label{fig:chap8_human_guide} Picture from the second Human-Human study \cite{belhassein_2017_human}. Here, the guide is giving the route description to reach a given shop by pointing at it. The formation formed by the guide, the customer, and the target was analyzed. }
 \end{figure}
 
 A second exploratory study was then carried out to focus on more complex situations. Among them, we can note situations with two customers requesting directions simultaneously, a customer requesting for two shops at the time, or someone interrupting an ongoing interaction. Once again the formations were analyzed. An example of such a formation seen during the study can be seen in figure~\ref{fig:chap8_human_guide}. The full results can be found in~\cite{Heikkilae_2018_where} and~\cite{heikkilae_2019_should}. Among these results, the study has shown that the guide usually points to the general location of the target first and in a second step explain and point the different stages of the route.
 
 \section{The deliberative architecture}
 
+In this section, we present the robotic architecture developed to handle the direction-giving task. This architecture relates to Beliefs, Desires, Intentions (BDI) architectures. As explain by~\cite{wooldridge_1999_intelligent}, such a kind of architecture is primarily focused on practical reasoning, meaning the process of deciding step by step which action to perform to reach a goal. 
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter8/architecture.png}
-\caption{\label{fig:chap8_architecture} todo. }
+\caption{\label{fig:chap8_architecture} The general architecture developed for the robot guide. The components presented in this chapter are the colored blocks. The red components with the symbol * are the ones on which I participate. The visual perception and dialogue components have been respectively developed by IDIAP and HWU and are described by~\cite{foster_2019_mummer}. Naoqi is a Softbank Robotics software. }
 \end{figure}
+
+The figure~\ref{fig:chap8_architecture} represents the architecture, its components, and their interconnections. Communication between component relies on ROS. In this chapter, we only present the components developed by the LAAS-RIS team, represented by the colored blocks on the architecture. First, we present the two knowledge representations in the form of geometric and semantic representations. Next, we introduce the components related to the sensorimotor layer. It is the situation assessment and the physical resource manager. Then, we present the components related to the deliberative layer. They are the Human-Aware Navigation, the SVP planner, and finally, the on linking all the components, the Supervision. The Route Handler, part of the deliberative layer, having been presented in detail in chapter~\ref{chap:3}, will not be presented in this chapter.
 
 \subsection{Environment representation}
 
+For a service robot providing directions to people, we needed information to understand humans' need, information to compute the route to the goal, and information to compute the visibility of both agents to plan the pointing position. To understand the needs of a human wanted to be guided, we need information about the type of stores and the sold items. To provide so, \cite{satake_2015_field, satake_2015_should} used an ontology. To compute the route to the final destination, \cite{matsumoto_2012_you} or \cite{okuno_2009_providing} used a topological map. Wich node of the graph is related to a 2D position of the environment. To estimate the human visibility of elements anywhere in the environment, \cite{matsumoto_2012_you} used a simplified 3D model where shops are represented by 3D polygons. In our implementation, we only used two types of representation of the environment: a \textbf{geometric} and a \textbf{semantic}.
+
+Since the final deployment of the robot is in a Finland mall, we have built an emulated mall in our lab for development purposes. The representations describe hereafter have thus been created both for the real mall and the emulated one.
+
 \subsubsection{Geometric representation}
+
+The geometric representation is used to compute the visibility of elements of the environment from different positions needed for the pointing of landmarks. However, because the robot does not accompany the person to the final destination and therefore does not move much, the possible visibility of the two agents is limited to their immediate environment. For this reason and due to the large scale of the Finland mall, we chose to geometrically describe only the subpart of the global environment that could be visible from the interaction area. For the rest of the environment, we represented the shops with 3D points only. These points are enough to point in the right direction. The resulting geometrical representation is a three-dimensional mesh model, as shown in figure.~\ref{fig:chap8_adream_base} for the emulated mall and in figure~\ref{fig:chap8_ideapark_base} for the real one. We have represented in the 3D model all the elements that could hinder visibility, such as poles or panels. In this way, we can precisely emulate human visibility. The model was created from the architectural plans first and then refined with measurements in the mall.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.15]{figures/chapter8/adream_base_m.png}
-\caption{\label{fig:chap8_adream_base} todo. }
+\caption{\label{fig:chap8_adream_base} The 3D mesh model of the emulated mall at laboratory. The red square represent the interaction area as a square of 4 meters per 4 meters. Signs representing the shops have been place all around the environment. }
 \end{figure}
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.15]{figures/chapter8/ideapark_base_m.png}
-\caption{\label{fig:chap8_ideapark_base} todo. }
+\caption{\label{fig:chap8_ideapark_base} The 3D mesh model of the real mall in Finland. The entire mall having a size of 528.6 meters per 247.5 meters on two levels, we have only modelled the part which can be visible from the interaction area. It results in a model of 150 meters per 69 meters. }
 \end{figure}
 
+In order for the pointing planner to compute the visibility of the landmarks used for the route description, stairs, escalators, elevators, and store signs are represented each by a single mesh while the rest of the building is a unique 3D mesh. This means that a store is said to be visible if we can see its sign, which we think to be the most relevant element to see to recognize a shop.
+
+The 3D model is also used to generate a navigation map, constraining the robot to move in the interaction area while avoiding obstacles in it.
+
 \subsubsection{Semantic representation}
+
+The environment semantic representation is oriented toward communication and human navigation in a mall. It makes use of the terms, affordances and actions that are needed to walk around in the mall. It represents the needed human-robot common ground knowledge and is used by the robot to perform dialog acts concerning shop names and categories a well as the types of products sold.
+
+This representation takes the form of an ontology. It uses the \acrfull{ssr} to describe the environment topology. The notion of place is then extended to represent information about the stores. It allows to define and refine the shared goal of the task by understanding the client's wanted destination. We thus represented in it the stores' types, their names, and the items they sell with a rich semantic. It allows for example to represent that both soda and hamburgers are sold in fast-foods, which are types of restaurants, but that soda can also be found in a supermarket. Thanks to Ontologenius, the names of concepts are defined in different languages and with synonyms for these names. It allows the robot to adapt itself to the human partner language. Moreover, with Ontologenius, we endow the robot with the ability to recognize a set of names in natural language but that it will be prevented to use. For example, the robot can understand a reference to ``bank'' when a human says it but only refers to it as ``ATM'' or ``cash machine'' since there was no bank office in the mall. In addition, we used the provided fuzzy matching service to help the supervision system to handle ambiguities coming from the speech-to-text component. For example, if the language recognition module catches the word ``Juwelsport'', we can match it with ``Juvesport'', being a shop in the mall. This set of functionalities around the concepts' names facilitates the understanding of the partner's need and thus helps at increasing the quality of interaction.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.45]{figures/chapter8/zizzi.png}
-\caption{\label{fig:chap8_zizzi} todo. }
+\caption{\label{fig:chap8_zizzi} Representation of the knowledge about the shop H\&M stored in the ontology. We have both purely semantic knowledge and topological information. }
 \end{figure}
+
+An example of the final semantic knowledge represented in the ontology for a given shop is presented in figure.~\ref{fig:chap8_zizzi} for a clothes shop called ``H\&M''. We find in this description the identifier of the shop, the category to which each store belongs, the topological information, the items sold and the names and synonyms in natural language and that for different languages.
 
 \subsection{Perceiving the partner}
 
@@ -96,6 +116,8 @@ A second exploratory study was then carried out to focus on more complex situati
 \subsection{Navigate close to the human}
 
 \subsection{Executing and controling the task}
+
+%Finally, there is the deliberative layer. A component, the Supervisor, implements joint action guidelines in order to manage the direction-giving task as a human-robot joint activity. It makes use of a number of human-aware decisional modules: establishment of shared goal through dialogue, planning taking into account human preferences, planning for both in order to ensure a pertinent placement of the human and the robot, reasoning and adapting to human perspective of the scene, monitoring human commitment and step by step contribution to the joint task. The action sequencing and the incremental task-refinement process follows the steps and the main decisions exhibited in the human-human studies. Not only the Supervisor takes the human into account but the other components of our deliberative layer as well, enabling the robot to be human-aware at each step of the collaborative task. The \textit{Route Handler}, based on the \textit{Semantic Representation}, deals with the entire description of the route, from the search for the best route to get to humans to their final destination, to the verbalization of this route which takes into account human orientations. The \textit{Human-aware Navigation} of the robot is implemented using a reactive navigation planner. This algorithm is able to plan and continuously adapt robot motion close to humans while respecting social constraints. The \textit{Shared Visual Perspective (SVP) Planner} helps to overcome the possible blocking of the visibility of important landmarks while giving directions, trying to find a position where the human will have to be in order to observe the route passage and also to find one for the robot which satisfies a nice human-robot-landmark conformation for pointing. Finally, The \textit{Dialogue} has been developed by HWU and is described by~\cite{Papaioannou2018}. We will not further go in the details about the functioning of this component as it is out of the paper scope. 
 
 \section{Embody architecture in a physical robot}
 
