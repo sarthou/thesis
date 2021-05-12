@@ -147,19 +147,40 @@ The Finnish language is not suitable for pattern-based solutions with placeholde
 
 \subsection{Planning a shared visual perspective}
 
+When the robot has to point to a target, two criteria have to be respected. First, the human has to be able to see the target. Second, the human has to be able to look at the pointed target and at the robot without turning the head too much. It goes the same for the robot as it has to see the pointed target, meaning to point toward a wall and be able to simultaneously point at the target and look at the human. Consequently, to point a target in its back, it has to move. The robot and the human can thus move in the interaction area during the direction-giving task, to move to a better position for pointing at the target. To find the robot and human possible positions we designed a component called the SVP (Shared Visual Perspective) Planner, presented in~\cite{waldhart_2019_reasoning}. For the purpose of the deployment, the presented version is an adapted and slightly simplified version.
+
+To compute the visibility of both agents, the planner has access to the geometrical representation of the environment and the agents current positions. In addition, it considers an estimated agent's maximal speed to move and a visibility threshold.
+
+When the robot explains the route to the human and points to a landmark, they form what is called an F-formation. Kendon explains that \textit{``An F-formation arises whenever two or more people sustain a spatial and orientational relationship in which the space between them is one to which they have equal, direct and exclusive access''} \cite{kendon_1990_conducting}.
+This F-formation has been decomposed in \cite{mcneill_2005_gesture} into two types: the social formation and the instrumental formation. While the first type corresponds to the original definition, the instrumental formation includes a physical object that all the agents can gaze at. This means that once the robot will have moved, the human will come in front of it creating a social formation in the form of a vis-a-vis (each facing the other) and when the robot will point they will change for an instrumental formation. Indeed, when both agents will reach their position computed by the planner, we want them to be able to go from one formation to the other with only a rotation; the human will not need to move again from their arriving position to see what the robot will point. 
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.25]{figures/chapter8/grid_map.png}
-\caption{\label{fig:chap8_svp_grid} todo. }
+\caption{\label{fig:chap8_svp_grid} Visibility grid for a target located at the top right. The uncoloured areas represent an absence of visibility and the others represent the cost of visibility ranging from yellow for low visibility to purple for good visibility. The robot and the human in transparency on the image represent the final calculated positions while the others are the initial positions. }
 \end{figure}
+
+To search for better positions to reach in order to point a landmark, the planner takes three main parameters into account:
+
+\begin{itemize}
+    \item Visibility constraint: The two agents can see either the target shop when it is the only element of the route or the passage.
+    \item Navigation distance cost: The agents do not have to move too much.
+    \item F-formation cost: The human-robot-target angle and a robot-human-target have to be less than 90${^\circ}$. 
+\end{itemize}
+
+To compute the positions, the interaction area is firstly decomposed into a weighted three-dimensional (x,y for the possible positions in the area and z for the human height) grid representing the estimated human visibility of the target. The target visibility is computed offline for each position of the grid. It is based on the share of the target in the 360${^\circ}$ field of view of the environment. Such grid is represented in figure~\ref{fig:chap8_svp_grid} for a given human height. The white cells are positions from which the human cannot see the pointed target. The other colored cells represent the degree of visibility from the poor in yellow to the good in purple. Having the human visibility grid, the goal position is computed using a weighted cost function between good visibility and restricted distance to cross. In the example figure, the transparent human head is the human goal position while the other is the initial position. From the initial position, the human was not able to the pointed target.
+
+The overall computation flow is illustrated in figure~\ref{fig:chap8_svp}. The robot position is computed in a second time, according to the human planned position. Divided the search into two steps allows reducing the search complexity. The robot position is thus constrained by the human one. It has also to respect a minimal and maximal distance to the human and minimal visibility of the target from it. Finally, the robot position is also determined regarding a cost preferring an F-formation limiting the robot reorientation, meaning that it can point to the target keeping its torso its chest oriented towards the human.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.45]{figures/chapter8/svp.png}
-\caption{\label{fig:chap8_svp} todo. }
+\caption{\label{fig:chap8_svp} Human and robot positions computation flow. The purple blocks represent the initial positions while the blue ones represent the planned positions. }
 \end{figure}
 
-\subsection{Navigate close to the human}
+\subsection{Navigate close to human}
+
+The Human-Aware Navigation component aims at moving the robot while avoiding dynamic and static obstacles in addition to proposing a socially acceptable navigation solution for the robot. For example, the robot should not pass too close to the human and should not show its back while navigating around the human. A full presentation of the planner is available in~\cite{singamaneni_2020_hateb}.
 
 \subsection{Executing and controling the task}
 
