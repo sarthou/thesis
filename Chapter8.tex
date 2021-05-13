@@ -135,7 +135,7 @@ The global resource management scheme is illustrated in figure~\ref{fig:chap8_rm
 
 \begin{figure}[!hb]
 \centering
-\includegraphics[scale=0.33]{figures/chapter8/rm.png}
+\includegraphics[scale=0.28]{figures/chapter8/rm.png}
 \caption{\label{fig:chap8_rm} Representation of the resource management system with four resource managers and a synchronizer. The red arrows represent the state machines inputs and the blue arrows represent the atemporal inputs.}
 \end{figure}
 
@@ -154,12 +154,6 @@ To compute the visibility of both agents, the planner has access to the geometri
 When the robot explains the route to the human and points to a landmark, they form what is called an F-formation. Kendon explains that \textit{``An F-formation arises whenever two or more people sustain a spatial and orientational relationship in which the space between them is one to which they have equal, direct and exclusive access''} \cite{kendon_1990_conducting}.
 This F-formation has been decomposed in \cite{mcneill_2005_gesture} into two types: the social formation and the instrumental formation. While the first type corresponds to the original definition, the instrumental formation includes a physical object that all the agents can gaze at. This means that once the robot will have moved, the human will come in front of it creating a social formation in the form of a vis-a-vis (each facing the other) and when the robot will point they will change for an instrumental formation. Indeed, when both agents will reach their position computed by the planner, we want them to be able to go from one formation to the other with only a rotation; the human will not need to move again from their arriving position to see what the robot will point. 
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[scale=0.25]{figures/chapter8/grid_map.png}
-\caption{\label{fig:chap8_svp_grid} Visibility grid for a target located at the top right. The uncoloured areas represent an absence of visibility and the others represent the cost of visibility ranging from yellow for low visibility to purple for good visibility. The robot and the human in transparency on the image represent the final calculated positions while the others are the initial positions. }
-\end{figure}
-
 To search for better positions to reach in order to point a landmark, the planner takes three main parameters into account:
 
 \begin{itemize}
@@ -167,6 +161,12 @@ To search for better positions to reach in order to point a landmark, the planne
     \item Navigation distance cost: The agents do not have to move too much.
     \item F-formation cost: The human-robot-target angle and a robot-human-target have to be less than 90${^\circ}$. 
 \end{itemize}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.25]{figures/chapter8/grid_map.png}
+\caption{\label{fig:chap8_svp_grid} Visibility grid for a target located at the top right. The uncoloured areas represent an absence of visibility and the others represent the cost of visibility ranging from yellow for low visibility to purple for good visibility. The robot and the human in transparency on the image represent the final calculated positions while the others are the initial positions. }
+\end{figure}
 
 To compute the positions, the interaction area is firstly decomposed into a weighted three-dimensional (x,y for the possible positions in the area and z for the human height) grid representing the estimated human visibility of the target. The target visibility is computed offline for each position of the grid. It is based on the share of the target in the 360${^\circ}$ field of view of the environment. Such grid is represented in figure~\ref{fig:chap8_svp_grid} for a given human height. The white cells are positions from which the human cannot see the pointed target. The other colored cells represent the degree of visibility from the poor in yellow to the good in purple. Having the human visibility grid, the goal position is computed using a weighted cost function between good visibility and restricted distance to cross. In the example figure, the transparent human head is the human goal position while the other is the initial position. From the initial position, the human was not able to the pointed target.
 
@@ -184,7 +184,17 @@ The Human-Aware Navigation component aims at moving the robot while avoiding dyn
 
 \subsection{Executing and controling the task}
 
-%Finally, there is the deliberative layer. A component, the Supervisor, implements joint action guidelines in order to manage the direction-giving task as a human-robot joint activity. It makes use of a number of human-aware decisional modules: establishment of shared goal through dialogue, planning taking into account human preferences, planning for both in order to ensure a pertinent placement of the human and the robot, reasoning and adapting to human perspective of the scene, monitoring human commitment and step by step contribution to the joint task. The action sequencing and the incremental task-refinement process follows the steps and the main decisions exhibited in the human-human studies. Not only the Supervisor takes the human into account but the other components of our deliberative layer as well, enabling the robot to be human-aware at each step of the collaborative task. The \textit{Route Handler}, based on the \textit{Semantic Representation}, deals with the entire description of the route, from the search for the best route to get to humans to their final destination, to the verbalization of this route which takes into account human orientations. The \textit{Human-aware Navigation} of the robot is implemented using a reactive navigation planner. This algorithm is able to plan and continuously adapt robot motion close to humans while respecting social constraints. The \textit{Shared Visual Perspective (SVP) Planner} helps to overcome the possible blocking of the visibility of important landmarks while giving directions, trying to find a position where the human will have to be in order to observe the route passage and also to find one for the robot which satisfies a nice human-robot-landmark conformation for pointing. Finally, The \textit{Dialogue} has been developed by HWU and is described by~\cite{Papaioannou2018}. We will not further go in the details about the functioning of this component as it is out of the paper scope. 
+The Supervision component aims at implementing the joint action guidelines to manage the direction-giving task as a human-robot joint activity. It makes use of all the other component of the architecture to step-by-step establish the shared goal, plan by considering the human preferences, adapt to the human perspective of the scene, and monitor human commitment. The action sequencing and the incremental task-refinement process follows the steps and the main decisions exhibited in human-human studies. 
+
+First, when the Supervision receives for example a request for a restaurant from the Dialogue, it asks Ontologenius for all the existing restaurant types. This list of restaurant types is sent to the Dialogue whose role is to return to the Supervision with the type selected by the human. It then continues to obtain a more precise restaurant type from the human to finally get a restaurant name. It goes the same if the human asks for a product. The Supervision gets from Ontologenius a list of shops selling the requested item and passes it to the Dialogue. The Dialogue returns the name of the shop chosen by the person. When it directly receive as a goal a shop name, it queries the ontology to know if the given shop exists in the mall. If it does not, it can be misunderstood. To test it, the Supervision can query the Ontologenius using the fuzzy match feature. When a person asks to go to ``jewelsport'', the system can make the assumption that the person actually asked for ``Juvesport''.
+
+Once the shared goal determined, The Supervision, query the Route Handler which returns a list of routes of the form $place - path - place - ... - place$. Among these routes, it selects the one with fewer elements. If it is composed of only one path, it means that the goal place can be visible from there as being on the same path as the robot. Otherwise, the robot will have to explain the route. Before that, it tests if the route has stairs along with it, getting the types of the elements with the ontology. If so, the supervision is in charge of ensuring the human is able to climb stairs. If he cannot, the supervision selects another route, without stairs.
+
+The robot's role is not only to give verbal route directions but also to point to the target or the passage the person should take. We call the passage the third element of the route. It is the first element the human has to go through to start the route\footnote{The first element of the route returned by Route Handler is their current location.}. Pointing increase the chances to find the destination as it helps to orientate in space. Before pointing, the supervision request the SVP planner for a new position for itself and the human. If the current positions do not fit the visibility and formation constraints, the supervision uses the Human-Aware navigation module to go to its new position. We expect the human to come in front of it. If he does not, the supervision is able to verbally inform him about movements to do (i.e. to come in front of it, to move a bit aside, etc).
+
+Finally, once the human at the desired position, the supervision request the Physical Resource Manager for pointing and simultaneously explain the route to take.
+
+In addition to the management of the direction-giving task itself, the supervision component is also in charge of the beginning of the interaction, the greeting, and its end, the goodbyes. All along with the interaction, it also ensures the human understanding of the instructions, and adapt itself if needed.
 
 \section{Embody architecture in a physical robot}
 
