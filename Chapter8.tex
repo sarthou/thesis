@@ -135,7 +135,7 @@ The global resource management scheme is illustrated in figure~\ref{fig:chap8_rm
 
 \begin{figure}[!hb]
 \centering
-\includegraphics[scale=0.28]{figures/chapter8/rm.png}
+\includegraphics[scale=0.26]{figures/chapter8/rm.png}
 \caption{\label{fig:chap8_rm} Representation of the resource management system with four resource managers and a synchronizer. The red arrows represent the state machines inputs and the blue arrows represent the atemporal inputs.}
 \end{figure}
 
@@ -174,7 +174,7 @@ The overall computation flow is illustrated in figure~\ref{fig:chap8_svp}. The r
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.45]{figures/chapter8/svp.png}
+\includegraphics[scale=0.44]{figures/chapter8/svp.png}
 \caption{\label{fig:chap8_svp} Human and robot positions computation flow. The purple blocks represent the initial positions while the blue ones represent the planned positions. }
 \end{figure}
 
@@ -198,12 +198,20 @@ In addition to the management of the direction-giving task itself, the supervisi
 
 \section{Embody architecture in a physical robot}
 
+The architecture presented in the previous chapter has been embedded in an upgraded, custom version, of the Pepper platform~\cite{caniot_2020_adapted}, which is equipped with an Intel D435 camera and an NVIDIA Jetson TX2. It has been deployed multiple time in a mall in Finland, Ideapark.
+
 \subsection{Pepper in Ideapark}
+
+For availability for as many customers as possible, the robot was contained in a defined place in the mall as shown in figure~\ref{fig:chap8_pepper_mall}. A home base was designed with the participation of all the project partners. It was a 4 per 4 meters area with a 2.5m high frame structure on it. The home base included a non-reflecting carpet on the floor and an acoustic roof.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.15]{figures/chapter8/pepper_mall.png}
-\caption{\label{fig:chap8_pepper_mall} todo. }
+\includegraphics[scale=0.12]{figures/chapter8/pepper_mall.png}
+\caption{\label{fig:chap8_pepper_mall} The pepper robot in its interaction area in the Finalnd mall, Ideapark. }
 \end{figure}
 
+During the first deployment in the real mall, we have updated both the Geometric Representation with actual measurements and the \acrfull{ssr} by making sure the regions, interfaces, corridors and intersections were represented reflecting the actual mall topology. To ensure the correctness of the instructions given by the route handler, we generated routes from the deployment location to random shops in the mall and followed them to the destination. Inaccuracies, as well as algorithmic flaws, have been fixed using this method. We also tested the interaction in the Finnish language with our native Finnish partners and corrected some mistakes in the route verbalization.
+
 \subsection{Pepper "in the wild"}
+
+The robot was then installed for a long-term 14 weeks deployment from September 2019 to December 2019. During this period, the robot interacted with everyday clients of the mall, who may never have the chance to interact with a robot before. The robot was active for 3 hours per day, three days a week. In total, the robot ran the direction-giving task for approximately 96 hours ``in the wild''. Out of these 96 hours, it was interacting with someone for 45 hours.
