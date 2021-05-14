@@ -9,7 +9,91 @@
 \chapter{Introduction}
 \minitoc
 
+To introduce this thesis and provide a global picture of its content, we first narrate a short story about a robot in a store. This story will then be used to identify some of the mains abilities a robot need to interact with humans with a focus on the knowledge it needs. While this thesis is from a roboticist point of view, working on interaction naturally leads to the study of cognitive psychology. From this field, we want to present an overview of the knowledge organisation models that have had an impact on the field, at the point to be now used for robotic researches.
+
 \section{A prototypical scenario}
+
+A company selling cameras have recently invested in a robot to support its employees in its stores. Their goal with these robots is to helps the employees during their daily tasks in the stores. The robots can prepare commands, put items on the shelves, cash customers, or advise them.
+
+Max is one of these robots. It is a Pr2 design equipped with a head, two arms, and a mobile base with wheels. It is 9 a.m. and the robotic company having produce Max, power it on for the first time in the store. The robot starts navigating in the store, looking at all the products on the shelves. Liam, the human employee is counting the cash register when a customer enters the store. This customer is Tony. He looks to some cameras exposed on the shelves, going from one shelf to another.
+
+Max, seeing Tony looking at all the cameras and Liam occupied to count the cash register, decides to go to see if the customer needs help.
+
+\begin{quote} 
+\centering 
+\textit{
+- "Hi, I am Max. Have you found a camera interesting you or do you need some advice?" \\
+- "Hi, I don't really know anything about cameras. I go on a trip in a month and I would like a camera to take animal pictures during the trip." }
+\end{quote}
+
+For an amateur, Max chooses to present to Tony some automatic models. Moreover, since it is for a trip, he advises Tony to prefer a small camera. Looking at the prices, the customer explains that he did not want to spend more the 500 euros. Max thus select three options for him:
+
+\begin{quote} 
+\centering 
+\textit{
+- "You have this one at 350, the small black one here in front of you at 475, and on the other shelf there the small brown one near to the screen at 230." }
+\end{quote}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{figures/introduction/camera_store_2.png}
+\caption{\label{fig:cam_store} A Pr2 robot, as an employee of a camera store, advises a customer. }
+\end{figure}
+
+Explaining that, Max point to the cameras. They continue to discuss when Tony's phone rings. He has to go to join his wife. In another store in the mall. Not knowing where the other store is he said:
+
+\begin{quote} 
+\centering 
+\textit{
+- "I am sorry I have to go. I will come back in the week. I have to go to a store selling video game but I do not remember the name." \\
+- "There is only one store selling video games in this mall, it is Game-ania." \\
+- "Do you know how to reach it from there ?" \\
+- "For sure"}
+\end{quote}
+
+Max slowly moves next to the entrance, followed by Tony. It raises one arm pointing to the aisle and said:
+
+\begin{quote} 
+\centering 
+\textit{
+- "Go down this aisle then turn left straight after the salad bar. After that Game-ania will be on your right when we walk."}
+\end{quote}
+
+Tony goes and come back the next morning. Max recognizing him, goes towards him. It asks Tony if he easily found the video game shop and recall the camera identified the day before.
+
+\begin{quote} 
+\centering 
+\textit{
+- "Yesterday we stop on two Fujifilm cameras and a Canon for your trip."}
+\end{quote}
+
+They continue to discuss and finally Tony selects the camera at 350 euros. Following Max's advice, takes a memory card and a second battery to have enough storage and power during his trip. In addition, he takes a lens to take pictures of animals from far. Unfortunately, the wanted camera is not available at the moment. The last in the store is the demonstration one. Max purpose to Tony to command it. The client agrees and goes.
+
+A few days later, before opening, several boxes arrive at the store. Liam, the human employee, and Max have to open them, fill the stocks and prepare Tony's command. This is the first time since Max arrival they have to do it. They both go to the backroom to do this task together. There are two boxes. Liam starts opening one so Max starts opening the other. Max informs Liam about the camera which should arrive.
+
+\begin{quote} 
+\centering 
+\textit{
+- "Tell me if their is a X-T100, a customer commands one."}
+\end{quote}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{figures/introduction/camera_store_3.png}
+\caption{\label{fig:cam_store} A Pr2 robot and a human employee collaborating to close a box. }
+\end{figure}
+
+Liam finds the camera. The robot explains to him that it also need an SD card of 32Go and a lens XC 15-45mm. It informs the human that the SD cards are too small for it to grasp them. It thus purposes to Liam to take some of the cameras to put on the shelves and to bring back the card and the lens at the same time. During this time, Max takes a box, put the camera in and the battery. When Liam comes back, he put the two other items in the same box. Then, Max maintains the box close while Liam scotch it. When finished, they both take the last items to put on the shelves and go to the main room.
+
+The afternoon of the same day, Max is cashing in a customer. Tony enter is the store. Seeing him, it request Liam:
+
+\begin{quote} 
+\centering 
+\textit{
+- "Can you bring the command we prepared this morning? The client it is for is the one just entering, with the blue T-shirt."}
+\end{quote}
+
+Liam goes into the back room and brings back the correct box. Max cash the customer how finally get his camera in the time.
 
 \section{Interacting with a robot: What can we expect ?}
 
