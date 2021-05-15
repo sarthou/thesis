@@ -151,9 +151,37 @@ As we explain in the begin of this section, the presented theory can not be prov
 
 \section{Contributions}
 
-\subsection{Knowledge representation}
+This section summarizes the main contributions of this thesis. They are organised around three complementary topics: knowledge management, knowledge exploitation, and cognitive architectures.
+
+\subsection{Knowledge management}
+
+The starting point of this thesis is the need to store and maintain both the robot's and humans' knowledge. We focused our efforts on semantic knowledge, using an ontology to represent it. The core contribution of this thesis is thus a software to manage ontologies instances. Each instance represents an agent knowledge, with the robot one being its ground truth and its partners' ones being an estimation of their knowledge. The ontology is used to represent the common-sense knowledge, the knowledge about the environment, knowledge about activities, as well as knowledge for the proper functioning of the robot.
+
+The resulting software is called Ontologenius. It is a lightweight and open-source software developed in C++ and working as a server among a robotic architecture. Any component of the architecture can thus access the knowledge it maintains through the ROS middleware, ensuring uniformity among the entire architecture. It comes with extensive documentation, debugging tools, and an API in C++ and python.
+
+Ontologenius supports dynamic updates of the \acrlong{kb}s it maintains and keeps them consistent at any instant thanks to reasoners. At the date, five principal reasoners are available in the form of plugins, each dedicated to a specific axiom. Others can thus be added depending on the need. They can be activated or deactivated at runtime and propose different reasoning management. We can for example choose to run then at the query, at an update or periodically. Ontologenius is able to make the difference between a stated fact and a deduced one.
+
+At the difference of other ontology management software, Ontologenius comes with more than 60 low-level inbuilt parametrizable queries, allowing a fast and precise exploration of the knowledge. These queries have been designed in such a way to be called from search algorithm to create higher-level cognitive processes. In addition, it proposes a \sparql{} interface.
+
+Ontologenius has also been designed to be used for planning applications by representing several possible world state in a single instance, switching from one to another.
+
+It was made from scratch and thought like a sandbox, based on ontology standards but sometimes allowing to deviate from them to better explore the possibilities and never be limited.
+
+During this thesis, a software to manage episodic knowledge has also been developed and linked with Ontologenius. It is called Mementar. Due to its early stage, it will not be presented in-depth but used in the final contribution of this thesis. 
 
 \subsection{Knowledge exploitation}
+
+On the basis of the semantic knowledge management software Ontologenius, several knowledge exploitation contributions have been developed. We can group them all into the thematic of spatial referring.
+
+The first tackles the route description task. Describing an indoor environment using an ontology, we have proposed two complementary algorithms able to find several routes leading to a target place. To represent an indoor environment with an ontology, we have proposed a piece of ontology to describe the topology, called the \acrlong{ssr}. We have then developed an algorithm to verbalise one of the routes, respecting good practices.
+
+The second tackles the \acrlong{reg} task. The goal is to search for the knowledge to communicate to a hearer allowing him to identify the target entity without ambiguity, in a given context. The resulting algorithm has been shown as being the most efficient at the date even if the input \acrshort{kb} is not dedicated to the task. This contribution has been an important source of inspiration and has lead to three other related contributions. With have link this algorithm to a symbolic task planner to evaluate communication feasibility and cost during the planning process. After this link with a planner, we tried to the execution trace of a collaborative task as a new kind of knowledge usable to generate \acrlong{re}. The latter contribution leads us to a proposal of task representation in an ontology. To move toward a more generic method to generate \acrlong{re}, we finally start a preliminary work aiming to support n-ary relations.
+
+\subsection{Cognitive architectures}
+
+The last contributions of this thesis are two cognitive architectures embodied on Pepper and Pr2 robotic platforms. The first architecture has been developed in the context of the \acrlong{mummer} project. It makes use of the route description to guide customers in a mall. The second has been developed later by the LAAS-RIS team to experiment with the recent developments of the team. This architecture makes use of the contributions around the \acrlong{reg}. It has been tested in a task coming from cognitive psychology and adapted to the \acrlong{hri}, called the director task.
+
+Both presented architectures use Ontolognenius to manage the robot and humans semantic \acrshort{kb}s. Since both architectures were developed two years apart, we will see in this thesis how the semantic \acrlong{kb} has become a central element of a cognitive architecture for \acrlong{hri}.
 
 \section{A reader's guide}
 
