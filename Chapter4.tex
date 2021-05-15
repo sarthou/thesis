@@ -98,7 +98,7 @@ In this section, we first present an example ontology that we use all along with
 
 As presented earlier in this thesis, ontology is a way to represent knowledge that is now largely used in many fields. It allows standardization of the representation, easy extension of an existing knowledge base, and the use of inference engines to enrich the knowledge base. For these reasons, we choose to use a knowledge base in the form of an ontology as input of our algorithm for the \acrshort{reg} problem. Moreover, we saw that number of recent \acrshort{reg} algorithms tend to use graph representation as it allows to refer to an entity through relations to other entities. Because an ontology can be seen as a more complex and more expressive graph, this representation seems to be adequate to use for the \acrshort{reg} problem. 
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.2]{figures/chapter4/pens.png}
 \caption{\label{fig:chap4_kb} A situation view from the hearer perspective, with the robot placed on the other side of the table. Three pens and two cups are on a table. The two blue pens are each in one cup. }
@@ -108,7 +108,7 @@ In this chapter, we take as an example the situation represented in Figure~\ref{
 
 The TBox used to describe the situation of this example is represented in figure~\ref{fig:chap4_kb_Tbox}. The class IkeaLisabo represents a precise model of tables and does not have any label. The class Pen is specified through two classes the ClickingPen and the TurningPen. These two classes aim at representing the pens you need to click on top to get the tip of the pen out and the pens you need to turn to get the tip of the pen out. These classes do not have any label to directly speak about them. They are only used by the robot to know how to use them. For sure a more precise ontology could be drawn but we try to keep it simple for the purpose of this chapter.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter4/pens_Tbox.png}
 \caption{\label{fig:chap4_kb_Tbox} Representation of the TBox (classes hierarchy) used to describe the situation of the Figure~\ref{fig:chap4_kb}. }
@@ -116,7 +116,7 @@ The TBox used to describe the situation of this example is represented in figure
 
 The ABox used to describe the situation is represented in Figure~\ref{fig:chap4_kb_Abox}. The two cups C\_1 and C\_2 are on the table T\_1. The two pens P\_1 and P\_2 are respectivly in the cups C\_1 and C\_2 while P\_3 is directly on the table. The pen P\_4 is another pen, not on the table. Other objects could be represented as the robot and the human could know other object being in the room. The pen P\_1 is the only pen for which the agent has to click to get the tip of the pen out.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.38]{figures/chapter4/pens_Abox.png}
 \caption{\label{fig:chap4_kb_Abox} Representation of the ABox (relation graph) used to describe the situation of the Figure~\ref{fig:chap4_kb}. }
@@ -141,7 +141,7 @@ The \acrshort{reg} problem is a tuple $\problem = \langle \goalindiv, \kb, Ctx, 
 
 A representation of the ABox on which the restrictions have been applied\footnote{We do not create a second ABox with the only elements that can be used. The \acrshort{reg} algorithm will have to manage the restrictions during the search process. Otherwise, we lost the interest to run on a knowledge base common to the entire robotic architecture.} is represented in Figure~\ref{fig:chap4_kb_ctx}.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.38]{figures/chapter4/pens_ctx.png}
 \caption{\label{fig:chap4_kb_ctx} Representation of the ABox (relation graph) on which the context of the problem and the usable properties have been applied. }
@@ -172,7 +172,7 @@ For any variable appearing in a \acrshort{re}, a least one substitution function
 \end{theorem}
 
 
-\begin{table}[htb!]
+\begin{table}[ht!]
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
@@ -220,7 +220,7 @@ A \acrshort{re} is said to be completely valid iif it is minimally valid and if 
 
 Taking the example of the Figure~\ref{fig:chap4_complet} where the goal of the situation is to refer to cup B, it can be achieved in two manners. Asking for the cup with a pen inside is a referring expression said to be minimally valid as the referred pen is ambiguous. However, not solving this ambiguity between the two pens in the cup still allow identifying the referred cup. To make the solution to be completely valid, we should ask for the cup with the red pen inside or the cup with the blue pen inside\footnote{A minimally valid reference can thus use references to set of entities. This is not an issue but the linguistic realisation should take it into account using ``a'' rather than ``the'' (e.g. ``with a pen inside'' rather than ``with the pen inside'').}.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.15]{figures/chapter4/complet_validity.png}
 \caption{\label{fig:chap4_complet} A situation where referring to the cup B through realtions to the pens can be done either by leaving the ambiguity on the pen (minimally valid \acrshort{re}) or also disambiguating the color of the pen (completely valid \acrshort{re}). }
@@ -340,7 +340,7 @@ The test first fails if not all the anonymous entities involved in the tested ca
 \textbf{\createchild: } 
 Creating a child node from a parent node and an action is easy to see. The \createchild function is specified in the pseudo-code of Algorithm \ref{alg:child}. 
 
-\begin{algorithm}[H]
+\begin{algorithm}[ht!]
 \caption{\label{alg:child} Child node function pseudocode}
 \begin{algorithmic}
 \Function{\createchild}{$action$, $parent$} 
@@ -357,7 +357,7 @@ For each explored state, we consider two kinds of possible actions that we can p
 In the \typingactions{} function (Alg.~\ref{alg:typing_action}), the function \textsc{UsableClasses} returns the most specific \textit{labeled} classes of an entity $\indiv$. In other words, it returns the set of classes $\class \in \classset$ such that $(\indiv,\class) \in C$, $\tlabel(\class) \neq \emptyset$, and
 $\not\exists \class'\ s.t.\ (\class', \class) \in H \wedge \tlabel(\class') \neq \emptyset$.
 
-\begin{algorithm}[htb!]
+\begin{algorithm}[ht!]
 \caption{\label{alg:typing_action} Typing actions pseudocode}
 \begin{algorithmic}
 
@@ -379,7 +379,7 @@ The choice to select the most specific class differs from the one of \cite{dale_
 
 The \typingactions{} is always performed before the \differenceactions{} and this second is even not called if the first has found possible actions. We thus ensure that we do not have more than one untyped anonymous entity at the time. This particularity explains why the \typingactions{} stops at the first untyped anonymous entity. Besides, it reduces once again the branching factor. Because of the parlance need constraint, we knew that any untyped anonymous entity has to be typed to find a valid solution. It is thus useless to try to add other relations while such an entity still exists in a candidate \acrshort{re}. Even if, for any reason, we found ourselves in a case with multiple untyped anonymous entities at the time, each of them will be typed after the other\footnote{Typing them at once would reduce the execution time but would necessitate actions to be the insertion of a set of relations which add complexity to the algorithm for cases that should not append.}.
 
-\begin{algorithm}[htb!]
+\begin{algorithm}[ht!]
 \caption{\label{alg:diffeaction} Hard difference actions pseudocode}
 \begin{algorithmic}[1]
 \Function{\textsc{HardDifferenceActions}}{$state$} 
@@ -421,7 +421,7 @@ The context of the problem is that we are speaking about objects being above the
 
 Since the classes \textit{ClinkingPen} and \textit{TurningPen} do not have labels, the lowest labelled class of P\_1, P\_2, and P\_3 is \textit{Pen}. A recall of the situation and the available knowledge base on which the context and the usable properties have been applied is represented on the top of Figure~\ref{fig:chap4_search}.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.45]{figures/chapter4/search.png}
 \caption{\label{fig:chap4_search} On top, a recall of the situation of Figure~\ref{fig:chap4_kb} and the entities types and relations.
@@ -439,7 +439,7 @@ The previous example was a simple situation with few entities. To assess the rel
 
 For all the presented measures, we used the Ontologenius software~\cite{sarthou_2019_ontologenius} to manage the ontology. To avoid taking the ROS communication into account in the measures, we used a direct connection by running the core of Ontologenius in the same process as the algorithm.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.55]{figures/chapter4/scaling_up_percentage.png}
 \caption{\label{fig:chap4_percentage} Percentage of entities referred successfully over time using a logarithmic timescale. }
@@ -470,7 +470,7 @@ The Longest First (LF)\footnote{\url{http://www.m-mitchell.com/code}} algorithm 
 
 Analysing the corpus, we find that 8 target entities can be referenced using only their type (e.g. the ball). Seven entities can be optimally referred to with the use of their type and an attribute (their size or color). In the last five scenes, the target entity can be referred with their types, color and size attributes (e.g. the small green cube). This means that spatial relations have not to be used to reference the target entity. 
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.3]{figures/chapter4/GRED3.jpg}
 \caption{\label{fig:chap4_gred3} The 19\textsuperscript{th} scene of the GRED3 corpus~\cite{dale_2009_referring}. The target entity is the one marked by the arrow.}
@@ -486,7 +486,7 @@ For all the 20 scenes, setting the maximum length parameter to the optimal lengt
 
 The \acrshort{gba}~\cite{viethen_2013_graphs} has been a significant turning point in the \acrshort{reg} field. We thus compare our algorithm with its more recent optimized version presented in~\cite{li_2017_automatically}. From an entities relations graph dedicated to the task, it aims at finding the lowest cost isomorphic subgraph containing the target entity. To do so, the \acrshort{gba} approach is based on a branch and bound algorithm. Once a first solution is found, any other branch that exceeds the cost of the current best-found solution is bounded. Such an algorithm thus needs to explore a large part of the graph if the optimal solution is not found early in the search.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.7]{figures/chapter4/GBA.png}
 \caption{\label{fig:chap4_gba} The 4\textsuperscript{th} scene used in the user-study in~\cite{li_2016_spatial}. The target entity is the one marked by the red arrow.}
@@ -500,7 +500,7 @@ The difference with the \acrshort{gba} is that the uniform cost search algorithm
 
 To assess the usability of our method during an interaction, we have integrated it on a PR2 robotic platform and used it in a ``real'' tabletop scenario. The used architecture presented in this section is represented in Figure~\ref{fig:chap4_archi}.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.6]{figures/chapter4/architecture.png}
 \caption{\label{fig:chap4_archi} The architecture used to validate the method. The knowledge base is continuously kept up to date through the situation assessment.}
