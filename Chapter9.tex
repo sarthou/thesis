@@ -118,9 +118,6 @@ In this section, we present the architecture developed to handle the Director Ta
 \caption{\label{fig:chap9_architecture} An overview of the cognitive architecture developed to handle the Director Task. Each block does not necessarily represent one software component but rather an architectural module (in terms of the features it implements). The arrows represent the type of information exchanged between the modules. This architecture extends the ones presented all along with this thesis.}
 \end{figure}
 
-\improvement{Youtube link}
-The architecture has been successfully implemented on a Pr2 robotic platform~\footnote{\url{https://cloud.laas.fr/index.php/s/kx6m67rt5n8bvky}} for both roles. The only emulated element is the human action recognition to trigger the next actions of the robot.
-
 \subsection{Storing and reasoning on symbolic statements}
 
 The knowledge representation is always a core component of cognitive architectures as organising knowledge allows the robot to better understand the environment it evolves in. Moreover, it is on the based of these knowledge that a robot can communicate with its human partner about the current state of the world and ground the partner's utterance regarding this world state.
@@ -183,7 +180,81 @@ For the Natural Language Understanding part, we could use machine learning appro
 
 Even if our method can be seen has been ha-doc, we ensure uniformity of the knowledge among the architecture. Moreover, it can be easily extended and even dynamically extended during an interaction.
 
-\improvement{section explication de la video ?}
+\section{Experiments}
+
+\improvement{Youtube link}
+The architecture has been successfully implemented on a Pr2 robotic platform. The robot is thus able to play both roles, the director and the receiver. In this section, we comment and analyse a video\footnote{\url{https://cloud.laas.fr/index.php/s/kx6m67rt5n8bvky}} of two experiments. The only emulated element is the human action recognition to trigger the next actions of the robot and it is the director.
+
+\subsection{Pr2 as the director}
+
+We start this section with a Pr2 in the role of the director (0:21 in the video). The setup is composed of six compartments including two compartments hidden from one side. One of these compartments is hidden from the human (the receiver) and one from the robot (the director). One block has been placed in each compartment. Consequently, only four blocks are known by both the human and the robot. Figure~\ref{fig:chap9_robot_view} is a visualization of the estimated geometric model of the human, maintained by the situation assessment component. Even if a block is present in each compartment, the leftmost one is not present in the estimation of the human's world. This absence comes from the fact that the human can not see what is in the compartment and thus can not know this block.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.5]{figures/chapter9/robot_view.png}
+\caption{\label{fig:chap9_robot_view} A visualization of the human's estimated goemetric world. Even if a block is present in each compartment, the left most one is not present in this worls since the human can not see this block. }
+\end{figure}
+
+Figure~\ref{fig:chap9_director} represents the entire interaction when the robot is the director. At the initial state, four blocks are visible from both agents. Describing them with all their visual features, they are:
+
+\begin{itemize}
+  \item A blue block with a blue border and a green triangle
+  \item A blue block with a blue border and a green circle
+  \item A blue block with a green border and a blue triangle
+  \item A green block with a green border and a blue circle
+\end{itemize}
+
+Thanks to the estimation of the communication cost at task planning using the results of the REG, the robot is able to find the optimal sequence of blocks to intrust. The overall communication is thus minimized and the RE is unambiguous in each situation. In the initial state (a to b), the robot asks for the green block as only one of the visible blocks is green. Since the green block has a circle on it, removing it, only one of the remaining blocks has a circle on it. The robot can thus use this feature to refer to the next block (b to c).
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter9/director.png}
+\caption{\label{fig:chap9_director} The director task handled by an autonomous PR2 robot in the role of the director. Each picture represents a step toward the achievement of the task. The estimated human perspective is displayed in the top left-hand corner of each picture. On top of the arrows leading to a new state are the sentences said by the robot to the human. The block outlined in red are the blocks referred to at each step. }
+\end{figure}
+
+\subsection{Pr2 as the receiver}
+
+While in its previous role the robot just had to instruct the human, when the robot is the receiver (1:33 in the video) more reasoning is needed. A retranscription of part of the interaction is represented in figure~\ref{fig:chap9_receiver}. In the initial state, the same four blocks as previously are visible by both the agents. The robot is able to understand three actions: take, drop, and remove. The latter action is a combination of the two others.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter9/receiver.png}
+\caption{\label{fig:chap9_receiver} The director task handled by an autonomous PR2 robot in the role of the receiver. Each picture represents a step toward the achievement of the task. The estimated human perspective is displayed in the top left-hand corner of each picture. On top of the arrows leading to a new state are the sentences said by the human to the human and for the last situation the refinement query from the robot to the human. }
+\end{figure}
+
+For the first block (a to b on the figure), the human intruct the robot for the green block. The natural language understanding module return the \sparql{} query:
+
+\begin{quote} 
+\centering 
+(?0, isA, Block), (?0, hasColor, green)
+\end{quote}
+
+Since the robot assumes the human to speak about objects on the table, the understood query is merged with another one representing the context of the task: (?0, isAbove, table\_1). Querying the human estimated ontology with the merged query, only one entity match. There is no ambiguity in human instruction. The robot takes the instructed block then drop it. If the query was applied to the robot ontology, two blocks would have matched since the block unknown by the human is also green. It goes the same for, the second instruction. There is no ambiguity. The \sparql{} query related to this second block is:
+
+\begin{quote} 
+\centering 
+(?0, isA, Block), (?0, hasFigure, ?1), (?1, isA, Circle)
+\end{quote}
+
+The third instruction given by the human as the director is the most interesting for us. The human asks for \textit{"The block with a triangle"}. However, the speech to text returns \textit{"take is about to whip a triangle"}. With this sentence, the NLU module can only extract two known concepts being "take" and "triangle". Due to the limited amount of word understood, it does not try to generate a \sparql{} query. The robot thus informs the human about its incapacity and repeat the heard sentence as a back loop for the human. At the second try, the sentence is understood and gives the query:
+
+\begin{quote} 
+\centering 
+(?0, isA, Block), (?0, hasFigure, ?1), (?1, isA, Triangle)
+\end{quote}
+
+However, matching this query to the human's estimated ontology, we get two results. Once again, matching it to the robot's ontology would give three results but the third one is not visible from the human. Since all the concepts of the sentence have been understood and linked together to create the query, the human should have made a mistake, providing an ambiguous referring expression.
+
+To be proactive, we want the robot to ask precision about the block to take by proposing visual features to distinguish them. To do so, we use the \acrshort{reg} algorithm on each ambiguous block. As a context for the \acrshort{reg}, we pass the previously merged \sparql{} query. It represents what has already been understood by the robot. In the current situation, the robot thus performs two \acrshort{reg} and their results are used to generate the disambiguation sentence:
+
+\begin{quote} 
+\centering 
+\textit{"Do you mean the block with a green triangle or the block with a blue triangle?"}
+\end{quote}
+
+When the human responds, for sure it does not generate a complete description f the block to be taken. It rather answers the question. The query extracted from his answer is thus combined with the previously understood one in case some information is missing. Matching this last query to the human's estimated ontology, the robot finally get the block to remove.
+
+With this latter case, we saw how the robot can react to a human's mistake and use the \acrshort{reg} to help the progress of the task, even if it is the receiver.
 
 \section{Open challenges for the community}
 
