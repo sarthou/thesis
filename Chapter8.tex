@@ -9,6 +9,8 @@
 \minitoc
 \label{chap:8}
 
+Algorithms, representations, or piece of software allow to study and exhibit precise features for robotic applications. It is however through their integration into a more global system and their application to a realistic task that we can assess their usefulness, their limits, and their possible extensions. I this chapter, we present the \acrshort{mummer} project, aiming to develop a robot guide in a mall, and the resulting robotic architecture. We show how the semantic \acrfull{kb} and the route description contribution have been integrated and used by others component.
+
 This chapter is a sum-up of an article submitted to the  User Modeling and User-Adapted Interaction (UMUAI) Journal. This work has been achieved in collaboration with Amandine Mayima, Guilhem Buisan, Phani-Teja Singamaneni, Yoan Sallami, Kathleen Belhassein, and Jules Waldhart. In this chapter, we first give an overview of the European H2020 Project \acrfull{mummer}\footnote{\url{http://mummer-project.eu/}}, in the context of which the contribution of chapter~\ref{chap:3} was made. We then present the components developed by the LAAS-RIS team with a focus on the component in which I participated as well as their integration in a robotic architecture.
 
 \section{Introduction}
@@ -38,7 +40,7 @@ The first pilot study consisted of a human guide providing route information. It
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.35]{figures/chapter8/human_guide.png}
+\includegraphics[scale=0.40]{figures/chapter8/human_guide.png}
 \caption{\label{fig:chap8_human_guide} Picture from the second Human-Human study \cite{belhassein_2017_human}. Here, the guide is giving the route description to reach a given shop by pointing at it. The formation formed by the guide, the customer, and the target was analyzed. }
 \end{figure}
 
@@ -90,7 +92,7 @@ This representation takes the form of an ontology. It uses the \acrfull{ssr} to 
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.45]{figures/chapter8/zizzi.png}
+\includegraphics[scale=0.5]{figures/chapter8/zizzi.png}
 \caption{\label{fig:chap8_zizzi} Representation of the knowledge about the shop H\&M stored in the ontology. We have both purely semantic knowledge and topological information. }
 \end{figure}
 
@@ -165,7 +167,7 @@ To search for better positions to reach in order to point a landmark, the planne
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.25]{figures/chapter8/grid_map.png}
+\includegraphics[scale=0.3]{figures/chapter8/grid_map.png}
 \caption{\label{fig:chap8_svp_grid} Visibility grid for a target located at the top right. The uncoloured areas represent an absence of visibility and the others represent the cost of visibility ranging from yellow for low visibility to purple for good visibility. The robot and the human in transparency on the image represent the final calculated positions while the others are the initial positions. }
 \end{figure}
 
@@ -207,7 +209,7 @@ For availability for as many customers as possible, the robot was contained in a
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.12]{figures/chapter8/pepper_mall.png}
+\includegraphics[scale=0.2]{figures/chapter8/pepper_mall.png}
 \caption{\label{fig:chap8_pepper_mall} The pepper robot in its interaction area in the Finalnd mall, Ideapark. }
 \end{figure}
 

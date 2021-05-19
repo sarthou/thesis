@@ -10,6 +10,8 @@
 \label{chap:3}
 \minitoc
 
+In this chapter, we propose a representation of indoor environments in a semantic fashion by building a minimal but sufficient ontology, oriented around a route description task. This representation is then used to plan a route for a human to follow in order to reach ats goal destination. Finally, from the computed route we generate a verbal discourse, seen as a procedure to be followed, allowing the guided human to mentally navigate along the route.
+
 The contribution presented in this chapter is excerpted from our work, published in the proceedings of the Spatial Language Understanding (SpLU) 2019 workshop~\cite{sarthou_2019_semantic}. In this manuscript, the contribution is more detailed and discussed. This work is part of the \acrshort{mummer} project, aiming at developing a robot guide in a mall. At the end of this thesis, a chapter is dedicated to the presentation of the project and the integration of the current contribution is a robotic system.
 
 \section{Introduction}
@@ -109,7 +111,7 @@ A major limitation of these relations is that they cannot be used in an ontology
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.4]{figures/chapter3/ssr_rbox.png}
+\includegraphics[scale=0.42]{figures/chapter3/ssr_rbox.png}
 \caption{\label{fig:chap3_rbox} Representation fo the RBox (properties hierarchy) of the \acrlong{ssr} used to describe the topology of an indoor environment.}
 \end{figure}
 
@@ -375,6 +377,22 @@ To generate the sentences in natural language, we first analyzed explanations us
 
 In the English verbalization, we have 238 unique patterns to express the end of a route description, 64 to express it beginning, 20 to express the continuation, and 66 for the special case of a route with a single step. All the patterns are available in appendix~\ref{app:patterns}.
 
+For the example of figure~\ref{fig:chap3_region1}, an verbalization would be:
+
+\begin{quote} 
+\centering 
+\textit{
+"Go through this corridor, turn right straight after pl\_4, then you will see the door on your left."}
+\end{quote}
+
+For the same route, the system would be able to generate another sentence like:
+
+\begin{quote} 
+\centering 
+\textit{
+"Walk across this corridor and turn right straight after pl\_4. After that, the door is on the left there, straight after pl\_7."}
+\end{quote}
+
 \section{Experiment in emulated and real environment}
 
 The \acrshort{ssr} was first used to describe an emulated mall to test the related algorithms. This representation has then been tested in a real mall to study its applicability in a larger environment. Table~\ref{tab:chap3_count} indicates the number of elements described in both environments. The number of places does not correspond to the sum of the shops, interfaces and intersections since much more elements have been described, such as ATMs, restrooms or carts location.
@@ -398,13 +416,13 @@ The \acrshort{ssr} was first used to describe an emulated mall to test the relat
 
 To assess the usability of such a description and its related algorithms, we propose to measure the resolution time of several places on the real mall representation. Over the 140 shops of the mall, we have selected 26 of them in such a way that they all are along a single and distinct path. Computing routes for all the places along the same path would give the same results. The figure~\ref{fig:chap3_performance} reports the resolution time for each target shop in function of the maximum route length. The resolution times include the ROS communication time query the ontology. It is thus a real use case. The first element to note is the maximum resolution time of 46.16 ms for a maximal route length of 4. This place is a bit particular as being in another region than the one of departure and that only one interface allows to reach this place. It can be seen as an unadapted description due to a special case. Nevertheless, resolution times under 45ms are still acceptable for \acrshort{hri} applications.
 
-Speaking about the division of the environment into regions, we have here circled all the measures related to places into the same region. In blue are the places being in the same region as the departure place. In green ones are places in a small region composed of 4 paths and three interfaces. In red are the places on the first floor of the building. Eleven interfaces have been identified to pass from the departure region to the first floor. The results over these three regions draw three distinct and non-overlapping clusters. Results in the same region as the departure one give resolutions under 5ms with a maximum route length of four. Results over the small region give resolutions time between 12.5ms and 15ms with routes going from 4 to 5 paths. Results over the last region create an important gap in term of resolution time with a minimum around 28ms. 
-
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.6]{figures/chapter3/performance.png}
 \caption{\label{fig:chap3_performance} The resolution times of 26 places related to the maximum route length found for each of them. The places are each on a unique and distinct path. We identify three clusters. The blue one on the left corresponds to places in the same region as the departure place. The green cluster on the center corresponds to places in a small region with few paths, different from the region of the departure place. The red cluster on the right corresponds to places in a third region with more paths in it and more interfaces to reach it. }
 \end{figure}
+
+Speaking about the division of the environment into regions, we have here circled all the measures related to places into the same region. In blue are the places being in the same region as the departure place. In green ones are places in a small region composed of 4 paths and three interfaces. In red are the places on the first floor of the building. Eleven interfaces have been identified to pass from the departure region to the first floor. The results over these three regions draw three distinct and non-overlapping clusters. Results in the same region as the departure one give resolutions under 5ms with a maximum route length of four. Results over the small region give resolutions time between 12.5ms and 15ms with routes going from 4 to 5 paths. Results over the last region create an important gap in term of resolution time with a minimum around 28ms. 
 
 These results could be discussed at length. On one hand, we could say that the division into regions has a positive impact on the resolution time by restricting the search space. For the places in the same region as the departure one, the paths in the other regions do not impact the search. Such an explanation would be in adequations with the presented graph. On the other hand, the "high" resolution times for the region in red can be attributed to this same region division. Because we want to propose several routes, and at least one passing by each interface, we artificially increase the search space with the need of at least 22 sub-routes computation for places in a region connected with 11 interfaces (one sub-route to go from the departure place to the interface and one sub-route to go from the interface to the destination place). For the smallest region (in green) 6 sub-routes computation are needed because of 3 interfaces.
 

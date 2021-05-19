@@ -9,6 +9,8 @@
 \minitoc
 \label{chap:7}
 
+A number of works trend to semantically represent and describe robots' actions and task using ontology. However, each representation has its own particularity, depending on the system it is used on and the exploitation it aims to enable. While our description of past activities fits our needs and our task planner, having a REG algorithm constraint by this latter is problematic. In this chapter we explore the use of n-ary relation, a common, even not yet standard, way to represent complex knowledge as actions. With the analyse of such a pattern, we present a novel REG approach, supporting the use of past activities, but also any complex knowledge represented through n-ary relations.
+
 The contribution presented in this chapter is a preliminary work aiming to consider the limitations encountered by the contribution of the previous chapter. The presented method has been implemented but not tested with an integration of other components. This section deviates a little from the field of \acrshort{hri} to be more anchored in artificial intelligence. However, the ability to generate entity referencing in a more generic way is paramount for a robot to interact with humans. 
 
 \section{Introduction}
@@ -38,15 +40,13 @@ The general idea used in all the proposed approaches since Deliyanni is thus the
 
 For the use in ontology, no standard pattern has been approved by the W3C for the moment. However, a Working Group Note has been proposed for the standardisation of such relations in RDF and OWL~\cite{w3c_2006_defining}. In the note, two patterns are introduced with two variants for the first one.
 
-The first pattern is based on the introduction of a new class for relation and works in the exact same way of the relation reification as illustrated in Figure~\ref{fig:chap7_w3c_p2}. The class \textit{Purchase} is a relation-class and its instance \textit{purchase\_1} is link the entities of the relation. Such pattern is said to be \textbf{without subject} as all the relation are oriented from the relation-class instance to the other entities.
-
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter7/w3c_p2.png}
 \caption{\label{fig:chap7_w3c_p2} Ontological pattern 1 without subject proposed by the W3C Working Group. The describe assertion is ``John buys a ''I, robot`` from books.com for \$15''.}
 \end{figure}
 
-A variation of the first pattern is illustrated in Figure~\ref{fig:chap7_w3c_p1}. This variation is said to be \textbf{with subject}. The assertion described here is ``Christine has a tumor with high probability''. Here the subject of the relation is Christine. It is represented in the pattern by a relation oriented from Christine to the instance of the relation-class while the others are in the usual orientation. Such variation can be reproduced with the previous one by defining inverse relations. Defining the relation \textit{isBuyer} and \textit{isObject}, either John or the book can be the subject of the relation represented by \textit{purchase\_1}.
+The first pattern is based on the introduction of a new class for relation and works in the exact same way of the relation reification as illustrated in Figure~\ref{fig:chap7_w3c_p2}. The class \textit{Purchase} is a relation-class and its instance \textit{purchase\_1} is link the entities of the relation. Such pattern is said to be \textbf{without subject} as all the relation are oriented from the relation-class instance to the other entities.
 
 \begin{figure}[ht!]
 \centering
@@ -54,13 +54,17 @@ A variation of the first pattern is illustrated in Figure~\ref{fig:chap7_w3c_p1}
 \caption{\label{fig:chap7_w3c_p1} Ontological pattern 1 with subject proposed by the W3C Working Group. The describe assertion is ``Christine has tumor with high probability''.}
 \end{figure}
 
-The second pattern aims at representing lists. With the previous pattern, it is assumed that the properties involved in the binary relation are only used once to identify uniquely each element of the relation. Wanting to represent the assertion ``United Airlines flight 3177 visits the following airports: LAX, DFW, and JFK'' the first pattern would be not adapted. With this other pattern, we create several instances of the relation-class each linked to the next and to an entity of the n-ary relation as illustrated in Figure~\ref{fig:chap7_w3c_p3}. Because one of the binary relations go from an entity of the relation to an instance of the relation-class, it is said to be with subject. This second pattern is dedicated to the description of lists.
+
+A variation of the first pattern is illustrated in Figure~\ref{fig:chap7_w3c_p1}. This variation is said to be \textbf{with subject}. The assertion described here is ``Christine has a tumor with high probability''. Here the subject of the relation is Christine. It is represented in the pattern by a relation oriented from Christine to the instance of the relation-class while the others are in the usual orientation. Such variation can be reproduced with the previous one by defining inverse relations. Defining the relation \textit{isBuyer} and \textit{isObject}, either John or the book can be the subject of the relation represented by \textit{purchase\_1}.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter7/w3c_p3.png}
 \caption{\label{fig:chap7_w3c_p3} Ontological pattern 2 with subject proposed by the W3C Working Group. The describe assertion is ``United Airlines flight 1377 visits the following airports: LAX, DFW, and JFK''.}
 \end{figure}
+
+
+The second pattern aims at representing lists. With the previous pattern, it is assumed that the properties involved in the binary relation are only used once to identify uniquely each element of the relation. Wanting to represent the assertion ``United Airlines flight 3177 visits the following airports: LAX, DFW, and JFK'' the first pattern would be not adapted. With this other pattern, we create several instances of the relation-class each linked to the next and to an entity of the n-ary relation as illustrated in Figure~\ref{fig:chap7_w3c_p3}. Because one of the binary relations go from an entity of the relation to an instance of the relation-class, it is said to be with subject. This second pattern is dedicated to the description of lists.
 
 \section{Through the use of coumpound relations}
 
@@ -333,13 +337,13 @@ With this simple example we see that with a single compound relation, the algori
 
 Since the presented algorithm is able to manage the past tasks description, we present a comparison in terms of execution time with both the original algorithm and the one using past tasks. To do so, take the knowledge base of the previous chapter containing two task description per entity inheriting from the \textit{Object} class. To be used with compound relations, we add a label to each class representing a task. The label involves the three parameters of the task. In this way, we reproduce the constraint to use all the parameters and at the same time take advantage of the radix-tree optimisations. The knowledge base is still managed using the Ontologenius system and not passing by the ROS services to not be impacted by the communication time in our measures.
 
-The original algorithm has been run without the possibility to use relations toward task since it is not designed for this use. Its performance is our comparison point as we expect all algorithms to find the same solutions. For recall, the described tasks are designed in such a way to not help in the \acrshort{re} generation and but ourselves in the worst case. The measures of the percentage of entities referred over time for all three algorithms are represented in Figure~\ref{fig:chap7_compare} and reported on appendix~\ref{app:reg_comp_solutions}.
-
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.5]{figures/chapter7/comparison.png}
 \caption{\label{fig:chap7_compare} Comparison of the three algorithms regarding the percentage of successfully referenced entities over time using a logarithmic timescale. }
 \end{figure}
+
+The original algorithm has been run without the possibility to use relations toward task since it is not designed for this use. Its performance is our comparison point as we expect all algorithms to find the same solutions. For recall, the described tasks are designed in such a way to not help in the \acrshort{re} generation and but ourselves in the worst case. The measures of the percentage of entities referred over time for all three algorithms are represented in Figure~\ref{fig:chap7_compare} and reported on appendix~\ref{app:reg_comp_solutions}.
 
 With this setup, the current version performs slightly better than the previous one with an average resolution time of 4.17ms versus 5.53. It is however over the original version having an average resolution time of 1.08ms. This difference must be qualified by the exploration of \acrshort{cr}s that the original one does not do. While the majority of the entities are referred in a comparable time with the previous version, we can still note that the more complex entity requiring six relations is now solved in 45.71ms versus 70.57ms previously.
 
