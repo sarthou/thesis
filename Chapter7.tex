@@ -301,7 +301,7 @@ For this simple test, we describe actor performance using the pattern of figure~
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter7/perf.png}
-\caption{\label{fig:chap7_perf} The compound relation patten used to discribe a performance of an actor with a role and a film.}
+\caption{\label{fig:chap7_perf} The compound relation pattern used to discribe a performance of an actor with a role and a film.}
 \end{figure}
 
 \begin{lstlisting}[frame=single, caption={ The set of labels usable to discribe the performance compound relation.}, label={lst:chap7_perf_labels}, captionpos=b, style=Labels, mathescape=true]
@@ -331,9 +331,58 @@ Matching it the the ontology, the variable \textit{?0} matchs \textit{sean\_conn
 (?1,\ perfHasRole,\ james\_bond)
 \end{gather*}
 
-With this simple example we see that with a single compound relation, the algorithm is able to find a solution by selecting the necessary information in it depending on the situation while keeping the link between each of them.
+With this simple example we see that with a single compound relation, the algorithm is able to find a solution by selecting the necessary information in it depending on the situation, while keeping the link between each of them.
 
 \subsection{The desciption of past activities as compound relations}
+
+From now, we see that \acrlong{cr} can be used to represent complex knowledge with various entities linked together. Considering now the representation of an agent's past activities, presented in the previous chapter, such a complex knowledge could thus be represented using \acrshort{cr}s. Figure~\ref{fig:chap6_abox} represented a part of an ABox of an instance of a decomposition of the abstract task \textit{PrepareVegetable}. Focusing on the primitive task \textit{Cut} and its instance \textit{cut\_7}, we can observe that the underlying pattern already was a \acrshort{cr}. The graphical representation of this description is reported in figure~\ref{fig:chap7_cut7}.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.4]{figures/chapter7/cut7.png}
+\caption{\label{fig:chap7_cut7} The underlined \acrlong{cr} pattern used to discribe a past activity. The entity \textit{cut\_7} can thus be considered as a \acrlong{ce}. }
+\end{figure}
+
+At the light of the presentation of the \acrshort{cr}, we see that the entity \textit{cut\_7} is the \acrlong{ce} of the \acrlong{cr} and that the class \textit{Cut} is a relation class. Moreover, due to the presence of the inverse property \textit{isParameterOf}, common to all the used properties, the three involved entities could be used as a subject entity. The only element to add to the previous representation is the labels, in the form of patterns. For the cut task, the proposed labels are listed in the listing~\ref{lst:chap7_cut_labels}. Among these labels, we see that for all the possible subject entities, two labels are available, involving one or two additional entities.
+
+\begin{lstlisting}[frame=single, caption={ The set of labels usable to discribe the compound relation representing an instance of a cut primitive task.}, label={lst:chap7_cut_labels}, captionpos=b, style=Labels, mathescape=true]
+L1 - {?Cut_hasParameter.A} who cut {Cut_hasParameter.V}
+L2 - {?Cut_hasParameter.A} who cut {Cut_hasParameter.V} 
+     with {Cut_hasParameter.K}
+L3 - {?Cut_hasParameter.V} cut by {Cut_hasParameter.A}
+L4 - {?Cut_hasParameter.V} cut by {Cut_hasParameter.A} 
+     with {Cut_hasParameter.K}
+L5 - {?Cut_hasParameter.K} with which {Cut_hasParameter.A} cut
+L6 - {?Cut_hasParameter.K} with which {Cut_hasParameter.A} cut 
+     {Cut_hasParameter.V}
+\end{lstlisting}
+
+To assess the utility to consider the past activities representation as \acrlong{cr}, we take again the execution trace of figure~\ref{fig:chap6_meal_plan} and propose three new cases. The trace and the new cases are illustrated in figure~\ref{fig:chap7_meal_plan}. As a reminder, the plan was executed by two agents, Tony, a human, and Pr2, a robot. A third agent, Bob, see part of the execution. Each case corresponds to a set of task, seen and thus known by Bob. The goal here is still to refer to the knife \textit{k2}. The usable labels are thus L5 and L6, both referring to the knife used in the task.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter7/prepare_meal_plan.png}
+\caption{\label{fig:chap7_meal_plan} The hierarchical execution trace to prepare the meal and a trace for another subsequent high-level task, organized according to a timeline. In the current instant, PR2 is asking Bob, a second human, for knife \textit{k2}. The three cases are represented by three colors at the left of the tasks and correspond to tasks seen by Bob, the human spectator.}
+\end{figure}
+
+\paragraph{Case 1:} Bob only saw two tasks involving the knife \textit{k2}. Both are cut task but on different vegetables. The algorithm can try to use the label L5, being shorter than L6. However, both tasks have been achieved by Tony. Consequently, the algorithm selects a \acrshort{re} using L6. The solution \acrshort{re} is: \textit{(?0 isA Knife), (?0 isParameterOf ?1), (?1 isA Cut), (?1 Cut\_hasParameter.A tony), (?1 Cut\_hasParameter.V ?2), (?2 isA tomato)}. The algorithm not based on \acrshort{cr}, would have give the same solution. The only difference is in its form. Here, the triplets representing the parameter use the properties really used to describe the \acrshort{cr}, where the previous algorithm would have used the more abstract property \textit{hasParameter}.
+
+\paragraph{Case 2:} In the second case, Bob only saw two tasks involving the knife \textit{k2}. This time, it is two different tasks as one is a cutting task while the other is a peeling task. In this situation, the algorithm can use the label L5 and provide the solution: \textit{(?0 isA Knife), (?0 isParameterOf ?1), (?1 isA Cut), (?1 Cut\_hasParameter.A tony)}. We note that the cut vegetable is not present in the solution since it does not provide discriminative information. Bob saw Tony cut only a cucumber so specifying the vegetable would be useless. The algorithm not based on \acrshort{cr} would have provided all the parameters, even if some are useless. The \acrshort{cr}-based algorithm is thus able to find shorter \acrshort{re} when the current situation allows it.
+
+\paragraph{Case 3:} In the third case, Bob saw three tasks. Two of them are cutting task while the other is a peeling task. Even if one of these tasks is different from the others, for the previous algorithm all of them involved three parameters. Consequently, they would have had all the same cost. The selection would have been based on the time, selecting the most recent one. For the \acrshort{cr}-based algorithm, the two cutting tasks need all of their parameters to be referred to but the peeling task can be used without reference to the peeled vegetable. Using the latter task allows to generate a shorter \acrshort{re}. Considering the peel task as having the same kind of labels than the cut task, the final solution \acrshort{re} is: \textit{(?0 isA Knife), (?0 isParameterOf ?1), (?1 isA Peel), (?1 Peel\_hasParameter.A tony)}.
+
+Over these three cases, we saw the \acrshort{cr}-based algorithm is suitable to be used with descriptions of past activities. The advantage of this algorithm regarding the previously made is the form of the generated \acrshort{re} with the use of precise properties, and the ability to generate shorter \acrshort{re} in some situations. The most important point is that the algorithm is less dependant on the knowledge representation. It does not need priory about the properties of the representation. By simple adding labels to existing representation, the current algorithm can be used with other task representations.
+
+Finally, even if we will not illustrate it, the use of \acrshort{cr} to represent past activities could allow us to be restricted by the information provided by a task planned. Taking the example of the cut task, it is performed on a support, a work plan. Even if this piece of information is not necessarily provided by a task planner, when the task is performed, the work plan on which the task is performed can be perceived by the robot. This additional information could be used to generate \acrshort{re}. To support this new information, we could add a label L7:
+
+\begin{quote} 
+\centering 
+\{?Cut\_hasParameter.K\} with which \{Cut\_hasParameter.A\} cut on \{TaskHasPlace\}
+\end{quote}
+
+With this new label, when a relation involving the property \textit{TaskHasPlace} exist, it would be explored and when it does not exist it would simply be discarded. This means that we can add additional and optional information to any \acrshort{cr}, and thus task representation.
+
+\subsection{Assessing compound relations impact on performance}
 
 Since the presented algorithm is able to manage the past tasks description, we present a comparison in terms of execution time with both the original algorithm and the one using past tasks. To do so, take the knowledge base of the previous chapter containing two task description per entity inheriting from the \textit{Object} class. To be used with compound relations, we add a label to each class representing a task. The label involves the three parameters of the task. In this way, we reproduce the constraint to use all the parameters and at the same time take advantage of the radix-tree optimisations. The knowledge base is still managed using the Ontologenius system and not passing by the ROS services to not be impacted by the communication time in our measures.
 
