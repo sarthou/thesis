@@ -210,9 +210,47 @@ $\plabel$: properties labeling function & \\
 
 \section{Computational preformance evaluation}
 
-\subsection{Concepts recovery}
+In this section, we evaluate the Ontologenius performance and scalability through comparison with two systems and using their own tests. First, we compare with the KnowRob system with a focus on required CPU time to insert new knowledge and required memory to store this knowledge. The second system of comparison is ORO. With this latter, we measure query resolution time. Finally, we present some additional measures like concept recovery time and \sparql{} query resolution time.
 
-\subsection{Low-level queries}
+\subsection{Comparing with Knowrob}
 
-\subsection{SPAQRL queries}
+We start these comparisons with the KnowRob system presented in~\cite{tenorth_2013_knowrob}. This system is composed of several modules able to perform dedicated reasoning like temporal reasoning, CAD model segmentation, or object perception. All these modules are integrated around the logical programming language SWI Prolog~\cite{wielemaker_2012_swi}. OWL ontologies are loaded using the SWI Prolog’s Semantic Web library~\cite{wielemaker_2003_prolog} which provide a performant and scalable way to manipulate RDF structure in Prolog. Internally, the triple structure of the ontologies is represented as Prolog predicates. At the difference of Ontologenius, the Prolog system and thus KnowRob does not aim to be used as a server but rather as a monolithic and highly integrated system. To provide a fair comparison, in the part, we used Ontologenius without the ROS communication layer. Consequently, a single process runs both ontologenius and the test application.
 
+The article~\cite{tenorth_2017_representations} propose a detailed presentation of the internal representation of KnowRob and present some performance and scalability analysis. The following comparisons have to be considered carefully. KnowRob is a wider and more mature system than Ontologenius. It proposes more advanced capability in terms of reasoning and integration. Ontologenius is more focused on \acrshort{hri} applications as presented earlier in this section. In this way, some simplifications that have been done to fit at our best the KnowRob tests may impact the results. The final reason why the following results should be taken with caution is that due to the complexity of the KnoRob system, we did not perform their test on our end. The results for the KnowRob system comes from their paper~\cite{tenorth_2017_representations}. Consequently, in this section, we do not aim at showing that Ontologenius is "better" than KnowRob. We rather want to show that Ontologenius is not out of the scope in terms of performance and scalability regarding a well-established software.
+
+For the tests we have replicated, they use the description of visual perception entities. Such an entity represents the occurrence of the perception of a given object, having a given pose at a given instant. An example of one of these entities is illustrated in listing~\ref{lst:chap2_visual_perception}. The entity $cup\_i$ is the perceived object. The entity $VisualPerception\_i$ is the perception occurrence. It uses an object property to make a link with the perceived object and two data properties to represent the object's pose and the perception time stamp. The first simplification we had to make is the representation of the matrix of position. In Ontologenius, the data types are only represented in a serialized way as no internal manipulation of these types are made. Thanks to the use of Prolog, KnowRob can manipulate such a matrix and perform operations on it. Even if it is not said if they have inverse properties or not, we add one for the \textit{objectActedOn} property in order to know in which perception instance an object has been perceived.
+
+\begin{lstlisting}[frame=single, basicstyle=\scriptsize\ttfamily, label={lst:chap2_visual_perception}, caption={Description of a visual perception entity created in a somparable way as in the Knowrob system. The description is provided in the OWL language using the Turle syntax.},captionpos=b, style=OwlTurtle_indiv]
+:cup_i  rdf:type   :Cup ;
+
+:VisualPerception_i  rdf:type         :VisualPerception ;
+                     :objectActedOn   :cup_i ;
+                     :eventOccursAt   [[1,0,0,2.56], ... ,[0,0,0,1]]^^RotMat ;
+                     :startTime       6572^^Time .
+\end{lstlisting}
+
+The first test consists of creating and inserting N visual perception entities in the \acrshort{kb} and measuring the required CPU time to insert one of them Theis means that we measure the average CPU time over N insertions. For each visual perception entity, we thus have to create two entities (the visual perception entity and the perceived object), two inheritance links, two raw data, and three relations (two based on data property and one based on object property). The results are shown in figure~\ref{fig:chap2_knowrob_insertion}. KnowRobs has a constant time around 1.3ms. With Ontologenius we do not have constant time. The first decreasing part can be explained by the asynchronous Ontologenius mechanism. It looks for updates at 20hz. Consequently, we can have a delay between the moment we publish updates and the moment they are processed. The effect of the mechanism disappears with the amount of data to process since once the update mechanism started, it does not stop while data have to be processed. The general trend is thus an increase in the required CPU time. This increase can come from the fact that Ontologenius performs reasoning, like the creation of the inverse relations, at update where KnowRob resolve it at query. In addition, Ontologenius also performs consistency checking at update. However, until 1,000,000 insertions and thus 2,000,000 of entities, 2,000,000 raw data, and 5,000,000 triples (2 for inheritances and 3 for relation per perception entity), the required CPU time is under 1ms.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter2/knowrob/Insertion.png}
+\caption{\label{fig:chap2_knowrob_insertion} Comparison of the required CPU time for creating large numbers of object perceptions in the knowledge base. Each inserted object correspond to a visual perception entity linked to a cup, a pose matrix, and a time stamp. Ontologenius is used without the ROS communication layer to provide comparable usage and thus results.}
+\end{figure}
+
+On the basis of the same insertions as previoulsy, the second test consits at measuring the required memory. The results are shown in figure~\ref{fig:chap2_knowrob_memory}. For hight number of entity Ontologenius required a bit less memory. It can be explained by the fact that it has a simplified matrix representation. In addition, no information had been provided about the initial content of the~\acrshort{kb}. Both systems therefore require a memory in the same order of magnitude.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter2/knowrob/Memory.png}
+\caption{\label{fig:chap2_knowrob_memory} Comparison of the required memory for creating large numbers of object perceptions in the knowledge base. Each inserted object correspond to a visual perception entity linked to a cup, a pose matrix, and a time stamp. Ontologenius is used without the ROS communication layer to provide comparable usage and thus results.}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter2/knowrob/Query.png}
+\caption{\label{fig:chap2_knowrob_query} Comparison of the required CPU time for querying for the pose matrix of and randomly selected object after that N perception entities have been created. Ontologenius is used without the ROS communication layer to provide comparable usage and thus results.}
+\end{figure}
+
+\subsection{Comparing with ORO}
+
+\subsection{Additional tests}
