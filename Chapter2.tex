@@ -263,4 +263,64 @@ In light of the presented results, even if both software have not the exact same
 
 \subsection{Comparing with ORO}
 
+For the second comparison, we select the software ORO~\cite{lemaignan_2010_oro}. At the difference of KnowRob which does not address the same applications as our, ORO does. It works as a central server, usable by all the components of architecture and is able to manage several instances at a time. In this way, it has been designed for \acrshort{hri} applications. We can however not three major difference from a technical point of view. It is based on the Jena framework for the RDF triples storage and uses Pellet~\cite{sirin_2007_pellet} for the reasoning part. Pellet supports OWL-DL expressiveness level to perform reasoning where with Ontologenius we are still at the OWL-lite expressiveness. Regarding the way to query the ontology, ORO uses the Jena \sparql{} interface. It also provides some inbuild high-level query made for specific applications. Finally, to communicate with the server, ORO uses a TCP connection with a Telnet protocol.
+
+In the same paper~\cite{lemaignan_2010_oro} they propose three test queries to assess the software performance. We thus reproduce these tests and we add a second dimension being the scalability. Consequently, the three test queries have been performed on \acrshort{kb} of different sizes. Before presenting the results, let us see the content of the test ontology. This ontology does not aim to be semantically correct. We first have three object properties: \textit{isAt}, \textit{isOn}, and \textit{isUnder}. The property \textit{isUnder} is described as being the inverse of \textit{isOn} and \textit{isOn} as being a sub-property of \textit{isAt}. Moreover, the property \textit{isOn} has for domain the class \textit{animal}\footnote{We said that the ontology does not have any real meaning.}. No additional information about this ontology is needed for the presented results.
+
+Before performing any query, N triples are inserted in the \acrshort{kb}. These triples are of the form:
+
+\begin{quote} 
+\centering 
+individual\_i isOn apple
+\end{quote}
+
+In this triple, \textit{apple} is an entity already existing in the ontology and which have as type the class \textit{Plant}. Since the property \textit{isOn} has for domain the class \textit{animal}, all the \textit{individual\_i} should be inferred as inheriting of this latter class. Moreover, because of the inverse property, the inverse relation \textit{(apple isUnder individual\_i)} should exist.
+
+The first test query concerns inheritance. The goal is to retrieve all the individuals inheriting the class \textit{animal}. Regarding the inserted relations, if N relations have been inserted, the query should return the N individuals consequently created, meaning the N \textit{individual\_i}. In \sparql{} the query would be:
+
+\begin{quote} 
+\centering 
+?i rdf:type animal
+\end{quote}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter2/oro/R1.png}
+\caption{\label{fig:chap2_oro_r1}Comparison of the required CPU time for querying for all the entities being animal, after that N entity have been created. Ontologenius and ORO are used with their communication layer. To assess the impact of the communication layer on ORO performance, we also provide measures without the ORO communication layer (ORO local).}
+\end{figure}
+
+For the test, ORO has been queried through the \sparql{} query where Ontologenius has been queried through low-level queries. To provide results representing the way the software should be used, both have been queried through their respective API. This means that results include the communication times. However, to not fall in a comparison of the communication layers but rather of the software, we have also tested to query ORO without the communication layer. The three plots (one for Ontologenius with the communication layer and two for ORO one with the communication layer and one without) are presented in figure~\ref{fig:chap2_oro_r1}.
+
+First of all, we can note that with the communication layer we have not achieved to go over 10,000 entity with ORO. Rather than a limitation of the software itself, here it is a limitation of the test which require the retrieve of too many entities. Nevertheless, without the communication layer, we succeed to go to 450,000 entities. We can see that Onotlogenius performs far better than ORO, even when ORO is tested without its communication layer. This means that even if the communication time impacts the results, it does not spoil it. In server usage, Ontologenius is more performant of a factor around 255 on average. In this test Ontologenius take advantage of its reasoning process applied at the update, allowing a more direct search.
+
+For the two next queries, we only present the results in server usage as we just saw that this additional time is not inordinate. The second query uses the inverse properties. It aims at retrieving all the entities being under the \textit{apple}. As for the previous query, we thus expect to retrieve the N newly created entities. The corresponding \sparql query is:
+
+\begin{quote} 
+\centering 
+?i isUnder apple
+\end{quote}
+
+The third query is more complex and use a conjunction. The query aims at retreiving all the entity having a relation involving the property \textit{isAt} toward an entity being of type \textit{Plant}. Since all the newly created entities have a relation using the property \textit{isOn}, which is a sub-property if \textit{isAt}, toward the entity \textit{apple}, which inherite of the \textit{Plant} class, the N individual are expected to be retreive. The corresponding \sparql{} query is:
+
+\begin{quote} 
+\centering 
+?i isAt ?p, ?p rdf:type Plant
+\end{quote}
+
+The results of these two queries are presented for both software in figures~\ref{fig:chap2_oro_r3} and~\ref{fig:chap2_oro_r2}. They are appreciably the same as those of the first test query. Ontologenius performs on average better of a factor around 250 and we previously saw that the ORO communication layer has a limited impact which cannot explain such difference.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter2/oro/R3.png}
+\caption{\label{fig:chap2_oro_r3} Comparison of the required CPU time for querying for all the entities having a relation of the king "isUnder" toward a given entity. Since the invert relation has been inserted for all the created entity, the software have to solve the inverse relation to answer the query. Ontologenius and ORO are used with their communication layer.}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter2/oro/R2.png}
+\caption{\label{fig:chap2_oro_r2} Comparison of the required CPU time for querying for all the entities having a realtion of the king "isAt" toward an entity of type "Plant". Ontologenius and ORO are used with their communication layer.}
+\end{figure}
+
+Through the comparison with ORO, considering its expected usage, we can fairly conclude that Ontologenius seems to be more adapted for performance requirement. Nevertheless, the test itself could be discussed. The fact that the software have to retrieve such an amount of entity does not represent real use-cases. Moreover, in the light of such equivalent results from a query to another, we can question what is really measured here. Looking backwards to the tests with KnowRob, the query time of Ontologenius was quite constant where here we have a constant increase. This test is however complementary with the ones of KnowRob, showing its ability to retrieve a large number of entities. In addition, even with few entities (100), the performance gap is still significant, confirming the usability of Ontologenius even if it is not based on any more or less established library like Jena or Pellet. 
+
 \subsection{Additional tests}

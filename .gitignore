@@ -278,3 +278,5 @@ TSWLatexianTemp*
 
 
 *.mtc
+
+*.~lock*
