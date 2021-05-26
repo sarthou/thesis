@@ -200,13 +200,33 @@ $\plabel$: properties labeling function & \\
 
 \subsubsection{Low-level queries}
 
-\subsubsection{SPARQL-like interface}
+\subsubsection{SPARQL-like queries}
 
-\subsection{The Application Programming Interface}
+\subsection{Interfacing with Ontologenius}
+
+To work with Ontologenius in the easiest way as possible, we provide to the users several tools. Here we present the Application Programming Interface (API) and the debugging Graphical User Interface (GUI).
+
+\subsubsection{The Application Programming Interfaces}
+
+To provide an abstraction of the ROS middleware, and thus of the ROS messages, we propose two API to use Ontologenius. One is in C++\footnote{\url{https://sarthou.github.io/ontologenius/cpp_API/CppAPI.html}} and the other in Python\footnote{\url{https://sarthou.github.io/ontologenius/python_API/PythonAPI.html}}. Both are constructed in the same way and use approximately the same methods names to easily go from one to the other depending on the needs. They are composed of 13 classes for a total of more than 90 distinct methods. Such a number of methods allow a fine and precise use that it is for the instance management, the reasoners' management, the knowledge insertion, or the ontology query. In addition, the methods support all the exploration options in an intuitive way.
+
+The API also take advantage of advanced ROS use for the services. It provides a direct TCP connection with a recovery mechanism. For intensive query use in a limited time, the first query will take more time to establish a direct connexion and all the following will benefit from it. It thus provides efficient and safe communication without additional complexity for the users.
+
+Finally, to take Ontologenius in hand and its APIs, Ontologenius comes with five tutorials\footnote{\url{https://sarthou.github.io/ontologenius/cpp_Tutorials/Tutorials.html} and \url{https://sarthou.github.io/ontologenius/python_Tutorials/Tutorials.html}} covering its more basic usage to the more complex ones including the use of the versioning mechanism.
+
+All the APIs description and the tutorials are available online on a website dedicated to Ontologenius: \url{https://sarthou.github.io/ontologenius}.
 
 \subsubsection{Debbuging tool}
 
+To help new users to take in hand Ontologenius and to help more experienced users to debug their applications using Ontoloegnius, we provide a Graphical User Interface (GUI). It has been developed using Qt which allows easy development of GUI. It is linked to ROS and provides almost all the methods available with the API like the instance management, the reasoners' management, the knowledge insertion, and the ontology query. In addition, for all the exploration queries, hovering a button provides a brief explanation of the hovered method and its equivalent in the ROS command lines.
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.5]{figures/chapter2/ontologui.png}
+\caption{\label{fig:chap2_ontologui} A view of the Ontologenius Graphical User Interface. With the displayed panel a user can insert or remove triplets from a given instance. On the left-hand bottom, we can see that the current instance is called Tony.}
+\end{figure}
+
+During this chapter, we saw that Ontologenius is base on a lot of low queries for a precise and efficient exploration of an ontology. This GUI is thus often used during the development of an application using Ontologenius to choose the right method to use by allowing the developer to directly test the kind of result he can expect with a given query. In addition, at run-time developers can easily explore the \acrshort{kb} to understand the origin of bugs in their application.
 
 \section{Computational preformance evaluation}
 
