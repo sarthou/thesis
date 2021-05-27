@@ -194,7 +194,17 @@ $\plabel$: properties labeling function & \\
 
 \section{Using Ontologenius in robotic applications}
 
-\subsection{Inserting new knowledge}
+Now we see Ontologenius architecture and its management of the instance, in the current section, we present how to use it once it is launched. We explain, in order, how knowledge is inserted at run-time and how knowledge can be retrieved. Finally, we present tools to facilitate its use with API and GUI.
+
+\subsection{Updating the knowledge base}
+
+To represent the state of an evolving environment, updating the \acrshort{kb} is a primary feature for software managing \acrshort{kb}. First of all, the update process is asynchronous in Ontologenius. Updates are filled in an internal buffer which is periodically analysed. For a usual instance, updates are looked up at 20hz. Such a frequency is sufficient for updates coming from perception processes. For instances coming from a copy, the update process runs at a higher frequency of 1000hz, meaning that a published update will start to be processed at most 1ms after its publication. The need for a higher frequency for instances coming from copy is due to their aim. The goal of such instances is to make a caption of the state of a \acrshort{kb} at a given instant them to freely modify it to run an external process like task planning. A delay of 50ms would not be acceptable for this kind of process. Once the update process is triggered by a non-empty buffer, it runs until the buffer is empty. In this way, even if a lot of updates are published at once, no additional delay is introduced.
+
+Since the updates are asynchronous but that some component may need to be sure that all have been applied before continuing, Ontologenius raises a signal once it has no more update to process. Before rasing this signal Ontologenius also applied all the needing reasoning so that the \acrshort{kb} is consistent and populates with all the inferred knowledge. It allows a synchronisation for components needing it, to start a new process on a stable \acrshort{kb}.
+
+The content of a single update is composed of an operator, either an addition or removal, and a triplet. At the date, the triplet can be relations to individuals using object or data properties, relations to classes using annotation properties, inheritance links, inverse axioms on object properties, or labels to any elements. At least the subject or the object of the triplet must be already known by the system to apply the update. ALL the other elements are created with a deduction of their types (i.e. individual, class, property).
+
+If the content of an update is a removal, all the inferences made on the basis of the original triplet are removed too. In addition, for any update, the related triplet is republished on another topic with a timestamp. For the inferred triplet, they are published by Ontologenius on a dedicated topic with a reference to the triplets having been used to perform the inference or to remove it. It allows, if needed, temporal storage of all the update of the word with a temporal consistency about the inferred knowledge. This means that even if the knowledge has been inferred later than the original knowledge update, it is possible to temporally align them.
 
 \subsection{Retrieving knowledge}
 
