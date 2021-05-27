@@ -5,7 +5,7 @@
 \faketableofcontents
 \fi
 
-\chapter{Ontologenius: A long-term semantic memory}
+\chapter{Ontologenius: A semantic memory for }
 \chaptermark{Ontologenius}
 \label{chap:ontologenius}
 \minitoc
@@ -174,11 +174,35 @@ $\plabel$: properties labeling function & \\
 
 \section{Architecture}
 
+Now we have presented what an ontology is and the desired features for a software managing a \acrfull{kb} based on an ontology, we introduce the resulting software, Ontologenius. In this section, we start with the software architecture able to manage a single ontology instance, meaning the \acrshort{kb} of a single agent. The goal of this section is not to go deep in the technical implementation but rather to give cues to understand how the \acrshort{kb} is managed.
+
+The architecture of Ontologenius is divided into three major modules as shown in figure~\ref{fig:chap2_archi_single}: the knowledge storage (permanent and temporary data structures), the \acrshort{kb} exploration (transient data) and the reasoning (plugins). Ontologenius has been developed in C++14 and is based on ROS for the communication layer and the plugins management. It is compatible with ROS Kinetic (2016), Melodic (2018), and Noetic (2020). 
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.5]{figures/chapter2/archi_single.png}
+\caption{\label{fig:chap2_archi_single} The software architecture of Ontologenius to manage a single \acrlong{kb} in the form of an ontology.}
+\end{figure}
+
+In this section, we first explain how ontology files are loaded and converted into a semantic graph. Then, we present the available reasoners and their management. Finally, we give some explanation on the names of the elements in natural language and how they are considered with Ontologenius.
+
 \subsection{Permanent versus temporary data structure}
 
-\subsection{Concepts' identifier versus name in natural language}
+To store the \acrlong{kb} as an ontology, we first use OWL files using the XML/RDF syntax. The files can be read from a local folder on the computer or retrieve from the internet. Ontology files often include others, as an upper ontology. However, Ontologenius is not able for now to solve these dependencies. All the required files thus as to be listed. These files are what we consider to be a permanent data structure. Nevertheless, our goal is not just to load a static \acrlong{kb}. This latter aims to be updated all along an interaction and if the robot learns new concepts, we want it to be able to memorize them for the next interaction. In the same way, if the robot interacts with a given agent and estimates him to know some concepts, it needs to memorize them for the next interaction with this specific agent. Consequently, we consider two kinds of files. On one hand, we have what we call the inputs files, being a default \acrlong{kb}. On the other hand, we have the internal file, being the \acrlong{kb} of a given agent. Their management is illustrated in figure~\ref{fig:chap2_files}. If no internal exists for the managed agent, the input files are loaded (a). This will be the case for the first time we start the robot if the \acrlong{kb} is the robot's one, or the first time the robot interacts with a new agent if the \acrlong{kb} is an estimation of an agent \acrlong{kb}. The input files thus represent the minimal knowledge we estimate an agent to have. Once we power off the robot or when an agent leaves an interaction, all the maintained \acrlong{kb} is serialized into a single OWL file, the internal file. This file is thus a backup of an agent's \acrlong{kb}. The next time the robot is powered on, or the next time it interacts with a known agent, the internal file is load and the input files are no more considered (b). The robot can thus refine its estimation of the others knowledge as well as its own knowledge over interactions.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.6]{figures/chapter2/files.png}
+\caption{\label{fig:chap2_files} a) In case no intern file already exists, The input files are considered as the default \acrlong{kb} of the agent b) In case an internal file exists for a given agent, this means that the robot already interact with this agent. In this latter case, the input files are not considered and the agent previously estimated \acrlong{kb} is loaded. If the current \acrlong{kb} represent the robot's one, teh robot just restart with its previous \acrlong{kb}.}
+\end{figure}
+
+When ontology files are loaded, they are converted into a kind of semantic graph at the difference of triple store. Each element of the ontology (individuals, classes, object properties, and data properties) are represented as nodes. We thus have four types of nodes. The nodes have several set of pointer toward other nodes, each having a semantic meaning. Such a representation is useful for efficient search algorithms like query resolution. For example, wanting to know all classes of which an individual inherits, from the node of this individual, we just have to iterate over all the nodes in the set of inheritance and perform recursion on each of them, iterating once again on the set of inheritance.
+
+To find the entry point of the graph, we have four containers, one for each element type. These containers provide an efficient retrieve of an element from its identifier.
 
 \subsection{Resoning to enrich the knowledge}
+
+\subsection{Concepts' identifier versus name in natural language}
 
 
 
