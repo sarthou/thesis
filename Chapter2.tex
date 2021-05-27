@@ -198,9 +198,63 @@ $\plabel$: properties labeling function & \\
 
 \subsection{Retrieving knowledge}
 
+To retrieve knowledge from Ontologenius, two way are available. The principale query system consists in a set of low-level and parametric queries for precise and efficient retrieval. The second system is based on a more classic RDF query language that is \sparql{}.
+
 \subsubsection{Low-level queries}
 
+The principal query system proposed by Ontologenius is a set of low-level queries organized around the four main types used in the ontology: the individuals/entities, the classes/concepts, the object properties, and the data properties. For each of these types, dedicated queries are available.
+
+First, all four types have 10 common queries related to the exploration of the upper hierarchy and the names in natural language. We will not review them one by one but rather take two of them to give an indication of their composition and functioning. 
+
+\begin{verbatimtab}
+string getName(string uri, 
+               bool take_id = true);
+\end{verbatimtab}
+
+The getName query allows a user to retrieve one of the labels of a given element. If the element has multiple labels, one is selected randomly. This query is impacted by the general language configuration. If Ontologenius is configured to work in English, only English labels will be retrieved. The language configuration can be changed at run-time. This query has an optional parameter take\_id. If it is set to true, if the queried element does not have labels, its id can be used as a default label, regardless of the language setting. 
+
+\begin{verbatimtab}
+vector<string> getUp(string uri,
+                     int depth = -1, 
+                     string selector = "");
+\end{verbatimtab}
+
+The getUp query allows a user to explore the upper hierarchy of a given element. By setting only the mandatory parameter, it returns all the elements for which the given element inherits. If A inherits from B and B from C, interrogating the hierarchy of A will give B and C. With the depth parameter, the user can set the depth exploration. Setting it to 1, the query will only return the direct hierarchy. The last optional parameter, the selector, can be used to filter the results to be returned. Among the originally return elements, Ontologenius will only keep the ones inheriting from the selector. Wanting to know if entity A is of type B, one can query a getUp on A with B as the selector. If the result is empty, A does not inherit B.
+
+To query individuals, Ontologenius provides 14 additional queries. We can query for the properties applied to a given entity, the entities it is linked with, the properties it is range of, etc. Most of them support the optional parameters of depth and selector.
+
+For the classes, we have 13 additional queries. We can explore the relations using annotation properties, get the classes inheriting from a given one, get the properties for which it is domain of, etc.
+
+For the object properties, we have 5 additional queries. We can know their domain and range, their inverse, their disjunction, or their hierarchy. For the data properties, we have the same excepted the inverse.
+
 \subsubsection{SPARQL-like queries}
+
+The low-level queries provide a fine and efficient exploration of the \acrshort{kb}. Encouraging the user to select the right query depending on its need, Ontologenius does not have to perform analysis on the query itself to find how to resolve it. However, such queries can be difficult to take in hand and is not adapted to every usage. Consequently, with Ontologenius we also provide a \sparql{}-like query interface.
+
+\sparql{}, for \sparql{} Protocol and RDF Query Language, is a semantic query language for databases. In it original form, a \sparql{} query look like:
+
+\begin{verbatimtab}
+SELECT ?name 
+       ?email
+WHERE
+  {
+    ?person  a     Person .
+    ?person  name  ?name .
+    ?person  mbox  ?email .
+  }
+\end{verbatimtab}
+
+Through the SELECT keyword, we first specify the variable we want to get the possible binding. Here we ask for pairs of names and emails. With the WHERE block, we explain the conditions to respect in order to fill the variable. It is the query pattern. In the provided example, we define a variable (always prefixed with a question mark) person which should be of type Person. Then, for all the possible value of the variable person, we retrieve their name and email. With the SELECT keyword, we can specify a sub-set of the involved variable to be returned.
+
+Three other keywords can be used instead of SELECT. It exists CONSTRUCT, ASK, and DESCRIBE. In addition, we can apply filters or aggregation rules. \sparql{} is a really rich language but for our use, we have chosen to take the minimum as it is not the main entry point of Ontologenius. This is why we say that Ontologenius provide \sparql{}-like queries.
+
+Ontologenius only implements the SELECT query variation and patterns as a list of triples. For now, we choose to not let the user choose the variable to be returned. We always return all the bindings for all the involved variables. Consequently, it is not a \sparql{} query but works on the same principle. Considering the previous example, Ontologenius query would be:
+
+\begin{verbatimtab}
+?person a Person. ?person name ?name. ?person mbox ?email.
+\end{verbatimtab}
+
+Going toward more standard query and implementing at least the SELECT and WHERE keywords are planned but were not a priority for this thesis. It will come in future Ontologenius versions.
 
 \subsection{Interfacing with Ontologenius}
 
