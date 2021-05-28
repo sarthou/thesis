@@ -5,7 +5,7 @@
 \faketableofcontents
 \fi
 
-\chapter{Ontologenius: A semantic memory for }
+\chapter{Ontologenius: A semantic memory for HRI}
 \chaptermark{Ontologenius}
 \label{chap:ontologenius}
 \minitoc
@@ -198,13 +198,21 @@ To store the \acrlong{kb} as an ontology, we first use OWL files using the XML/R
 
 When ontology files are loaded, they are converted into a kind of semantic graph at the difference of triple store. Each element of the ontology (individuals, classes, object properties, and data properties) are represented as nodes. We thus have four types of nodes. The nodes have several set of pointer toward other nodes, each having a semantic meaning. Such a representation is useful for efficient search algorithms like query resolution. For example, wanting to know all classes of which an individual inherits, from the node of this individual, we just have to iterate over all the nodes in the set of inheritance and perform recursion on each of them, iterating once again on the set of inheritance.
 
-To find the entry point of the graph, we have four containers, one for each element type. These containers provide an efficient retrieve of an element from its identifier.
+To find the entry point of the graph, we have four containers, one for each element type. These containers provide an efficient retrieve of an element from its identifier. In addition, the containers provide readers-writer lock mechanism, allowing concurrent access for ready-only operation while ensuring exclusive access for a write operation. Thanks to this synchronization primitive, Ontologenius is thread-safe.
 
 \subsection{Resoning to enrich the knowledge}
 
-\subsection{Concepts' identifier versus name in natural language}
+Reasoning on a \acrlong{kb} is a primal need to extract need knowledge from the described one. At the difference of tableau algorithm~\cite{zuo_2006_high}, we do not want to create a dedicated model to do so. Consequently, we made the choice to develop our own reasoners, able to run on the Ontologenius internal representation.
 
+The reasoners are implemented on the base of plugins for an easy extension. The proposed plugin interface allows the execution of reasoning processes either before the resolution of a query, after an update of the \acrshort{kb}, or periodically. The reasoners are not necessarily limited to first-order logic. Users can implement any process depending on their needs. To date, we have four usual reasoners to solve the symmetric properties, the inverse properties, to reason on domain and range, and to solve chained axioms. We have also implemented a reasoner dedicated to the proposition of complementary labels and another to create relations on classes, using annotation properties, being generalization of the existing relation. For example, if several entities own relation toward the same CAD model file, the reasoner will generate a relation toward this CAD model to an upper common class to all these entities.
 
+To avoid time loss during reasoning, two mechanisms are available. For the reasoners needing to only run once on each element, they can mark the elements on which they have run. By checking these marks they can know if an element has already been analysed or not. The second can be compared to a to-do list. Any element owns an update flag. When an element is modified by an external process, like a perception process, the flag of the element is raised. Reasoners then run only on the elements having this flag raised. If they find a new relation to insert in the \acrshort{kb}, they can raise the flags of the impacted elements. The other reasoners will thus check again for these newly updated elements. A reasoning pass ends when no more update has been performed by any of the reasoners.
+
+Finally, to facilitate the deletion of inferred relations, to any relation of any element can be attached a reference toward the relations they have allowed to infer. In this way, by removing a relation, we can know the side relations to remove with. For example, consider the chain axiom $isIn \bullet isOn \Rightarrow isOn$. If A is in B and B is on C, the reasoners will generate the relation A is on C. The two former relations have thus allowed the inference of the latter. If one of them is removed, the third also has to be removed. If A is no more in B, it is consequently no more on C. In this way, the \acrshort{kb} can always be kept up to date without performing reasoning from scratch at each update neither by creating a side model dedicated to the reasoning. However, it is less efficient than classic reasoning methods.
+
+\subsection{Concepts' name in natural language}
+
+Having labels attached to elements is quite usual. As others, Ontologenius attaches to any element a map linking a country-language code to a set of label. The slight difference of Ontologenius is that it supports a special kind of labels, called muted labels. They are labels that can be used to retrieve an element from it but that can not be retrieved from an element. For \acrshort{hri} application, it allows the robot to understand some words but to not use them when it speaks. For example, for the restaurant Mac Donalds, we could want the robot to understand "Mickey D's" in the US, "Mekkes" in Germany, or "McDo" in France. However, we prefer the robot to use the true name.
 
 \section{Managing others' estimated knowledge}
 
