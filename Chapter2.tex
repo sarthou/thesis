@@ -206,6 +206,8 @@ Reasoning on a \acrlong{kb} is a primal need to extract need knowledge from the 
 
 The reasoners are implemented on the base of plugins for an easy extension. The proposed plugin interface allows the execution of reasoning processes either before the resolution of a query, after an update of the \acrshort{kb}, or periodically. The reasoners are not necessarily limited to first-order logic. Users can implement any process depending on their needs. To date, we have four usual reasoners to solve the symmetric properties, the inverse properties, to reason on domain and range, and to solve chained axioms. We have also implemented a reasoner dedicated to the proposition of complementary labels and another to create relations on classes, using annotation properties, being generalization of the existing relation. For example, if several entities own relation toward the same CAD model file, the reasoner will generate a relation toward this CAD model to an upper common class to all these entities.
 
+To choose the reasoners to run depending on the applications, a configuration file in YAML can be provided to state the reasoner to active or not. In addition, it can be used to set parameters on them, like thresholds or others. However, it is not because a reasoner has not been activated at the launch that it will never run. Any available reasoner can be activated and deactivated at run time.
+
 To avoid time loss during reasoning, two mechanisms are available. For the reasoners needing to only run once on each element, they can mark the elements on which they have run. By checking these marks they can know if an element has already been analysed or not. The second can be compared to a to-do list. Any element owns an update flag. When an element is modified by an external process, like a perception process, the flag of the element is raised. Reasoners then run only on the elements having this flag raised. If they find a new relation to insert in the \acrshort{kb}, they can raise the flags of the impacted elements. The other reasoners will thus check again for these newly updated elements. A reasoning pass ends when no more update has been performed by any of the reasoners.
 
 Finally, to facilitate the deletion of inferred relations, to any relation of any element can be attached a reference toward the relations they have allowed to infer. In this way, by removing a relation, we can know the side relations to remove with. For example, consider the chain axiom $isIn \bullet isOn \Rightarrow isOn$. If A is in B and B is on C, the reasoners will generate the relation A is on C. The two former relations have thus allowed the inference of the latter. If one of them is removed, the third also has to be removed. If A is no more in B, it is consequently no more on C. In this way, the \acrshort{kb} can always be kept up to date without performing reasoning from scratch at each update neither by creating a side model dedicated to the reasoning. However, it is less efficient than classic reasoning methods.
@@ -216,13 +218,47 @@ Having labels attached to elements is quite usual. As others, Ontologenius attac
 
 \section{Managing others' estimated knowledge}
 
+A major feature of Ontologenius is the ability to manage several ontology instances, to represent both the robot's knowledge and the estimation of its partners' knowledge. In this section, we first present how the multiple instances are managed by Ontologenius. We then present two advanced use being the deep copy of an instance and the representation of multiple knowledge state in a single instance.
+
 \subsection{Ontologenius multi-instances principle}
+
+What we refer to when we use the term instance is an instantiation to the previously presented architecture. It thus represents a single \acrlong{kb} being either the one of the robot or an estimation of the \acrlong{kb} of one of its partners. To manage multiple instances, we use the architecture represented in figure~\ref{fig:chap2_archi_multi}.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{figures/chapter2/archi_multi.png}
+\caption{\label{fig:chap2_archi_multi} The software architecture of Ontologenius to manage multiple \acrlong{kb}s in the form of an ontology. An instance manager make the link between each instance and has a direct access to each semantic graph to propose queries. }
+\end{figure}
+
+The architecture of each instance stays the same as previously, this means that each instance has its own ROS instance and can be queried and updated independently. However, to not just manually run several instances and not have any conflict on the ROS topics and services names, we add an instance manager. This manager owns all the instances and can create new ones as well as deleting existing ones. In addition, it attributes an identifier to each instance, being often the identifier of the agent it represents. With this identifier, each instance creates dedicated and non-overlapping ROS services and topics. The manager itself owns a ROS interface to perform the deletions and creations.
+
+When a new instance is created, it runs in a dedicated thread. Consequently, having multiple instances does not slow down Ontologenius. The manager keeps however a reference to the instance and can have access to the knowledge of each of them without passing by ROS. It allows the manager to propose queries involving several instances. For example, the only existing one for the moment computes the difference of knowledge between two instances, about a given entity. It allows easy and efficient belief divergence checking.
+
+Finally, because each instance has an identifier, when one is killed, it stores the maintained knowledge in an OWL file referenced with this identifier. Consequently, when an instance is started, it can automatically load the previous state of the \acrshort{kb}, using the instance identifier.
 
 \subsection{Catching knowledge at a given moment}
 
+The instances representing the robot's \acrshort{kb} and the estimation of its partners' \acrshort{kb}s aims to be continuously updated by perception processes. However, some processes like task planning could need a stable version of a \acrshort{kb}. In addition, some processes like (once again) task planning could need to modify a \acrshort{kb} to represent future possible states. Nevertheless, if a process modifies the same \acrshort{kb} that is updated by the perception, it would neither represent the future state, neither the current state.
+
+To avoid such a situation, Ontologenius provides a mechanism to copy an instance. It performs a deep copy, keeping all the inferred knowledge, the inference traces, or the reasoners' configurations. The resulting instance becomes completely independent from the previous one and can be modified without altering it.
+
+The only difference is that an instance resulting from a copy will not be saved into an OWL file when it will be deleted. It is a draft, to test possible state.
+
 \subsection{Exploring several possible mental states at once}
 
+Having a dedicated instance to represent possible futures is useful, but planning processes could need to maintain multiple states at a time. A deep copy is far from being a free operation as presented in the result section of this chapter. It takes time, especially for large \acrshort{kb}s. Moreover, we can not imagine to maintain too many instances at the time\footnote{From our unlucky tests, the process died after the creation of 82 instances with small knowledge bases.}.
 
+To face this issue, we propose with Ontoogenius a kind of versioning system. First of all, this system is only available on instance resulting from a copy, as the others do not aim to represent multiple states. Taking the term of the git versioning system, we perform some modification on a \acrshort{kb} and all the changes are tracked. When we consider that all the changes represent a version, we perform a commit. This commit has an identifier, and a parent commits. Wanting to go back to a previous version of the \acrshort{kb} we can checkout this version thanks to the identifier. The versioning system thus applies the modifications in the inverse order to create the previous state. From there we can thus have multiple version of the same \acrshort{kb} but it only represents a linear evolution. Most of the planning systems work with branching, allowing from one state to imagine multiple future states. Where git would use branches also, with ontologenius, we do not and we can simply perform a new commit on an old one. It automatically a new branch without explicit management of it. We can thus checkout a commit of another branch without any problem. However, once a branch is created, it will never be possible to merge it with another one. Consequently, it creates a tree.
+
+From the commit identifier, the users are free to set it or to let Ontologenius setting it.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.22]{figures/chapter2/commit.png}
+\caption{\label{fig:chap2_commit} An example of a versioning tree drawn with Ontologenius. In red are the commits and in blue the changes. The temporal order of the operations is respected from top to bottom. }
+\end{figure}
+
+Finally, for debug purpose, Ontologenius can generate an XML file representing all the versioning, with the commits and the changes. An executable allows then to generate an image of it to understand what an algorithm has performed. An example of such an image is presented in figure~\ref{fig:chap2_commit}.
 
 \section{Using Ontologenius in robotic applications}
 
