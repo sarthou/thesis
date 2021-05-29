@@ -22,15 +22,35 @@ In this section, we first explain our choice to use ontology as a means of repre
 
 In cognitive psychology, we saw that semantic memory refers to the encyclopedic knowledge of words associated with their meanings. After several studies, by studying, among other things, participant response times to questions, some authors have proposed a model of this semantic memory as being a semantic network~\cite{collins_1969_retrieval, collins_1970_does}. With this model, they put the hypothesis that knowledge is organized in a hierarchic way, respecting a principle of inclusion among classes. For example, a class representing the concept of cat would inherit an upper class, representing the concept of animal. In addition, instances of these classes would be linked to others through properties, and in the same way, as for the classes, a notion of hierarchy over the properties would exist. Such a structure of knowledge in humans would allow a cognitive economy as well as efficient storage of this knowledge. Even if not the first to formalize the principle of a semantic network, Collins and Quillian have provided prominent works and computer implementations.
 
-
 As reported in~\cite{prasad_2020_knowledge}, such a semantic network, also call semantic graph or knowledge graph, is today frequently used as knowledge representation in robotic application to represent among others:
 
 \begin{itemize}
-  \item the categories of entities at diffrent level of abstraction~\cite{balint_2018_variations}, like a handle is a physical object
-  \item the carateristics of entities~\cite{tenorth_2017_representations}, like a fidge has a handle
-  \item the function or purpose of entities~\cite{paulius_2019_functional}, like the fridge handle allows to open the fridge
-  \item the location of an entity regarding an other one (i.e. spatial relations)~\cite{singh_2020_fuzzy}, like the bottle milk is in the fridge
+  \item the categories of entities at different levels of abstraction~\cite{balint_2018_variations}, like that a handle is a physical object
+  \item the characteristics of entities~\cite{tenorth_2017_representations}, like that a fridge has a handle
+  \item the function or purpose of entities~\cite{paulius_2019_functional}, like that the fridge handle allows to open the fridge
+  \item the location of an entity regarding another one (i.e. spatial relations)~\cite{singh_2020_fuzzy}, like that the milk bottle is in the fridge
 \end{itemize}
+
+This is on the basis of this knowledge that we can then create programs to provide cognitive capabilities to robots. Here is an important point, that knowledge should support the programs but is not necessarily part of it. It is called the knowledge-enabled robot programming paradigm~\cite{beetz_2012_cognition}, where the knowledge is separated from the program. It allows to have several subsystems of a same robotic architecture, each providing a specific cognitive capability but all sharing the same knowledge. The fact to share common knowledge leads to important challenges being first to agree on the knowledge content and second to provide it in a machine-understandable way. Considering the use of a semantic network as knowledge representation, the use of ontology has tended to respond to these challenges.
+
+The first definition of an ontology has been proposed by Guber in~\cite{guber_1993_translational} as: \textit{"an ontology is an explicit specification of a conceptualization"}. Latter, Borst in~\cite{borst_1999_construction}, has introduced two new concepts defining an ontology as a \textit{"formal specification of a shared conceptualization"}. The new concepts are the notions of "formal" and "shared". Merging these two definitions, Studer et al. in~\cite{studer_1998_knowledge} reached the definition: \textit{"An ontology is a formal, explicit specification of a shared conceptualization"}. With this last definition, we start to see that an ontology can be a powerful tool to create a \acrfull{kb} common to an entire robotic architecture and used by subsystems providing specific cognitive capabilities.
+
+Even if all the previous definitions trend to refine what is an ontology, they all rely on the common notion of conceptualization for which no formal definition is provided. A former definition, presented in~\cite{genesereth_1987_logical}, was:
+
+\begin{quote} 
+\centering 
+\textit{
+"A body of formally represented knowledge is based on a conceptualization: the objects, concepts, and other entities that are assumed to exist in some area of interest and the relationships that hold among them. A conceptualization is an abstract, simplified view of the world that we wish to represent for some purpose. Every knowledge base, knowledge-based system, or knowledge-level agent is committed to some conceptualization, explicitly or implicitly."}
+\end{quote}
+
+However, as explained by Guarino in~\cite{guarino_2009_ontology}, such a definition of a conceptualization does not correspond to our intuition either our need for an ontology. Indeed, we do not want the conceptualization to depend on the current situation. It should rather be what is common to any situation, allowing to represent them in a uniform way. As explained in~\cite{guarino_1995_towards}, when the world is modified, the conceptualization should stay the same. We are thus interested in the meaning of the concepts used to describe a world state. However, the final definition of a conceptualization provided by Guarino goes with difficulty in this direction despite its initial goal. For the simplicity of the current purpose, the conceptualization should be the meaning of any concept allowing to represent a given situation or world state. Consequently, an ontology could be defined as:
+
+\begin{quote} 
+\centering 
+\textit{a formal and explicit specification of the shared meaning of any concept allowing to represent a given situation.}
+\end{quote}
+
+In other words, an ontology aims at constraining the interpretation of a used vocabulary. It is thus a logical theory. However, looking at the literature, we constat that the definition of an ontology is still today blurry. Indeed, even if it represents the meaning of the usable concepts, we want to apply it to the \acrshort{kb} representing a given world state, even if it evolves. Where a semantic network would represent this instantiation, because the meaning of its edges could be defined by the use of an ontology, in this thesis, we will use the term ontology to refer to \textbf{a semantic network owning a restriction on the interpretation of the used vocabulary}. As the goal of this thesis is not to model these restriction rules but rather to use them, it should not lead to any confusion.
 
 %This initial model has since been formalized as an ontology \cite{berners-lee_semantic_2001} and is already widely used in the semantic web.
 
