@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   viewBox="0.0 0.0 960.0 540.0"
+   fill="none"
+   stroke="none"
+   stroke-linecap="square"
+   stroke-miterlimit="10"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="prepare_meal_plan.svg"
+   inkscape:export-filename="/home/gsarthou/Documents/papers/thesis/figures/chapter7/prepare_meal_plan.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <metadata
+     id="metadata217">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs215" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1026"
+     id="namedview213"
+     showgrid="false"
+     inkscape:zoom="1.4708333"
+     inkscape:cx="511.0075"
+     inkscape:cy="198.99748"
+     inkscape:window-x="0"
+     inkscape:window-y="865"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <clipPath
+     id="g53482c86f9_0_250.0">
+    <path
+       d="m0 0l960.0 0l0 540.0l-960.0 0l0 -540.0z"
+       clip-rule="nonzero"
+       id="path5" />
+  </clipPath>
+  <rect
+     style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ffffff;fill-opacity:0.3267974;fill-rule:evenodd;stroke:none;stroke-width:1.0291543;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:2.05830862, 1.02915431000000002;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+     id="rect4273"
+     width="708.89948"
+     height="211.297"
+     x="179.64984"
+     y="142.97508" />
+  <g
+     id="g4275">
+    <path
+       d="m 191.80038,150.60291 44.5422,0"
+       id="path13"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke:#999999;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       d="m 191.80038,172.37299 44.5422,0"
+       id="path17"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke:#999999;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       d="m 191.80038,194.14307 44.5422,0"
+       id="path21"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke:#999999;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       d="m 191.80038,215.91315 44.5422,0"
+       id="path25"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke:#999999;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       d="m 191.80038,237.68323 44.5422,0"
+       id="path29"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke:#999999;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       d="m 191.80038,259.45331 44.5422,0"
+       id="path33"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke:#999999;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       d="m 197.20611,144.50844 0,203.76378"
+       id="path97"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke:#595959;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round" />
+    <path
+       d="m 195.55436,348.27222 1.65173,4.53809 1.65174,-4.53809 z"
+       id="path99"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:connector-curvature="0"
+       style="fill:#595959;fill-rule:evenodd;stroke:#595959;stroke-width:1;stroke-linecap:butt" />
+    <path
+       d="m 183.69143,350.46642 q -1.04688,0 -1.64063,-0.64063 -0.57812,-0.64062 -0.57812,-1.89062 l 0,-4.95313 q 0,-0.17187 -0.125,-0.23437 -0.125,-0.0781 -0.5625,-0.0781 l -0.125,0 q -0.10938,0 -0.1875,-0.14062 -0.0625,-0.14063 -0.0625,-0.29688 0,-0.0469 0.0625,-0.125 0.0625,-0.0781 0.0781,-0.10937 0.4375,-0.29688 0.78125,-0.59375 0.35938,-0.29688 0.64063,-0.57813 0.29687,-0.29687 0.48437,-0.53125 0.10938,-0.10937 0.17188,-0.17187 0.0781,-0.0781 0.1875,-0.0781 0.10937,0 0.20312,0.0469 0.0937,0.0312 0.0781,0.1875 l -0.10938,0.95312 q -0.0156,0.23438 0.10938,0.32813 0.125,0.0781 0.40625,0.0781 l 2.42187,0 q 0.0937,0 0.15625,0.14063 0.0625,0.14062 0.0625,0.32812 0,0.1875 -0.0625,0.375 -0.0625,0.1875 -0.15625,0.1875 l -2.10937,0 q -0.53125,0 -0.6875,0.0781 -0.15625,0.0781 -0.15625,0.51562 l 0,4.20313 q 0,0.84375 0.35937,1.34375 0.35938,0.48437 1.04688,0.48437 0.60937,0 0.95312,-0.0937 0.34375,-0.0937 0.625,-0.29687 0.0312,-0.0312 0.0781,-0.0312 0.0937,0 0.125,0.0937 0.0312,0.0937 0.0312,0.20312 0,0.10938 -0.35938,0.4375 -0.34375,0.3125 -0.92187,0.57813 -0.5625,0.28125 -1.21875,0.28125 z"
+       id="path123"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-rule:nonzero" />
+    <path
+       d="m 161.03551,307.45332 75.30707,0"
+       id="path193"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0;fill-rule:evenodd" />
+    <path
+       d="m 191.80038,303.45332 44.5422,0"
+       id="path195"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke:#999999;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       d="m 161.03551,331.45332 75.30707,0"
+       id="path197"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0;fill-rule:evenodd" />
+    <path
+       d="m 191.80038,327.45332 44.5422,0"
+       id="path199"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke:#999999;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       transform="translate(24.824694,1.137364)"
+       id="g4301">
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         style="fill-rule:evenodd;stroke:#666666;stroke-width:0.90892261;stroke-linecap:butt;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         id="path83"
+         d="m 783.84319,275.33422 77.41276,0 0,69.25642 -77.41276,0 z"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         style="fill-rule:evenodd;stroke:#ff9900;stroke-width:2.49858165;stroke-linecap:butt;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         id="path111"
+         d="m 834.53314,305.88419 17.26055,0" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         style="fill-rule:evenodd;stroke:#ff0000;stroke-width:2.49858165;stroke-linecap:butt;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         id="path115"
+         d="m 834.53314,319.20996 17.26055,0" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         style="fill-rule:evenodd;stroke:#93c47d;stroke-width:2.49858165;stroke-linecap:butt;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         id="path119"
+         d="m 834.53314,332.53572 17.26055,0" />
+      <flowRoot
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         transform="matrix(0.8328605,0,0,0.8328605,608.9465,117.30866)"
+         style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         id="flowRoot4505"
+         xml:space="preserve"><flowRegion
+           id="flowRegion4507"><rect
+             y="190.73332"
+             x="216.33862"
+             height="37.739063"
+             width="92.785248"
+             id="rect4509" /></flowRegion><flowPara
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.75px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+           id="flowPara4511">Bob presence</flowPara></flowRoot>      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         style="fill-rule:evenodd;stroke:#999999;stroke-width:0.83286047;stroke-linecap:butt;stroke-linejoin:round"
+         inkscape:connector-curvature="0"
+         id="path13-0"
+         d="m 791.18943,292.3986 62.72029,0" />
+      <flowRoot
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.75px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         id="flowRoot4821"
+         xml:space="preserve"><flowRegion
+           id="flowRegion4823"><rect
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.75px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+             y="260.73654"
+             x="897.79041"
+             height="69.688385"
+             width="64.589233"
+             id="rect4825" /></flowRegion><flowPara
+           id="flowPara4827" /></flowRoot>      <flowRoot
+         transform="translate(-107.90848,28.526457)"
+         style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         id="flowRoot4829"
+         xml:space="preserve"><flowRegion
+           id="flowRegion4831"><rect
+             y="271.1048"
+             x="901.18982"
+             height="89.170952"
+             width="79.036804"
+             id="rect4833" /></flowRegion><flowPara
+           id="flowPara4839"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.75px;line-height:94.99999881%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">case 1</flowPara><flowPara
+           id="flowPara4841"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.75px;line-height:94.99999881%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">case 2</flowPara><flowPara
+           id="flowPara4843"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.75px;line-height:94.99999881%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">case 3</flowPara></flowRoot>    </g>
+    <flowRoot
+       transform="translate(-142.83588,130.76394)"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;line-height:125%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot4271"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4273"><rect
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+           y="6.3647285"
+           x="381.23672"
+           height="202.3968"
+           width="249.0298"
+           id="rect4275" /></flowRegion><flowPara
+         style="font-size:16.25px;line-height:135.00000238%"
+         id="flowPara4277">Peel(tony, c1, <flowSpan
+   id="flowSpan4295"
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:135.00000238%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella Bold'">k2</flowSpan>)</flowPara><flowPara
+         id="flowPara4279"
+         style="font-size:16.25px;line-height:135.00000238%">Cut(tony, c1, <flowSpan
+   id="flowSpan4297"
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:135.00000238%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella Bold'">k2</flowSpan>)</flowPara><flowPara
+         id="flowPara4281"
+         style="font-size:16.25px;line-height:135.00000238%">Cut(tony, t1, <flowSpan
+   id="flowSpan4299"
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:135.00000238%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella Bold'">k2</flowSpan>)</flowPara><flowPara
+         id="flowPara4283"
+         style="font-size:16.25px;line-height:135.00000238%">MixaSalad(pr2, c1, t1)</flowPara><flowPara
+         id="flowPara4285"
+         style="font-size:16.25px;line-height:135.00000238%">Cut(tony, t2, k1)</flowPara><flowPara
+         id="flowPara4287"
+         style="font-size:16.25px;line-height:135.00000238%">CookSauce(pr2, t2)</flowPara><flowPara
+         id="flowPara4289"
+         style="font-size:16.25px;line-height:135.00000238%" /><flowPara
+         id="flowPara4291"
+         style="font-size:16.25px;line-height:135.00000238%">MoveTo(pr2, bob, room2)</flowPara><flowPara
+         id="flowPara4293"
+         style="font-size:16.25px;line-height:135.00000238%">Ask(pr2, k2, bob)</flowPara></flowRoot>    <g
+       transform="translate(-156.37394,-42.152975)"
+       style="stroke:#999999;stroke-opacity:1"
+       id="g4328">
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 516.68875,192.41594 16.70615,0 0,24.03763 -16.58597,0"
+         id="path4324"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 533.3949,204.07419 12.25918,0"
+         id="path4326"
+         inkscape:connector-curvature="0" />
+    </g>
+    <flowRoot
+       transform="translate(-163.17281,-40.793182)"
+       style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot4332"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4334"><rect
+           y="192.91783"
+           x="554.44763"
+           height="26.855526"
+           width="265.49579"
+           id="rect4336" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+         id="flowPara4338">PrepareVegetable(tony, c1, k2)</flowPara></flowRoot>    <flowRoot
+       transform="translate(-163.17281,-8.9598084)"
+       style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot4332-3"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4334-6"><rect
+           y="192.91783"
+           x="554.44763"
+           height="26.855526"
+           width="265.49579"
+           id="rect4336-7" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+         id="flowPara4338-5">PrepareVegetable(tony, t1, k2)</flowPara></flowRoot>    <path
+       sodipodi:nodetypes="cc"
+       style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 360.31481,194.73257 28.72495,0"
+       id="path4326-3"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       transform="translate(22.189329,-33.470245)"
+       style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot4332-5"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4334-62"><rect
+           y="192.91783"
+           x="554.44763"
+           height="45.212471"
+           width="261.41647"
+           id="rect4336-9" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+         id="flowPara4338-1">PrepareVegetable</flowPara><flowPara
+         id="flowPara4403"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">ForSalad (tony, k2)</flowPara></flowRoot>    <g
+       style="stroke:#999999;stroke-opacity:1"
+       id="g4328-2"
+       transform="translate(30.250699,-26.134479)">
+      <path
+         sodipodi:nodetypes="cccc"
+         style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 526.68875,188.41594 6.70615,0 0,32.03763 -6.58597,0"
+         id="path4324-7"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 533.3949,204.07419 12.25918,0"
+         id="path4326-0"
+         inkscape:connector-curvature="0" />
+    </g>
+    <flowRoot
+       transform="translate(-70.977984,13.953616)"
+       style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot4332-3-9"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4334-6-3"><rect
+           y="192.91783"
+           x="554.44763"
+           height="26.855526"
+           width="265.49579"
+           id="rect4336-7-6" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.75px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+         id="flowPara4338-5-0"><flowSpan
+   id="flowSpan4817"
+   style="font-size:12.5px">MixSalad</flowSpan>(pr2)</flowPara></flowRoot>    <path
+       sodipodi:nodetypes="cc"
+       style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 398.49335,217.47757 82.72495,0"
+       id="path4326-3-6"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       transform="translate(-163.17281,35.992026)"
+       style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot4332-2"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4334-61"><rect
+           y="192.91783"
+           x="554.44763"
+           height="26.855526"
+           width="265.49579"
+           id="rect4336-8" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+         id="flowPara4338-7">PrepareVegetable(tony, t2, k1)</flowPara></flowRoot>    <path
+       sodipodi:nodetypes="cc"
+       style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 360.31481,239.52973 28.72495,0"
+       id="path4326-3-3"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       transform="translate(-159.17281,58.728565)"
+       style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot4332-2-7"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4334-61-5"><rect
+           y="192.91783"
+           x="554.44763"
+           height="26.855526"
+           width="265.49579"
+           id="rect4336-8-9" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+         id="flowPara4338-7-2">CookSauce(pr2)</flowPara></flowRoot>    <path
+       sodipodi:nodetypes="cc"
+       style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 377.43357,260.9065 12.72495,0"
+       id="path4326-3-3-2"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       transform="translate(18.189329,27.398276)"
+       style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot4332-5-1"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4334-62-2"><rect
+           y="192.91783"
+           x="554.44763"
+           height="45.212471"
+           width="261.41647"
+           id="rect4336-9-9" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+         id="flowPara4338-1-3">PrepareVegetable</flowPara><flowPara
+         id="flowPara4403-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'">ForSauce (tony, k1)</flowPara></flowRoot>    <path
+       sodipodi:nodetypes="cc"
+       style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 554.73792,238.64443 12.72495,0"
+       id="path4326-3-3-2-9"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       transform="translate(150.16582,-4.2242394)"
+       style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot4332-2-7-4"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4334-61-5-7"><rect
+           y="192.91783"
+           x="554.44763"
+           height="26.855526"
+           width="265.49579"
+           id="rect4336-8-9-8" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+         id="flowPara4338-7-2-4">PrepareSalad()</flowPara></flowRoot>    <flowRoot
+       transform="translate(150.16582,45.062299)"
+       style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot4332-2-7-4-5"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4334-61-5-7-0"><rect
+           y="192.91783"
+           x="554.44763"
+           height="26.855526"
+           width="265.49579"
+           id="rect4336-8-9-8-3" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+         id="flowPara4338-7-2-4-6">PrepareSauce()</flowPara></flowRoot>    <g
+       style="stroke:#999999;stroke-opacity:1"
+       id="g4328-2-1"
+       transform="translate(155.46268,-5.1538434)">
+      <path
+         sodipodi:nodetypes="cccc"
+         style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 526.68875,182.41594 6.70615,0 0,40.03763 -120.58597,0"
+         id="path4324-7-0"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 533.3949,204.07419 12.25918,0"
+         id="path4326-0-6"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       style="stroke:#999999;stroke-opacity:1"
+       id="g4328-2-1-3"
+       transform="translate(148.89536,58.766565)">
+      <path
+         sodipodi:nodetypes="cccc"
+         style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 526.68875,178.41594 12.70615,0 0,24.03763 -200.58597,0"
+         id="path4324-7-0-2"
+         inkscape:connector-curvature="0" />
+      <path
+         sodipodi:nodetypes="cc"
+         style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 539.3949,190.07419 12.25918,0"
+         id="path4326-0-6-0"
+         inkscape:connector-curvature="0" />
+    </g>
+    <flowRoot
+       transform="translate(255.68972,14.448119)"
+       style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot4332-2-7-4-5-6"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4334-61-5-7-0-1"><rect
+           y="192.91783"
+           x="554.44763"
+           height="26.855526"
+           width="265.49579"
+           id="rect4336-8-9-8-3-5" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+         id="flowPara4338-7-2-4-6-5">PrepareMeal()</flowPara></flowRoot>    <g
+       style="stroke:#999999;stroke-opacity:1"
+       id="g4328-2-4"
+       transform="translate(263.36968,13.338609)">
+      <path
+         sodipodi:nodetypes="cccc"
+         style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 524.68875,184.41594 8.70615,0 0,50.03763 -6.58597,0"
+         id="path4324-7-7"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 533.3949,204.07419 12.25918,0"
+         id="path4326-0-65"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       style="stroke:#999999;stroke-opacity:1"
+       id="g4328-6"
+       transform="translate(-96.010974,111.48424)">
+      <path
+         sodipodi:nodetypes="cccc"
+         style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 516.68875,192.41594 16.70615,0 0,24.03763 -72.58597,0"
+         id="path4324-9"
+         inkscape:connector-curvature="0" />
+      <path
+         sodipodi:nodetypes="cc"
+         style="fill:none;fill-rule:evenodd;stroke:#999999;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:2, 1;stroke-dashoffset:0;stroke-opacity:1"
+         d="m 533.3949,204.07419 34.25918,0"
+         id="path4326-37"
+         inkscape:connector-curvature="0" />
+    </g>
+    <flowRoot
+       transform="translate(-77.850025,112.07376)"
+       style="font-style:normal;font-weight:normal;font-size:22.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot4332-2-7-4-5-6-4"
+       xml:space="preserve"><flowRegion
+         id="flowRegion4334-61-5-7-0-1-5"><rect
+           y="192.91783"
+           x="554.44763"
+           height="26.855526"
+           width="265.49579"
+           id="rect4336-8-9-8-3-5-2" /></flowRegion><flowPara
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella'"
+         id="flowPara4338-7-2-4-6-5-5">OtherTask()</flowPara></flowRoot>    <path
+       d="m 218.67593,251.88841 0,75.51597"
+       id="path59"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke:#ff0000;stroke-width:3.81694269;stroke-linecap:butt;stroke-linejoin:round"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       sodipodi:nodetypes="cc" />
+    <path
+       d="m 210.67593,227.85793 0,99.28964"
+       id="path67"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke:#ff9900;stroke-width:3.68529391;stroke-linecap:butt;stroke-linejoin:round"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       sodipodi:nodetypes="cc" />
+    <path
+       d="m 210.67593,165.92487 0,36.63541"
+       id="path63"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke:#ff9900;stroke-width:4.05349684;stroke-linecap:butt;stroke-linejoin:round"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       sodipodi:nodetypes="cc" />
+    <path
+       d="m 218.67593,144.50844 0,37.73228"
+       id="path55"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:connector-curvature="0"
+       style="fill-rule:evenodd;stroke:#ff0000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round" />
+    <g
+       id="g4293"
+       transform="translate(87.365441,1.3994335)"
+       style="fill:none;fill-opacity:1;stroke:#93c47d;stroke-opacity:1">
+      <path
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#93c47d;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+         inkscape:connector-curvature="0"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         id="path55-3"
+         d="m 138.69689,142.94296 0,57.44313"
+         sodipodi:nodetypes="cc" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         style="fill-rule:evenodd;stroke:#93c47d;stroke-width:3.81694269;stroke-linecap:butt;stroke-linejoin:round;fill:none;fill-opacity:1;stroke-opacity:1"
+         inkscape:connector-curvature="0"
+         id="path59-6"
+         d="m 138.69689,250.32293 0,75.51597" />
+    </g>
+    <g
+       id="g4297"
+       transform="matrix(0.60435788,0,0,1,91.257831,0)">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         y="306.50735"
+         x="169.22334"
+         height="1.7847025"
+         width="61.434181"
+         id="rect4345"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         y="310.4967"
+         x="169.22334"
+         height="1.7847025"
+         width="61.434181"
+         id="rect4345-3"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         y="314.48608"
+         x="169.22334"
+         height="1.7847025"
+         width="61.434181"
+         id="rect4345-3-6"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         y="318.47543"
+         x="169.22334"
+         height="1.7847025"
+         width="61.434181"
+         id="rect4345-3-7"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         y="322.46481"
+         x="169.22334"
+         height="1.7847025"
+         width="61.434181"
+         id="rect4345-3-5"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>
