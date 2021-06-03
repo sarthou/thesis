@@ -25,7 +25,7 @@ Even having a rich enough representation of its environment, the robot has to fi
 The first contribution of this chapter is a \textbf{unified representation} of an indoor environment using an ontology, to include both topological and semantic knowledge. Then, on the basis of this representation, we propose a first algorithm to \textbf{find a suitable route} to be explained to a human and a second algorithm to \textbf{verbalize a route} in an appropriate way.
 
 %concerning semantic representation of indoor environment and
-First, we review the literature of route description. Then, we introduce the reader to our unified semantic representation under the name of \acrfull{ssr}. We then present the algorithm used to compute the route and in a second time the algorithm to verbalize the previously computed route. We end this chapter with experimental results on both emulated and real environments.
+First, we review the literature of route description. Then, we introduce the reader to our unified semantic representation under the name of \acrfull{ssr}. We then present the algorithm used to compute the route and in a second time the algorithm to verbalize the previously computed route. We end this chapter with experimental results on both mockup and real environments.
 
 \section[Related work]{Related work: describing a route}
 
@@ -393,15 +393,15 @@ For the same route, the system would be able to generate another sentence like:
 "Walk across this corridor and turn right straight after pl\_4. After that, the door is on the left there, straight after pl\_7."}
 \end{quote}
 
-\section{Experiment in emulated and real environment}
+\section{Experiment in mockup and real environment}
 
-The \acrshort{ssr} was first used to describe an emulated mall to test the related algorithms. This representation has then been tested in a real mall to study its applicability in a larger environment. Table~\ref{tab:chap3_count} indicates the number of elements described in both environments. The number of places does not correspond to the sum of the shops, interfaces and intersections since much more elements have been described, such as ATMs, restrooms or carts location.
+The \acrshort{ssr} was first used to describe an mockup mall to test the related algorithms. This representation has then been tested in a real mall to study its applicability in a larger environment. Table~\ref{tab:chap3_count} indicates the number of elements described in both environments. The number of places does not correspond to the sum of the shops, interfaces and intersections since much more elements have been described, such as ATMs, restrooms or carts location.
 
 \begin{table}[!h]
 \begin{center}
    \begin{tabular}{ | c || c | c | }
      \hline
-                        & Emulated mall & Real mall \\ \hline \hline
+                        & Mockup mall & Real mall \\ \hline \hline
      Places             & 83            & 251   \\ \hline
      Shops              & 19            & 140   \\ \hline
      Interfaces         & 11            & 18    \\ \hline
@@ -411,7 +411,7 @@ The \acrshort{ssr} was first used to describe an emulated mall to test the relat
      \hline
    \end{tabular}
  \end{center}
- \caption{\label{tab:chap3_count} Number of elements described in the emulated and real environment.}
+ \caption{\label{tab:chap3_count} Number of elements described in the mockup and real environment.}
 \end{table}
 
 To assess the usability of such a description and its related algorithms, we propose to measure the resolution time of several places on the real mall representation. Over the 140 shops of the mall, we have selected 26 of them in such a way that they all are along a single and distinct path. Computing routes for all the places along the same path would give the same results. The figure~\ref{fig:chap3_performance} reports the resolution time for each target shop in function of the maximum route length. The resolution times include the ROS communication time query the ontology. It is thus a real use case. The first element to note is the maximum resolution time of 46.16 ms for a maximal route length of 4. This place is a bit particular as being in another region than the one of departure and that only one interface allows to reach this place. It can be seen as an unadapted description due to a special case. Nevertheless, resolution times under 45ms are still acceptable for \acrshort{hri} applications.
