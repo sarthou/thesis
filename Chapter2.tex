@@ -368,8 +368,9 @@ For the object properties, we have 5 additional queries. We can know their domai
 
 The low-level queries provide a fine and efficient exploration of the \acrshort{kb}. Encouraging the user to select the right query depending on its need, Ontologenius does not have to perform analysis on the query itself to find how to resolve it. However, such queries can be difficult to take in hand and is not adapted to every usage. Consequently, with Ontologenius we also provide a \sparql{}-like query interface.
 
-\sparql{}, for \sparql{} Protocol and RDF Query Language, is a semantic query language for databases. In it original form, a \sparql{} query look like:
+\sparql{}, for \sparql{} Protocol and RDF Query Language, is a semantic query language for databases. A \sparql{} query look like:
 
+\begin{minipage}{\textwidth}
 \begin{verbatimtab}
 SELECT ?name 
        ?email
@@ -377,21 +378,18 @@ WHERE
   {
     ?person  a     Person .
     ?person  name  ?name .
-    ?person  mbox  ?email .
+    ?person  mbox  ?email
   }
 \end{verbatimtab}
+\end{minipage}
 
-Through the SELECT keyword, we first specify the variable we want to get the possible binding. Here we ask for pairs of names and emails. With the WHERE block, we explain the conditions to respect in order to fill the variable. It is the query pattern. In the provided example, we define a variable (always prefixed with a question mark) person which should be of type Person. Then, for all the possible value of the variable person, we retrieve their name and email. With the SELECT keyword, we can specify a sub-set of the involved variable to be returned.
+Through the SELECT keyword, we first specify the variables we want to get the possible binding. Here we ask for pairs of names and emails. With the WHERE block, we explain the conditions to respect in order to fill the variable. It is the query pattern. In the provided example, we define a variable (always prefixed with a question mark) person which should be of type Person. Then, for all the possible value of the variable person, we retrieve their name and email. With the SELECT keyword, we can specify a sub-set of the involved variable to be returned.
 
 Three other keywords can be used instead of SELECT. It exists CONSTRUCT, ASK, and DESCRIBE. In addition, we can apply filters or aggregation rules. \sparql{} is a really rich language but for our use, we have chosen to take the minimum as it is not the main entry point of Ontologenius. This is why we say that Ontologenius provide \sparql{}-like queries.
 
-Ontologenius only implements the SELECT query variation and patterns as a list of triples. For now, we choose to not let the user choose the variable to be returned. We always return all the bindings for all the involved variables. Consequently, it is not a \sparql{} query but works on the same principle. Considering the previous example, Ontologenius query would be:
+Consequently, Ontologenius only implements the SELECT query variation with the pattern in the WHERE, as a list of triples. Nevertheless, we have added the keyword DISTINCT, optional after the SELECT, which ensure to only retrieve distinct results.
 
-\begin{verbatimtab}
-?person a Person. ?person name ?name. ?person mbox ?email.
-\end{verbatimtab}
-
-Going toward more standard query and implementing at least the SELECT and WHERE keywords are planned but were not a priority for this thesis. It will come in future Ontologenius versions.
+In the rest of this thesis, and for better readability, we only write the patterns of the \sparql{} queries when we present some.
 
 \subsection{Interfacing with Ontologenius}
 
@@ -409,13 +407,13 @@ All the APIs description and the tutorials are available online on a website ded
 
 \subsubsection{Debbuging tool}
 
-To help new users to take in hand Ontologenius and to help more experienced users to debug their applications using Ontoloegnius, we provide a Graphical User Interface (GUI). It has been developed using Qt which allows easy development of GUI. It is linked to ROS and provides almost all the methods available with the API like the instance management, the reasoners' management, the knowledge insertion, and the ontology query. In addition, for all the exploration queries, hovering a button provides a brief explanation of the hovered method and its equivalent in the ROS command lines.
-
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.5]{figures/chapter2/ontologui.png}
+\includegraphics[scale=0.48]{figures/chapter2/ontologui.png}
 \caption{\label{fig:chap2_ontologui} A view of the Ontologenius Graphical User Interface. With the displayed panel a user can insert or remove triplets from a given instance. On the left-hand bottom, we can see that the current instance is called Tony.}
 \end{figure}
+
+To help new users to take in hand Ontologenius and to help more experienced users to debug their applications using Ontoloegnius, we provide a Graphical User Interface (GUI). It has been developed using Qt which allows easy development of GUI. It is linked to ROS and provides almost all the methods available with the API like the instance management, the reasoners' management, the knowledge insertion, and the ontology query. In addition, for all the exploration queries, hovering a button provides a brief explanation of the hovered method and its equivalent in the ROS command lines.
 
 During this chapter, we saw that Ontologenius is base on a lot of low queries for a precise and efficient exploration of an ontology. This GUI is thus often used during the development of an application using Ontologenius to choose the right method to use by allowing the developer to directly test the kind of result he can expect with a given query. In addition, at run-time developers can easily explore the \acrshort{kb} to understand the origin of bugs in their application.
 
