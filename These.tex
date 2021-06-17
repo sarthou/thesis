@@ -85,6 +85,7 @@ A faire en dernier :-)
 
 \include{Annexe_route}
 \include{Annexe_reg}
+\include{Annexe_fr_small}
 
 \bibliographystyle{StyleThese}
 %\bibliographystyle{plain}
@@ -93,19 +94,22 @@ A faire en dernier :-)
 \cleardoublepage
 \begin{vcenterpage}
 \noindent\rule[2pt]{\textwidth}{0.5pt}
-\\
-\iftoggle{ThesisInEnglish}{%
-{\large\textbf{Abstract:}}
-}{%
-{\large\textbf{Résumé :}}
-}
-resume
-\iftoggle{ThesisInEnglish}{%
-{\large\textbf{Keywords:}}
-}{%
-{\large\textbf{Mots clés :}}
-}
-mots, clefs
+
+% 1700 à 4000 caractères
+
+\textbf{Abstract:}
+%%%%%%%%%%%%%%%%%%%%%% ATTENTION ! SI MODIFICATION => MODIF SUR ADUM AUSSI !!!
+As we tend to integrate robots into environments of our daily life, the need for advanced knowledge representations and associated reasoning is constantly increasing, with the aim of enabling robots to understand the elements that composed these environments. Considering the presence of humans in such environments, and therefore the need to interact with them, this exacerbates this need for knowledge, with additional requirements. Knowledge is no longer used by the robot for the sole purpose of acting physically on its environment but also for the purpose of being shared with humans, through communication. Therefore, knowledge should no longer be understandable only by the robot itself, but should also be able to be narrative-enabled. % 745
+
+In the first part of this thesis is presented the software Ontologenius. It is a system making it possible to maintain knowledge bases in the form of ontology, to reason on them and to manage them dynamically. We start by explaining how this software is suitable for human-robot interaction (HRI) applications, with the possibility of representing the robot's knowledge base as well as an estimate of the knowledge bases of human partners, to implement the theory of mind. We continue with a presentation of its interfaces for use in algorithms aiming at developing cognitive abilities. This part ends with a performance analysis, demonstrating its online usability. % 1411
+
+In a second part, this thesis presents two knowledge exploration problems around the general topic of spatial referring and using semantic knowledge. It starts with the route description aiming at proposing a set of possible routes leading to a target destination. To do so, we propose an ontology allowing us to describe the topology of indoor environments and two algorithms to search for routes. The second knowledge exploration problem tackle in this thesis is the Referring Expression Generation (REG) problem. It aims at selecting the optimal set of piece of information to communicate in order to allow a hearer to identify the referred entity in a given context. This latter algorithm is then refined to use past activities coming from joint action between a robot and a human, in order to generate new kinds of Referring Expressions. It is also integrated with a symbolic task planner to estimate the feasibility and cost of future communications. % 2366
+
+This thesis concludes with the presentations of two cognitive architectures, the first using the route description contribution and the second using the contributions around the Referring Expression Generation. Both use Ontologenius to manage the semantic Knowledge Base. Through the two architecture, we present how this Knowledge Base has gradually taken a central role, providing knowledge to all the components of the architectures.
+
+%\textbf{Mots clés :} interaction humain-robot, Représentation de connaissances, ontologie, référencement spatiale 
+
+\textbf{Keywords:} human-robot interaction, Knowledge representation, ontology, spatial referring
 \\
 \noindent\rule[2pt]{\textwidth}{0.5pt}
 \end{vcenterpage}
