@@ -17,12 +17,12 @@ This chapter is a sum-up of an article submitted to the  User Modeling and User-
 
 In large scale, indoor environments, like museums, shopping malls, or airports, the presence of large interactive screens, maps, or signs underline the importance of providing information on itineraries. However, reading such maps can be challenging and some information can be missing like the location of the shops selling a given product. To bring such new information and help people to find their itinerary in large indoor environments such as shopping malls, robots can be used.
 
-To study this challenge and the underlined Human-Robot Interaction requirement, in the context of the European H2020 Project \acrshort{mummer}~\cite{foster_2016_mummer}, we have developed and deployed a social service robot in one of the largest mall of Finland, Ideapark in the city of Lemp\"a\"al\"a. The resulting robot was able to chat with customers and guide them. The chatting has been brought by a partner of the project~\cite{papaioannou_2018_human}. The contribution of the LAAS-RIS team, and thus the focus of this chapter, was on the direction-giving task.
+To study this challenge and the underlined Human-Robot Interaction requirement, in the context of the European H2020 Project \acrshort{mummer}~\cite{foster_2016_mummer}, we have developed and deployed a social service robot in one of the largest mall of Finland, Ideapark in the city of Lemp\``a\''al\"a. The resulting robot was able to chat with customers and guide them. The chatting has been brought by a partner of the project~\cite{papaioannou_2018_human}. The contribution of the LAAS-RIS team, and thus the focus of this chapter, was on the direction-giving task.
 
 With a mall having approximately 1.2 kilometers of pedestrian streets and more than 150 shops, having a robot accompanying customers would be time-consuming. Taking inspiration from the mall employees, we chose to verbally describe the route while grounding it with pointing gestures. The robot can however move a few meters if needed. %Such a movement can be useful to improve the perspective sharing of landmark to better ground the route description.
 The output of this project is a complete robot architecture that integrates a number of components. Each of them makes use of various models and decisional algorithms, all integrating explicitly human models.
 
-First, we provide background information about robot guides and discuss how the human partner has been considered. Then, we present the human-human exploratory studies used to identify the required abilities for a guide robot. We then present the developed architecture and its components. We end this chapter with integration on a real robotic system with some details on its deployment "into the wild".
+First, we provide background information about robot guides and discuss how the human partner has been considered. Then, we present the human-human exploratory studies used to identify the required abilities for a guide robot. We then present the developed architecture and its components. We end this chapter with integration on a real robotic system with some details on its deployment ``into the wild''.
 
 \section{Related work}
 
@@ -215,6 +215,6 @@ For availability for as many customers as possible, the robot was contained in a
 
 During the first deployment in the real mall, we have updated both the Geometric Representation with actual measurements and the \acrfull{ssr} by making sure the regions, interfaces, corridors and intersections were represented reflecting the actual mall topology. To ensure the correctness of the instructions given by the route handler, we generated routes from the deployment location to several shops in the mall and followed them to the destination. Inaccuracies, as well as algorithmic flaws, have been fixed using this method. We also tested the interaction in the Finnish language with our native Finnish partners and corrected some mistakes in the route verbalization.
 
-\subsection{Pepper "in the wild"}
+\subsection{Pepper ``in the wild''}
 
 The robot was then installed for a long-term 14 weeks deployment from September 2019 to December 2019. During this period, the robot interacted with everyday clients of the mall, who may never have the chance to interact with a robot before. The robot was active for 3 hours per day, three days a week. In total, the robot ran the direction-giving task for approximately 96 hours ``in the wild''. Out of these 96 hours, it was interacting with customers for 45 hours.
