@@ -15,7 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="SPI.svg">
+   sodipodi:docname="SPI.svg"
+   inkscape:export-filename="/home/gsarthou/Documents/papers/thesis/figures/introduction/SPI.png"
+   inkscape:export-xdpi="94.420097"
+   inkscape:export-ydpi="94.420097">
   <defs
      id="defs4">
     <marker
@@ -145,7 +148,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.70710678"
-     inkscape:cx="597.51902"
+     inkscape:cx="385.38699"
      inkscape:cy="763.36566"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -163,7 +166,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -258,7 +261,7 @@
          id="flowPara4230-4-5-4-6-6-20-9-5-7-9-5"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:26.39966393px;line-height:100%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella Bold';text-align:center;text-anchor:middle">Parallel</flowPara><flowPara
          id="flowPara6030-2"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.39966393px;line-height:100%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-align:center;text-anchor:middle">stotage</flowPara></flowRoot>    <g
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:26.39966393px;line-height:100%;font-family:'TeX Gyre Pagella';-inkscape-font-specification:'TeX Gyre Pagella';text-align:center;text-anchor:middle">storage</flowPara></flowRoot>    <g
        inkscape:export-ydpi="94.420097"
        inkscape:export-xdpi="94.420097"
        transform="matrix(1.7599776,0,0,1.7599776,-187.38392,-19.840172)"
