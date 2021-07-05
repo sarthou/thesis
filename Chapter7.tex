@@ -87,26 +87,13 @@ Regarding the previous definition, because any entity of an ontology could be co
 
 \subsection{A lightweight representation of the verbal link}
 
-To represent the verbal link, we also choose to use parametric patterns, patterns for short, defined as labels in the ontology. A \acrshort{cr} can have multiple labels (i.e. patterns) depending on the subject of the pattern and the involved relations in the verbal link. The labels are not directly applied to the \acrshort{ce} but to the class it inherits. This means that all the entities inheriting from a class having its labels respecting\improvement{respecting what?} the pattern are \acrshort{ce}. In a way, we define here a relation-class but only through the use of labels.
+To represent the verbal link, we also choose to use parametric patterns, patterns for short, defined as labels in the ontology. However, to know the position of each binary relation among the place-holders, we choose to integrate in the patterns the properties which can be used to form the relations composing the \acrshort{cr}. Considering the example of figure~\ref{fig:chap7_cr}, our patterns have the following form : $\{?hasObject\}\ bought\ on\ \{hasSeller\}\ by\ \{hasBuyer\}$. In the following, we will prefer the more generic patterns $\{?\property_4\}\ bought\ on\ \{\property_3\}\ by\ \{\property_1\}$.
 
-
-\improvement{the "respecting" aspect of the textual definition is not present in the formal defintion.}
-\improvement{Very confusing, you need to define what a pattern is (formally) first.}
-\begin{theorem} [Compound Entity]
-\label{the:compound_entity}
-Given a pattern $\omega$, an entity $\indiv_c$ is a \acrlong{ce} iff $\exists \class \in \classset | (\indiv_c, \class) \in \inheritset \land \omega \in \tlabel{(\class)}$
-\end{theorem}
-\improvement{Doesn't Lt contain labels that are not patterns ? In this case, this definition would misclassify normal entitites as compound entities.}
-
-An advantage of this solution is that we do not define any new specific concepts or properties in the ontology meaning that any pre-existing ontology can be updated to be used in the \acrshort{reg} process with \acrshort{cr} only by adding labels, as n-ary relations are already used. Our patterns have the following form : $\{?\property_4\}\ bought\ on\ \{\property_3\}\ by\ \{\property_1\}$. This pattern directly integrates the properties which can be used to form the relations composing the \acrshort{cr}.
-
-\improvement{Je trouve que c'est un choix criticable de remplacer des entités et relations claires ("hasBuyer", ...) par des trucs complétements abstraits (p3, ...).}
-\improvement{before theorem 7}
 Given a compound entity $a_c$ with the previous label, to generate a referring expression using it, the place-holder $\{\property_3\}$ should be replaced by a referring expression of an entity $\indiv_i$ where $\indiv_i$ is the object of a triple $(\indiv_c,\ \property3,\ \indiv_i)$. Because we assume that a property can only appear once in a \acrshort{cr}, we know that there is only one such object $\indiv_i$. In our example, we have $\indiv_i = \indiv_3$ for the $a_c$ \acrshort{ce}.
-In this way, without predefined order, an algorithm can easily replace the place-holders by the \acrshort{re} of the entities $\indiv_i$ of the relations $(\indiv_c, \property_i, \indiv_i)$ of the \acrshort{cr}.
+In this way, without predefined order, an algorithm can easily replace the place-holders by the \acrshort{re} of the entities $\indiv_i$ of the relations $(\indiv_c, \property_i, \indiv_i)$ of the \acrshort{cr}. With the example pattern, the resulting sentence would be: \textit{``The book bought on book.com by John''}.
 
-Since we are in the context of \acrshort{reg}, the \acrshort{cr} will be used as a reference to one of the entities involved in it. This specific entity is called the \textbf{subject entity} of the \acrshort{cr}. 
-\improvement{you need to given an example here.}
+Since we are in the context of \acrshort{reg}, the \acrshort{cr} will be used as a reference to one of the entities involved in it. This specific entity is called the \textbf{subject entity} of the \acrshort{cr}. In our example pattern, the subject entity is $a_4$, meaning the bought book. A \acrshort{cr} can thus have multiple labels (i.e. patterns) depending on the subject of the pattern and the involved relations in the verbal link. With our example, we might also want to refer to the website or the buyer. Moreover, if John purchased multiple books on the given website, we might need to refer to the book's price to refer to the book.
+
 For a subject entity to exist, an inverse property $\overline{\rm \property_i}$ must exist in the way that $(\property_i, \overline{\property_i}) \in \invset$ and $\relation_i = (\indiv_i, \overline{\property_i}, \indiv_c) \in \relationset$. If $\indiv_i$ is the subject entity, $\property_i$ is thus the \textbf{subject property} of the \acrshort{cr} and is prefixed with a question mark in the pattern. In the example of Figure~\ref{fig:chap7_cr}, only $\indiv_1$ and $\indiv_4$ (resp. John and the book) can be subject of the \acrshort{cr}. In other words, only these entities can be referred through the use of this \acrshort{cr}. Among all the labels available to speak about the \acrshort{cr}, the usable ones to speak about an entity are the ones for which the corresponding property is the subject property (i.e. prefixed by a question mark in the patterns). This choice to not consider the first in the pattern has been made to be adapted to any language. Among the possible labels of List.\ref{lst:chap7_john_labels}, the patterns L1 to L5 could thus be used as a reference for $\indiv_4$ (the book in our example) while the patterns L6 and L7 could be used as a reference for $\indiv_1$ (John in our example).
 
 \begin{lstlisting}[frame=single, caption={ A part of the label set of the purchase compound relation.}, label={lst:chap7_john_labels}, captionpos=b, style=Labels, mathescape=true]
@@ -119,15 +106,23 @@ L6 - {$?p_1$} who bought {$p_4$}
 L7 - {$?p_1$} who bought {$p_4$} on {$p_3$}
 \end{lstlisting}
 
+The labels are not directly applied to the \acrshort{ce} but to the class it inherits. This means that all the entities inheriting from a class having at least one label of the form of the previously introduced pattern, are \acrshort{ce}. In a way, we define here a relation-class but only through the use of labels.
+
+\begin{theorem} [Compound Entity]
+\label{the:compound_entity}
+Given a pattern $\omega$, an entity $\indiv_c$ is a \acrlong{ce} iff $\exists \class \in \classset | (\indiv_c, \class) \in \inheritset \land \omega \in \tlabel{(\class)}$
+\end{theorem}
+
+An advantage of this solution is that we do not define any new specific concepts or properties in the ontology meaning that any pre-existing ontology can be updated to be used in the \acrshort{reg} process with \acrshort{cr} only by adding labels, as n-ary relations are already used.
+
 \subsection{A strategy to explore compound relations}
 
-\improvement{très peu clair et sans transition avec la partie précédente. L'objectif de ces mini introduction est vraiment d'être limpide pour que le lecteur sache où on l'emmene, même si il a du mal à s'accrocher au reste (corollaire: faut pas supposer qu'il ait une compréhension fine du reste). Pas clair principalement parce que tu met la charue avant les boeufs : tu expliques qu'il faut optimiser l'algo que tu n'as pas encore présenté.}
-
-In a graph exploration, an important parameter to avoid a combinatorial explosion is the branching factor. For the \acrshort{reg} problem, an advantage of \acrshort{cr} is that once we introduce a \acrshort{cr} in the search algorithm we can directly know the relations involved in it. In this sub-section, our goal is thus to analyze the labels in the way to define the order in which the relations of the \acrshort{cr} will be explored by the \acrshort{reg} algorithm. By doing so, we will reduce its branching factor and thus avoid any combinatorial explosion of the \acrshort{reg} algorithm.
+To use \acrlong{cr}s in the generation of \acrlong{re}s, the \acrshort{reg} algorithm will have to explore each binary relation composing it. Moreover, to create a valid \acrshort{re}, the algorithm will have to find a combination of binary relations usable in one of the patterns of the \acrshort{cr}. However, such a number of possibilities to test with the original algorithm can engender combinatorial explosion. In a graph exploration, an important parameter to avoid a combinatorial explosion is the branching factor. For the \acrshort{reg} problem, an advantage of \acrshort{cr} is that once we introduce a \acrshort{cr} in the search algorithm we can directly know the relations involved in it. In this sub-section, our goal is thus to analyze the labels in the way to define the order in which the relations of the \acrshort{cr} will be explored by the \acrshort{reg} algorithm. By doing so, we will reduce its branching factor and thus avoid any combinatorial explosion of the \acrshort{reg} algorithm.
 
 \subsubsection{A naive strategy to explore compound relations}
 
-\improvement{Tu ne présentes pas la stratégie. (et ça rend toute la suite pas claire).}
+The general strategy we want to adopt is to create a sub exploration tree, representing the exploration of a \acrshort{cr}, that we will graft to the original \acrshort{reg} exploration tree. The resulting constraints we will see in the following, are that we have to insert only one relation a the time (like the \acrshort{reg} algorithm) and that the terminal nodes of the sub-trees have to be verbalisable.
+
 Suppose we want to refer to the entity $\indiv_4$ using the compound relation embodied by the compound entity $\indiv_c$ of Figure~\ref{fig:chap7_cr}. This is made possible by the triplet $(\indiv_c,\property_4,\indiv_4)$ in the knowledge-base and its inverse $(\indiv_4, \overline{\property_4}, \indiv_c)$. The listing~\ref{lst:chap7_john_labels} presents some alternative ways in which we can verbalise entities through the \acrshort{cr}. In order to refer to $\indiv_4$, we can only use the ones where $\property_4$ is the subject property. Thus the labels L1 to L5 are the only ones that we can use. The subsets of the compound relation used by labels L1 and L3 are illustrated in Figure~\ref{fig:chap7_cr_part}.
 
 \begin{figure}[ht!]
@@ -146,14 +141,12 @@ What interest us in these labels are the involved properties. Indeed, these prop
 \{p_1\ p_2\ p_4\}\}
 \end{align*}
 
-\improvement{Pas clair pourquoi c'est ton but... Mon intuition c'est que tu crées des sous arbres que tu vas greffer à ton arbre de recherche "de base". Les contraintes qui en découlent sont qu'on ajoute un propriété à la fois et que les noeud terminaux (dans la greffe) doivent être complet (verbalisable).}
-
-From there, our goal is to create a search-tree that will conduct the exploration of the different labels of a \acrshort{cr} through the exploration of the properties composing them. This search-tree has few constraints:
+From there, our goal is thus to create a search-tree that will conduct the exploration of the different labels of a \acrshort{cr} through the exploration of the properties composing them. This search-tree has few constraints and optimisation criteria:
 \begin{enumerate}
 	\item The tree must be composed of a single root.
 	\item All the descendants of a node have a common prefix of the property associated with that node. In this way, the search-tree is more precisely a trie, also called prefix tree.
 	\item Walking through the tree from its root, we recompose all the subsets of the family $F$.
-	\item The width of the tree must be as small as possible. \improvement{Not a constraint, but an optmisation criteria that is hard to justify with talking about how it will be exploited.}
+	\item The width of the tree must be as small as possible.
 \end{enumerate}
 
 A naive solution not minimizing the width of the tree is represented in Figure~\ref{fig:chap7_naive}a) for the purchase example. We consider the root $\property_4$ and create a branch per label. The resulting width is five. On the Figure~\ref{fig:chap7_naive}b) we merge the node representing the same property at an equivalent level. It reduces the branching factor for the beginning of the exploration by the global width is the same. Switching the elements $p_2$ and $p_3$ for L4 and keeping the merging principle, we can see in Figure~\ref{fig:chap7_naive}c) that the width of the trie can be reduced to four. An advanced algorithm to build the graph could thus reduce the width of the trie.
