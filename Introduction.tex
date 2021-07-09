@@ -22,11 +22,11 @@ Max, seeing Tony looking at all the cameras and Liam occupied to count the cash 
 \begin{quote} 
 \centering 
 \textit{
-Max - ``Hi, I am Max. Have you found a camera interesting you or do you need some advice?'' \\
+Max - ``Hi, I am Max. Have you found a camera that interests you or do you need advice?'' \\
 Tony - ``Hi, I don't really know anything about cameras. I am planning to go on a trip in a month and I would like a camera to take animal pictures during the trip.'' }
 \end{quote}
 
-For an amateur, Max chooses to present to Tony some automatic models. Moreover, since it is for a trip, it advises Tony to prefer a small camera. Looking at the prices, the customer explains that he did not want to spend more than 500 euros. Max thus select three options for him:
+For an amateur, Max chooses to present to Tony some automatic models. Moreover, since it is for a trip, it advises Tony to prefer a small camera. Looking at the prices, the customer explains that he did not want to spend more than 500 euros. Max thus selects three options for him:
 
 \begin{quote} 
 \centering 
@@ -66,7 +66,7 @@ Tony leaves and comes back the morning after. Max recognizes him and moves towar
 Max - ``Yesterday we stop on two Fujifilm cameras and a Canon for your trip.''}
 \end{quote}
 
-They continue to discuss and finally Tony selects the camera at 350 euros. Following Max's advice, he takes a memory card and a second battery to have enough storage and power during his trip. In addition, he takes a zoom lens to take pictures of animals from far. Unfortunately, the wanted camera is not available at the moment. The last in the store is the demonstration one. Max proposes to Tony to order the camera. The client agrees and leaves.
+They continue to discuss and finally Tony selects the camera at 350 euros. Following Max's advice, he takes a memory card and a second battery to have enough storage and power during his trip. In addition, he takes a zoom lens to take pictures of animals at long range. Unfortunately, the desired camera is not available at the moment. The last one in the store is the demonstration one. Max proposes to Tony to order the camera. The client agrees and leaves.
 
 \begin{figure}[ht!]
 \centering
@@ -74,12 +74,12 @@ They continue to discuss and finally Tony selects the camera at 350 euros. Follo
 \caption{\label{fig:cam_back} A Pr2 robot and a human employee collaborating to close a box. }
 \end{figure}
 
-A few days later, before opening, several boxes are delivered to the store. Liam, the human employee, and Max have to open them, fill the stocks and prepare Tony's order. This is the first time since Max arrival they have to do it. They both go to the backroom in order to do this task together. There are two boxes. Liam starts opening one and so Max starts opening the other. Max informs Liam about the camera which has been ordered and is planned to be in the delivery.
+A few days later, before opening, several boxes are delivered to the store. Liam, the human employee, and Max have to open them, fill stocks and prepare Tony's order. This is the first time since Max arrival they have to do it. They both go to the backroom in order to do this task together. There are two boxes. Liam starts opening one and so Max starts opening the other. Max informs Liam about the camera which has been ordered and is planned to be in the delivery.
 
 \begin{quote} 
 \centering 
 \textit{
-Max - ``Tell me if their is a X-T100, a customer commands one.''}
+Max - ``Tell me if there is a X-T100, a customer orders one.''}
 \end{quote}
 
 Liam finds the camera. The robot explains to him that it also needs an SD card of 32Go and a lens XC 15-45mm. It informs the human that the SD cards are too small for it to grasp them. It thus proposes to Liam to take some of the cameras to put on the shelves and to bring back the card and the lens at the same time. During this time, Max gets a box, puts the camera and the battery inside. When Liam comes back, he puts the two other items in the same box. Then, Max maintains the box close while Liam tapes it. When finished, they both take the last items to put on the shelves and go to the main room.
@@ -89,14 +89,14 @@ The afternoon of the same day, while Max is cashing in a customer, Tony enters i
 \begin{quote} 
 \centering 
 \textit{
-Max - ``Can you bring the order we prepared this morning? The client it is for is the one just entering, with the blue T-shirt.''}
+Max - ``Can you bring the order we prepared this morning? The client is the one just entering, with the blue T-shirt.''}
 \end{quote}
 
-Liam goes to the backroom and brings back the correct box. Max charges the customer who finally gets his camera in time.
+Liam goes to the backroom and brings back the correct box. Max charges the customer who finally gets his camera on time.
 
 \section{Interacting with a robot: What can we expect ?}
 
-Even if the scenario of the robot in a store is not intended to be entirely implemented, it allows us to identify what we can expect in terms of knowledge representation, for a robot interacting with humans. First of all, we can draw a rough partition of the needed knowledge:
+Even if the scenario of the robot in a store is not intended to be entirely implemented, it allows us to identify what is needed in terms of knowledge representation, for a robot interacting with humans. First of all, we can draw a rough partition of the needed knowledge:
 
 \begin{enumerate}
   \item \textbf{common-sense knowledge}. It is the knowledge not necessarily related to the current situation but required to understand it. In the scenario, this is not because the robot is in a camera store that it knowns the concept of a camera, this concept is more general. Thanks to this common ground it is able to understand the concept of video games, trip, boxes, or animals in our scenario.
@@ -104,7 +104,7 @@ Even if the scenario of the robot in a store is not intended to be entirely impl
   \item \textbf{knowledge of the activities}, grounded in the space and the time. More than how to perform a given task, we are here interested in how it has been achieved. By whom? With whom? Where? When? On which entities? In our scenario, Liam has brought back an SD card from the main room, during this time, Max has prepared a box in the backroom, and these two tasks have been made to prepare, together, Tony's command.
 \end{enumerate}
 
-Through this rough partition, we can identify three types of knowledge. The general ones, the knowledge related to space, and those related to time. Where the first can be seen as partially static, all have to be dynamic. The robot should be \textbf{able to gather knowledge}, update them, and create links in between.
+Through this rough partition, we can identify three types of knowledge. The general ones, the knowledge related to space, and those related to time. Where the first can be seen as partially static, all have to be dynamic. The robot should be \textbf{able to gather knowledge}, update it, and create links in between.
 
 At this stage, one can asks: where is the interaction in it? Even if this knowledge is mandatory for a robot interacting with a human, it holds also for a robot acting alone in an environment.
 
@@ -114,12 +114,12 @@ When we qualify a piece of knowledge to be narrative-enabled, we can restrict ou
 
 Moving toward the knowledge about activities, we have to speak about \textbf{plans}. Keeping it simple for the moment, we can consider a plan as a succession of actions allowing an agent to achieve a task. In this way, a cooking recipe is a kind of plan allowing to achieve the task to prepare a dish. Through the narrative-enabled characteristic of knowledge, we thus want a robot to be able to express a plan. In our scenario, Max asked Liam to bring back an SD card and a lens, it thus expresses a part of a plan. However, it could also have explained to Liam to go in the main room, to move toward the second shelf, to open the rightmost door, to take the SD card in a blue package, and to come back in the backroom. This explanation expresses the same thing but goes deeper into the details, taking a lower level of \textbf{abstraction}. Here we see that the robot has to be able to express a plan at various levels of abstraction. For example, if the robot says ``Let us prepare the order'' it expresses the global task.
 
-Such an explanation of a plan to achieve highlights a number of key elements about the robot need for knowledge. Here we introduce two of them:
+Such an explanation of a plan to be carried out highlights a number of key elements regarding the robot's need for knowledge. Here we introduce two of them:
 
 \begin{itemize}
-  \item If the robot can express the same plan with different granularity, how does it choose the right one? To answer this question, we have to introduce the self-and-other distinction. To know which information to share, a robot has to \textbf{estimate its partner knowledge}, that it is the common-sense knowledge as well as the knowledge about the environment and the activities. It is on the basis of this estimation that the robot can know how to communicate. In our scenario, the robot interacts with the human employee to prepare the command. Since Liam was in the store before the robot, it could estimate that the employee knows where the SD cards are. Communicating this low-level information would thus be useless and inefficient for the task. The human employee would be a new one, the robot would have interacted in a different way. This estimation of the others knowledge can be found somewhere else in the scenario. When Max refers to a specific camera to the client, it describes it in relation to its attributes and location. To the difference, to refer to the same entities to Liam, Max uses the precise model name of the camera. It thus estimates that the client does not know the model's name but that the employee does.
+  \item If the robot can express the same plan with different granularity, how does it choose the right one? To answer this question, we have to introduce the self-and-other distinction. To know which information to share, a robot has to \textbf{estimate its partner knowledge}, that it is the common-sense knowledge as well as the knowledge about the environment and the activities. It is on the basis of this estimation that the robot can know how to communicate. In our scenario, the robot interacts with the human employee to prepare the order. Since Liam was in the store before the robot, it could estimate that the employee knows where the SD cards are. Communicating this low-level information would thus be useless and inefficient for the task. The human employee would be a new one, the robot would have interacted in a different way. This estimation of the others knowledge can be found somewhere else in the scenario. When Max refers to a specific camera to the client, it describes it in relation to its attributes and location. To the difference, to refer to the same entities to Liam, Max uses the precise model name of the camera. It thus estimates that the client does not know the model's name but that the employee does.
   
-  \item To allow the robot to communicate at the right level of abstraction, estimating the other knowledge allows the detection of \textbf{belief divergence}. It appears when the robot estimate that the other does not have a piece of knowledge or still considers a piece of knowledge that no more holds. Detecting such a divergence can be used to prevent errors for example. In our scenario, if the robot has taken the last zoom lens on a given shelf and estimate that the employee is not aware of this information, it can detect a belief divergence. Consequently, rather than just asking for a zoom lens, it can inform the other that there is no more lens at this place. The employee will no have to search at the original place and will be able to directly go to another place where there is still some zoom lens.
+  \item To allow the robot to communicate at the right level of abstraction, estimating the other knowledge allows the detection of \textbf{belief divergence}. It appears when the robot estimates that the other does not have a piece of knowledge or still considers a piece of knowledge that no more holds. Detecting such a divergence can be used to prevent errors for example. In our scenario, if the robot has taken the last zoom lens on a given shelf and estimates that the employee is not aware of this information, it can detect a belief divergence. Consequently, rather than just asking for a zoom lens, it can inform the other that there is no more lens at this place. The employee will no have to search at the original place and will be able to directly go to another place where there is still some zoom lens.
 \end{itemize}
 
 Continuing to explore the knowledge implies by the realisation of a plan, we can move toward the elaboration of the plan, the planning of the task. By achieving the task together, the human and the robot are performing a \textbf{joint-task}, meaning having a joint-goal and collaborating to achieve it. To collaborate the robot elaborates a \textbf{plan considering the human}. It can thus propose to him to achieve a part of the task. To know how to dispatch the actions, the robot needs knowledge about \textbf{human abilities} as well as its own abilities. In the scenario, the SD card is assigned to the human because the robot is aware that it can not grasp it. If the object to bring back was graspable by it, maybe it would have done it by considering it as uncomfortable for the human to walk too much. Underlying, this ability to plan for himself and others also requires a projection into future situations and thus a \textbf{representation of possible worlds state}, like what is done in task planning.
@@ -132,7 +132,7 @@ In this section, we have identified some of the key elements need and use about 
 
 Even if our goal in robotics is not to create a copy of the human, either in terms of body shape or cognition, drawing inspiration from it is nevertheless important. In the same way that roboticists take inspiration from the human body to create robots able to act in a world created by and for the human, the field of cognitive robotics takes inspiration from the human cognition to create robots able to interact with humans. While we do not aim to imitate the human cognition, we think that a robot must be endowed with some similar capabilities if we want them to interact with us efficiently and in an acceptable way.
 
-Regarding the knowledge representation, the first experimental study has been realized in 1885 by Ebbinghaus~\cite{ebbinghaus_1885_gedachtnis}. Since then, the definition of memory as the capacity to encode, store, and retrieve knowledge \cite{roediger_1996_retrieval} has been widely accepted. At the same time, the word ``memory'' has become a generic term suggesting a unique system. However, the human memory can rather be seen as several sub-systems that differ from their storage duration, storage capacity, and the level of consciousness necessary for information retrieval. In the rest of the section, we present some memory models, presented in a non-chronological way, and focussing on what is called long-term memory. During all this section, it is important to keep in mind that we only present models aiming to understand human cognition with a focus on knowledge management. No formal truth is stated here given that there is no consensus in the field. The presented models and terms will allow us to better understand the existing robotic cognitive architectures and give inspiration for the design and structuration of the components developed in this thesis.
+Regarding the knowledge representation, the first experimental study has been realized in 1885 by Ebbinghaus~\cite{ebbinghaus_1885_gedachtnis}. Since then, the definition of memory as the capacity to encode, store, and retrieve knowledge \cite{roediger_1996_retrieval} has been widely accepted. At the same time, the word ``memory'' has become a generic term suggesting a unique system. However, the human memory can rather be seen as several sub-systems that differ from their storage duration, storage capacity, and the level of consciousness necessary for information retrieval. In the rest of the section, we present some memory models, presented in a non-chronological way, and focussing on what is called long-term memory. During all this section, it is important to keep in mind that we only present models aiming to understand human cognition with a focus on knowledge management. No formal truth is stated here given that there is no consensus in the field. The presented models and terms will allow us to better understand the existing robotic cognitive architectures and give inspiration for the design and structuring of the components developed in this thesis.
 
 The primary division of the memory is done concerning the storage duration and capacity. From there has been defined the \textbf{short-term memory} (STM) and the \textbf{long-term memory} (LTM) \cite{atkinson_1966_some}. Short-term memory is characterized by its small capacity and its capability to retrieve information that has just been seen. It is often stated that it is near to twenty seconds and seven items (or chunks)\cite{miller_1956_human}. Long-term memory, on the opposite, refers to any situation where we use information that has not just been seen. It is often stated that it has an infinite capacity and duration. It is this latter that allows the acquisition of new knowledge and the retrieval of information acquired a long time ago.
 
@@ -169,7 +169,7 @@ Ontologenius supports dynamic updates of the \acrlong{kb}s it maintains and keep
 
 At the difference of other ontology management software, Ontologenius comes with more than 60 low-level inbuilt parametrizable queries, allowing a fast and precise exploration of the knowledge. These queries have been designed in such a way to be called from search algorithms to create higher-level cognitive processes. In addition, it proposes a \sparql{} interface.
 
-Ontologenius has also been designed to be used for planning applications by representing several possible world states in a single instance, switching from one to another.
+Ontologenius has also been designed to be used for task planning applications by representing several possible world states in a single instance, switching from one to another.
 
 It was made from scratch and thought like a sandbox, based on ontology standards but sometimes allowing to deviate from them to better explore the possibilities and never be limited.
 
@@ -187,7 +187,7 @@ The second tackles the \acrlong{reg} task. The goal is to search for the knowled
 
 The last contributions of this thesis are two cognitive architectures embodied on a Pepper and a Pr2 robotic platforms. The first architecture has been developed in the context of the \acrlong{mummer} project. It makes use of the route description to guide customers in a mall. The second has been developed later at LAAS-RIS to experiment recent developments of the team. This architecture makes use of the contributions around the \acrlong{reg}. It has been tested in a task inspired by cognitive psychology and adapted to the \acrlong{hri}, called the Director Task.
 
-Both architectures use Ontolognenius to manage the robot and humans semantic \acrshort{kb}s. Since both architectures were developed two years apart, we will see in this thesis how the semantic \acrlong{kb} has become a central element of a cognitive architecture for \acrlong{hri}.
+Both architectures use Ontolognenius to manage the robot and humans semantic \acrshort{kb}s. Since both architectures were developed two years apart, we will see in this thesis how the semantic \acrlong{kb} has become a central element of our cognitive architecture for \acrlong{hri}.
 
 \section{A reader's guide}
 
@@ -210,4 +210,33 @@ For the readers having less time and wanting to go to the point of this thesis, 
   \item Introductions of chapters \ref{chap:5} and \ref{chap:6}: Some challenges around the \acrlong{reg},
   \item Chapter \ref{chap:7}: A preliminary work to create more generic \acrlong{re}s,
   \item Section \ref{sec:9_3}: Our most advanced cognitive architecture for \acrlong{hri} applications.
+\end{itemize}
+
+\subsection*{List of Publications}
+\markright{LIST OF PUBLICATIONS}
+\subsubsection*{Published}
+\begin{itemize}
+\item Sarthou, G., Alami, R., \& Clodic, A. (2019, June). Semantic Spatial Representation: a unique representation of an environment based on an ontology for robotic applications. In Combined Workshop on Spatial Language Understanding (SpLU) and Grounded Communication for Robotics (RoboNLP).
+
+\item Sarthou, G., Clodic, A., \& Alami, R. (2019, October). Ontologenius: A long-term semantic memory for robotic agents. In 2019 28th IEEE International Conference on Robot and Human Interactive Communication (RO-MAN) (pp. 1-8). IEEE.
+
+\item Heikkilä, P., Lammi, H., Niemelä, M., Belhassein, K., Sarthou, G., Tammela, A., Clodic, A.,  \& Alami, R. (2019, November). Should a robot guide like a human? A qualitative four-phase study of a shopping mall robot. In International Conference on Social Robotics (pp. 548-557). Springer, Cham.
+
+\item Buisan, G.*, Sarthou, G.*, Bit-Monnot, A., Clodic, A., \& Alami, R. (2020, August). Efficient, situated and ontology based referring expression generation for human-robot collaboration. In \textit{2020 29th IEEE International Conference on Robot and Human Interactive Communication (RO-MAN)} (pp. 349-356). IEEE.
+
+\item Buisan, G., Sarthou, G., \& Alami, R. (2020, November). Human aware task planning using verbal communication feasibility and costs. In \textit{International Conference on Social Robotics} (pp. 554-565). Springer, Cham.
+\end{itemize}
+
+\subsubsection*{Accepted}
+
+\begin{itemize}
+\item Sarthou, G., Mayima, A., Buisan, G., Belhassein, K., \& Clodic, A. The Director Task: a Psychology-Inspired Task to Assess Cognitive and Interactive Robot Architectures. To be published in \textit{2021 30th IEEE International Conference on Robot and Human Interactive Communication (RO-MAN)}.
+
+\item Sarthou, G., Buisan, G., A., Clodic, A., \& Alami, R. Extending Referring Expression Generation through shared knowledge about past Human-Robot collaborative activity. In \textit{2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}
+\end{itemize}
+
+\subsubsection*{Submitted}
+
+\begin{itemize}
+\item Mayima, A., Sarthou, G., Buisan, G., Singamaneni, P., Sallami, Y., Belhassein, K., Waldhart, J., Clodic, A., \& Alami, R. Direction-giving considered as a Human-Robot Joint Action. Submitted to \textit{User Modeling and User-Adapted Interaction (UMUAI) Journal}.
 \end{itemize}
