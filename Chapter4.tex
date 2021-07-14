@@ -112,7 +112,7 @@ The TBox used to describe the situation of this example is represented in Figure
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter4/pens_Tbox.png}
-\caption{\label{fig:chap4_kb_Tbox} Representation of the TBox (classes hierarchy) used to describe the situation of the Figure~\ref{fig:chap4_kb}. }
+\caption{\label{fig:chap4_kb_Tbox} Representation of the TBox (classes hierarchy) used to describe the situation of Figure~\ref{fig:chap4_kb}. }
 \end{figure}
 
 The ABox used to describe the situation is represented in Figure~\ref{fig:chap4_kb_Abox}. The two cups C\_1 and C\_2 are on the table T\_1. The two pens P\_1 and P\_2 are respectivly in the cups C\_1 and C\_2 while P\_3 is directly on the table. The pen P\_4 is another pen, not on the table. Other objects could be represented as the robot and the human could know other object being in the room. The pen P\_1 is the only pen for which the agent has to click to get the tip of the pen out.
@@ -120,7 +120,7 @@ The ABox used to describe the situation is represented in Figure~\ref{fig:chap4_
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.38]{figures/chapter4/pens_Abox.png}
-\caption{\label{fig:chap4_kb_Abox} Representation of the ABox (relation graph) used to describe the situation of the Figure~\ref{fig:chap4_kb}. }
+\caption{\label{fig:chap4_kb_Abox} Representation of the ABox (relation graph) used to describe the situation of Figure~\ref{fig:chap4_kb}. }
 \end{figure}
 
 The RBox is not represented but the properties composing it are the ones used in the ABox. In addition we define the properties \textit{hasIn} being the inverse of \textit{isIn} and \textit{isUnder} being the inverse of \textit{isOn} ($\{(isIn,\ hasIn), (isOn,\ isUnder)\} \subset \invset$). Moreover, the property \textit{isOn} inherits of the upper property \textit{isAbove} ($\{(isOn,\ isABove), (isUnder,\ isBelow)\} \subset \inclset$). While the first defines a direct contact between two entities, the other does not. Finally, we declare the chain axiom: $isIn \bullet isOn \Rightarrow isABove$. This axiom allows to reason on the ontology and declare that if a first entity is in a second one and that this second is on a third one, the first entity is above the third. Taking our example, since P\_1 is in C\_1 which is on T\_1, the pen P\_1 is above the table T\_1.
@@ -205,11 +205,11 @@ c) &
   \begin{tabular}[c]{@{}l@{}}{[}?0 =\textgreater P\_2,\\ ?1 =\textgreater C\_2{]}\end{tabular} \\ \hline
 \end{tabular}%
 }
-\caption{Three referring expressions extracted from the example of Fig.~\ref{fig:chap4_intro}. For each target, is represented the relations set, the equivalent \sparql{} query, the corresponding sentence in natural language, and the possible instantiations.}
+\caption{Three referring expressions extracted from the example of Figure~\ref{fig:chap4_intro}. For each target, is represented the relations set, the equivalent \sparql{} query, the corresponding sentence in natural language, and the possible instantiations.}
 \label{tab:REs}
 \end{table}
 
-Examples of REs base on the Figure~\ref{fig:chap4_intro} are presented in Tab.~\ref{tab:REs}. All three respect the constraints of theorems~\ref{the:parlance_need} and \ref{the:correct_intance}. However, the example b) does not refer in an unambiguous way the entity P\_2. We thus define the two \acrshort{re} validity constraints below.
+Examples of REs base on the Figure~\ref{fig:chap4_intro} are presented in Table~\ref{tab:REs}. All three respect the constraints of theorems~\ref{the:parlance_need} and \ref{the:correct_intance}. However, the example b) does not refer in an unambiguous way the entity P\_2. We thus define the two \acrshort{re} validity constraints below.
 
 \begin{theorem} [The RE minimal validity]
 \label{the:re_mini_validity}
@@ -266,7 +266,7 @@ A hard difference exists when two ambiguous entities own the same property towar
 A soft difference exists when an entity owns a property that is not owned by another ambiguous entity: $(\indiv_i, \property, \object_i) \in \relationset \land (\indiv_j, \property, \cdot) \notin \relationset$. We note this difference between two entities ($\indiv_i, \softdiff, \indiv_j$).
 \end{definition}
 
-Considering Figure.\ref{fig:chap4_complet} with the two pens, there exists a hard difference between the two pens regarding their color as one is blue and the other is red. The two pens own a relation with the same property \textit{hasColor} but on different entities, red and blue. A soft difference exists between the two cups as cup B has something inside and not cup A.
+Considering Figure~\ref{fig:chap4_complet} with the two pens, there exists a hard difference between the two pens regarding their color as one is blue and the other is red. The two pens own a relation with the same property \textit{hasColor} but on different entities, red and blue. A soft difference exists between the two cups as cup B has something inside and not cup A.
 
 To represent the fact that some referring expressions are easier to understand than others depending on the property they use, we define a \textbf{cost} for each state. It is the sum of the cost of the properties used in the relations composing the candidate \acrshort{re}. The cost can thus be regardless assigned to the property of the relation or the relation itself and the cost of an action is the cost of the relation it inserts. If we assume a state $\state$ with a cost $\cost$, performing an action $\action_j$ corresponds to the fact of adding a relation $\relation_j$ and creates a new state $\state'$. The cost of this new state can be calculated either from the cost of the previous state $\cost' = \cost + \costfunc(\relation_j)$ or independently $\cost' = \sum_{\relation \in \mathcal{T}} \costfunc(\relation)$. In addition, as the hard differences respect the open-world assumption while the soft differences do not, we propose to promote the use of hard difference when possible by adding an extra cost to relations coming from soft differences.
 
@@ -339,13 +339,13 @@ It performs the translation of a set of triplets into a \sparql{} query. To do s
 \]
 
 \textbf{\sparqlresult: }
-It takes a \sparql{} query as input and returns a match table $\matchtable$ in the way that $\matchtable(\var)$ is the set of entities matching the variable $\var$ in the given query. While usually the matching entities of a given variable depend on the matching entities of another one\footnote{See the example b of table~\ref{tab:REs} for an illustration of this link.}, we do not need to keep this link in our application.
+It takes a \sparql{} query as input and returns a match table $\matchtable$ in the way that $\matchtable(\var)$ is the set of entities matching the variable $\var$ in the given query. While usually the matching entities of a given variable depend on the matching entities of another one\footnote{See the example b of Table~\ref{tab:REs} for an illustration of this link.}, we do not need to keep this link in our application.
 
 \textbf{\goaltest: }
 The test first fails if not all the anonymous entities involved in the tested candidate \acrshort{re} are typed. If this first test succeeds, the function succeeds, for a minimally valid solution, if the target entity $\goalindiv$ is the only solution to the variable $v(\goalindiv)$ in $\matchtable$. For a completely valid solution, the test succeeds if the previous test succeeds and if all the others variables of $\matchtable$ have exactly one solution. \\
 
 \textbf{\createchild: } 
-Creating a child node from a parent node and an action is easy to see. The \createchild function is specified in the pseudo-code of Algorithm \ref{alg:child}. 
+Creating a child node from a parent node and an action is easy to see. The \createchild function is specified in the pseudo-code of Algorithm~\ref{alg:child}. 
 
 \begin{algorithm}[ht!]
 \caption{\label{alg:child} Child node function pseudocode}
