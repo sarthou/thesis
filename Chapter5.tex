@@ -206,7 +206,7 @@ Here, we see another benefit of our approach, it allows the planner to balance b
 
 \section{Integration in a robotic system}
 
-The third case study has been implemented on a pr2 robotic platform. We extend the previously used architecture and integrate two new components as illustrated in Figure~\ref{fig:chap5_archi}. The execution of the third case can be found in the video available at \url{https://youtu.be/3YnGh_t-UpY}.
+The third case study has been implemented and integrated on a pr2 robotic platform. We extend the previously used architecture and integrate two new components as illustrated in Figure~\ref{fig:chap5_archi}. The execution of the third case can be found in the video available at \url{https://youtu.be/3YnGh_t-UpY}.
 
 \begin{figure}[!ht]
 \centering
@@ -227,4 +227,6 @@ The geometrical situation assessment component has been changed from Robosherloc
  }
 \end{figure}
 
-A major limitation of the current situation assessment component is that it can not perform perspective-taking. This means that even if it can represent the human as a particular entity, it can not estimate the state of the world from the human point of view\footnote{We can compute if an object is in the field of view of the human but not working with a graphical engine, it can not take into account the occlusions.}. It is not a problem for our application since all the elements are visible for both agents and the entire interaction is performed around the table. Toaster thus updates the robot and human ontologies with the same facts.
+A major limitation of the current situation assessment component is that it can not perform perspective-taking. This means that even if it can represent the human as a particular entity, it can not estimate the state of the world from the human point of view\footnote{We can compute if an object is in the field of view of the human but not working with a graphical engine, it can not take into account the occlusions.}. It is not a problem for our application since all the elements are visible for both agents and the entire interaction is performed around the table. Toaster thus updates the robot and human ontologies with the same facts. \\
+
+With this integration, the robot is thus able to analyse the current situation, and then to generate a plan to choose the more adapted communication mean for each cube to be moved. Consequently, at execution, at each step of the plan, the robot either verbally explains the cube to take or point to it.

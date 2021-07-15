@@ -258,7 +258,7 @@ To store the \acrlong{kb} as an ontology, we first use OWL files using the XML/R
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.6]{figures/chapter2/files.png}
-\caption{\label{fig:chap2_files} a) In case no intern file already exists, The input files are considered as the default \acrlong{kb} of the agent b) In case an internal file exists for a given agent, this means that the robot already interact with this agent. In this latter case, the input files are not considered and the agent previously estimated \acrlong{kb} is loaded. If the current \acrlong{kb} represents the robot's one, the robot just restarts with its previous \acrlong{kb}.}
+\caption{\label{fig:chap2_files} a) In the case where no internal file already exists, the input files are considered as the default \acrlong{kb} of the agent b) In the case where an internal file exists for a given agent, this means that the robot is already interacting with this agent. In the latter case, the input files are not taken into account and the previously estimated Knowledge Base of the agent is loaded. If the current \acrlong{kb} represents that the robot’s one, the robot simply restarts with its previous knowledge base.}
 \end{figure}
 
 When ontology files are loaded, they are converted into a semantic graph, at the difference of triple store. Elements of the ontology (individuals, classes, object properties, and data properties) are represented as nodes. We thus have four types of nodes. The nodes have several set of pointers toward other nodes, each having a semantic meaning. Such a representation is useful for efficient search algorithms like query resolution. For example, wanting to know all classes from which an individual inherits, from the node of this individual, we just have to iterate over all the nodes in the set of inheritance and perform recursion on each of them, iterating once again on the set of inheritance.
@@ -268,7 +268,7 @@ To find the entry point of the graph, we have four containers, one for each elem
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.6]{figures/chapter2/containers.png}
-\caption{\label{fig:chap2_containers} The semantic graph has four containers, one for each type of an ontology (i.e individuals, classes, object properties, and data properties). The containers own the nodes representing the elements of the ontology and store them in maps where the keys are the identifiers of the elements and the values are the nodes themselves. Each container also provides a lock mechanism allowing to prevent concurrency issues in multi-thread usage.}
+\caption{\label{fig:chap2_containers} The semantic graph has four containers, one for each type existing in an ontology (i.e individuals, classes, object properties, and data properties). The containers own the nodes representing the elements of the ontology and store them in maps where the keys are the identifiers of the elements and the values are the nodes themselves. Each container also provides a lock mechanism allowing to prevent concurrency issues in multi-thread usage.}
 \end{figure}
 
 \subsection{Reasoning to enrich the knowledge}
@@ -298,7 +298,7 @@ What we refer to when we use the term instance is an instantiation of the previo
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter2/archi_multi.png}
-\caption{\label{fig:chap2_archi_multi} The software architecture of Ontologenius to manage multiple \acrlong{kb}s in the form of an ontology. An instance manager makes the link between each instance and has a direct access to each semantic graph to propose queries. }
+\caption{\label{fig:chap2_archi_multi} The software architecture of Ontologenius to manage multiple \acrlong{kb}s in the form of an ontology. An instance manager makes the link between each instance (see Figure~\ref{fig:chap2_archi_single} and has a direct access to each semantic graph to propose queries. }
 \end{figure}
 
 The architecture of each instance stays the same as previously, this means that each instance has its own ROS instance and can be queried and updated independently. However, to void to manually run several instances and not have any conflict on the ROS topic and service names, we add an instance manager. This manager owns all the instances and can create new ones as well as deleting existing ones. In addition, it attributes an identifier to each instance. It is often the identifier of the agent it represents. With this identifier, each instance creates dedicated and non-overlapping ROS services and topics. The manager itself owns a ROS interface to perform the deletions and creations.
@@ -453,17 +453,17 @@ For the tests we have replicated, they use the description of visual perception 
 \begin{figure}[b!]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter2/knowrob/Insertion.png}
-\caption{\label{fig:chap2_knowrob_insertion} Comparison of the required CPU time for creating large numbers of object perceptions in the knowledge base. Each inserted object correspond to a visual perception entity linked to a cup, a pose matrix, and a time stamp. Ontologenius is used without the ROS communication layer to provide comparable usage and thus results.}
+\caption{\label{fig:chap2_knowrob_insertion} Comparison of the CPU time required to create a large number of object perceptions in the knowledge base. Each inserted object corresponds to a visual perception entity linked to a cup, a pose matrix and a timestamp (see Listing~\ref{lst:chap2_visual_perception}. Ontologenius is used without the ROS communication layer to provide comparable usage and thus results.}
 \end{figure}
 
 The first test consists of creating and inserting N visual perception entities in the \acrshort{kb} and measuring the required CPU time to insert one of them. This means that we measure the average CPU time over N insertions. For each visual perception entity, we thus have to create two entities (the visual perception entity and the perceived object), two inheritance links, two raw data, and three relations (two based on data property and one based on object property). The results are shown in Figure~\ref{fig:chap2_knowrob_insertion}. KnowRob has a constant insertion time around 1.3ms. With Ontologenius we do not have constant time. The first decreasing part can be explained by the asynchronous Ontologenius mechanism. It looks for updates at 20hz. Consequently, we can have a delay between the moment we publish updates and the moment they are processed. The effect of the mechanism disappears with the amount of data to process since once the update mechanism started, it does not stop while data have to be processed. The general trend is thus an increase in the required CPU time. This increase can come from the fact that Ontologenius performs reasoning, like the creation of the inverse relations, at update where KnowRob resolves it at query. In addition, Ontologenius also performs consistency check at update. However, until 1,000,000 insertions and thus 2,000,000 of entities, 2,000,000 raw data, and 5,000,000 triples (2 for inheritances and 3 for relation per perception entity), the required CPU time is under 1ms.
 
-Considering the same insertions as previously, the second test consists of measuring the required memory. The results are shown in Figure~\ref{fig:chap2_knowrob_memory}. For a high number of individual, Ontologenius required a bit less memory. It can be explained by the fact that it has a simplified matrix representation. In addition, no information had been provided about the initial content of the~\acrshort{kb}. Both systems, therefore, require memory in the same order of magnitude.
+Considering the same insertions as previously, the second test consists of measuring the required memory. The results are shown in Figure~\ref{fig:chap2_knowrob_memory}. For a high number of individuals, Ontologenius required a bit less memory. It can be explained by the fact that it has a simplified matrix representation. In addition, no information had been provided about the initial content of the~\acrshort{kb}. Both systems, therefore, require memory in the same order of magnitude.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter2/knowrob/Memory.png}
-\caption{\label{fig:chap2_knowrob_memory} Comparison of the required memory for creating large numbers of object perceptions in the knowledge base. Each inserted object correspond to a visual perception entity linked to a cup, a pose matrix, and a timestamp.}
+\caption{\label{fig:chap2_knowrob_memory} Comparison of memory required to create a large number of object perceptions in the knowledge base. Each inserted object corresponds to a visual perception entity linked to a cup, a pose matrix and a timestamp.}
 \end{figure}
 
 The last test with KnowRob is about the required CPU time to perform queries. They took the same \acrshort{kb} as made previously, with N visual perception entities. The goal here is to select randomly one of the perceived cups, then retrieve its pose. In Prolog, the query is:
@@ -507,7 +507,7 @@ The first test query concerns inheritance. The goal is to retrieve all the indiv
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter2/oro/R1.png}
-\caption{\label{fig:chap2_oro_r1}Comparison of the required CPU time for querying for all the entities being animal, after that N entity have been created. Ontologenius and ORO are used with their communication layer. To assess the impact of the communication layer on ORO performance, we also provide measures without the ORO communication layer (ORO local).}
+\caption{\label{fig:chap2_oro_r1} Comparison of the required CPU time for querying all the entities being animal, after that N entities have been created. Ontologenius and ORO are used with their own communication layer. To assess the impact of the communication layer on ORO performance, we also provide measures without the ORO communication layer (ORO local).}
 \end{figure}
 
 For the test, ORO has been queried through the \sparql{} query where Ontologenius has been queried through low-level queries. To provide results representing the way the software should be used, both have been queried through their respective API. This means that results include the communication times. However, to not fall in a comparison of the communication layers but rather of the software, we have also tested to query ORO without the communication layer. The three plots (one for Ontologenius with the communication layer and two for ORO one with the communication layer and one without) are presented in Figure~\ref{fig:chap2_oro_r1}.
@@ -533,13 +533,13 @@ The results of these two queries are presented for both software in Figures~\ref
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter2/oro/R3.png}
-\caption{\label{fig:chap2_oro_r3} Comparison of the required CPU time for querying all the entities having a relation of the kind ``isUnder'' toward a given entity. Since the invert relation has been inserted for all the created entity, the software has to solve the inverse relation to answer the query. Ontologenius and ORO are used with their communication layer.}
+\caption{\label{fig:chap2_oro_r3} Comparison of the required CPU time for querying all the entities having a relation of the kind ``isUnder'' toward a given entity. Since the invert relation has been inserted for all the created entity, the software has to solve the inverse relation to answer the query. Ontologenius and ORO are used with their own communication layer.}
 \end{figure}
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter2/oro/R2.png}
-\caption{\label{fig:chap2_oro_r2} Comparison of the required CPU time for querying all the entities having a relation of the kind ``isAt'' toward an entity of type ``Plant''. Ontologenius and ORO are used with their communication layer.}
+\caption{\label{fig:chap2_oro_r2} Comparison of the required CPU time for querying all the entities having a relation of the kind ``isAt'' toward an entity of type ``Plant''. Ontologenius and ORO are used with their own communication layer.}
 \end{figure}
 
 Through the comparison with ORO, considering its expected usage, we can fairly conclude that Ontologenius seems to be more adapted for performance requirement. Nevertheless, the test itself could be discussed. The fact that the software has to retrieve such an amount of entities does not represent real use-cases. Moreover, in the light of such equivalent results from a query to another, we can questionned what is really measured here. Looking backwards to the tests with KnowRob, the query time of Ontologenius was quite constant where here we have a constant increase. This test is however complementary with the ones of KnowRob, showing Ontologenius ability to retrieve a large number of entities. In addition, even with few entities (100), the performance gap is already significant, confirming the usability of Ontologenius even if it is not based on any established libraries like Jena or Pellet. 

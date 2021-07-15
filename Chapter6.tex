@@ -293,7 +293,7 @@ We present hereafter the solutions found by our algorithm on an illustrative exa
 
 \subsection{One execution trace for five referring expressions}
 
-Let us take activities of the introduction example (Figure~\ref{fig:chap6_intro}) related to the \acrshort{htn} of Figure~\ref{fig:chap6_domain}. With this \acrshort{htn}, a planner has elaborated a shared hierarchical plan illustrated in Figure~\ref{fig:chap6_meal_plan}. The primitive tasks are listed and organized according to a timeline. The abstract tasks hierarchy is shown on the right. The planner has assigned the tasks to two agents: a robot (pr2) and a human (tony).
+Let us take activities of the introduction example where Pr2 and Tony were preparing a meal (Figure~\ref{fig:chap6_intro}). We introduce a third agent, the human Bob, as illustrated in Figure~\ref{fig:chap6_bob}. He is a spectator of the shared activity.
 
 \begin{figure}[ht!]
 \centering
@@ -301,7 +301,9 @@ Let us take activities of the introduction example (Figure~\ref{fig:chap6_intro}
 \caption{\label{fig:chap6_bob} A pr2 robot and its human patner Tony, preparing a meal. Bob, a third agent, is looking at them.}
 \end{figure}
 
-We introduce a third agent, the human Bob, as illustrated in Figure~\ref{fig:chap6_bob}. He is a spectator of the shared activity. We define five cases depending on the moments when Bob is in the kitchen where Pr2 and Tony are collaborating for the meal preparation. The colored lines, next to the timeline, represent the moments where Bob is in the kitchen for each case. For example, in case 1 (black line), Bob is only aware of the tasks primitive tasks \textit{Cut(tony,t2,k1)} and \textit{CookSauce(Pr2, t2)}. The primitive tasks the robot estimated Bob to be aware of are thus added to his knowledge bases, both semantic and episodic. Moreover, if an agent is aware of all the tasks (primitive or abstract) composing an abstract task, he is also aware of the abstract task. In the first case, Bob is thus aware of the abstract tasks \textit{PrepareVegetable(tony, t2, k1)},\textit{PrepareVegetableForSauce(tony, k1)}, \textit{CookSauce(pr2)}, and \textit{PrepareSauce()}.
+The shared activity is related to the \acrshort{htn} of Figure~\ref{fig:chap6_domain}. With this \acrshort{htn}, a planner has elaborated a shared hierarchical plan illustrated in Figure~\ref{fig:chap6_meal_plan}. The primitive tasks are listed and organized according to a timeline. The abstract tasks hierarchy is shown on the right. The planner has assigned the tasks to two agents: a robot (pr2) and a human (tony).
+ 
+We define five cases depending on the moments when Bob (the spectator) is in the kitchen where Pr2 and Tony are collaborating for the meal preparation. The colored lines, next to the timeline, represent the moments where Bob is in the kitchen for each case. For example, in case 1 (black line), Bob is only aware of the tasks primitive tasks \textit{Cut(tony,t2,k1)} and \textit{CookSauce(Pr2, t2)}. The primitive tasks the robot estimated Bob to be aware of are thus added to his knowledge bases, both semantic and episodic. Moreover, if an agent is aware of all the tasks (primitive or abstract) composing an abstract task, he is also aware of the abstract task. In the first case, Bob is thus aware of the abstract tasks \textit{PrepareVegetable(tony, t2, k1)},\textit{PrepareVegetableForSauce(tony, k1)}, \textit{CookSauce(pr2)}, and \textit{PrepareSauce()}.
 
 \begin{figure}[ht!]
 \centering
