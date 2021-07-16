@@ -61,6 +61,7 @@ MEGEP-Energ   ->  MEGEP : \'Energ\'etique et transferts
 MEGEP-GC      ->  MEGEP : G\'enie civil
 MEGEP-GPE     ->  MEGEP : G\'enie des proc\'ed\'es et de l'Environnement
 MEGEP-GMeca   ->  MEGEP : G\'enie m\'ecanique, m\'ecanique des mat\'eriaux
+MITT-InfoTel  ->  MITT : Informatique et T\'el\'ecommunications
 MITT-MathEp   ->  MITT : Domaine Math\'ematiques : \'Epid\'emiologie                   
 MITT-MathA    ->  MITT : Domaine Math\'ematiques : Math\'ematiques appliqu\'ees
 MITT-MathF    ->  MITT : Domaine Math\'ematiques : Math\'ematiques fondamentales

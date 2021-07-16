@@ -113,7 +113,7 @@
 % Docschool and speciality
 \def\docschool#1{\def\@docschool{#1}}
 \define@choicekey+{edname}{ED}[\val\nr]
-    {AA, ALLPHA-Al, ALLPHA-An, ALLPHA-Ar, ALLPHA-AtA, ALLPHA-AtSp, ALLPHA-AtSc, ALLPHA-AtP, ALLPHA-C, ALLPHA-D, ALLPHA-Es, ALLPHA-Ea, ALLPHA-I, ALLPHA-LC, ALLPHA-LM, ALLPHA-M, ALLPHA-Ph, ALLPHA-Po, ALLPHA-R, ALLPHA-S, ALLPHA-T, BSB-Anth, BSB-BioC, BSB-BioD, BSB-BioS, BSB-BiosV, BSB-BiotB, BSB-BiotC, BSB-GC, BSB-GM, BSB-Immu, BSB-Micr, BSB-Neur, BSB-Phar, BSB-Phys, CLESCO-A, CLESCO-D, CLESCO-E, CLESCO-L, CLESCO-Npsy, CLESCO-Nsc, CLESCO-NscCC, CLESCO-PM, CLESCO-Psy, CLESCO-Psyp, CLESCO-SE, CLESCO-SL, GEET-Comp, GEET-Elec, GEET-Genie, GEET-Plasma, GEET-MicNano, GEET-Pho, GEET-RadImg, MEGEP-DyF, MEGEP-Energ, MEGEP-GC, MEGEP-GPE, MEGEP-GMeca, MITT-MathEp, MITT-MathA, MITT-MathF, MITT-STICIA, MITT-STICRT, MITT-STICSL, MITT-ImgInf, MITT-SIAO, MPSE-Sci, SDM-CMacro, SDM-CMol, SDM-COrg, SDM-CBio, SDM-Nano, SDM-PTh, SDM-PCOR, SDM-PMat, SDM-SAgro, SDM-SGen, SDU2E-Ast, SDU2E-Eco, SDU2E-Surf, SDU2E-Oc, SDU2E-Sc, SEVAB-Ag, SEVAB-De, SEVAB-Eco, SEVAB-Ing, SEVAB-Int, SEVAB-PaTox, SG-C, SG-F, SG-G, SG-M, SG-St, SG-Sys, SJP-D, SJP-ScP, TESC-Ant, TESC-Arc, TESC-Eco, TESC-EcoS, TESC-EtH, TESC-EtRG, TESC-EtRSG, TESC-EtRSD, TESC-EtRSE, TESC-EtRS, TESC-EtA, TESC-Geo, TESC-Hist, TESC-HistA, TESC-Pre, TESC-ScA, TESC-Soc, EDSYS-A, EDSYS-ASPR, EDSYS-GenInd, EDSYS-Info, EDSYS-Robo, EDSYS-SystEmb}
+{AA, ALLPHA-Al, ALLPHA-An, ALLPHA-Ar, ALLPHA-AtA, ALLPHA-AtSp, ALLPHA-AtSc, ALLPHA-AtP, ALLPHA-C, ALLPHA-D, ALLPHA-Es, ALLPHA-Ea, ALLPHA-I, ALLPHA-LC, ALLPHA-LM, ALLPHA-M, ALLPHA-Ph, ALLPHA-Po, ALLPHA-R, ALLPHA-S, ALLPHA-T, BSB-Anth, BSB-BioC, BSB-BioD, BSB-BioS, BSB-BiosV, BSB-BiotB, BSB-BiotC, BSB-GC, BSB-GM, BSB-Immu, BSB-Micr, BSB-Neur, BSB-Phar, BSB-Phys, CLESCO-A, CLESCO-D, CLESCO-E, CLESCO-L, CLESCO-Npsy, CLESCO-Nsc, CLESCO-NscCC, CLESCO-PM, CLESCO-Psy, CLESCO-Psyp, CLESCO-SE, CLESCO-SL, GEET-Comp, GEET-Elec, GEET-Genie, GEET-Plasma, GEET-MicNano, GEET-Pho, GEET-RadImg, MEGEP-DyF, MEGEP-Energ, MEGEP-GC, MEGEP-GPE, MEGEP-GMeca, MITT-MathEp, MITT-MathA, MITT-MathF, MITT-STICIA, MITT-STICRT, MITT-STICSL, MITT-InfoTel, MITT-ImgInf, MITT-SIAO, MPSE-Sci, SDM-CMacro, SDM-CMol, SDM-COrg, SDM-CBio, SDM-Nano, SDM-PTh, SDM-PCOR, SDM-PMat, SDM-SAgro, SDM-SGen, SDU2E-Ast, SDU2E-Eco, SDU2E-Surf, SDU2E-Oc, SDU2E-Sc, SEVAB-Ag, SEVAB-De, SEVAB-Eco, SEVAB-Ing, SEVAB-Int, SEVAB-PaTox, SG-C, SG-F, SG-G, SG-M, SG-St, SG-Sys, SJP-D, SJP-ScP, TESC-Ant, TESC-Arc, TESC-Eco, TESC-EcoS, TESC-EtH, TESC-EtRG, TESC-EtRSG, TESC-EtRSD, TESC-EtRSE, TESC-EtRS, TESC-EtA, TESC-Geo, TESC-Hist, TESC-HistA, TESC-Pre, TESC-ScA, TESC-Soc, EDSYS-A, EDSYS-ASPR, EDSYS-GenInd, EDSYS-Info, EDSYS-Robo, EDSYS-SystEmb}
   {%
     \ifcase\nr\relax
       \docschool{AA : voir dossier renouvellement}
@@ -246,6 +246,8 @@
     \or
       \docschool{MITT : Domaine STIC : Suret\'e de logiciel et calcul de haute performance}
     \or
+      \docschool{MITT : Informatique et T\'el\'ecommunications}
+    \or
       \docschool{MITT : Image, Information, Hyperm\'edia}
     \or
       \docschool{MITT : Signal, Image, Acoustique et Optimisation}
@@ -363,7 +365,7 @@
 % Docschool and speciality double
 \def\doubleSpe#1{\def\@doubleSpe{#1}}
 \define@choicekey+{dblspe}{ED2}[\val\nr]
-    {AA, ALLPHA-Al, ALLPHA-An, ALLPHA-Ar, ALLPHA-AtA, ALLPHA-AtSp, ALLPHA-AtSc, ALLPHA-AtP, ALLPHA-C, ALLPHA-D, ALLPHA-Es, ALLPHA-Ea, ALLPHA-I, ALLPHA-LC, ALLPHA-LM, ALLPHA-M, ALLPHA-Ph, ALLPHA-Po, ALLPHA-R, ALLPHA-S, ALLPHA-T, BSB-Anth, BSB-BioC, BSB-BioD, BSB-BioS, BSB-BiosV, BSB-BiotB, BSB-BiotC, BSB-GC, BSB-GM, BSB-Immu, BSB-Micr, BSB-Neur, BSB-Phar, BSB-Phys, CLESCO-A, CLESCO-D, CLESCO-E, CLESCO-L, CLESCO-Npsy, CLESCO-Nsc, CLESCO-NscCC, CLESCO-PM, CLESCO-Psy, CLESCO-Psyp, CLESCO-SE, CLESCO-SL, GEET-Comp, GEET-Elec, GEET-Genie, GEET-Plasma, GEET-MicNano, GEET-Pho, GEET-RadImg, MEGEP-DyF, MEGEP-Energ, MEGEP-GC, MEGEP-GPE, MEGEP-GMeca, MITT-MathEp, MITT-MathA, MITT-MathF, MITT-STICIA, MITT-STICRT, MITT-STICSL, MITT-ImgInf, MITT-SIAO, MPSE-Sci, SDM-CMacro, SDM-CMol, SDM-COrg, SDM-CBio, SDM-Nano, SDM-PTh, SDM-PCOR, SDM-PMat, SDM-SAgro, SDM-SGen, SDU2E-Ast, SDU2E-Eco, SDU2E-Surf, SDU2E-Oc, SDU2E-Sc, SEVAB-Ag, SEVAB-De, SEVAB-Eco, SEVAB-Ing, SEVAB-Int, SEVAB-PaTox, SG-C, SG-F, SG-G, SG-M, SG-St, SG-Sys, SJP-D, SJP-ScP, TESC-Ant, TESC-Arc, TESC-Eco, TESC-EcoS, TESC-EtH, TESC-EtRG, TESC-EtRSG, TESC-EtRSD, TESC-EtRSE, TESC-EtRS, TESC-EtA, TESC-Geo, TESC-Hist, TESC-HistA, TESC-Pre, TESC-ScA, TESC-Soc, EDSYS-A, EDSYS-ASPR, EDSYS-GenInd, EDSYS-Info, EDSYS-Robo, EDSYS-SystEmb}
+{AA, ALLPHA-Al, ALLPHA-An, ALLPHA-Ar, ALLPHA-AtA, ALLPHA-AtSp, ALLPHA-AtSc, ALLPHA-AtP, ALLPHA-C, ALLPHA-D, ALLPHA-Es, ALLPHA-Ea, ALLPHA-I, ALLPHA-LC, ALLPHA-LM, ALLPHA-M, ALLPHA-Ph, ALLPHA-Po, ALLPHA-R, ALLPHA-S, ALLPHA-T, BSB-Anth, BSB-BioC, BSB-BioD, BSB-BioS, BSB-BiosV, BSB-BiotB, BSB-BiotC, BSB-GC, BSB-GM, BSB-Immu, BSB-Micr, BSB-Neur, BSB-Phar, BSB-Phys, CLESCO-A, CLESCO-D, CLESCO-E, CLESCO-L, CLESCO-Npsy, CLESCO-Nsc, CLESCO-NscCC, CLESCO-PM, CLESCO-Psy, CLESCO-Psyp, CLESCO-SE, CLESCO-SL, GEET-Comp, GEET-Elec, GEET-Genie, GEET-Plasma, GEET-MicNano, GEET-Pho, GEET-RadImg, MEGEP-DyF, MEGEP-Energ, MEGEP-GC, MEGEP-GPE, MEGEP-GMeca, MITT-MathEp, MITT-MathA, MITT-MathF, MITT-STICIA, MITT-STICRT, MITT-STICSL, MITT-InfoTel, MITT-ImgInf, MITT-SIAO, MPSE-Sci, SDM-CMacro, SDM-CMol, SDM-COrg, SDM-CBio, SDM-Nano, SDM-PTh, SDM-PCOR, SDM-PMat, SDM-SAgro, SDM-SGen, SDU2E-Ast, SDU2E-Eco, SDU2E-Surf, SDU2E-Oc, SDU2E-Sc, SEVAB-Ag, SEVAB-De, SEVAB-Eco, SEVAB-Ing, SEVAB-Int, SEVAB-PaTox, SG-C, SG-F, SG-G, SG-M, SG-St, SG-Sys, SJP-D, SJP-ScP, TESC-Ant, TESC-Arc, TESC-Eco, TESC-EcoS, TESC-EtH, TESC-EtRG, TESC-EtRSG, TESC-EtRSD, TESC-EtRSE, TESC-EtRS, TESC-EtA, TESC-Geo, TESC-Hist, TESC-HistA, TESC-Pre, TESC-ScA, TESC-Soc, EDSYS-A, EDSYS-ASPR, EDSYS-GenInd, EDSYS-Info, EDSYS-Robo, EDSYS-SystEmb}
   {%
     \ifcase\nr\relax
       \doubleSpe{AA : voir dossier renouvellement}
@@ -495,6 +497,8 @@
       \doubleSpe{MITT : Domaine STIC : R\'eseaux, T\'el\'ecoms, Syst\`emes et Architecture}
     \or
       \doubleSpe{MITT : Domaine STIC : Suret\'e de logiciel et calcul de haute performance}
+    \or
+      \docschool{MITT : Informatique et T\'el\'ecommunications}
     \or
       \doubleSpe{MITT : Image, Information, Hyperm\'edia}
     \or
