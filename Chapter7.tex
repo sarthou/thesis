@@ -231,9 +231,10 @@ Thanks to the \acrshort{ce} labels analysis, we have created a search-tree to le
 
 \subsection{Exploring the compound relations}
 
-At the difference of the tasks descriptions of the previous chapter, the current algorithm can not have any prior knowledge about the relations leading to the use of \acrshort{cr}. A \acrshort{cr} can only be discovered if a relation introduces a \acrshort{ce}. However, an entity can be said to be a \acrshort{ce} only thanks to the labels of one of its upper class. With regard to this information, we cannot have any function dedicated to the addition of \acrshort{cr} and each newly introduced entity in a candidate \acrshort{re} has to be tested to assess if it is a \acrshort{ce} or not.
+At the difference of the taks descriptions of the previous chapter, the current algorithm can not have any prior knowledge about the relations leading to the use of \acrshort{cr}. A \acrshort{cr} can only be discovered if a relation introduces a \acrshort{ce}. However, an entity can be said to be a \acrshort{ce} only thanks to the labels of one of its upper class. With regard to this information, we cannot have any function dedicated to the addition of \acrshort{cr} and each newly introduced entity in a candidate \acrshort{re} has to be tested to assess if it is a \acrshort{ce} or not.
 
-The analysis of the entities' labels and their usable classes, meaning their upper classes having labels, is an already existing process in the \acrshort{reg} algorithm. It is performed by the function $\typingadditions$ of Algorithm~\ref{alg:typing_action}. It initially aims at satisfying the naming need constraint (theorem~\ref{the:parlance_need}). With some modifications, the $\typingadditions$ will be used to detect any newly introduced \acrshort{ce} by testing if the labels of the usable classes are in the form of a pattern. If they are, it returns the detected \acrshort{ce}. To do so, the \textit{additions} are now composed of a relation to be added and a \acrshort{ce} if one has been found.
+
+The analysis of the labels of entities and their usable classes (i.e. their upper classes having labels) is a process already existing in the \acrshort{reg} algorithm. It is performed by the function $\typingadditions$ of Algorithm~\ref{alg:typing_action}. It initially aims at satisfying the naming need constraint (theorem~\ref{the:parlance_need}). With some modifications, the $\typingadditions$ will be used to detect any newly introduced \acrshort{ce} by testing if the labels of the usable classes are in the form of a pattern. If they are, it returns the detected \acrshort{ce}. To do so, the \textit{additions} are now composed of a relation to be added and a \acrshort{ce} if one has been found.
 
 \begin{algorithm}[b!]
 \caption{\label{alg:chap7_child} Child node function modified to use compound relations.}
@@ -251,9 +252,9 @@ The analysis of the entities' labels and their usable classes, meaning their upp
 \end{algorithmic}
 \end{algorithm}
 
-Once \acrshort{ce}s have been detected, we have to create a \acrfull{ct} for each one in order to lead the \acrshort{reg} search process. To each node of the \acrshort{reg} algorithm, in addition to the candidate \acrshort{re} and its associated cost, we introduce a map of \acrshort{ct}s. This map link a \acrshort{ce} involves in the candidate \acrshort{re} related to the node to its \acrshort{ct} or one of its sub-\acrshort{ct}. The management of these trees is done by the $\createchild$ that has been modified (see Algorithm~\ref{alg:chap7_child}). If the addition introduces a new \acrshort{ce}, we create its related \acrshort{ct}\footnote{For performance gain, all created \acrshort{ct} can be stored in a collection of \acrshort{ct} in order to compute them only once even if the same \acrshort{ce} is introduced in two disting branches of the \acrshort{ucs}.}. Otherwise, with the function $\getsubtrees$ we test if the new relation corresponds to one of the branches of one of the \acrshort{ct}s of the parent node. If it is, we take the sub-\acrshort{ct} corresponding to the relation. Taking the entity $\indiv_c$ as introduced \acrshort{ce} through the relation $(\indiv_4, \overline{\property_4}, \indiv_c)$, the \acrshort{ct} of Figure~\ref{fig:chap7_advanced} is first created. If in a second time the relation $(\indiv_c, \property_1, \indiv_1)$ is inserted, $\createchild$ would take the sub-\acrshort{ct} having $\property_1$ as root.
+Once \acrshort{ce}s have been detected, we have to create a \acrfull{ct} for each one in order to lead the \acrshort{reg} search process. To each node of the \acrshort{reg} algorithm, in addition to the candidate \acrshort{re} and its associated cost, we introduce a map of \acrshort{ct}s. This map links a \acrshort{ce} involved in the candidate \acrshort{re} related to the node to its \acrshort{ct} or one of its sub-\acrshort{ct}. The management of these trees is done by the $\createchild$ that has been modified (see Algorithm~\ref{alg:chap7_child}). If the addition introduces a new \acrshort{ce}, we create its related \acrshort{ct}\footnote{For performance gain, all created \acrshort{ct} can be stored in a collection of \acrshort{ct} in order to compute them only once even if the same \acrshort{ce} is introduced in two distinct branches of the \acrshort{ucs}.}. Otherwise, with the function $\getsubtrees$ we test if the new relation corresponds to one of the branches of one of the \acrshort{ct}s of the parent node. If it is, we take the sub-\acrshort{ct} corresponding to the relation. Taking the entity $\indiv_c$ as introduced \acrshort{ce} through the relation $(\indiv_4, \overline{\property_4}, \indiv_c)$, the \acrshort{ct} of Figure~\ref{fig:chap7_advanced} is first created. If in a second step the relation $(\indiv_c, \property_1, \indiv_1)$ is inserted, $\createchild$ would take the sub-\acrshort{ct} having $\property_1$ as root.
 
-At this stage, we detect the introduction of \acrshort{cr} and manage the \acrshort{ct}s. The $\additions$ can now use the \acrshort{ct}s to propose new additions. As describe with Algorithm~\ref{alg:chap7_additions}, we keep the two functions $\typingadditions$ and $\differenceadditions$. We introduce a new function $\compoundadditions$ aiming to complete the \acrshort{cr} having been started. For each \acrshort{ct} of the node, it proposes the relation of the form $(\indiv_c, \property_i, \indiv_i) \in \relationset$ such that the properties $\property_i$ are the branches of the root of the \acrshort{ct} related to $\indiv_c$. With the  \acrshort{ct} of Figure~\ref{fig:chap7_advanced}, the $\compoundadditions$ function would generate two addtions being $(\indiv_c, \property_3, \indiv_3)$ and $(\indiv_c, \property_1, \indiv_1)$.
+At this stage, we detect the introduction of \acrshort{cr} and manage the \acrshort{ct}s. The $\additions$ can now use the \acrshort{ct}s to propose new additions. As describe with Algorithm~\ref{alg:chap7_additions}, we keep the two functions $\typingadditions$ and $\differenceadditions$. We introduce a new function $\compoundadditions$ aiming to complete the \acrshort{cr} having been started. For each \acrshort{ct} of the node, it proposes the relation of the form $(\indiv_c, \property_i, \indiv_i) \in \relationset$ such that the properties $\property_i$ are the branches of the root of the \acrshort{ct} related to $\indiv_c$. With the  \acrshort{ct} of Figure~\ref{fig:chap7_advanced}, the $\compoundadditions$ function would generate two additions $(\indiv_c, \property_3, \indiv_3)$ and $(\indiv_c, \property_1, \indiv_1)$.
 
 \begin{algorithm}[ht!]
 \caption{\label{alg:chap7_additions} The modified $\additions$ function modified to use compound relations. }
@@ -261,8 +262,8 @@ At this stage, we detect the introduction of \acrshort{cr} and manage the \acrsh
 \begin{algorithmic}
 
     \Function{\additions}{$node$} 
-        \State $sucess, additions\leftarrow$ \typingadditions($node$)
-        \If{$sucess = True\ and\ additions \neq \emptyset$}
+        \State $success, additions\leftarrow$ \typingadditions($node$)
+        \If{$success = True\ and\ additions \neq \emptyset$}
             \Return $additions$
         \EndIf
         
@@ -283,10 +284,10 @@ For the compound relations, their validity criterion is that we can use one of t
 
 \begin{theorem} [The CR completion]
 \label{the:cd_completion}
-A \acrshort{cr} of family $S$ is said to be complet iif given its \acrshort{ce} $\indiv_c$ we can create, from the set of relation $\mathcal{T}$ representing a candidate \acrshort{re}, a set $v = \{\property_i\ |\ (\indiv_c, \property_i, \indiv_i) \in \mathcal{T} \lor (\indiv_i, \overline{\property_i}, \indiv_c) \in \mathcal{T} \}$ such that $v \subset S$.
+A \acrshort{cr} of family $S$ is said to be complete iff given its \acrshort{ce} $\indiv_c$ we can create, from the set of relations $\mathcal{T}$ representing a candidate \acrshort{re}, a set $v = \{\property_i\ |\ (\indiv_c, \property_i, \indiv_i) \in \mathcal{T} \lor (\indiv_i, \overline{\property_i}, \indiv_c) \in \mathcal{T} \}$ such that $v \subset S$.
 \end{theorem}
 
-From a technical point of view, such a constraint can be hard to compute for each node to be tested. However, during the creation of a \acrshort{ct}, this information can already be known. During the \acrshort{ct} creation, each time a child node is created with an empty set its family of sets, this means that a label of the \acrshort{cr} is represented in its entirety at this node. In Figure~\ref{fig:chap7_advanced}, the completed labels are represented by the red arrows. We can thus store this information in the \acrshort{ct} nodes. Because during the \acrshort{reg} search process we cut down these trees taking each time a sub-\acrshort{ct}, we just have to test if each current root of the \acrshort{ct}s of the node to test can represent a label or not. If all of them can, the candidate \acrshort{re} of the current node is valid regarding the \acrshort{cr} completion.
+From a technical point of view, such a constraint can be hard to compute for each node to be tested. However, during the creation of a \acrshort{ct}, this information can already be known. During the \acrshort{ct} creation, each time a child node is created with an empty set as family of sets, this means that a label of the \acrshort{cr} is represented in its entirety at this node. In Figure~\ref{fig:chap7_advanced}, the completed labels are represented by the red arrows. We can thus store this information in the \acrshort{ct} nodes. Because during the \acrshort{reg} search process we cut down these trees taking each time a sub-\acrshort{ct}, we just have to test if each current root of the \acrshort{ct}s of the node to test can represent a label or not. If all of them can, the candidate \acrshort{re} of the current node is valid regarding the \acrshort{cr} completion.
 
 \subsection{From tree to radix tree}
 
@@ -294,7 +295,7 @@ A limitation identified from the previous chapter was the addition of a single r
 
 To solve this issue, we can use the radix tree structure, also called compact prefix tree. It consists of merging each node that is the only child with its parent if the parent node does not represent a valid label. In the example of Figure~\ref{fig:chap7_advanced}, the node with the property $\property_2$ could thus be merged with its parent $\property_3$.
 
-The major consequence of such modification is that the additions have to no more represent a single relation but a set of relations. Even if it makes the additions comparison harder to compute it reduces the overall branching factor. Keeping our example, if we add at once the relation involving $\property_2$ and $\property_3$ and that both introduce an anonymous entity, this means that at the next step the $\typingadditions$ function could type both in one step. Where previously these additions would require four steps, and thus branching at each, with this solution it only requires two.
+The major consequence of such modification is that the additions have no more to represent a single relation but a set of relations. Even if it makes the additions comparison harder to compute it reduces the overall branching factor. Keeping our example, if we add at once the relation involving $\property_2$ and $\property_3$ and that both introduce an anonymous entity, this means that at the next step the $\typingadditions$ function could type both in one step. Where previously these additions would require four steps, and thus branching at each, with this solution it only requires two.
 
 \section{Results}
 
@@ -312,7 +313,7 @@ For this simple test, we describe actor performance using the pattern of Figure~
 \caption{\label{fig:chap7_perf} The compound relation pattern used to describe a performance of an actor with a role and a film.}
 \end{figure}
 
-\begin{lstlisting}[frame=single, caption={ The set of labels usable to discribe the performance compound relation.}, label={lst:chap7_perf_labels}, captionpos=b, style=Labels, mathescape=true]
+\begin{lstlisting}[frame=single, caption={ The set of labels usable to describe the performance compound relation.}, label={lst:chap7_perf_labels}, captionpos=b, style=Labels, mathescape=true]
 L1 - {?perfHasActor} who played {perfHasRole} in {perfHasFilm}
 L2 - {?perfHasActor} who played {perfHasRole}
 L3 - {?perfHasActor} who played in {perfHasFilm}
@@ -348,12 +349,12 @@ From now, we see that \acrlong{cr} can be used to represent complex knowledge wi
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.4]{figures/chapter7/cut7.png}
-\caption{\label{fig:chap7_cut7} The underlined \acrlong{cr} pattern used to discribe a past activity. The entity \textit{cut\_7} can thus be considered as a \acrlong{ce}. }
+\caption{\label{fig:chap7_cut7} The underlined \acrlong{cr} pattern used to describe a past activity. The entity \textit{cut\_7} can thus be considered as a \acrlong{ce}. }
 \end{figure}
 
 At the light of the presentation of the \acrshort{cr}, we see that the entity \textit{cut\_7} is the \acrlong{ce} of the \acrlong{cr} and that the class \textit{Cut} is a relation class. Moreover, due to the presence of the inverse property \textit{isParameterOf}, common to all the used properties, the three involved entities could be used as a subject entity. The only element to add to the previous representation is the labels, in the form of patterns. For the cut task, the proposed labels are listed in Listing~\ref{lst:chap7_cut_labels}. Among these labels, we see that for all the possible subject entities, two labels are available, involving one or two additional entities.
 
-\begin{lstlisting}[frame=single, caption={ The set of labels usable to discribe the compound relation representing an instance of a cut primitive task.}, label={lst:chap7_cut_labels}, captionpos=b, style=Labels, mathescape=true]
+\begin{lstlisting}[frame=single, caption={ The set of labels usable to describe the compound relation representing an instance of a cut primitive task.}, label={lst:chap7_cut_labels}, captionpos=b, style=Labels, mathescape=true]
 L1 - {?Cut_hasParameter.A} who cut {Cut_hasParameter.V}
 L2 - {?Cut_hasParameter.A} who cut {Cut_hasParameter.V} 
      with {Cut_hasParameter.K}
@@ -365,7 +366,7 @@ L6 - {?Cut_hasParameter.K} with which {Cut_hasParameter.A} cut
      {Cut_hasParameter.V}
 \end{lstlisting}
 
-To assess the utility to consider the past activities representation as \acrlong{cr}, we take again the execution trace of Figure~\ref{fig:chap6_meal_plan} and propose three new cases. The trace and the new cases are illustrated in Figure~\ref{fig:chap7_meal_plan}. As a reminder, the plan was executed by two agents, Tony, a human, and Pr2, a robot. A third agent, Bob, see part of the execution. Each case corresponds to a set of tasks, seen and thus known by Bob. The goal here is still to refer to the knife \textit{k2}. The usable labels are thus L5 and L6, both referring to the knife used in the task.
+To assess the utility to consider the past activities representation as \acrlong{cr}, we take again the execution trace of Figure~\ref{fig:chap6_meal_plan} and propose three new cases. The trace and the new cases are illustrated in Figure~\ref{fig:chap7_meal_plan}. As a reminder, the plan was executed by two agents, Tony, a human, and Pr2, a robot. A third agent, Bob, saw part of the execution. Each case corresponds to a set of tasks, seen and thus known by Bob. The goal here is still to refer to the knife \textit{k2}. The usable labels are thus L5 and L6, both referring to the knife used in the task.
 
 \begin{figure}[ht!]
 \centering
@@ -379,7 +380,7 @@ To assess the utility to consider the past activities representation as \acrlong
 
 \paragraph{Case 3:} In the third case, Bob saw three tasks. Two of them are cutting tasks while the other is a peeling task. Even if one of these tasks is different from the others, for the previous algorithm all of them involved three parameters. Consequently, they would have had all the same cost. The selection would have been based on the time, selecting the most recent one. For the \acrshort{cr}-based algorithm, the two cutting tasks need all of their parameters to be referred to but the peeling task can be used without reference to the peeled vegetable. Using the latter task allows to generate a shorter \acrshort{re}. Considering the peel task as having the same kind of labels than the cut task, the final solution \acrshort{re} is: \textit{(?0 isA Knife), (?0 isParameterOf ?1), (?1 isA Peel), (?1 Peel\_hasParameter.A tony)}.
 
-Over these three cases, we saw the \acrshort{cr}-based algorithm is suitable to be used with descriptions of past activities. The advantage of this algorithm regarding the previously made is the form of the generated \acrshort{re} with the use of precise properties, and the ability to generate shorter \acrshort{re} in some situations. The most important point is that the algorithm is less dependant on the knowledge representation. It does not need a priory about the properties of the representation. By simple adding labels to existing representation, the current algorithm can be used with other task representations.
+Over these three cases, we saw the \acrshort{cr}-based algorithm is suitable to be used with descriptions of past activities. The advantage of this algorithm regarding the previously made is the form of the generated \acrshort{re} with the use of precise properties, and the ability to generate shorter \acrshort{re} in some situations. The most important point is that the algorithm is less dependant on the knowledge representation. It does not need a priori information about the properties of the representation. By simply adding labels to the existing representation, the current algorithm can be used with other task representations.
 
 Finally, even if we will not illustrate it, the use of \acrshort{cr} to represent past activities could allow us to be restricted by the information provided by a task planned. Taking the example of the cut task, it is performed on a support, a work plan. Even if this piece of information is not necessarily provided by a task planner, when the task is performed, the work plan on which the task is performed can be perceived by the robot. This additional information could be used to generate \acrshort{re}. To support this new information, we could add a label L7:
 
@@ -388,11 +389,11 @@ Finally, even if we will not illustrate it, the use of \acrshort{cr} to represen
 \{?Cut\_hasParameter.K\} with which \{Cut\_hasParameter.A\} cut on \{TaskHasPlace\}
 \end{quote}
 
-With this new label, when a relation involving the property \textit{TaskHasPlace} exist, it would be explored and when it does not exist it would simply be discarded. This means that we can add additional and optional information to any \acrshort{cr}, and thus task representation.
+With this new label, when a relation involving the property \textit{TaskHasPlace} exists, it would be explored and when it does not exist it would simply be discarded. This means that we can add additional and optional information to any \acrshort{cr}, and thus task representation.
 
 \subsection{Assessing compound relations impact on performance}
 
-Since the presented algorithm is able to manage the past tasks description, we present a comparison in terms of execution time with both the original algorithm and the one using past tasks. To do so, take the knowledge base of the previous chapter containing two tasks descriptions per entity inheriting from the \textit{Object} class. To be used with compound relations, we add a label to each class representing a task. The label involves the three parameters of the task. In this way, we reproduce the constraint to use all the parameters and at the same time take advantage of the radix-tree optimisations. The knowledge base is still managed using the Ontologenius system and not passing by the ROS services to not be impacted by the communication time in our measures.
+Since the presented algorithm is able to manage the past tasks description, we present a comparison in terms of execution time with both the original algorithm and the one using past tasks. To do so, we take the \acrlong{kb} of the previous chapter (see Chapter~\ref{chap:6}) containing two tasks descriptions per entity inheriting from the \textit{Object} class. To be used with compound relations, we add a label to each class representing a task. The label involves the three parameters of the task. In this way, we reproduce the constraint to use all the parameters and at the same time take advantage of the radix-tree optimisations. The knowledge base is still managed using the Ontologenius system and not passing by the ROS services to not be impacted by the communication time in our measures.
 
 \begin{figure}[ht!]
 \centering
@@ -400,9 +401,9 @@ Since the presented algorithm is able to manage the past tasks description, we p
 \caption{\label{fig:chap7_compare} Comparison of the three algorithms regarding the percentage of successfully referred entities over time using a logarithmic timescale. }
 \end{figure}
 
-The original algorithm has been run without the possibility to use relations toward task since it is not designed for this use. Its performance is our comparison point as we expect all algorithms to find the same solutions. For the recall, the described tasks are designed in such a way to not help in the \acrshort{re} generation and but ourselves in the worst case. The measures of the percentage of entities referred over time for all three algorithms are represented in Figure~\ref{fig:chap7_compare} and reported on appendix~\ref{app:reg_comp_solutions}.
+The original algorithm has been run without the possibility to use relations toward task since it is not designed for this use. Its performance is our point of comparison as we expect all algorithms to find the same solutions. For the recall, the described tasks are designed in such a way to not help in the \acrshort{re} generation and but ourselves in the worst case. The measures of the percentage of entities referred over time for all three algorithms are represented in Figure~\ref{fig:chap7_compare} and reported on appendix~\ref{app:reg_comp_solutions}.
 
-With this setup, the current version performs slightly better than the previous one with an average resolution time of 4.17ms versus 5.53ms. It is however more than the original version having an average resolution time of 1.08ms. This difference must be qualified by the exploration of \acrshort{cr}s that the original one does not do. While the majority of the entities are referred in a comparable time with the previous version, we can still note that the more complex entity requiring six relations is now solved in 45.71ms versus 70.57ms previously. \\
+With this setup, the current version performs slightly better than the previous one with an average resolution time of 4.17ms versus 5.53ms. It is however more than the original version having an average resolution time of 1.08ms. This difference must be tempered by the exploration of \acrshort{cr}s that the original one does not do. While the majority of the entities are referred in a comparable time with the previous version, we can still note that the more complex entity requiring six relations is now solved in 45.71ms versus 70.57ms previously. \\
 
 Here we have shown that the exploration of \acrshort{cr} has an impact, even if being acceptable with regards to \acrshort{hri} applications. However, the major advantage of this solution is that in case no \acrshort{cr}s are described in the \acrshort{kb}, no extra exploration is needed. This is a difference with the previous solution (see Chapter~\ref{chap:6}) where even if no tasks were described, the algorithm was trying to find some at each step. This means that, unlike the previous solution, if no \acrshort{cr}s are described in the \acrshort{kb}, the current solution has the same performance as the original version.
 

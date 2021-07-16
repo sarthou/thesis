@@ -298,7 +298,7 @@ What we refer to when we use the term instance is an instantiation of the previo
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter2/archi_multi.png}
-\caption{\label{fig:chap2_archi_multi} The software architecture of Ontologenius to manage multiple \acrlong{kb}s in the form of an ontology. An instance manager makes the link between each instance (see Figure~\ref{fig:chap2_archi_single} and has a direct access to each semantic graph to propose queries. }
+\caption{\label{fig:chap2_archi_multi} The software architecture of Ontologenius to manage multiple \acrlong{kb}s in the form of an ontology. An instance manager makes the link between each instance (see Figure~\ref{fig:chap2_archi_single}) and has a direct access to each semantic graph to propose queries. }
 \end{figure}
 
 The architecture of each instance stays the same as previously, this means that each instance has its own ROS instance and can be queried and updated independently. However, to void to manually run several instances and not have any conflict on the ROS topic and service names, we add an instance manager. This manager owns all the instances and can create new ones as well as deleting existing ones. In addition, it attributes an identifier to each instance. It is often the identifier of the agent it represents. With this identifier, each instance creates dedicated and non-overlapping ROS services and topics. The manager itself owns a ROS interface to perform the deletions and creations.
@@ -506,7 +506,7 @@ The first test query concerns inheritance. The goal is to retrieve all the indiv
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\textwidth]{figures/chapter2/oro/R1.png}
+\includegraphics[width=0.99\textwidth]{figures/chapter2/oro/R1.png}
 \caption{\label{fig:chap2_oro_r1} Comparison of the required CPU time for querying all the entities being animal, after that N entities have been created. Ontologenius and ORO are used with their own communication layer. To assess the impact of the communication layer on ORO performance, we also provide measures without the ORO communication layer (ORO local).}
 \end{figure}
 
@@ -532,7 +532,7 @@ The results of these two queries are presented for both software in Figures~\ref
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\textwidth]{figures/chapter2/oro/R3.png}
+\includegraphics[width=0.99\textwidth]{figures/chapter2/oro/R3.png}
 \caption{\label{fig:chap2_oro_r3} Comparison of the required CPU time for querying all the entities having a relation of the kind ``isUnder'' toward a given entity. Since the invert relation has been inserted for all the created entities, the software has to solve the inverse relation to answer the query. Ontologenius and ORO are used with their own communication layer.}
 \end{figure}
 
@@ -552,7 +552,7 @@ We first propose to compare the required CPU time to retrieve an entity by its n
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\textwidth]{figures/chapter2/extra_tests/find.png}
+\includegraphics[width=0.99\textwidth]{figures/chapter2/extra_tests/find.png}
 \caption{\label{fig:chap2_extra_find} Comparison of the required CPU time to retrieve an entity by its name in natural language and its identifier. Ontologenius is used with its communication layer for both cases.}
 \end{figure}
 
@@ -560,7 +560,7 @@ The second feature of Ontologenius we choose to evaluate is the instance copy. A
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[width=\textwidth]{figures/chapter2/extra_tests/deepcopy.png}
+\includegraphics[width=0.99\textwidth]{figures/chapter2/extra_tests/deepcopy.png}
 \caption{\label{fig:chap2_extra_deepcopy} Evaluation of the required CPU time to perform a deep-copy depending on the number of perceived entity, represented in the Knowledge Base. Ontologenius is used with its communication layer. }
 \end{figure}
 
