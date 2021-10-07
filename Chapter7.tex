@@ -231,7 +231,7 @@ Thanks to the \acrshort{ce} labels analysis, we have created a search-tree to le
 
 \subsection{Exploring the compound relations}
 
-At the difference of the taks descriptions of the previous chapter, the current algorithm can not have any prior knowledge about the relations leading to the use of \acrshort{cr}. A \acrshort{cr} can only be discovered if a relation introduces a \acrshort{ce}. However, an entity can be said to be a \acrshort{ce} only thanks to the labels of one of its upper class. With regard to this information, we cannot have any function dedicated to the addition of \acrshort{cr} and each newly introduced entity in a candidate \acrshort{re} has to be tested to assess if it is a \acrshort{ce} or not.
+At the difference of the tasks descriptions of the previous chapter, the current algorithm can not have any prior knowledge about the relations leading to the use of \acrshort{cr}. A \acrshort{cr} can only be discovered if a relation introduces a \acrshort{ce}. However, an entity can be said to be a \acrshort{ce} only thanks to the labels of one of its upper class. With regard to this information, we cannot have any function dedicated to the addition of \acrshort{cr} and each newly introduced entity in a candidate \acrshort{re} has to be tested to assess if it is a \acrshort{ce} or not.
 
 
 The analysis of the labels of entities and their usable classes (i.e. their upper classes having labels) is a process already existing in the \acrshort{reg} algorithm. It is performed by the function $\typingadditions$ of Algorithm~\ref{alg:typing_action}. It initially aims at satisfying the naming need constraint (theorem~\ref{the:parlance_need}). With some modifications, the $\typingadditions$ will be used to detect any newly introduced \acrshort{ce} by testing if the labels of the usable classes are in the form of a pattern. If they are, it returns the detected \acrshort{ce}. To do so, the \textit{additions} are now composed of a relation to be added and a \acrshort{ce} if one has been found.
@@ -257,7 +257,7 @@ Once \acrshort{ce}s have been detected, we have to create a \acrfull{ct} for eac
 At this stage, we detect the introduction of \acrshort{cr} and manage the \acrshort{ct}s. The $\additions$ can now use the \acrshort{ct}s to propose new additions. As describe with Algorithm~\ref{alg:chap7_additions}, we keep the two functions $\typingadditions$ and $\differenceadditions$. We introduce a new function $\compoundadditions$ aiming to complete the \acrshort{cr} having been started. For each \acrshort{ct} of the node, it proposes the relation of the form $(\indiv_c, \property_i, \indiv_i) \in \relationset$ such that the properties $\property_i$ are the branches of the root of the \acrshort{ct} related to $\indiv_c$. With the  \acrshort{ct} of Figure~\ref{fig:chap7_advanced}, the $\compoundadditions$ function would generate two additions $(\indiv_c, \property_3, \indiv_3)$ and $(\indiv_c, \property_1, \indiv_1)$.
 
 \begin{algorithm}[ht!]
-\caption{\label{alg:chap7_additions} The modified $\additions$ function modified to use compound relations. }
+\caption{\label{alg:chap7_additions} The $\additions$ function modified to use compound relations. }
 
 \begin{algorithmic}
 

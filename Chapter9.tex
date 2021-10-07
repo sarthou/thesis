@@ -170,7 +170,7 @@ The supervision component aims at managing the overall interaction. In this arch
 
 \paragraph{Task management} Even if the human has also the necessary information about the plan, contingencies can happen. The supervision can react and perform a repair thanks to action or communication.
 
-\paragraph{Quality of Interaction management} Even if a task is achieved, it could be done more or less efficiently and smoothly. All along an interaction session and a task, the supervision system thus estimates in real-time the Quality of Interaction (QoI)~\cite{mayima_2020_toward}. It measures the human engagement and the effectiveness of collaborative task performance. This information can then be used by the decision-making process to tune dynamically others processes such as the cost of properties for the \acrshort{reg}.
+\paragraph{Quality of Interaction management} Even if a task is achieved, it could be done more or less efficiently and smoothly. All along an interaction session and a task, the supervision system thus estimates in real-time the Quality of Interaction (QoI)~\cite{mayima_2020_toward}. It measures the human engagement and the effectiveness of collaborative task performance. This information can then be used by the decision-making process to tune dynamically other processes such as the cost of properties for the \acrshort{reg}.
 
 \subsection{Speaking and understanding}
 
@@ -191,7 +191,7 @@ The architecture has been successfully implemented on a Pr2 robotic platform. Th
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=\textwidth]{figures/chapter9/expe/config.png}
-\caption{\label{fig:chap9_expe_config} Initial configuration for both case studies. The top-right block is not visible, and thus unknown, by the human partner. The robot can not know if there is a block in the bottom-left compartment. All others blocks are known by both the robot and the human.}
+\caption{\label{fig:chap9_expe_config} Initial configuration for both case studies. The top-right block is not visible, and thus unknown, by the human partner. The robot can not know if there is a block in the bottom-left compartment. All other blocks are known by both the robot and the human.}
 \end{figure}
 
 \subsection{Pr2 as the director}
@@ -238,7 +238,7 @@ For the first block (a to b on the figure), the human instructs the robot for th
 (?0, isA, Block), (?0, hasColor, green)
 \end{quote}
 
-Since the robot assumes the human to speak about objects on the table, the understood query is merged with another one representing the context of the task: (?0, isAbove, table\_1). Querying the human estimated ontology with the merged query, only one entity match. There is no ambiguity in human instruction. The robot takes the instructed block then drop it. If the query was applied to the robot ontology, two blocks would have matched since the block unknown by the human is also green. It goes the same for, the second instruction. There is no ambiguity. The \sparql{} query related to this second block is:
+Since the robot assumes the human to speak about objects on the table, the understood query is merged with another one representing the context of the task: (?0, isAbove, table\_1). Querying the human estimated ontology with the merged query, only one entity matches. There is no ambiguity in human instruction. The robot takes the instructed block then drop it. If the query was applied to the robot ontology, two blocks would have matched since the block unknown by the human is also green. It goes the same for, the second instruction. There is no ambiguity. The \sparql{} query related to this second block is:
 
 \begin{quote} 
 \centering 
